@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="빠른결제를 위한 퀵샵창입니다.">
     <meta name="keywords" content="롬앤, romand, romend, 핑크오피스, 퍼스널컬러, 롬, 앤, rom">
     <meta name="author" content="team_sixman">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>order</title>
-    <!-- 파비콘 -->
+    <title>quick</title>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <!-- 폰트어썸 - 안쓰시면 삭제 -->
     <script src="https://kit.fontawesome.com/193fa424cf.js" crossorigin="anonymous"></script>
     <!-- 슬라이더 - 안쓰시면 삭제-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
-    <!-- jsap - 안쓰시면 삭제 -->
+    <!-- gsap - 안쓰시면 삭제 -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-    <!--  jsap 스크롤트리거 - 안쓰시면 삭제-->
+    <!--  gsap 스크롤트리거 - 안쓰시면 삭제-->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js"></script>
     <!-- 리셋 css-->
     <link rel="stylesheet" href="../common/css/reset.css">
@@ -25,14 +26,135 @@
     <!-- 각자 css-->
     <link rel="stylesheet" href="css/quick.css">
     <link rel="stylesheet" href="css/quick_media.css">
-    <!-- 슬라이드 스와이퍼 스크립트 - 안쓰시면 삭제-->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <!-- 공통 script-->
     <script src="../common/js/common.js"></script>
     <!-- 각자 script -->
     <script src="js/quick.js"></script>
 </head>
+
 <body>
-    
+    <div class="quick_shop_modal">
+        <div class="modal_overlay"></div>
+        <div class="modal_content">
+            <!-- Modal Header -->
+            <header class="modal_header">
+                <h3>QUICK SHOP</h3>
+                <button class="close_btn" aria-label="Close modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </header>
+
+            <div class="modal_body">
+                <!-- Product Badges & Info -->
+                <div class="product_header">
+                    <div class="badge_group">
+                        <span class="badge badge_new">NEW</span>
+                        <span class="badge badge_glossy">GLOSSY</span>
+                    </div>
+                    <h2 class="product_title">VOLUME HACK TRIO</h2>
+                    <div class="review_row">
+                        <div class="stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <a href="#"><span class="review_count">99 reviews</span></a>
+                    </div>
+                    <div class="product_price">$29.00</div>
+                </div>
+
+                <!-- Image Gallery (Simplified Swiper setup) -->
+                <div class="swiper product_slider">
+                    <ul class="swiper-wrapper">
+                        <li class="swiper-slide"><img src="img/detail_lip_01.png" alt="Product Image 1"></li>
+                        <li class="swiper-slide"><img src="img/detail_lip_02.png" alt="Product Image 2"></li>
+                        <li class="swiper-slide"><img src="img/detail_lip_03.png" alt="Product Image 3"></li>
+                        <li class="swiper-slide"><img src="img/detail_lip_04.png" alt="Product Image 4"></li>
+                        <li class="swiper-slide"><img src="img/detail_lip_05.png" alt="Product Image 5"></li>
+                        <li class="swiper-slide"><img src="img/detail_lip_06.png" alt="Product Image 6"></li>
+                        <li class="swiper-slide"><img src="img/detail_lip_07.png" alt="Product Image 7"></li>
+                        <li class="swiper-slide"><img src="img/detail_lip_08.png" alt="Product Image 8"></li>
+                        <li class="swiper-slide"><img src="img/detail_lip_09.png" alt="Product Image 9"></li>
+                        <li class="swiper-slide"><img src="img/detail_lip_010.png" alt="Product Image 10"></li>
+                    </ul>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+                <!-- Color Selection -->
+                <section class="selection_section">
+                    <h4 class="section_label">COLOR</h4>
+                    <ul class="color_swatches">
+                        <li><button class="swatch active" data-color="Berry Nude"
+                                style="background-color: #D67280;"></button></li>
+                        <li><button class="swatch" data-color="Toffee Nude" style="background-color: #B58B75;"></button>
+                        </li>
+                        <li><button class="swatch" data-color="Sweet Fig" style="background-color: #C36161;"></button>
+                        </li>
+                        <li><button class="swatch" data-color="Mocha Mousse"
+                                style="background-color: #633631;"></button></li>
+                        <li><button class="swatch" data-color="Glazed Plum" style="background-color: #9C515D;"></button>
+                        </li>
+                    </ul>
+                    <div class="selected_color_name">TOFFEE NUDE</div>
+                </section>
+
+                <!-- Delivery Info Accordion -->
+                <section class="delivery_section">
+                    <button class="accordion_trigger">
+                        <span>DELIVERY</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion_content">
+                        <p><strong>VOLUME HACK TRIO</strong></p>
+                        <p>Delivering to: United States</p>
+                        <p>Estimated delivery: 7–12 business days</p>
+                        <p>Processing: 1–2 days</p>
+                        <p>International shipping: 5–7 days</p>
+                        <p>Customs: 1–3 days</p>
+                    </div>
+                </section>
+
+                <!-- Features Section -->
+                <div class="features_grid">
+                    <div class="feature_item"><i class="fa-solid fa-rabbit"></i> Cruelty-free</div>
+                    <div class="feature_item"><i class="fa-solid fa-leaf"></i> Vegan</div>
+                    <div class="feature_item"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i> Gluten-free</div>
+                    <div class="feature_item"><i class="fa-solid fa-sun"></i> Daytime Use</div>
+                    <div class="feature_item"><i class="fa-solid fa-moon"></i> Nighttime Use</div>
+                    <div class="feature_item"><i class="fa-solid fa-recycle"></i> Recyclable</div>
+                </div>
+
+                <a href="#" class="view_details_link">View all details</a>
+            </div>
+
+            <!-- Modal Footer (Fixed) -->
+            <footer class="modal_footer">
+                <div class="footer_top">
+                    <div class="footer_product_info">
+                        <strong>VOLUME HACK TRIO</strong>
+                        <div class="footer_color_desc">
+                            <span class="small_swatch" id="footer_swatch"></span>
+                            <span>COLOR: <span id="footer_color_name">TOFFEE NUDE</span></span>
+                        </div>
+                    </div>
+                    <div class="quantity_selector">
+                        <button class="qty_btn minus">-</button>
+                        <span class="qty_value">1</span>
+                        <button class="qty_btn plus">+</button>
+                    </div>
+                </div>
+                <div class="footer_bottom">
+                    <div class="footer_price">$29.00</div>
+                    <div class="button_group">
+                        <button class="btn_buy_now">Buy Now</button>
+                        <button class="btn_add_bag">Add to bag</button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
 </body>
+
 </html>
