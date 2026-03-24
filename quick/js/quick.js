@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    initColorSelection();
-    initQuantitySelector();
-    initAccordion();
-    initSlider();
-});
+    
+
+
 
 /**
  * Handle Color Swatch Selection
@@ -89,17 +87,25 @@ function initAccordion() {
     });
 }
 
-/**
+/*
  * Initialize Image Slider (using Swiper if available)
  */
-function initSlider() {
-    if (typeof Swiper !== 'undefined') {
-        new Swiper('.product_slider', {
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            loop: true,
-        });
-    }
-}
+var swiper = new Swiper(".product_slider", {
+      spaceBetween: 30,
+      hashNavigation: {
+        watchState: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+    initColorSelection();
+    initQuantitySelector();
+    initAccordion();
+    initSlider();
+});

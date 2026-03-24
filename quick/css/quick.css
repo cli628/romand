@@ -1,27 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap');
+
 
 :root {
-    --primary-pink: #FF8DAB;
-    --dark-pink: #FF5E8E;
-    --soft-pink: #FFF0F3;
-    --text-black: #1A1A1A;
-    --text-grey: #666666;
-    --border-color: #EEEEEE;
-    --bg-white: #FFFFFF;
+    --p-color1: #FEE3EC;
+    --p-color3: #F999B7;
+    --p-color4: #F385A8;
+    --g-color1: #D5D5D5;
+    --g-color3: #707070;
+    --white: #FFFFFF;
+    --black: #000;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    --font-poppins: "Poppins", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-quicksand: "Quicksand", sans-serif;
+  --font-holly-berry-pop: 'holly-berry-pop', sans-serif;
 }
 
 body {
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: #f5f5f5;
-    color: var(--text-black);
+    font-family:  "Poppins", "Montserrat", "Quicksand", sans-serif;
+    background-color: var(--white);
+    color: var(--black);
     -webkit-font-smoothing: antialiased;
 }
 
@@ -38,6 +36,15 @@ body {
     z-index: 9999;
 }
 
+.modal_body{
+  overflow:auto;
+  scrollbar-width:none; /* 파이어폭스 */
+  -ms-overflow-style:none; /* 익스플로러/엣지 구버전 */
+}
+
+.modal_body::-webkit-scrollbar{
+  display:none; /* 크롬, 사파리 */
+}
 .modal_overlay {
     position: absolute;
     top: 0;
@@ -52,7 +59,7 @@ body {
     position: relative;
     width: 650px;
     height: 100%;
-    background: var(--bg-white);
+    background: var(--white);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
@@ -75,7 +82,7 @@ body {
 /* Header */
 .modal_header {
     height: 60px;
-    background-color: var(--primary-pink);
+    background-color: var(--p-color3);
     color: white;
     display: flex;
     justify-content: center;
@@ -117,7 +124,7 @@ body {
 }
 
 .modal_body::-webkit-scrollbar-thumb {
-    background: var(--primary-pink);
+    background: var(--p-color3);
     border-radius: 10px;
 }
 
@@ -164,13 +171,13 @@ body {
 }
 
 .stars {
-    color: var(--primary-pink);
+    color: var(--p-color3);
     font-size: 0.9rem;
 }
 
 .review_count {
     font-size: 0.85rem;
-    color: var(--text-grey);
+    color: var(--g-color3);
     text-decoration: underline;
 }
 
@@ -208,7 +215,14 @@ body {
     height: 400px;
     object-fit: cover;
 }
-
+.swiper-pagination,
+.swiper-button-next,
+.swiper-button-prev{
+    color: var(--p-color5);
+}
+.swiper-pagination-bullet-active{
+    background: var(--p-color5);
+}
 /* Selections */
 .selection_section {
     margin-bottom: 30px;
@@ -253,14 +267,14 @@ button.swatch {
 
 .selected_color_name {
     font-size: 0.9rem;
-    color: var(--text-grey);
+    color: var(--g-color3);
     font-weight: 400;
     margin-top: 5px;
 }
 
 /* Delivery Accordion */
 .delivery_section {
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--g-color1);
     background-color: #F9F9F9;
     padding: 30px;
     margin: 0 30px;
@@ -313,13 +327,13 @@ button.swatch {
 }
 
 .feature_item i {
-    color: var(--primary-pink);
+    color: var(--p-color3);
 }
 
 .view_details_link {
     display: block;
     text-align: center;
-    color: var(--text-grey);
+    color: var(--g-color3);
     text-decoration: underline;
     font-size: 0.9rem;
     margin-bottom: 20px;
@@ -334,7 +348,7 @@ button.swatch {
     background: white;
     padding: 20px 30px;
     box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--g-color1);
 }
 
 .footer_top {

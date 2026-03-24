@@ -42,6 +42,7 @@
   --round15: 15px;
   --round25: 25px;
   --round50: 50px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
