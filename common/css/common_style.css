@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+/* 루트지정 */
+:root {
+  font-size: 18px;
+  --p-color1: #FDEFF4;
+  --p-color2: #FBDCE7;
+  --p-color3: #F8C6D8;
+  --p-color4: #F4AEC8;
+  --p-color5: #EF93B6;
+  --p-color6: #E977A3;
+  --p-color7: #DF5D8E;
+  --p-color8: #D04579;
+  --p-color9: #B93364;
+  --p-color10: #92244C;
+  --g_color1:#F5F5F5;
+  --g_color2:#E9E9E9;
+  --g_color3:#D8D8D8;
+  --g_color4:#C2C2C2;
+  --g_color5:#AAAAAA;
+  --g_color6:#8F8F8F;
+  --g_color7:#747474;
+  --g_color8:#5A5A5A;
+  --g_color9:#3F3F3F;
+  --g_color10:#222222;
+  --w-color: #ffffff;
+  --b-color: #000000;
+  --sub-f-name-: ;
+  --main-f-name-: ;
+  --round: 25px;
+}
+
+/* 폰트 불러오기*/
+
+
+
+/* layout */
+.test/* wrap,inner,container등등 어칼지 모르겟슴 */{
+  max-width: 1360px; /* 노트북 오른쪽 스크롤부분까지 해서 주로 쓰이는 모니터 크기 */
+  margin: 0 auto;
+}
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  backdrop-filter: saturate(120%) blur(10px);
+  z-index: 10;
+}
