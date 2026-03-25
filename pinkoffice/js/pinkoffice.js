@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const hamButton = document.querySelector('.ham');
+  const hamModal = document.querySelector('.ham_modal');
+  hamButton.addEventListener('click', () => {
+    hamModal.style.display = hamModal.style.display === 'block' ? 'none' : 'block';
+  });
   gsap.registerPlugin(ScrollTrigger);
 
   initSideNav();
