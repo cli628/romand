@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="롬앤 브랜드와 제품, 퍼스널 컬러, 핑크오피스를 소개하는 사이트입니다.">
@@ -21,7 +22,7 @@
     <link rel="stylesheet" href="../common/css/reset.css">
     <!-- 공통 css -->
     <link rel="stylesheet" href="../common/css/common_style.css">
-    <!-- 공통 헤더 푸터 햄메뉴 media -->
+    <!-- 공통 헤더 푸터 media -->
     <link rel="stylesheet" href="../common/css/common_media.css">
     <!-- 각자 css-->
     <link rel="stylesheet" href="css/main.css">
@@ -33,10 +34,215 @@
     <!-- 각자 script -->
     <script src="js/main.js"></script>
 </head>
+
 <body>
-   <h1>안녕하세요 세빈입니다.</h1>
-   <h1>안녕하세요 어렵네요~~</h1>
-   <h1>채이입니긔</h1>
-   <h1>영조입니다</h1>
-</body>
+    <!-- Main Content -->
+    <main class="main_container">
+        <div class="main_visual">
+            <div class="main_bg">
+                <video src="img/bg_main_visual.mp4" autoplay muted loop playsinline></video>
+            </div>
+        </div>
+        <!-- Hero Section -->
+        <section class="hero_section">
+            <div class="hero_content">
+                <h2 class="hero_title">Color Your Identity.</h2>
+                <p class="hero_desc">
+                    By truly listening to our community, we turn real voices into products that reflect their needs,
+                    inspire confidence, and spark joy. Through this genuine connection, rom&nd continues to grow as a
+                    global brand─beauty with fans, not just for them.
+                </p>
+                <a href="#" class="btn_primary">Discover our story</a>
+            </div>
+            <svg>
+                <path fill="#EF749B"></path>
+            </svg>
+        </section>
+
+        <!-- New Section -->
+        <section class="new_section">
+            <div class="section_header">
+                <span class="badge">NEW</span>
+                <h2><strong>A New </strong><span class="highlight">color.</span><br>That Will<br><span
+                        class="highlight_blue">Wake You
+                        Up</span></h2>
+                <p>rom&nd is a growing beauty brand with fans all over the world.<br>Inspired by various beauty moments,
+                    we create a beauty that everyone can relate to.</p>
+            </div>
+            <div class="animation_area">
+                <div class="floating_products">
+                    <div class="floating_item item1">
+                        <img src="img/new_balm.png" alt="Romand Glasting Melting Balm">
+                        <span>Romand Glasting Melting Balm #Original</span>
+                    </div>
+                    <div class="floating_item item2">
+                        <img src="img/new_brow.png" alt="Romand Hanol Brow Airbag">
+                        <span>Romand Hanol Brow Airbag</span>
+                    </div>
+                    <div class="floating_item item3">
+                        <img src="img/new_cushion.png" alt="Bare Water Cushion">
+                        <span>Bare Water Cushion</span>
+                    </div>
+                    <div class="floating_item item4">
+                        <img src="img/new_shadow.png" alt="Slide In Single">
+                        <span>Slide In Single</span>
+                    </div>
+                    <div class="floating_item item5">
+                        <img src="img/new_gloss.png" alt="The Juicy Lasting Tint">
+                        <span>The Juicy Lasting Tint</span>
+                    </div>
+                </div>
+
+                <div class="shopping_bag_container">
+                    <div class="bag_back"></div>
+                    <div class="bag_front">
+                        <img src="img/new_bag.png" alt="Pink Bag">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Best Section -->
+        <section class="best_section">
+            <div class="best_bg">
+                <!-- User will add their rail video here -->
+                <video src="img/best_vid.mp4" autoplay muted loop playsinline></video>
+            </div>
+
+            <div class="section_header right_align">
+                <span class="badge">BEST</span>
+                <h2>Your Taste<br>Our Beauty</h2>
+                <p>Take a look at our most popular beauty picks.<br>These bestselling products continue to win
+                    the<br>hearts of beauty lovers.</p>
+            </div>
+
+            <!-- The rail animation area containing bags and tracking modals -->
+            <div class="rail_track">
+                <!-- Product 1: The Juicy Lasting Tint -->
+                <div class="rail_item item1">
+
+                    <div class="connect_line"></div>
+                    <div class="product_modal">
+                        <div class="modal_img"><img src="img/new_gloss.png" alt="The Juicy Lasting Tint"></div>
+                        <div class="modal_label">The Juicy Lasting Tint</div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Slide In Single -->
+                <div class="rail_item item2">
+                    <div class="connect_line"></div>
+                    <div class="product_modal">
+                        <div class="modal_img"><img src="img/new_shadow.png" alt="Slide In Single"></div>
+                        <div class="modal_label">Slide In Single</div>
+                    </div>
+                </div>
+
+                <!-- Product 3: VOLUME HACK TRIO (Link) -->
+                <div class="rail_item item3">
+                    <div class="connect_line"></div>
+                    <a href="#" class="product_modal link_modal">
+                        <div class="modal_img"><img src="img/prod_ph.png" alt="VOLUME HACK TRIO"></div>
+                        <div class="modal_label">VOLUME HACK TRIO</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Outlet Section -->
+        <section class="outlet_section">
+            <div class="section_header">
+                <span class="badge">OUTLET</span>
+                <h2>Still good<br>just in time</h2>
+                <p>Shop near-expiry and refurbished products at a smart price.</p>
+                <div class="price_highlight">everything here is<br><strong>1 dollar.</strong></div>
+            </div>
+            <div class="outlet_product_list">
+                <!-- Data from plan -->
+                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <h3>Glasting Melting Balm</h3>
+                    <p>10 Nu Beige</p>
+                </div>
+                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <h3>Glasting Melting Balm</h3>
+                    <p>11 Buffy Coral</p>
+                </div>
+                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <h3>Glasting Melting Balm</h3>
+                    <p>01 Coco Nude</p>
+                </div>
+                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <h3>Dewy · ful Water Tint</h3>
+                    <p>02 Salty Peach</p>
+                </div>
+                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <h3>Dewy · ful Water Tint</h3>
+                    <p>06 Thulian</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personal Color Section -->
+        <section class="personal_color_section">
+            <div class="section_header">
+                <h2>only romMATE</h2>
+                <p>Not sure what suits you best?<br>Find your personal color in minutes and unlock your perfect
+                    shades.<br>From quick test to curated picks, we’ve got you covered.</p>
+                <a href="#" class="btn_secondary">Find my color</a>
+            </div>
+            <div class="rommate_product_list">
+                <ul>
+                    <li>JUICY ROLL CHEEK</li>
+                    <li>BACK ME TONE UP CREAM</li>
+                    <li>BETTER THAN CHEEK</li>
+                    <li>SEE THROUGH VEILLIGHTER</li>
+                    <li>BLUR FUDGE TINT</li>
+                    <li>MOOD PEBBLE NAIL</li>
+                    <li>LIP MATE PENCIL</li>
+                    <li>ZERO SUN CLEAN</li>
+                    <li>NU ZERO CUSHION</li>
+                    <li>GLASTING COLOR GLOSS</li>
+                    <li>SLIDE IN SINGLE</li>
+                    <li>GLASTING MELTING BALM</li>
+                    <li>BARE WATER CUSHION</li>
+                    <li>SLIDE IN SINGLE</li>
+                    <li>THEJUICY LASTING TINT</li>
+                    <li>THEJUICY LASTING TINT</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Pink Office Section -->
+        <section class="pink_office_section">
+            <div class="section_header">
+                <span class="badge">Get Your Swatch!</span>
+                <h2>PINK OFFICE</h2>
+                <p>It's not just makeup.<br>Discover your true colors and find the shades that suit you.<br>Explore, try
+                    and get your swatch!</p>
+                <h3>Even the Same Color<br>Expressed Your Way</h3>
+            </div>
+            <div class="swatch_product_list">
+                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <h3>VOLUME HACK TRIO</h3>
+                    <p>TOFFEE NUDE</p><span><del>$34.00</del> $29.00</span>
+                </div>
+                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <h3>VOLUME HACK TRIO</h3>
+                    <p>TOFFEE NUDE</p><span><del>$34.00</del> $29.00</span>
+                </div>
+                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <h3>VOLUME HACK TRIO</h3>
+                    <p>TOFFEE NUDE</p><span><del>$34.00</del> $29.00</span>
+                </div>
+                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <h3>VOLUME HACK TRIO</h3>
+                    <p>TOFFEE NUDE</p><span><del>$34.00</del> $29.00</span>
+                </div>
+                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <h3>VOLUME HACK TRIO</h3>
+                    <p>TOFFEE NUDE</p><span><del>$34.00</del> $29.00</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
 </html>
