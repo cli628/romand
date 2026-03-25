@@ -1,39 +1,92 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="롬앤의 시그니쳐이자 오프라인 체험 공간인 핑크오피스를 소개하는 페이지입니다.">
-    <meta name="keywords" content="롬앤, romand, romend, 핑크오피스, 퍼스널컬러, 롬, 앤, rom">
-    <meta name="author" content="team_sixman">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pinkoffice</title>
-    <!-- 파비콘 -->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <!-- 폰트어썸 - 안쓰시면 삭제 -->
-    <script src="https://kit.fontawesome.com/193fa424cf.js" crossorigin="anonymous"></script>
-    <!-- 슬라이더 - 안쓰시면 삭제-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
-    <!-- jsap - 안쓰시면 삭제 -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-    <!--  jsap 스크롤트리거 - 안쓰시면 삭제-->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js"></script>
-    <!-- 리셋 css-->
-    <link rel="stylesheet" href="../common/css/reset.css">
-    <!-- 공통 css -->
-    <link rel="stylesheet" href="../common/css/common_style.css">
-    <!-- 공통 헤더 푸터 햄메뉴 media -->
-    <link rel="stylesheet" href="../common/css/common_media.css">
-    <!-- 각자 css-->
-    <link rel="stylesheet" href="css/pinkoffice.css">
-    <link rel="stylesheet" href="css/pinkoffice_media.css">
-    <!-- 슬라이드 스와이퍼 스크립트 - 안쓰시면 삭제-->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-    <!-- 공통 script-->
-    <script src="../common/js/common.js"></script>
-    <!-- 각자 script -->
-    <script src="js/pinkoffice.js"></script>
+  <meta charset="UTF-8">
+  <meta name="description" content="롬앤의 시그니쳐이자 오프라인 체험 공간인 핑크오피스를 소개하는 페이지입니다.">
+  <meta name="keywords" content="롬앤, romand, romend, 핑크오피스, 퍼스널컬러, 롬, 앤, rom">
+  <meta name="author" content="team_sixman">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pinkoffice</title>
+  <!-- 파비콘 -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <!-- 폰트어썸 - 안쓰시면 삭제 -->
+  <script src="https://kit.fontawesome.com/193fa424cf.js" crossorigin="anonymous"></script>
+  <!-- 슬라이더 - 안쓰시면 삭제-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
+  <!-- jsap - 안쓰시면 삭제 -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <!--  jsap 스크롤트리거 - 안쓰시면 삭제-->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js"></script>
+  <!-- 리셋 css-->
+  <link rel="stylesheet" href="../common/css/reset.css">
+  <!-- 공통 css -->
+  <link rel="stylesheet" href="../common/css/common_style.css">
+  <!-- 공통 헤더 푸터 햄메뉴 media -->
+  <link rel="stylesheet" href="../common/css/common_media.css">
+  <!-- 각자 css-->
+  <link rel="stylesheet" href="css/pinkoffice.css">
+  <link rel="stylesheet" href="css/pinkoffice_media.css">
+  <!-- 슬라이드 스와이퍼 스크립트 - 안쓰시면 삭제-->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  <!-- 공통 script-->
+  <script src="../common/js/common.js"></script>
+  <!-- 각자 script -->
+  <script src="js/pinkoffice.js"></script>
 </head>
+
 <body>
-    
+  <header></header>
+
+  <nav class="side_nav">
+    <ul>
+      <!-- 1F -->
+      <li class="nav_group">
+        <div class="group_header" data-full="1F PINKOFFICE" data-target="pink_office">1F</div>
+        <ul class="sub_nav">
+          <li class="nav_item" data-target="green_chemi">GREENCHEMI</li>
+          <li class="nav_item" data-target="only_pink_office">ONLY PINKOFFICE</li>
+        </ul>
+      </li>
+
+      <!-- 2F -->
+      <li class="nav_group">
+        <div class="group_header" data-full="2F COHA" data-target="coha">2F</div>
+        <ul class="sub_nav">
+          <li class="nav_item" data-target="coha_community">COHA COMMUNITY</li>
+          <li class="nav_item" data-target="color_mixing">COLOR MIXING</li>
+          <li class="nav_item" data-target="personal_color">PERSONAL COLOR</li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+
+  <div class="wrap">
+
+    <section id="pink_office" class="pink_office">
+      <h2>PINK OFFICE</h2>
+    </section>
+    <section id="green_chemi" class="green_chemi">
+      <h2>GREEN CHEMI</h2>
+    </section>
+    <section id="only_pink_office" class="only_pink_office">
+      <h2>ONLY PINK OFFICE</h2>
+    </section>
+    <section id="coha" class="coha">
+      <h2>COHA</h2>
+    </section>
+    <section id="coha_community" class="coha_community">
+      <h2>COHA COMMUNITY</h2>
+    </section>
+    <section id="color_mixing" class="color_mixing">
+      <h2>COLOR MIXING</h2>
+    </section>
+    <section id="personal_color" class="personal_color">
+      <h2>PERSONAL COLOR</h2>
+    </section>
+  </div>
+  <footer></footer>
 </body>
+
 </html>

@@ -1,2 +1,175 @@
 @charset "utf-8";
 
+header {
+  height: 72px;
+  width: 100%;
+  background-color: var(--p-color3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.wrap {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+section {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section h2 {
+  font-size: clamp(3rem, 10vw, 6rem);
+  color: #fff;
+  text-transform: uppercase;
+  opacity: 0.5;
+  pointer-events: none;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 5px;
+}
+
+.pink_office {
+  background-color: var(--p-color1);
+}
+
+.green_chemi {
+  background-color: #e8f5e9;
+}
+
+.only_pink_office {
+  background-color: var(--p-color2);
+}
+
+.coha {
+  background-color: #f3e5f5;
+}
+
+.coha_community {
+  background-color: var(--p-color4);
+}
+
+.color_mixing {
+  background-color: #e1f5fe;
+}
+
+.personal_color {
+  background-color: var(--p-color6);
+}
+
+/* 사이드 내비게이션 */
+.side_nav {
+  position: fixed;
+  right: 0;
+  top: 72px;
+  z-index: 100;
+}
+
+.side_nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 그룹 */
+.nav_group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* 헤더 */
+.group_header {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  cursor: pointer;
+  background: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: width 0.3s;
+}
+
+/* 서브 메뉴 (세로 슬라이드 핵심) */
+.sub_nav {
+  display: flex;
+  flex-direction: column;
+  height: 0;
+  overflow: hidden;
+  background: #fff;
+  transition: height 0.4s ease;
+}
+
+.nav_group:hover .group_header {
+  width: 200px;
+}
+
+/* 항목 */
+.nav_item {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+/* hover 스타일 */
+.nav_item:hover,
+.nav_group:hover .group_header {
+  background: var(--p-color7);
+  color: #fff;
+}
+
+/* active style */
+.nav_item.active,
+.group_header.active {
+  color: var(--p-color7);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* 호버 시에는 흰색 글씨로 전환 (우선순위 보강) */
+.nav_item.active:hover,
+.nav_group:hover .group_header.active {
+  color: #fff;
+}
+
+/* 활성 항목(nav_item) 구슬: 섹션 활성 시 상시 노출 */
+.nav_item.active::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--p-color7);
+  /* 기본 핑크 */
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+  transition: background-color 0.2s;
+}
+
+/* 항목 호버 시 (배경 핑크) -> 구슬 흰색 */
+.nav_item.active:hover::before {
+  background-color: #fff;
+}
+
+footer {
+  width: 100%;
+  height: 500px;
+  background-color: var(--g_color3);
+}
