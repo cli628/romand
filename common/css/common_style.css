@@ -3,9 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap');
 
 /* holly-berry-pop 폰트 */
-@font-face{
+@font-face {
   font-family: 'holly-berry-pop';
-  src : url('../font/HollyBerryPop-PVxdZ.woff') format('woff');
+  src: url('../font/HollyBerryPop-PVxdZ.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
@@ -20,25 +20,27 @@
   --p-color3: #F999B7;
   --p-color4: #F385A8;
   --p-color5: #EF749B;
-  --gr-coror1:#CADB4A;
-  --gr-coror2:#D9F072;
-  --gr-coror3:#EBF695;
-  --b-color1:#6DB8FF;
-  --b-color2:#9ACEFF;
-  --g-color1:#D5D5D5;
-  --g-color2:#979797;
-  --g-color3:#707070;
-  --g-color4:#505050;
-  --g-color5:#353535;
-  --g-color6:#282828;
-  --g-color7:#1C1C1C;
-  --g-color8:#101010;
+  --gr-coror1: #CADB4A;
+  --gr-coror2: #D9F072;
+  --gr-coror3: #EBF695;
+  --b-color1: #6DB8FF;
+  --b-color2: #9ACEFF;
+  --g-color1: #eeeeee;
+  --g-color2: #D5D5D5;
+  --g-color3: #979797;
+  --g-color4: #707070;
+  --g-color5: #505050;
+  --g-color6: #353535;
+  --g-color7: #282828;
+  --g-color8: #1C1C1C;
+  --g-color9: #101010;
   --white: #ffffff;
   --black: #000000;
   --font-poppins: "Poppins", sans-serif;
   --font-montserrat: "Montserrat", sans-serif;
   --font-quicksand: "Quicksand", sans-serif;
   --font-holly-berry-pop: 'holly-berry-pop', sans-serif;
+  --round5: 5px;
   --round15: 15px;
   --round25: 25px;
   --round50: 50px;
@@ -50,12 +52,16 @@
 
 
 /* layout */
-.test/* wrap,inner,container등등 어칼지 모르겟습닌다 */{
-  max-width: 1360px; /* 노트북 오른쪽 스크롤부분까지 해서 주로 쓰이는 모니터 크기 */
+.test
+
+/* wrap,inner,container등등 어칼지 모르겟습닌다 */
+  {
+  max-width: 1360px;
+  /* 노트북 오른쪽 스크롤부분까지 해서 주로 쓰이는 모니터 크기 */
   margin: 0 auto;
 }
 
-header{
+header {
   position: fixed;
   top: 0;
   left: 0;
