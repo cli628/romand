@@ -35,21 +35,29 @@ body>link {
     top: 0;
     left: 0;
 }
-
-svg {
-    bottom: 50px;
-    left: 50%;
-    position: absolute;
+/* wave section */
+.hero_section {
     width: 100%;
-    height: 100%;
-    transform: translate(-50%, 100%);
-    color: var(--gr-coror3);
+    height: 70vh;
+    position: relative;
+    background: var(--gr-color3);
+    text-align: center;
+    padding: 50px 40px;
 }
 
-svg path {
-    fill: var(--gr-coror3);
+.hero_section svg {
+    position: absolute;
+    left: 0;
+    /* wave위 아래위치조정 */
+    bottom: -41%;
     width: 100%;
-    height: 50px;
+    height: clamp(180px, 28vw, 280px);
+    display: block;
+    pointer-events: none;
+}
+
+.hero_section svg path {
+    fill: var(--gr-color3);
 }
 
 pattern.img1 {
@@ -121,7 +129,7 @@ pattern.img1 {
     background-color: var(--p-color4);
     color: var(--white);
     border-radius: var(--round50);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
     transition: var(--transition);
 }
@@ -148,29 +156,36 @@ pattern.img1 {
     color: var(--white);
 }
 
-/* Hero Section */
-.hero_section {
-    background-color: var(--gr-coror3);
-    text-align: center;
-    padding: 150px 40px !important;
-}
-
 .hero_title {
-    font-size: 64px;
-    font-weight: 700;
-    margin-bottom: 30px;
+    font-size: clamp(56px, 7vw, 92px);
+    font-weight: 600;
+    padding: 30px;
     font-family: var(--font-montserrat);
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+    color: #2e2c30;
 }
 
 .hero_desc {
-    max-width: 800px;
-    margin: 0 auto 50px;
-    font-size: 20px;
-    line-height: 1.6;
-    color: var(--g-color7);
+    max-width: 1460px;
+    padding-bottom: 50px;
+    font-size: clamp(18px, 1.4vw, 28px);
+    line-height: 1.34;
+    letter-spacing: -0.03em;
+    color: #38353b;
 }
 
-.hero_content {}
+.hero_desc strong {
+    font-weight: 800;
+    color: #2f2b31;
+}
+
+.hero_content {
+    position: relative;
+    z-index: 2;
+    max-width: 1560px;
+    margin: 0 auto;
+}
 
 /* Grid Layouts for Products */
 .new_product_list,
@@ -232,28 +247,311 @@ pattern.img1 {
 
 /* Outlet Custom */
 .outlet_section {
-    background-color: var(--white);
+    position: relative;
+    overflow: hidden;
+    background-color: #fbfbfb;
+    min-height: 1360px;
+    padding: 120px 120px 140px 72px;
+    box-sizing: border-box;
 }
 
-.price_highlight {
-    margin-top: 30px;
-    font-size: 24px;
-    color: var(--g-color6);
+.outlet_section_shell {
+    position: relative;
+    display: grid;
+    grid-template-columns: 814px minmax(520px, 1fr);
+    align-items: stretch;
+    gap: 84px;
+    width: 100%;
+    max-width: 1920px;
+    min-height: 100%;
+    box-sizing: border-box;
 }
 
-.price_highlight strong {
-    font-size: 48px;
-    color: var(--p-color5);
+.outlet_visual_panel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.outlet_visual_glow {
+    position: absolute;
+    width: 814px;
+    height: 1080px;
+    filter: blur(28px);
+    z-index: 1;
+}
+
+.outlet_visual_photo {
+    position: relative;
+    z-index: 2;
+    width: 814px;
+
+}
+
+.outlet_visual_photo img {
+    width: 100%;
+    object-fit: cover;
     display: block;
-    margin-top: 10px;
-    font-weight: 900;
+}
+
+.outlet_put_photo {
+    position: absolute;
+    top: 220px;
+    right: -100px;
+    z-index: 3;
+}
+.outlet_put_photo img {
+    width: 316px;
+    height: 229px;
+    object-fit: cover;
+    display: block;
+}
+.outlet_content_panel {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 1080px;
+    padding: 136px 0;
+}
+
+.outlet_header {
+    width: min(100%, 720px);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.outlet_header .badge {
+    margin: 0 0 26px;
+}
+
+.outlet_header h2 {
+    font-size: clamp(56px, 5vw, 82px);
+    font-weight: 300;
+    line-height: 1.02;
+    letter-spacing: -0.05em;
+    color: #2f2c31;
+}
+
+.outlet_title_point {
+    color: #6ab1ff;
+    font-weight: 400;
+}
+
+.outlet_header p {
+    width: min(100%, 540px);
+    margin: 28px auto 0;
+    font-size: clamp(19px, 1.3vw, 22px);
+    line-height: 1.5;
+    color: #58545c;
+}
+
+.price_inline_highlight {
+    padding-inline: 8px;
+    background: linear-gradient(transparent 30%, #dff55f 30%);
+    color: #1f1f23;
+    font-weight: 800;
+}
+
+.outlet_product_carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+    padding-left: 12px;
+    min-width: 0;
+}
+
+.outlet_swipe_arrow {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 54px;
+    width: 54px;
+    height: 54px;
+    border: 1px solid rgba(74, 70, 77, 0.16);
+    border-radius: 999px;
+    background-color: #ffffff;
+    color: #2f2c31;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
+}
+
+.outlet_swipe_arrow:hover {
+    transform: translateY(-2px);
+    background-color: #f5f4f6;
+    border-color: rgba(74, 70, 77, 0.28);
+}
+
+.outlet_swipe_arrow.is_disabled {
+    opacity: 0.35;
+}
+
+.outlet_product_swipe {
+    position: relative;
+    display: block;
+    flex: 1 1 auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    min-height: 240px;
+    padding: 12px 0 24px;
+    box-sizing: border-box;
+    cursor: grab;
+    touch-action: pan-x;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    user-select: none;
+}
+
+.outlet_product_swipe::-webkit-scrollbar {
+    display: none;
+}
+
+.outlet_product_swipe.is_dragging {
+    cursor: grabbing;
+}
+
+.outlet_product_track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 156px;
+    gap: 42px;
+    align-items: end;
+    width: max-content;
+    min-width: max-content;
+}
+
+.outlet_product_item {
+    text-align: center;
+    opacity: 1 ;
+    transform: none ;
+    width: 156px;
+}
+
+.outlet_product_item img {
+    width: auto;
+    height: 138px;
+    max-width: 132px;
+    aspect-ratio: auto;
+    object-fit: contain;
+    background-color: transparent;
+    border-radius: 0;
+    margin: 0 auto 18px;
+    box-shadow: none;
+}
+
+.outlet_product_item_balm img {
+    max-width: 132px;
+}
+
+.outlet_product_item_tint img {
+    max-width: 88px;
+}
+
+.outlet_product_item h3 {
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #4a464d;
+    line-height: 1.25;
+}
+
+.outlet_product_item p {
+    font-size: 14px;
+    color: #a3a0a6;
+}
+
+/* Break Section */
+.break_section {
+    overflow: hidden;
+    background-color: #ffffff;
+    padding: 64px 0 72px;
+}
+
+.break_section_inner {
+    display: grid;
+    gap: 20px;
+}
+
+.break_keyword_row {
+    overflow: hidden;
+}
+
+.break_keyword_track {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    width: max-content;
+    will-change: transform;
+    animation: break_keyword_marquee 38s linear infinite;
+}
+
+.break_keyword_row_bottom .break_keyword_track {
+    animation-direction: reverse;
+    animation-duration: 42s;
+}
+
+.break_keyword_pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    padding: 16px 34px;
+    border-radius: 999px;
+    white-space: nowrap;
+    font-size: clamp(24px, 2vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+}
+
+.break_keyword_pill_lime {
+    background-color: #d9ec36;
+    color: #17181c;
+}
+
+.break_keyword_pill_blue {
+    background-color: #77b8ff;
+    color: #ffffff;
+}
+
+.break_keyword_pill_blush {
+    background-color: #f8d9e6;
+    color: #f07aa9;
+}
+
+.break_keyword_pill_rose {
+    background-color: #ef7aa8;
+    color: #ffffff;
+}
+
+.break_keyword_pill_ink {
+    color: #23252d;
+}
+
+.break_keyword_pill_blue_text {
+    color: #6ea9ff;
+}
+
+@keyframes break_keyword_marquee {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
 }
 
 /* Personal Color Custom */
 .personal_color_section {
     background-color: var(--g-color1);
 }
-
+/* Rommate Product List */
 .rommate_product_list {
     max-width: 1000px;
     margin: 0 auto;
@@ -295,12 +593,12 @@ pattern.img1 {
 /* New Section Animation Area */
 .new_section {
     position: relative;
-    padding-bottom: 1300px !important;
+    padding-bottom: 180px !important;
 }
 
 .animation_area {
     position: relative;
-    height: 700px;
+    height: 1500px;
     width: 100%;
     margin-top: 50px;
 }
@@ -358,7 +656,7 @@ pattern.img1 {
 }
 
 .floating_item.item5 {
-    top: 35%;
+    top: 20%;
     left: 50%;
 }
 
@@ -371,7 +669,7 @@ pattern.img1 {
     height: 100%;
     z-index: 3;
 }
-
+/* Shopping Bag Container */
 .shopping_bag_container .bag_back {
     position: absolute;
     bottom: 0;
@@ -383,7 +681,7 @@ pattern.img1 {
 
 .shopping_bag_container .bag_front {
     position: absolute;
-    bottom: -850px;
+    bottom: -720px;
     width: 100%;
     height: 100%;
     z-index: 3;
@@ -532,4 +830,179 @@ pattern.img1 {
     font-weight: 700;
     white-space: nowrap;
     box-shadow: 0 4px 10px rgba(239, 116, 155, 0.4);
+}
+
+.workflow_steps_section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(180deg, #fcfbfa 0%, #fff8fb 100%);
+    color: var(--g-color8);
+}
+
+.workflow_steps_counter {
+    position: absolute;
+    top: 30vh;
+    left: 50%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transform: translateX(-50%);
+}
+
+.workflow_steps_counter_title,
+.workflow_steps_count_window {
+    position: relative;
+    width: min(92vw, 1120px);
+    height: 150px;
+    overflow: hidden;
+}
+
+.workflow_steps_count_window {
+    display: none;
+}
+
+.workflow_steps_count_track {
+    transform: translateY(120px);
+    will-change: transform;
+}
+
+.workflow_steps_counter h2 {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    height: 150px;
+    font-family: var(--font-montserrat);
+    font-size: clamp(56px, 9vw, 128px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    text-transform: none;
+}
+
+.workflow_steps_title_dark {
+    color: #2f2f31;
+}
+
+.workflow_steps_title_point {
+    color: #ef749b;
+}
+
+.workflow_steps_cards {
+    position: absolute;
+    inset: 0;
+    top: 40%;
+    left: 50%;
+    width: 100%;
+    height: 64vh;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.workflow_step_card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(20vw, 240px);
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    perspective: 1200px;
+    pointer-events: auto;
+    transform-origin: center center;
+    will-change: transform, opacity;
+}
+
+.workflow_step_card_inner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5.3;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.workflow_step_card:hover .workflow_step_card_inner {
+    transform: rotateY(180deg);
+}
+
+.workflow_step_card_face {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.workflow_step_card_face_front {
+    transform: rotateY(0deg);
+}
+
+.workflow_step_card_face_back {
+    transform: rotateY(180deg);
+}
+
+.workflow_step_card_img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 18px;
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 45px rgba(77, 61, 74, 0.16);
+}
+
+.workflow_step_card_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.workflow_step_card_content {
+    display: none;
+}
+
+.workflow_step_card_back_panel {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    padding: 18px 18px 22px;
+    border-radius: 18px;
+    background-color: #ea6d9c;
+    box-shadow: 0 20px 45px rgba(77, 61, 74, 0.16);
+}
+
+.workflow_step_card_back_title {
+    margin: 0;
+    color: var(--white);
+    font-family: var(--font-montserrat);
+    font-size: clamp(18px, 1.9vw, 26px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+}
+
+.workflow_step_card_content p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.workflow_step_card_empty {
+    opacity: 0;
+}
+
+.workflow_step_card_empty .workflow_step_card_inner {
+    display: none;
 }

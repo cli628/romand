@@ -8,9 +8,227 @@
 @media screen and (max-width:1200px) {}
 
 /* 태블릿 */
-@media screen and (max-width:1024px) {}
+@media screen and (max-width:1024px) {
+    .hero_section {
+        padding: 120px 32px 200px !important;
+    }
 
-@media screen and (max-width:768px) {}
+    .animation_area {
+        height: 860px;
+    }
+
+    .outlet_section_shell {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .outlet_section {
+        min-height: auto;
+        padding: 100px 48px 110px;
+    }
+
+    .outlet_visual_panel {
+        min-height: 520px;
+    }
+
+    .outlet_visual_photo img {
+        height: 520px;
+    }
+
+    .outlet_content_panel {
+        min-height: auto;
+        padding: 0;
+    }
+
+    .outlet_product_carousel {
+        gap: 14px;
+        padding-left: 0;
+    }
+
+    .outlet_swipe_arrow {
+        flex-basis: 48px;
+        width: 48px;
+        height: 48px;
+    }
+
+    .outlet_product_swipe {
+        min-height: 220px;
+        padding: 10px 10px 20px 10px;
+    }
+
+    .outlet_product_track {
+        grid-auto-columns: 136px;
+        gap: 28px;
+    }
+
+    .break_section {
+        padding: 52px 0 60px;
+    }
+
+    .break_section_inner {
+        gap: 16px;
+    }
+
+    .break_keyword_track {
+        gap: 18px;
+    }
+
+    .break_keyword_pill {
+        min-height: 68px;
+        padding: 14px 28px;
+        font-size: clamp(20px, 2.5vw, 28px);
+    }
+
+    .workflow_steps_counter {
+        top: 18vh;
+        left: 50%;
+    }
+
+    .workflow_steps_counter_title,
+    .workflow_steps_count_window {
+        width: min(94vw, 860px);
+        height: 118px;
+    }
+
+    .workflow_steps_counter h2 {
+        height: 118px;
+        gap: 12px;
+    }
+
+    .workflow_step_card {
+        width: min(24vw, 220px);
+        min-width: 170px;
+    }
+
+    .workflow_step_card_back_panel {
+        padding: 16px 16px 18px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .hero_section {
+        padding: 96px 24px 170px !important;
+    }
+
+    .hero_section svg {
+        height: 140px;
+    }
+
+    .hero_title {
+        margin-bottom: 22px;
+    }
+
+    .hero_desc {
+        margin-bottom: 40px;
+        font-size: clamp(18px, 5vw, 24px);
+        line-height: 1.42;
+    }
+
+    .new_section {
+        padding-bottom: 120px !important;
+    }
+
+    .animation_area {
+        height: 760px;
+    }
+
+    .outlet_section {
+        padding: 90px 24px 80px;
+    }
+
+    .outlet_visual_panel {
+        min-height: 400px;
+    }
+
+    .outlet_visual_photo img {
+        height: 400px;
+    }
+
+    .outlet_visual_swipe {
+        top: 130px;
+        right: -28px;
+        width: 110px;
+        height: 42px;
+    }
+
+    .outlet_header {
+        margin-bottom: 48px;
+    }
+
+    .outlet_product_swipe {
+        min-height: 200px;
+        padding: 8px 8px 18px 8px;
+    }
+
+    .outlet_product_track {
+        grid-auto-columns: 124px;
+        gap: 20px;
+    }
+
+    .outlet_swipe_arrow {
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+    }
+
+    .break_section {
+        padding: 40px 0 48px;
+    }
+
+    .break_section_inner {
+        gap: 14px;
+    }
+
+    .break_keyword_track {
+        gap: 14px;
+    }
+
+    .break_keyword_pill {
+        min-height: 56px;
+        padding: 12px 22px;
+        font-size: clamp(16px, 4.8vw, 22px);
+    }
+
+    .workflow_steps_section {
+        min-height: 100svh;
+    }
+
+    .workflow_steps_counter {
+        top: 20vh;
+        left: 50%;
+    }
+
+    .workflow_steps_counter_title,
+    .workflow_steps_count_window {
+        width: calc(100vw - 32px);
+        height: 92px;
+    }
+
+    .workflow_steps_counter h2 {
+        height: 92px;
+        gap: 8px;
+        font-size: clamp(32px, 11vw, 58px);
+    }
+
+    .workflow_steps_cards {
+        top: 57%;
+        height: 56vh;
+    }
+
+    .workflow_step_card {
+        width: min(34vw, 180px);
+        min-width: 132px;
+    }
+
+    .workflow_step_card_back_panel {
+        padding: 12px 12px 16px;
+    }
+
+    .workflow_step_card_back_title {
+        font-size: clamp(14px, 3.8vw, 20px);
+    }
+}
 
 /* 모바일 */
 @media screen and (max-width:400px) {}

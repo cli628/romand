@@ -36,65 +36,66 @@
 </head>
 
 <body>
-    <!-- https://codepen.io/maciekmaciej/pen/goajYd -->
     <!-- Main Content -->
     <main class="main_container">
-        <div class="main_visual">
+        <div class="main_visual" aria-hidden="true">
             <div class="main_bg">
                 <video src="img/bg_main_visual.mp4" autoplay muted loop playsinline></video>
             </div>
         </div>
-        <!-- Hero Section -->
-        <section class="hero_section">
+
+        <section class="hero_section" aria-labelledby="hero-title">
             <div class="hero_content">
-                <h2 class="hero_title">Color Your Identity.</h2>
+                <h1 class="hero_title" id="hero-title">Color Your Identity.</h1>
                 <p class="hero_desc">
                     By truly listening to our community, we turn real voices into products that reflect their needs,
-                    inspire confidence, and spark joy. Through this genuine connection, rom&nd continues to grow as a
-                    global brand─beauty with fans, not just for them.
+                    inspire confidence, and spark joy. Through this genuine connection, rom&amp;nd continues to grow as
+                    a global brand-<strong>beauty with fans, not just for them.</strong>
                 </p>
                 <a href="#" class="btn_primary">Discover our story</a>
             </div>
-            <svg>
+            <svg aria-hidden="true">
                 <path fill="#EF749B"></path>
             </svg>
         </section>
 
-        <!-- New Section -->
-        <section class="new_section">
+        <section class="new_section" aria-labelledby="new-section-title">
             <div class="section_header">
                 <span class="badge">NEW</span>
-                <h2><strong>A New </strong><span class="highlight">color.</span><br>That Will<br><span
-                        class="highlight_blue">Wake You
-                        Up</span></h2>
-                <p>rom&nd is a growing beauty brand with fans all over the world.<br>Inspired by various beauty moments,
-                    we create a beauty that everyone can relate to.</p>
+                <h2 id="new-section-title">
+                    <strong>A New </strong><span class="highlight">color.</span><br>
+                    That Will<br>
+                    <span class="highlight_blue">Wake You Up</span>
+                </h2>
+                <p>
+                    rom&amp;nd is a growing beauty brand with fans all over the world.<br>
+                    Inspired by various beauty moments, we create a beauty that everyone can relate to.
+                </p>
             </div>
             <div class="animation_area">
-                <div class="floating_products">
-                    <div class="floating_item item1">
+                <div class="floating_products" aria-label="New product highlights">
+                    <article class="floating_item item1">
                         <img src="img/new_balm.png" alt="Romand Glasting Melting Balm">
                         <span>Romand Glasting Melting Balm #Original</span>
-                    </div>
-                    <div class="floating_item item2">
+                    </article>
+                    <article class="floating_item item2">
                         <img src="img/new_brow.png" alt="Romand Hanol Brow Airbag">
                         <span>Romand Hanol Brow Airbag</span>
-                    </div>
-                    <div class="floating_item item3">
+                    </article>
+                    <article class="floating_item item3">
                         <img src="img/new_cushion.png" alt="Bare Water Cushion">
                         <span>Bare Water Cushion</span>
-                    </div>
-                    <div class="floating_item item4">
+                    </article>
+                    <article class="floating_item item4">
                         <img src="img/new_shadow.png" alt="Slide In Single">
                         <span>Slide In Single</span>
-                    </div>
-                    <div class="floating_item item5">
+                    </article>
+                    <article class="floating_item item5">
                         <img src="img/new_gloss.png" alt="The Juicy Lasting Tint">
                         <span>The Juicy Lasting Tint</span>
-                    </div>
+                    </article>
                 </div>
-
-                <div class="shopping_bag_container">
+                <div class="shopping_bag_container" aria-hidden="true">
                     <div class="bag_back"></div>
                     <div class="bag_front">
                         <img src="img/new_bag.png" alt="Pink Bag">
@@ -102,146 +103,353 @@
                 </div>
             </div>
         </section>
-
-        <!-- Best Section -->
-        <section class="best_section">
-            <div class="best_bg">
-                <!-- User will add their rail video here -->
+        <section class="best_section" aria-labelledby="best-section-title">
+            <div class="best_bg" aria-hidden="true">
                 <video src="img/best_vid.mp4" autoplay muted loop playsinline></video>
             </div>
 
             <div class="section_header right_align">
                 <span class="badge">BEST</span>
-                <h2>Your Taste<br>Our Beauty</h2>
-                <p>Take a look at our most popular beauty picks.<br>These bestselling products continue to win
-                    the<br>hearts of beauty lovers.</p>
+                <h2 id="best-section-title">Your Taste<br>Our Beauty</h2>
+                <p>
+                    Take a look at our most popular beauty picks.<br>
+                    These bestselling products continue to win the<br>
+                    hearts of beauty lovers.
+                </p>
             </div>
-
-            <!-- The rail animation area containing bags and tracking modals -->
-            <div class="rail_track">
-                <!-- Product 1: The Juicy Lasting Tint -->
-                <div class="rail_item item1">
-
+            <div class="rail_track" aria-label="Best products rail">
+                <article class="rail_item item1">
                     <div class="connect_line"></div>
                     <div class="product_modal">
-                        <div class="modal_img"><img src="img/new_gloss.png" alt="The Juicy Lasting Tint"></div>
+                        <div class="modal_img">
+                            <img src="img/new_gloss.png" alt="The Juicy Lasting Tint">
+                        </div>
                         <div class="modal_label">The Juicy Lasting Tint</div>
                     </div>
-                </div>
-
-                <!-- Product 2: Slide In Single -->
-                <div class="rail_item item2">
+                </article>
+                <article class="rail_item item2">
                     <div class="connect_line"></div>
                     <div class="product_modal">
-                        <div class="modal_img"><img src="img/new_shadow.png" alt="Slide In Single"></div>
+                        <div class="modal_img">
+                            <img src="img/new_shadow.png" alt="Slide In Single">
+                        </div>
                         <div class="modal_label">Slide In Single</div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Product 3: VOLUME HACK TRIO (Link) -->
-                <div class="rail_item item3">
+                <article class="rail_item item3">
                     <div class="connect_line"></div>
                     <a href="#" class="product_modal link_modal">
-                        <div class="modal_img"><img src="img/prod_ph.png" alt="VOLUME HACK TRIO"></div>
+                        <div class="modal_img">
+                            <img src="img/best_volume.png" alt="VOLUME HACK TRIO">
+                        </div>
                         <div class="modal_label">VOLUME HACK TRIO</div>
                     </a>
+                </article>
+            </div>
+        </section>
+        <section class="outlet_section" aria-labelledby="outlet-section-title">
+            <div class="outlet_section_shell">
+                <div class="outlet_visual_panel">
+                    <div class="outlet_visual_glow"></div>
+                    <div class="outlet_visual_photo">
+                        <img src="img/outlet_right.png" alt="Outlet visual campaign">
+                    </div>
+                    <div class="outlet_put_photo"><img src="img/outlet_put.png" alt=""></div>
+                </div>
+
+                <div class="outlet_content_panel">
+                    <div class="section_header outlet_header">
+                        <span class="badge">OUTLET</span>
+                        <h2 id="outlet-section-title">
+                            <span class="outlet_title_point">Still good</span><br>
+                            just in time
+                        </h2>
+                        <p>
+                            Shop near-expiry and refurbished products at a smart price.<br>
+                            everything here is <span class="price_inline_highlight">1 dollar.</span>
+                        </p>
+                    </div>
+
+                    <div class="outlet_product_carousel">
+                        <button class="outlet_swipe_arrow outlet_swipe_arrow_left" type="button" aria-label="Show previous outlet products">
+                            <span aria-hidden="true">&larr;</span>
+                        </button>
+                        <div class="outlet_product_swipe" aria-label="Outlet products" tabindex="0">
+                            <div class="outlet_product_track">
+                                <article class="product_item outlet_product_item outlet_product_item_balm">
+                                    <img src="img/outlet_balm01.png" alt="Glasting Melting Balm 10 Nu Beige">
+                                    <h3>Glasting Melting Balm</h3>
+                                    <p>10 Nu Beige</p>
+                                </article>
+                                <article class="product_item outlet_product_item outlet_product_item_balm">
+                                    <img src="img/outlet_balm02.png" alt="Glasting Melting Balm 11 Buffy Coral">
+                                    <h3>Glasting Melting Balm</h3>
+                                    <p>11 Buffy Coral</p>
+                                </article>
+                                <article class="product_item outlet_product_item outlet_product_item_balm">
+                                    <img src="img/outlet_balm03.png" alt="Glasting Melting Balm 01 Coco Nude">
+                                    <h3>Glasting Melting Balm</h3>
+                                    <p>01 Coco Nude</p>
+                                </article>
+                                <article class="product_item outlet_product_item outlet_product_item_tint">
+                                    <img src="img/outlet_duwy01.png" alt="Dewy ful Water Tint 02 Salty Peach">
+                                    <h3>Dewy ful Water Tint</h3>
+                                    <p>02 Salty Peach</p>
+                                </article>
+                                <article class="product_item outlet_product_item outlet_product_item_tint">
+                                    <img src="img/outlet_duwy02.png" alt="Dewy ful Water Tint 06 Thulian">
+                                    <h3>Dewy ful Water Tint</h3>
+                                    <p>06 Thulian</p>
+                                </article>
+                            </div>
+                        </div>
+                        <button class="outlet_swipe_arrow outlet_swipe_arrow_right" type="button" aria-label="Show next outlet products">
+                            <span aria-hidden="true">&rarr;</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
-
-        <!-- Outlet Section -->
-        <section class="outlet_section">
-            <div class="section_header">
-                <span class="badge">OUTLET</span>
-                <h2>Still good<br>just in time</h2>
-                <p>Shop near-expiry and refurbished products at a smart price.</p>
-                <div class="price_highlight">everything here is<br><strong>1 dollar.</strong></div>
+        <section class="workflow_steps_section" aria-label="Brand workflow steps">
+            <div class="workflow_steps_counter">
+                <div class="workflow_steps_counter_title">
+                    <h2>
+                        <span class="workflow_steps_title_dark">only</span>
+                        <span class="workflow_steps_title_point">romMATE</span>
+                    </h2>
+                </div>
+                <div class="workflow_steps_count_window" aria-hidden="true">
+                    <div class="workflow_steps_count_track">
+                        <h2>01</h2>
+                        <h2>02</h2>
+                        <h2>03</h2>
+                        <h2>04</h2>
+                        <h2>05</h2>
+                    </div>
+                </div>
             </div>
-            <div class="outlet_product_list">
-                <!-- Data from plan -->
-                <div class="product_item"><img src="img/prod_ph.png" alt="">
-                    <h3>Glasting Melting Balm</h3>
-                    <p>10 Nu Beige</p>
-                </div>
-                <div class="product_item"><img src="img/prod_ph.png" alt="">
-                    <h3>Glasting Melting Balm</h3>
-                    <p>11 Buffy Coral</p>
-                </div>
-                <div class="product_item"><img src="img/prod_ph.png" alt="">
-                    <h3>Glasting Melting Balm</h3>
-                    <p>01 Coco Nude</p>
-                </div>
-                <div class="product_item"><img src="img/prod_ph.png" alt="">
-                    <h3>Dewy · ful Water Tint</h3>
-                    <p>02 Salty Peach</p>
-                </div>
-                <div class="product_item"><img src="img/prod_ph.png" alt="">
-                    <h3>Dewy · ful Water Tint</h3>
-                    <p>06 Thulian</p>
-                </div>
+            <div class="workflow_steps_cards">
+                <article class="workflow_step_card">
+                    <div class="workflow_step_card_inner">
+                        <div class="workflow_step_card_face workflow_step_card_face_front">
+                            <div class="workflow_step_card_img">
+                                <img src="img/rommate_chemi.jpg" alt="Glasting Water Tint Mini">
+                            </div>
+                        </div>
+                        <div class="workflow_step_card_face workflow_step_card_face_back">
+                            <div class="workflow_step_card_back_panel">
+                                <h3 class="workflow_step_card_back_title">GLASTING<br>WATER TINT<br>MINI</h3>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="workflow_step_card">
+                    <div class="workflow_step_card_inner">
+                        <div class="workflow_step_card_face workflow_step_card_face_front">
+                            <div class="workflow_step_card_img">
+                                <img src="img/rommate_funkymelon.jpg" alt="Juicy Lasting Tint Funky Melon">
+                            </div>
+                        </div>
+                        <div class="workflow_step_card_face workflow_step_card_face_back">
+                            <div class="workflow_step_card_back_panel">
+                                <h3 class="workflow_step_card_back_title">JUICY LASTING TINT<br>#FUNKY MELON</h3>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="workflow_step_card">
+                    <div class="workflow_step_card_inner">
+                        <div class="workflow_step_card_face workflow_step_card_face_front">
+                            <div class="workflow_step_card_img">
+                                <img src="img/rommate_peachy.jpg" alt="Juicy Lasting Tint Peachy Honey B">
+                            </div>
+                        </div>
+                        <div class="workflow_step_card_face workflow_step_card_face_back">
+                            <div class="workflow_step_card_back_panel">
+                                <h3 class="workflow_step_card_back_title">JUICY LASTING TINT<br>#PEACHY HONEY B</h3>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="workflow_step_card">
+                    <div class="workflow_step_card_inner">
+                        <div class="workflow_step_card_face workflow_step_card_face_front">
+                            <div class="workflow_step_card_img">
+                                <img src="img/rommate_mini.png" alt="Juicy Lasting Tint Mini">
+                            </div>
+                        </div>
+                        <div class="workflow_step_card_face workflow_step_card_face_back">
+                            <div class="workflow_step_card_back_panel">
+                                <h3 class="workflow_step_card_back_title">JUICY LASTING TINT<br>MINI</h3>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="workflow_step_card">
+                    <div class="workflow_step_card_inner">
+                        <div class="workflow_step_card_face workflow_step_card_face_front">
+                            <div class="workflow_step_card_img">
+                                <img src="img/rommate_finish.jpg" alt="Better Than Finish">
+                            </div>
+                        </div>
+                        <div class="workflow_step_card_face workflow_step_card_face_back">
+                            <div class="workflow_step_card_back_panel">
+                                <h3 class="workflow_step_card_back_title">BETTER THAN FINISH</h3>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="workflow_step_card">
+                    <div class="workflow_step_card_inner">
+                        <div class="workflow_step_card_face workflow_step_card_face_front">
+                            <div class="workflow_step_card_img">
+                                <img src="img/rommate_bead.png" alt="Sheer Bead Powder">
+                            </div>
+                        </div>
+                        <div class="workflow_step_card_face workflow_step_card_face_back">
+                            <div class="workflow_step_card_back_panel">
+                                <h3 class="workflow_step_card_back_title">SHEER BEAD POWDER</h3>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="workflow_step_card">
+                    <div class="workflow_step_card_inner">
+                        <div class="workflow_step_card_face workflow_step_card_face_front">
+                            <div class="workflow_step_card_img">
+                                <img src="img/rommate_minigloss.png" alt="Glasting Water Gloss">
+                            </div>
+                        </div>
+                        <div class="workflow_step_card_face workflow_step_card_face_back">
+                            <div class="workflow_step_card_back_panel">
+                                <h3 class="workflow_step_card_back_title">GLASTING<br>WATER GLOSS</h3>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="workflow_step_card">
+                    <div class="workflow_step_card_inner">
+                        <div class="workflow_step_card_face workflow_step_card_face_front">
+                            <div class="workflow_step_card_img">
+                                <img src="img/rommate_cushion.jpg" alt="Bloom In Cover Fit Cushion">
+                            </div>
+                        </div>
+                        <div class="workflow_step_card_face workflow_step_card_face_back">
+                            <div class="workflow_step_card_back_panel">
+                                <h3 class="workflow_step_card_back_title">BLOOM IN COVER FIT<br>CUSHION</h3>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="workflow_step_card">
+                    <div class="workflow_step_card_inner">
+                        <div class="workflow_step_card_face workflow_step_card_face_front">
+                            <div class="workflow_step_card_img">
+                                <img src="img/rommate_water.png" alt="Bare Water Cushion">
+                            </div>
+                        </div>
+                        <div class="workflow_step_card_face workflow_step_card_face_back">
+                            <div class="workflow_step_card_back_panel">
+                                <h3 class="workflow_step_card_back_title">BARE WATER CUSHION</h3>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <div class="workflow_step_card workflow_step_card_empty" aria-hidden="true"></div>
+                <div class="workflow_step_card workflow_step_card_empty" aria-hidden="true"></div>
             </div>
         </section>
-
-        <!-- Personal Color Section -->
-        <section class="personal_color_section">
+        <section class="break_section" aria-label="Brand break keywords">
+            <div class="break_section_inner">
+                <div class="break_keyword_row break_keyword_row_top">
+                    <div class="break_keyword_track">
+                        <span class="break_keyword_pill break_keyword_pill_lime break_keyword_pill_ink">BACK ME TONE UP CREAM</span>
+                        <span class="break_keyword_pill break_keyword_pill_blue break_keyword_pill_ink">BETTER THAN CHEEK</span>
+                        <span class="break_keyword_pill break_keyword_pill_blush">SEE THROUGH VEILLIGHTER</span>
+                        <span class="break_keyword_pill break_keyword_pill_lime break_keyword_pill_blue_text">BLUR FUDGE TINT</span>
+                        <span class="break_keyword_pill break_keyword_pill_rose">MOOD PEBBLE NAIL</span>
+                        <span class="break_keyword_pill break_keyword_pill_blue">LIP MATE PENCIL</span>
+                        <span class="break_keyword_pill break_keyword_pill_lime break_keyword_pill_ink">BACK ME TONE UP CREAM</span>
+                        <span class="break_keyword_pill break_keyword_pill_blue break_keyword_pill_ink">BETTER THAN CHEEK</span>
+                        <span class="break_keyword_pill break_keyword_pill_blush">SEE THROUGH VEILLIGHTER</span>
+                        <span class="break_keyword_pill break_keyword_pill_lime break_keyword_pill_blue_text">BLUR FUDGE TINT</span>
+                        <span class="break_keyword_pill break_keyword_pill_rose">MOOD PEBBLE NAIL</span>
+                        <span class="break_keyword_pill break_keyword_pill_blue">LIP MATE PENCIL</span>
+                    </div>
+                </div>
+                <div class="break_keyword_row break_keyword_row_bottom">
+                    <div class="break_keyword_track">
+                        <span class="break_keyword_pill break_keyword_pill_blush">GLASTING COLOR GLOSS</span>
+                        <span class="break_keyword_pill break_keyword_pill_lime break_keyword_pill_blue_text">SLIDE IN SINGLE</span>
+                        <span class="break_keyword_pill break_keyword_pill_rose">GLASTING MELTING BALM</span>
+                        <span class="break_keyword_pill break_keyword_pill_blue break_keyword_pill_ink">BARE WATER CUSHION</span>
+                        <span class="break_keyword_pill break_keyword_pill_blush">SLIDE IN SINGLE</span>
+                        <span class="break_keyword_pill break_keyword_pill_lime break_keyword_pill_ink">THE JUICY LASTING TINT</span>
+                        <span class="break_keyword_pill break_keyword_pill_blush">GLASTING COLOR GLOSS</span>
+                        <span class="break_keyword_pill break_keyword_pill_lime break_keyword_pill_blue_text">SLIDE IN SINGLE</span>
+                        <span class="break_keyword_pill break_keyword_pill_rose">GLASTING MELTING BALM</span>
+                        <span class="break_keyword_pill break_keyword_pill_blue break_keyword_pill_ink">BARE WATER CUSHION</span>
+                        <span class="break_keyword_pill break_keyword_pill_blush">SLIDE IN SINGLE</span>
+                        <span class="break_keyword_pill break_keyword_pill_lime break_keyword_pill_ink">THE JUICY LASTING TINT</span>
+                    </div>
+                </div>
+            </div>
+        </section><!-- //.break_section -->
+        <section class="personal_color_section" aria-labelledby="rommate-section-title">
             <div class="section_header">
-                <h2>only romMATE</h2>
-                <p>Not sure what suits you best?<br>Find your personal color in minutes and unlock your perfect
-                    shades.<br>From quick test to curated picks, we’ve got you covered.</p>
+                <h2 id="rommate-section-title">only romMATE</h2>
+                <p>
+                    Not sure what suits you best?<br>
+                    Find your personal color in minutes and unlock your perfect shades.<br>
+                    From quick test to curated picks, we've got you covered.
+                </p>
                 <a href="#" class="btn_secondary">Find my color</a>
             </div>
-            <div class="rommate_product_list">
-                <ul>
-                    <li>JUICY ROLL CHEEK</li>
-                    <li>BACK ME TONE UP CREAM</li>
-                    <li>BETTER THAN CHEEK</li>
-                    <li>SEE THROUGH VEILLIGHTER</li>
-                    <li>BLUR FUDGE TINT</li>
-                    <li>MOOD PEBBLE NAIL</li>
-                    <li>LIP MATE PENCIL</li>
-                    <li>ZERO SUN CLEAN</li>
-                    <li>NU ZERO CUSHION</li>
-                    <li>GLASTING COLOR GLOSS</li>
-                    <li>SLIDE IN SINGLE</li>
-                    <li>GLASTING MELTING BALM</li>
-                    <li>BARE WATER CUSHION</li>
-                    <li>SLIDE IN SINGLE</li>
-                    <li>THEJUICY LASTING TINT</li>
-                    <li>THEJUICY LASTING TINT</li>
-                </ul>
-            </div>
         </section>
-
-        <!-- Pink Office Section -->
-        <section class="pink_office_section">
+        <section class="pink_office_section" aria-labelledby="pink-office-title">
             <div class="section_header">
                 <span class="badge">Get Your Swatch!</span>
-                <h2>PINK OFFICE</h2>
-                <p>It's not just makeup.<br>Discover your true colors and find the shades that suit you.<br>Explore, try
-                    and get your swatch!</p>
+                <h2 id="pink-office-title">PINK OFFICE</h2>
+                <p>
+                    It's not just makeup.<br>
+                    Discover your true colors and find the shades that suit you.<br>
+                    Explore, try and get your swatch!
+                </p>
                 <h3>Even the Same Color<br>Expressed Your Way</h3>
             </div>
-            <div class="swatch_product_list">
-                <div class="product_item"><img src="img/prod_ph.png" alt="">
+
+            <div class="swatch_product_list" aria-label="Pink office swatch products">
+                <article class="product_item">
+                    <img src="img/prod_ph.png" alt="VOLUME HACK TRIO TOFFEE NUDE">
                     <h3>VOLUME HACK TRIO</h3>
-                    <p>TOFFEE NUDE</p><span><del>$34.00</del> $29.00</span>
-                </div>
-                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <p>TOFFEE NUDE</p>
+                    <span><del>$34.00</del> $29.00</span>
+                </article>
+                <article class="product_item">
+                    <img src="img/prod_ph.png" alt="VOLUME HACK TRIO TOFFEE NUDE">
                     <h3>VOLUME HACK TRIO</h3>
-                    <p>TOFFEE NUDE</p><span><del>$34.00</del> $29.00</span>
-                </div>
-                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <p>TOFFEE NUDE</p>
+                    <span><del>$34.00</del> $29.00</span>
+                </article>
+                <article class="product_item">
+                    <img src="img/prod_ph.png" alt="VOLUME HACK TRIO TOFFEE NUDE">
                     <h3>VOLUME HACK TRIO</h3>
-                    <p>TOFFEE NUDE</p><span><del>$34.00</del> $29.00</span>
-                </div>
-                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <p>TOFFEE NUDE</p>
+                    <span><del>$34.00</del> $29.00</span>
+                </article>
+                <article class="product_item">
+                    <img src="img/prod_ph.png" alt="VOLUME HACK TRIO TOFFEE NUDE">
                     <h3>VOLUME HACK TRIO</h3>
-                    <p>TOFFEE NUDE</p><span><del>$34.00</del> $29.00</span>
-                </div>
-                <div class="product_item"><img src="img/prod_ph.png" alt="">
+                    <p>TOFFEE NUDE</p>
+                    <span><del>$34.00</del> $29.00</span>
+                </article>
+                <article class="product_item">
+                    <img src="img/prod_ph.png" alt="VOLUME HACK TRIO TOFFEE NUDE">
                     <h3>VOLUME HACK TRIO</h3>
-                    <p>TOFFEE NUDE</p><span><del>$34.00</del> $29.00</span>
-                </div>
+                    <p>TOFFEE NUDE</p>
+                    <span><del>$34.00</del> $29.00</span>
+                </article>
             </div>
         </section>
     </main>
