@@ -9,8 +9,18 @@
 
 /* 태블릿 */
 @media screen and (max-width:1024px) {
+    .sns_card.is_active .sns_product_list_panel {
+        bottom: auto;
+    }
+
     .hero_section {
+        min-height: calc(70vh + 180px);
         padding: 120px 32px 200px !important;
+    }
+
+    .hero_section svg {
+        bottom: -120px;
+        height: 220px;
     }
 
     .animation_area {
@@ -79,6 +89,114 @@
         font-size: clamp(20px, 2.5vw, 28px);
     }
 
+    .personal_color_section {
+        min-height: 620px;
+        justify-content: center;
+        padding: 72px 48px;
+    }
+
+    .personal_color_content {
+        width: min(100%, 760px);
+        padding-right: 0;
+    }
+
+    .personal_color_content h2 {
+        font-size: clamp(44px, 5vw, 60px);
+    }
+
+    .personal_color_content p {
+        font-size: clamp(18px, 2vw, 24px);
+    }
+
+    .personal_color_bg img {
+        object-position: 34% center;
+    }
+
+    .pink_office_section {
+        padding: 92px 24px 110px;
+    }
+
+    .pink_office_intro {
+        margin-bottom: 32px;
+    }
+
+    .pink_office_badge {
+        font-size: 16px;
+    }
+
+    .pink_office_door_link {
+        left: 15.4%;
+        top: 59.6%;
+        width: 15.4%;
+        height: 23.2%;
+    }
+
+    .pink_office_hover_circle {
+        width: 88px;
+        height: 88px;
+    }
+
+    .sns_section {
+        padding: 96px 0 110px;
+    }
+
+    .sns_stage {
+        width: min(100% - 32px, 1680px);
+        padding-top: 78px;
+        padding-bottom: 72px;
+        border-radius: 0 0 72px 72px;
+    }
+
+    .sns_carousel {
+        gap: 14px;
+        padding: 42px 20px 0;
+    }
+
+    .sns_swipe_arrow {
+        flex-basis: 48px;
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+    }
+
+    .sns_track {
+        grid-auto-columns: 252px;
+        gap: 28px;
+        padding-inline: max(24px, calc(50vw - 168px));
+    }
+
+    .sns_card {
+        width: 252px;
+        height: 650px;
+    }
+
+    .sns_card.is_active {
+        transform: scale(1);
+    }
+
+    .sns_video_shell video {
+        width: 252px;
+        height: 446px;
+    }
+
+    .sns_card.is_active .sns_video_shell video {
+        width: 316px;
+        height: 559px;
+    }
+
+    .sns_card.is_active .sns_video_shell {
+        width: 316px;
+    }
+
+    .sns_card.is_active .sns_product_bar {
+        width: 290px;
+        bottom: 34px;
+    }
+
+    .sns_quick_panel {
+        width: min(680px, 100vw);
+    }
+
     .workflow_steps_counter {
         top: 18vh;
         left: 50%;
@@ -106,12 +224,18 @@
 }
 
 @media screen and (max-width:768px) {
+    .sns_card.is_active .sns_product_list_panel {
+        bottom: auto;
+    }
+
     .hero_section {
-        padding: 96px 24px 170px !important;
+        min-height: calc(68vh + 150px);
+        padding: 96px 24px 180px !important;
     }
 
     .hero_section svg {
-        height: 140px;
+        bottom: -82px;
+        height: 160px;
     }
 
     .hero_title {
@@ -188,6 +312,234 @@
         min-height: 56px;
         padding: 12px 22px;
         font-size: clamp(16px, 4.8vw, 22px);
+    }
+
+    .personal_color_section {
+        min-height: 460px;
+        padding: 56px 20px;
+    }
+
+    .personal_color_content h2 {
+        font-size: clamp(30px, 8.8vw, 44px);
+        line-height: 1.16;
+    }
+
+    .personal_color_content p {
+        margin-top: 18px;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .personal_color_btn {
+        margin-top: 30px;
+        padding: 15px 30px;
+        font-size: 16px;
+    }
+
+    .personal_color_bg img {
+        object-position: 27% center;
+    }
+
+    .pink_office_section {
+        padding: 72px 12px 84px;
+    }
+
+    .pink_office_badge {
+        margin-bottom: 14px;
+        font-size: 14px;
+    }
+
+    .pink_office_intro h2 {
+        font-size: clamp(34px, 10vw, 48px);
+    }
+
+    .pink_office_intro p {
+        margin-top: 14px;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .pink_office_intro br {
+        display: none;
+    }
+
+    .pink_office_door_link {
+        left: 15%;
+        top: 59.4%;
+        width: 16.6%;
+        height: 24.2%;
+    }
+
+    .pink_office_hover_circle {
+        width: 62px;
+        height: 62px;
+    }
+
+    .sns_section {
+        padding: 72px 0 84px;
+    }
+
+    .sns_stage {
+        width: calc(100% - 16px);
+        padding-top: 54px;
+        padding-bottom: 42px;
+        border-radius: 0 0 44px 44px;
+    }
+
+    .sns_stage::before {
+        inset: 0;
+        border-radius: inherit;
+    }
+
+    .sns_section_header h2 {
+        font-size: clamp(32px, 9.2vw, 52px);
+    }
+
+    .sns_carousel {
+        gap: 10px;
+        padding: 28px 12px 34px;
+    }
+
+    .sns_swipe_arrow {
+        display: none;
+    }
+
+    .sns_track {
+        grid-auto-columns: 212px;
+        gap: 18px;
+        padding-inline: max(16px, calc(50vw - 132px));
+    }
+
+    .sns_card {
+        width: 212px;
+        height: 546px;
+    }
+
+    .sns_card.is_active {
+        transform: scale(1);
+    }
+
+    .sns_video_shell {
+        border-radius: 18px;
+    }
+
+    .sns_card.is_active .sns_video_shell {
+        border-radius: 20px;
+    }
+
+    .sns_video_shell video {
+        width: 212px;
+        height: 375px;
+    }
+
+    .sns_card.is_active .sns_video_shell video {
+        width: 264px;
+        height: 467px;
+    }
+
+    .sns_card.is_active .sns_video_shell {
+        width: 264px;
+    }
+
+    .sns_card.is_active .sns_product_bar {
+        left: 50%;
+        bottom: 12px;
+        width: calc(100% - 18px);
+        max-width: none;
+    }
+
+    .sns_product_bar {
+        grid-template-columns: 38px minmax(0, 1fr) auto;
+        column-gap: 8px;
+        min-height: 34px;
+        padding: 6px 8px;
+        border-radius: 12px;
+    }
+
+    .sns_product_thumb {
+        width: 38px;
+        min-height: 28px;
+    }
+
+    .sns_product_thumb img {
+        max-height: 28px;
+    }
+
+    .sns_product_info h3 {
+        font-size: 8px;
+    }
+
+    .sns_product_info p {
+        font-size: 7px;
+        margin-top: 1px;
+    }
+
+    .sns_price_row {
+        gap: 6px;
+        margin-top: 2px;
+    }
+
+    .sns_price_current {
+        font-size: 8px;
+    }
+
+    .sns_price_before {
+        font-size: 7px;
+    }
+
+    .sns_card.is_active .sns_expand_btn,
+    .sns_card.is_active .sns_quick_btn {
+        width: 26px;
+        height: 26px;
+    }
+
+    .sns_card.is_active .sns_expand_btn svg {
+        width: 10px;
+        height: 10px;
+    }
+
+    .sns_card.is_active .sns_quick_btn span {
+        font-size: 20px;
+    }
+
+    .sns_product_actions {
+        gap: 6px;
+    }
+
+    .sns_product_list_item {
+        grid-template-columns: 28px minmax(0, 1fr) auto;
+        gap: 6px;
+        min-height: 34px;
+        padding: 5px 6px;
+    }
+
+    .sns_product_list_item img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .sns_product_list_text strong,
+    .sns_product_list_price {
+        font-size: 9px;
+    }
+
+    .sns_product_list_text span {
+        font-size: 8px;
+    }
+
+    .sns_quick_panel_header {
+        min-height: 62px;
+        padding: 0 16px;
+    }
+
+    .sns_quick_panel_header h3 {
+        font-size: 17px;
+    }
+
+    .sns_quick_close {
+        width: 38px;
+        height: 38px;
+        font-size: 22px;
     }
 
     .workflow_steps_section {
