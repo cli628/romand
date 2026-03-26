@@ -37,22 +37,24 @@ body>link {
 /* wave section */
 .hero_section {
     width: 100%;
-    min-height: calc(70vh + 220px);
+    min-height: calc(30vh + 220px);
     position: relative;
     background: var(--gr-color3);
     text-align: center;
-    padding: 50px 40px 260px;
+    padding: 50px 40px;
     overflow: visible;
+    z-index: 1;
 }
 
 .hero_section svg {
     position: absolute;
     left: 0;
-    bottom: -150px;
+    bottom: -350px;
     width: 100%;
-    height: 280px;
+    height: 400px;
     display: block;
     pointer-events: none;
+    z-index: 3;
 }
 
 .hero_section svg path {
@@ -76,7 +78,7 @@ pattern.img1 {
 
 .new_section .section_header {
     text-align: center;
-    padding: 250px;
+    padding: 250px 0;
     /* Space above */
 }
 
@@ -86,17 +88,17 @@ pattern.img1 {
     background-color: var(--g-color7);
     color: var(--white);
     padding: 5px 20px;
-    border-radius: var(--round5);
-    font-size: 14px;
-    font-weight: 700;
-    margin: 80px 0;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: 300;
+    margin: 70px 0;
     letter-spacing: 1px;
 }
 
 .new_section .section_header h2 {
     font-family: var(--font-poppins);
-    font-size: 56px;
-    font-weight: 400;
+    font-size: 90px;
+    font-weight: 300;
     color: var(--g-color7);
     line-height: 1.25;
     margin-bottom: 30px;
@@ -106,14 +108,18 @@ pattern.img1 {
     background-color: var(--p-color5);
     color: var(--white);
     padding: 0px 15px;
-    line-height: 40px;/
+    width:  100%;
+    font-weight: 500;
 }
 
 .new_section .section_header .highlight_blue {
     color: var(--b-color2);
-    font-weight: 300;
+    font-weight: 400;
+    letter-spacing: -5px;
 }
-
+.new_section .section_header strong {
+    font-weight: 500;
+}
 .new_section .section_header p {
     color: var(--g-color6);
     font-size: 16px;
@@ -1341,6 +1347,8 @@ body.sns_quick_locked {
 .new_section {
     position: relative;
     padding-bottom: 180px;
+    margin-top: -200px;
+    padding-top: 200px;
 }
 
 /* 애니 스크롤 핀 지점때문에 마진 줌 */
@@ -1365,11 +1373,18 @@ body.sns_quick_locked {
     width: 140px;
     text-align: center;
     transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.floating_item.is-open {
+    z-index: 60;
 }
 
 .floating_item img {
     width: 200px;
     object-fit: cover;
+    position: relative;
+    z-index: 1;
 }
 
 .floating_item span {
@@ -1381,6 +1396,156 @@ body.sns_quick_locked {
     padding: 5px 10px;
     border-radius: 15px;
 }
+
+/* ===== Product Card ===== */
+.product_card {
+    position: relative;
+    width: 170px;
+    z-index: 20;
+    transition: none;
+
+}
+
+.product_card.is-open {
+    width: 400px;
+    z-index: 40;
+}
+
+.product_card_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 170px;
+    background: rgba(50, 50, 50, 0.3);
+    backdrop-filter: blur(10px);
+    color: var(--white);
+    border-radius: 15px;
+    padding: 9px 12px 9px 18px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: border-radius 0.05s ease;
+    width: 100%;
+    transform-origin: center bottom;
+    position: relative;
+    z-index: 20;
+}
+
+.product_card_header strong {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.product_card.is-open .product_card_header {
+    border-radius: 14px 14px 0 0;
+}
+
+.product_card_arrow {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    line-height: 18px;
+    color: var(--white);
+}
+
+.product_card.is-open .product_card_arrow {
+    transform: rotate(-180deg);
+    color: var(--white);
+}
+
+.product_card_body {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    flex-direction: row;
+    gap: 14px;
+    background: rgba(50, 50, 50, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 0 0 14px 14px;
+    padding: 14px 16px;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 30;
+    transition: opacity 0.15s ease;
+}
+
+.product_card.is-open .product_card_body {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.product_card_info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    position: relative;
+    z-index: 50;
+
+}
+
+.product_card_info ul {
+    list-style: disc;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+    align-items: flex-start;
+}
+
+.product_card_info ul li {
+    font-size: 12px;
+    color: #ddd;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.product_card_shop_btn {
+    display: inline-block;
+    background: #fff;
+    color: #2a2b30;
+    border-radius: 999px;
+    padding: 7px 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    align-self: flex-start;
+    transition: background 0.2s;
+}
+
+.product_card_shop_btn:hover {
+    background: var(--gr-color3);
+}
+
+.product_card_detail_img {
+    width: 114px;
+    height: 171px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    align-self: stretch;
+    position: relative;
+    z-index: 1;
+}
+
+.product_card_detail_img img {
+    width: 114px;
+    height: 171px;
+    object-fit: cover;
+}
+
+/* ===== 제품별 포지션 Floating Item Positions ===== */
 
 .floating_item.item1 {
     top: 10%;
@@ -1409,35 +1574,31 @@ body.sns_quick_locked {
 
 .shopping_bag_container {
     position: absolute;
-    bottom: 0px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    z-index: 3;
+    pointer-events: none;
 }
 /* Shopping Bag Container */
-.shopping_bag_container .bag_back {
+.shopping_bag_container .bag_back,
+.shopping_bag_container .bag_front {
     position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+    top: 550px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 700px;
     pointer-events: none;
 }
 
-.shopping_bag_container .bag_front {
-    position: absolute;
-    bottom: -720px;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    text-align: center;
-}
+.shopping_bag_container .bag_back { z-index: 1; }
+.shopping_bag_container .bag_front { z-index: 3; }
 
+.shopping_bag_container .bag_back img,
 .shopping_bag_container .bag_front img {
-    width: 552px;
-    object-fit: cover;
+    display: block;
+    width: 700px;
 }
 
 /* Best Section Rail styles */
@@ -1446,7 +1607,6 @@ body.sns_quick_locked {
     width: 100%;
     height: 100vh;
     min-height: 900px;
-    /* overflow: hidden; */
     z-index: 20;
     isolation: isolate;
     background: var(--white);
@@ -1472,59 +1632,63 @@ body.sns_quick_locked {
 .best_section .section_header.right_align {
     position: absolute;
     z-index: 10;
-    text-align: right;
-    max-width: 1400px;
-    width: 100%;
-    height: 500px;
-    bottom: 250px;
-    right: 13%;
+    right: 96px;
+    bottom: 260px;
+    width: min(46vw, 760px);
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: flex-end;
+    text-align: right;
+    gap: 26px;
+    
 }
 
 .best_section .section_header.right_align .badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 92px;
-    min-height: 34px;
-    margin-bottom: 18px;
-    padding: 4px 18px;
-    border-radius: 999px;
-    background: #2f3036;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 600;
+    min-width: 94px;
+    height: 42px;
+    margin-left: auto;
+    padding: 6px 18px;
+    border-radius: 12px;
+    background: #2e3035;
+    color: var(--white);
+    font-size: 24px;
+    font-weight: 400;
     letter-spacing: 0.08em;
+    line-height: 30px;
+
 }
 
 .best_section .section_header h2 {
-    font-size: 90px;
+    margin: 0;
+    font-size: clamp(72px, 5.8vw, 104px);
     font-weight: 300;
-    color: var(--g-color7);
-    padding-bottom: 160px;
+    color: #2f3137;
+    line-height: 0.95;
+    letter-spacing: -0.05em;
 }
 
 .best_section .section_header p {
-    font-size: 18px;
-    margin-top: 20px;
-    color: var(--g-color6);
-   flex: 1;
-}
-.best_section .section_header span:not(.badge) {
-    background: var(--g-color8);
-    font-size: 24px;
-    font-weight: 100;
-    color: var(--white);
-    padding: 2px 20px;
-    border-radius: 8px;
+    width: min(100%, 760px);
+    margin: 8px 0 0;
+    font-size: clamp(16px, 1.2vw, 28px);
+    color: #4f545e;
+    line-height: 1.36;
+    letter-spacing: -0.02em;
+    text-align: center;
+    text-align: end;
+    font-family: var(--font-quicksand);
 }
 
 .best_section .section_header strong{
-    font-size: 80px;
+    font-size: inherit;
     font-weight: 500;
+    color: #2f3137;
 
+}
+
+.best_section .section_header h2 .best_title_accent {
+    color: #e977a4;
+    font-weight: 300;
 }
 .rail_track {
     position: absolute;
@@ -1623,7 +1787,7 @@ body.sns_quick_locked {
     position: relative;
     width: 100%;
     height: 100vh;
-    overflow: hidden;
+    overflow: visible;
     background-color: var(--white);
     color: var(--g-color8);
     z-index: 1;
@@ -1704,6 +1868,7 @@ body.sns_quick_locked {
     flex-direction: column;
     gap: 0;
     perspective: 1200px;
+    transform-style: preserve-3d; /* GSAP transform 적용 시에도 자식의 3D flip 유지 */
     pointer-events: auto;
     transform-origin: center center;
     will-change: transform, opacity;
