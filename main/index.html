@@ -12,6 +12,8 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <!-- 폰트어썸 - 안쓰시면 삭제 -->
     <script src="https://kit.fontawesome.com/193fa424cf.js" crossorigin="anonymous"></script>
+    <!-- Segoe UI 폰트 -->
+    <link rel="stylesheet" href="https://use.typekit.net/dqm4oyw.css">
     <!-- 슬라이더 - 안쓰시면 삭제-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
     <!-- gsap - 안쓰시면 삭제 -->
@@ -79,20 +81,20 @@
                         <span>Romand Glasting Melting Balm #Original</span>
                     </article>
                     <article class="floating_item item2">
-                        <img src="img/new_brow.png" alt="Romand Hanol Brow Airbag">
-                        <span>Romand Hanol Brow Airbag</span>
+                        <img src="img/new_brow.png" alt="Romand Hanol Brow Cara Single Item #ALL">
+                        <span>Romand Hanol Brow Cara Single Item #ALL</span>
                     </article>
                     <article class="floating_item item3">
-                        <img src="img/new_cushion.png" alt="Bare Water Cushion">
-                        <span>Bare Water Cushion</span>
+                        <img src="img/new_cushion.png" alt="Romand Bare Water Cushion #Porcelain">
+                        <span>Romand Bare Water Cushion #Porcelain</span>
                     </article>
                     <article class="floating_item item4">
-                        <img src="img/new_shadow.png" alt="Slide In Single">
-                        <span>Slide In Single</span>
+                        <img src="img/new_shadow.png" alt="Romand Better Than Palette #SpringFever">
+                        <span>Romand Better Than Palette #SpringFever</span>
                     </article>
                     <article class="floating_item item5">
-                        <img src="img/new_gloss.png" alt="The Juicy Lasting Tint">
-                        <span>The Juicy Lasting Tint</span>
+                        <img src="img/new_gloss.png" alt="Romand Glasting Color Gloss #PeonyBallet">
+                        <span>Romand Glasting Color Gloss #PeonyBallet</span>
                     </article>
                 </div>
                 <div class="shopping_bag_container" aria-hidden="true">
@@ -105,12 +107,12 @@
         </section>
         <section class="best_section" aria-labelledby="best-section-title">
             <div class="best_bg" aria-hidden="true">
-                <video src="img/best_vid.mp4" autoplay muted loop playsinline></video>
+                <video src="img/best_vid.mp4" muted playsinline cover preload="auto"></video>
             </div>
 
             <div class="section_header right_align">
                 <span class="badge">BEST</span>
-                <h2 id="best-section-title">Your Taste<br>Our Beauty</h2>
+                <h2 id="best-section-title"><strong>Your</strong> Taste<br><strong>Our</strong> Beauty</h2>
                 <p>
                     Take a look at our most popular beauty picks.<br>
                     These bestselling products continue to win the<br>
@@ -173,7 +175,7 @@
 
                     <div class="outlet_product_carousel">
                         <button class="outlet_swipe_arrow outlet_swipe_arrow_left" type="button" aria-label="Show previous outlet products">
-                            <span aria-hidden="true">&larr;</span>
+                            <span aria-hidden="true"><i class="fa-solid fa-angle-left"></i></span>
                         </button>
                         <div class="outlet_product_swipe" aria-label="Outlet products" tabindex="0">
                             <div class="outlet_product_track">
@@ -202,10 +204,20 @@
                                     <h3>Dewy ful Water Tint</h3>
                                     <p>06 Thulian</p>
                                 </article>
+                                <article class="product_item outlet_product_item outlet_product_item_tint">
+                                    <img src="img/outlet_duwy02.png" alt="Dewy ful Water Tint 06 Thulian">
+                                    <h3>Dewy ful Water Tint</h3>
+                                    <p>06 Thulian</p>
+                                </article>
+                                <article class="product_item outlet_product_item outlet_product_item_tint">
+                                    <img src="img/outlet_duwy02.png" alt="Dewy ful Water Tint 06 Thulian">
+                                    <h3>Dewy ful Water Tint</h3>
+                                    <p>06 Thulian</p>
+                                </article>
                             </div>
                         </div>
                         <button class="outlet_swipe_arrow outlet_swipe_arrow_right" type="button" aria-label="Show next outlet products">
-                            <span aria-hidden="true">&rarr;</span>
+                            <span aria-hidden="true"><i class="fa-solid fa-angle-right"></i></span>
                         </button>
                     </div>
                 </div>
@@ -384,7 +396,7 @@
                         <span class="break_keyword_pill break_keyword_pill_lime break_keyword_pill_blue_text">SLIDE IN SINGLE</span>
                         <span class="break_keyword_pill break_keyword_pill_rose">GLASTING MELTING BALM</span>
                         <span class="break_keyword_pill break_keyword_pill_blue break_keyword_pill_ink">BARE WATER CUSHION</span>
-                        <span class="break_keyword_pill break_keyword_pill_blush">SLIDE IN SINGLE</span>
+                        word_pill break_keyword_pill_blush">SLIDE IN SINGLE</span>
                         <span class="break_keyword_pill break_keyword_pill_lime break_keyword_pill_ink">THE JUICY LASTING TINT</span>
                         <span class="break_keyword_pill break_keyword_pill_blush">GLASTING COLOR GLOSS</span>
                         <span class="break_keyword_pill break_keyword_pill_lime break_keyword_pill_blue_text">SLIDE IN SINGLE</span>
@@ -397,61 +409,313 @@
             </div>
         </section><!-- //.break_section -->
         <section class="personal_color_section" aria-labelledby="rommate-section-title">
-            <div class="section_header">
-                <h2 id="rommate-section-title">only romMATE</h2>
+            <div class="personal_color_bg" aria-hidden="true">
+                <img src="img/personal.png" alt="">
+            </div>
+            <div class="personal_color_overlay"></div>
+            <div class="personal_color_content">
+                <h2 id="rommate-section-title">Not sure <strong>what suits you best?</strong></h2>
                 <p>
-                    Not sure what suits you best?<br>
                     Find your personal color in minutes and unlock your perfect shades.<br>
                     From quick test to curated picks, we've got you covered.
                 </p>
-                <a href="#" class="btn_secondary">Find my color</a>
+                <a href="#" class="btn_secondary personal_color_btn">Find my color</a>
             </div>
         </section>
         <section class="pink_office_section" aria-labelledby="pink-office-title">
-            <div class="section_header">
-                <span class="badge">Get Your Swatch!</span>
-                <h2 id="pink-office-title">PINK OFFICE</h2>
+            <div class="pink_office_intro">
+                <span class="pink_office_badge">Get Your Swatch!</span>
+                <h2 id="pink-office-title"><span>PINK</span> OFFICE</h2>
                 <p>
                     It's not just makeup.<br>
                     Discover your true colors and find the shades that suit you.<br>
                     Explore, try and get your swatch!
                 </p>
-                <h3>Even the Same Color<br>Expressed Your Way</h3>
             </div>
-
-            <div class="swatch_product_list" aria-label="Pink office swatch products">
-                <article class="product_item">
-                    <img src="img/prod_ph.png" alt="VOLUME HACK TRIO TOFFEE NUDE">
-                    <h3>VOLUME HACK TRIO</h3>
-                    <p>TOFFEE NUDE</p>
-                    <span><del>$34.00</del> $29.00</span>
-                </article>
-                <article class="product_item">
-                    <img src="img/prod_ph.png" alt="VOLUME HACK TRIO TOFFEE NUDE">
-                    <h3>VOLUME HACK TRIO</h3>
-                    <p>TOFFEE NUDE</p>
-                    <span><del>$34.00</del> $29.00</span>
-                </article>
-                <article class="product_item">
-                    <img src="img/prod_ph.png" alt="VOLUME HACK TRIO TOFFEE NUDE">
-                    <h3>VOLUME HACK TRIO</h3>
-                    <p>TOFFEE NUDE</p>
-                    <span><del>$34.00</del> $29.00</span>
-                </article>
-                <article class="product_item">
-                    <img src="img/prod_ph.png" alt="VOLUME HACK TRIO TOFFEE NUDE">
-                    <h3>VOLUME HACK TRIO</h3>
-                    <p>TOFFEE NUDE</p>
-                    <span><del>$34.00</del> $29.00</span>
-                </article>
-                <article class="product_item">
-                    <img src="img/prod_ph.png" alt="VOLUME HACK TRIO TOFFEE NUDE">
-                    <h3>VOLUME HACK TRIO</h3>
-                    <p>TOFFEE NUDE</p>
-                    <span><del>$34.00</del> $29.00</span>
-                </article>
+            <div class="pink_office_visual">
+                <img src="img/pinkoffice.png" alt="Pink Office exterior view">
+                <a href="../pinkoffice/pinkoffice.html" class="pink_office_door_link" aria-label="Go to Pink Office page">
+                    <span class="pink_office_hover_circle" aria-hidden="true">go!</span>
+                </a>
             </div>
         </section>
+        <section class="sns_section">
+            <div class="sns_stage">
+                <div class="sns_section_header">
+                    <h2>
+                        <p>Even the Same Color</p>
+                        <span>Expressed</span> <strong>Your Way</strong>
+                    </h2>
+                </div>
+
+                <div class="sns_carousel">
+                    <!-- <button class="sns_swipe_arrow sns_swipe_arrow_left" type="button" aria-label="Show previous social videos">
+                        <span aria-hidden="true"><i class="fa-solid fa-angle-left"></i></span>
+                    </button> -->
+                    <div class="sns_swipe" aria-label="Social video showcase" tabindex="0">
+                        <div class="sns_track">
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video01.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>TOFFEE NUDE</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video02.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>TOFFEE NUDE</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video03.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>Mocha Mousse</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video04.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>TOFFEE NUDE</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video05.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>TOFFEE NUDE</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video06.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>TOFFEE NUDE</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video07.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>TOFFEE NUDE</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video08.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>TOFFEE NUDE</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video09.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>TOFFEE NUDE</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video10.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>TOFFEE NUDE</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video11.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>TOFFEE NUDE</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+                            <article class="sns_card">
+                                <div class="sns_video_shell">
+                                    <video src="img/sns_video10.mp4" muted loop playsinline autoplay></video>
+                                </div>
+                                <div class="sns_product_bar">
+                                    <div class="sns_product_thumb">
+                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                    </div>
+                                    <div class="sns_product_info">
+                                        <h3>VOLUME HACK TRIO</h3>
+                                        <p>TOFFEE NUDE</p>
+                                        <span>$29.00 <del>$34.00</del></span>
+                                    </div>
+                                    <button class="sns_quick_btn" type="button" data-quick-src="../quick/quick.html">Quick view</button>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <!-- <button class="sns_swipe_arrow sns_swipe_arrow_right" type="button" aria-label="Show next social videos">
+                        <span aria-hidden="true"><i class="fa-solid fa-angle-right"></i></span>
+                    </button> -->
+                </div>
+            </div>
+        </section>
+
+        <div class="sns_quick_modal" aria-hidden="true">
+        <link rel="stylesheet" href="css/quick.css">
+        </div>
+
+        <template id="sns-product-bar-template">
+            <div class="sns_product_thumb">
+                <img src="img/sns_video02_lip01.png" alt="">
+            </div>
+            <div class="sns_product_info">
+                <h3></h3>
+                <p></p>
+                <div class="sns_price_row">
+                    <span class="sns_price_current"></span>
+                    <span class="sns_price_before"></span>
+                </div>
+            </div>
+            <div class="sns_product_actions">
+                <button class="sns_expand_btn" type="button" aria-label="Show products used in this video" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M5 14.5 12 7.5l7 7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                    </svg>
+                </button>
+                <a class="sns_quick_btn" href="../quick/quick.html" aria-label="Open quick shop">
+                    <span aria-hidden="true">+</span>
+                </a>
+            </div>
+            <div class="sns_product_list_panel">
+                <div class="sns_product_list_inner">
+                    <div class="sns_product_list">
+                        <div class="sns_product_list_item">
+                            <img src="img/sns_video02_lip01.png" alt="">
+                            <div class="sns_product_list_text">
+                                <strong></strong>
+                                <span></span>
+                            </div>
+                            <span class="sns_product_list_price"></span>
+                        </div>
+                        <div class="sns_product_list_item">
+                            <img src="img/sns_video02_lip01.png" alt="LIP MATE PENCIL">
+                            <div class="sns_product_list_text">
+                                <strong>LIP MATE PENCIL</strong>
+                                <span>Soft contour line</span>
+                            </div>
+                            <span class="sns_product_list_price">$12.00</span>
+                        </div>
+                        <div class="sns_product_list_item">
+                            <img src="img/sns_video02_lip01.png" alt="GLASTING COLOR GLOSS">
+                            <div class="sns_product_list_text">
+                                <strong>GLASTING COLOR GLOSS</strong>
+                                <span>Glow finishing layer</span>
+                            </div>
+                            <span class="sns_product_list_price">$14.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
     </main>
 
 </html>

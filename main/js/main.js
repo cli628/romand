@@ -57,11 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
             (
                 34 * primaryWave +
                 14 * secondaryWave +
-                10 * tertiaryWave +
+                15 * tertiaryWave +
                 /* 웨이브 높이 */
-                12 * detailWaveA +
+                20 * detailWaveA +
                 /* 파동 잘게할지 느슨하게할지 */
-                10 * detailWaveB +
+                30 * detailWaveB +
 
                 9* detailWaveC
             ) *
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 1. GSAP ScrollTriggers implementation for Main Page sections
     // Set up reveals when scrolling down
-    const motionSections = document.querySelectorAll(".main_container section:not(.workflow_steps_section)");
+    const motionSections = document.querySelectorAll(".main_container section:not(.workflow_steps_section):not(.best_section)");
 
     if (heroSection) {
         gsap.set(heroSection, { opacity: 1 });
@@ -205,67 +205,320 @@ document.addEventListener("DOMContentLoaded", () => {
     const floatingItems = document.querySelectorAll(".floating_item");
     const floatingProducts = document.querySelector(".floating_products");
     const shoppingBagFront = document.querySelector(".shopping_bag_container .bag_front");
+    const newSectionHeader = document.querySelector(".new_section .section_header");
+    const NEW_SECTION_BAG_CONFIG = {
+        scrollLengthMultiplier: 6.8,
+        scrub: 5,
+        floatingProductsShiftY: 80,
+        floatingProductsDuration: 12,
+        bagOpenLabelAt: 0.08,
+        bagFrontBottom: -320,
+        bagFrontDuration: 18,
+        headerFadeStartAt: 5.2,
+        headerFadeDuration: 1.4,
+
+        /* 모이기 시작 시간 */
+        gatherStartAt: 3,
+
+        /* 제품 간 간격 */
+        gatherStagger: 1,
+
+        /* 각 단계 속도 */
+        gatherDuration: 1.2,
+
+        /* 봉투로 들어가는 시작 시간 */
+        dropStartAt: 6,
+
+        /* 봉투로 들어가는 간격 */
+        dropStagger: 1,
+
+        /* 각 단계 속도 */
+        dropDuration: 3,
+        
+        /* 제품들이 중간에 모이는 위치 */
+        gatherTargets: [
+            { top: "0%", left: "41%", scale: 1 },
+            { top: "0%", left: "46%", scale: 1 },
+            { top: "0%", left: "50%", scale: 1 },
+            { top: "0%", left: "54%", scale: 1 },
+            { top: "0%", left: "58%", scale: 1 }
+        ],
+        /* 봉투로 들어가는 최종 위치 */
+        dropTarget: { top: "46%", left: "50%", scale: 0.18, opacity: 0.8 },
+        endHoldDuration: 8
+    };
     if (floatingItems.length > 0) {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".animation_area",
                 pin: true,
                 start: "top top",
-                end: () => `+=${Math.round(window.innerHeight * 5.2)}`,
+                end: () => `+=${Math.round(window.innerHeight * NEW_SECTION_BAG_CONFIG.scrollLengthMultiplier)}`,
                 /* 휠 하는만큼 이동 */
-                scrub: 4,
+                scrub: NEW_SECTION_BAG_CONFIG.scrub,
                 anticipatePin: 0.1
             }
         });
 
         if (floatingProducts) {
             tl.to(floatingProducts, {
-                y: 120,
-                duration: 22,
+                y: NEW_SECTION_BAG_CONFIG.floatingProductsShiftY,
+                duration: NEW_SECTION_BAG_CONFIG.floatingProductsDuration,
                 ease: "power1.inOut"
             }, 0);
         }
 
-        tl.addLabel("productsGather", .02);
+        tl.addLabel("bagOpen", NEW_SECTION_BAG_CONFIG.bagOpenLabelAt);
 
         if (shoppingBagFront) {
             tl.to(shoppingBagFront, {
-                bottom: -500,
-                duration: 24,
+                bottom: NEW_SECTION_BAG_CONFIG.bagFrontBottom,
+                duration: NEW_SECTION_BAG_CONFIG.bagFrontDuration,
                 ease: "power2.out"
-            }, "productsGather");
+            }, "bagOpen");
         }
 
-        tl.to(floatingItems, {
-            top: "5%",
-            left: "50%",
-            scale: 0.86,
-            opacity: 1,
-            duration: 26,
-            ease: "power1.inOut"
-        }, 0);
+        if (newSectionHeader) {
+            tl.to(newSectionHeader, {
+                opacity: 0,
+                y: -24,
+                duration: NEW_SECTION_BAG_CONFIG.headerFadeDuration,
+                ease: "power1.out"
+            }, NEW_SECTION_BAG_CONFIG.headerFadeStartAt);
+        }
 
-        tl.to(floatingItems, {
-            top: "calc(30% + 50px)",
-            duration: 14,
-            scale: 0.5,
-            opacity: 0,
-            ease: "power2.inOut",
-            delay:.5
+        floatingItems.forEach((item, index) => {
+            const gatherTarget = NEW_SECTION_BAG_CONFIG.gatherTargets[index] || NEW_SECTION_BAG_CONFIG.gatherTargets[NEW_SECTION_BAG_CONFIG.gatherTargets.length - 1];
+            const gatherAt = NEW_SECTION_BAG_CONFIG.gatherStartAt + index * NEW_SECTION_BAG_CONFIG.gatherStagger;
+            const dropAt = NEW_SECTION_BAG_CONFIG.dropStartAt + index * NEW_SECTION_BAG_CONFIG.dropStagger;
+
+            tl.to(item, {
+                top: gatherTarget.top,
+                left: gatherTarget.left,
+                scale: gatherTarget.scale,
+                opacity: 1,
+                duration: NEW_SECTION_BAG_CONFIG.gatherDuration,
+                ease: "power2.out"
+            }, gatherAt);
+
+            tl.to(item, {
+                top: NEW_SECTION_BAG_CONFIG.dropTarget.top,
+                left: NEW_SECTION_BAG_CONFIG.dropTarget.left,
+                scale: NEW_SECTION_BAG_CONFIG.dropTarget.scale,
+                opacity: NEW_SECTION_BAG_CONFIG.dropTarget.opacity,
+                duration: NEW_SECTION_BAG_CONFIG.dropDuration,
+                ease: "power2.in"
+            }, dropAt);
         });
+
+        tl.to({}, { duration: NEW_SECTION_BAG_CONFIG.endHoldDuration });
     }
+/* 레일 위의 봉투움직임에 맞추는 값 */
+    function initializeBestSectionVideoScrub() {
+        const bestSection = document.querySelector(".best_section");
+        const bestVideo = bestSection?.querySelector(".best_bg video");
+        const bestHeader = bestSection?.querySelector(".section_header");
+        const railTrack = bestSection?.querySelector(".rail_track");
+        const railItems = bestSection ? Array.from(bestSection.querySelectorAll(".rail_item")) : [];
+        const BEST_SECTION_CONFIG = {
+            scrubViewportMultiplier: 14,
+            videoDurationRatio: 0.58,
+            videoEndPadding: 0.1,
+            videoProgressEnd: 0.82,
+            exitStartProgress: 0.8,
+            exitDistanceY: 120,
+            headerExitDistanceY: 90,
+            railItemStagger: 0.1,
+            railItemTravelSpan: 0.58,
+            railSinkStart: 0.8,
+            modalRevealDelay: 0.2,
+            modalRevealSpan: 0.8,
+            lineRevealDelay: 0.1,
+            lineRevealSpan: 0.7,
+            anchors: {
+                start: { x: 0.03, y: 0.16 },
+                middle: { x: 0.18, y: 0.48 },
+                end: { x: 0.22, y: 0.7 }
+            },
+            itemOffsets: [
+                { x: 0, y: 0 },
+                { x: 85, y: 30 },
+                { x: 300, y: 130 }
+            ]
+        };
 
-    // 5. Best Section Rail Animation
-    const railItems = document.querySelectorAll(".rail_item");
-    if (railItems.length > 0) {
-        railItems.forEach((item, index) => {
-            const tl = gsap.timeline({ repeat: -1, delay: index * 4 });
+        if (!bestSection || !bestVideo || !bestHeader || !railTrack || typeof ScrollTrigger === "undefined" || typeof gsap === "undefined") {
+            return;
+        }
 
-            tl.set(item, { x: -300, y: 100 })
-                .to(item, { x: "20vw", y: 300, duration: 4, ease: "none" })
-                .to(item, { x: "40vw", y: 550, duration: 3, ease: "power1.inOut" })
-                .to(item, { x: -300, y: 800, duration: 4, ease: "none" });
-        });
+        bestVideo.pause();
+        bestVideo.removeAttribute("autoplay");
+        bestVideo.removeAttribute("loop");
+        bestVideo.currentTime = 0;
+
+        function setupBestVideoScrub() {
+            const scrubDistance = () => Math.round(window.innerHeight * BEST_SECTION_CONFIG.scrubViewportMultiplier);
+            const scrubDuration = Math.max(
+                BEST_SECTION_CONFIG.videoEndPadding,
+                (bestVideo.duration || BEST_SECTION_CONFIG.videoEndPadding) * BEST_SECTION_CONFIG.videoDurationRatio
+            );
+
+            function getSectionMetrics() {
+                const sectionWidth = bestSection.offsetWidth;
+                const sectionHeight = bestSection.offsetHeight;
+                return {
+                    width: sectionWidth,
+                    height: sectionHeight,
+                    start: {
+                        x: sectionWidth * BEST_SECTION_CONFIG.anchors.start.x,
+                        y: sectionHeight * BEST_SECTION_CONFIG.anchors.start.y
+                    },
+                    middle: {
+                        x: sectionWidth * BEST_SECTION_CONFIG.anchors.middle.x,
+                        y: sectionHeight * BEST_SECTION_CONFIG.anchors.middle.y
+                    },
+                    end: {
+                        x: sectionWidth * BEST_SECTION_CONFIG.anchors.end.x,
+                        y: sectionHeight * BEST_SECTION_CONFIG.anchors.end.y
+                    }
+                };
+            }
+
+            function getItemPosition(metrics, itemIndex, progress) {
+                const offset = BEST_SECTION_CONFIG.itemOffsets[itemIndex] || { x: 0, y: 0 };
+                const start = {
+                    x: metrics.start.x + offset.x,
+                    y: metrics.start.y + offset.y
+                };
+                const middle = {
+                    x: metrics.middle.x + offset.x,
+                    y: metrics.middle.y + offset.y
+                };
+                const end = metrics.end;
+
+                if (progress <= 0.55) {
+                    const localProgress = progress / 0.55;
+                    return {
+                        x: gsap.utils.interpolate(start.x, middle.x, localProgress),
+                        y: gsap.utils.interpolate(start.y, middle.y, localProgress)
+                    };
+                }
+
+                const localProgress = (progress - 0.55) / 0.45;
+                return {
+                    x: gsap.utils.interpolate(middle.x, end.x, localProgress),
+                    y: gsap.utils.interpolate(middle.y, end.y, localProgress)
+                };
+            }
+
+            function updateBestSectionFrame(progress) {
+                const metrics = getSectionMetrics();
+                const videoProgress = gsap.utils.clamp(0, 1, progress / BEST_SECTION_CONFIG.videoProgressEnd);
+                const exitSpan = 1 - BEST_SECTION_CONFIG.exitStartProgress;
+                const exitProgress = gsap.utils.clamp(0, 1, (progress - BEST_SECTION_CONFIG.exitStartProgress) / exitSpan);
+                const introOpacity = 1 - exitProgress;
+                bestVideo.currentTime = scrubDuration * videoProgress;
+
+                gsap.set(bestHeader, {
+                    y: -exitProgress * BEST_SECTION_CONFIG.headerExitDistanceY,
+                    opacity: 1 - exitProgress * 0.9
+                });
+
+                railItems.forEach((item, index) => {
+                    const itemProgress = gsap.utils.clamp(
+                        0,
+                        1,
+                        (videoProgress - index * BEST_SECTION_CONFIG.railItemStagger) / BEST_SECTION_CONFIG.railItemTravelSpan
+                    );
+                    const sinkProgress = gsap.utils.clamp(
+                        0,
+                        1,
+                        (itemProgress - BEST_SECTION_CONFIG.railSinkStart) / (1 - BEST_SECTION_CONFIG.railSinkStart)
+                    );
+                    const position = getItemPosition(metrics, index, itemProgress);
+                    const modal = item.querySelector(".product_modal");
+                    const line = item.querySelector(".connect_line");
+
+                    gsap.set(item, {
+                        x: position.x,
+                        y: position.y,
+                        opacity: gsap.utils.clamp(0, 1, itemProgress * 1.35) * (1 - sinkProgress) * introOpacity,
+                        scale: gsap.utils.interpolate(1, 0.72, sinkProgress)
+                    });
+
+                    if (modal) {
+                        const modalProgress = gsap.utils.clamp(
+                            0,
+                            1,
+                            (itemProgress - BEST_SECTION_CONFIG.modalRevealDelay) / BEST_SECTION_CONFIG.modalRevealSpan
+                        );
+                        gsap.set(modal, {
+                            opacity: modalProgress * (1 - sinkProgress) * introOpacity,
+                            scale: gsap.utils.interpolate(0.88, 1, modalProgress) * gsap.utils.interpolate(1, 0.82, sinkProgress),
+                            y: gsap.utils.interpolate(20, 0, modalProgress) - exitProgress * 24
+                        });
+                    }
+
+                    if (line) {
+                        const lineProgress = gsap.utils.clamp(
+                            0,
+                            1,
+                            (itemProgress - BEST_SECTION_CONFIG.lineRevealDelay) / BEST_SECTION_CONFIG.lineRevealSpan
+                        );
+                        gsap.set(line, {
+                            scaleX: lineProgress,
+                            opacity: lineProgress * 0.9 * (1 - sinkProgress) * introOpacity
+                        });
+                    }
+                });
+
+                gsap.set(railTrack, {
+                    y: -exitProgress * BEST_SECTION_CONFIG.exitDistanceY,
+                    opacity: 1 - exitProgress * 0.82
+                });
+            }
+
+            if (railItems.length) {
+                gsap.set(railItems, { left: 0, top: 0 });
+            }
+
+            const existingTrigger = ScrollTrigger.getById("best_video_scrub");
+            if (existingTrigger) {
+                existingTrigger.kill();
+            }
+
+            ScrollTrigger.create({
+                id: "best_video_scrub",
+                trigger: bestSection,
+                start: "top top",
+                end: () => `+=${scrubDistance()}`,
+                scrub: true,
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onUpdate: (self) => {
+                    bestVideo.pause();
+                    updateBestSectionFrame(self.progress);
+                },
+                onEnter: () => {
+                    bestVideo.pause();
+                    updateBestSectionFrame(0);
+                },
+                onEnterBack: () => {
+                    bestVideo.pause();
+                }
+            });
+
+            updateBestSectionFrame(0);
+        }
+
+        if (bestVideo.readyState >= 1) {
+            setupBestVideoScrub();
+            return;
+        }
+
+        bestVideo.addEventListener("loadedmetadata", setupBestVideoScrub, { once: true });
     }
 
     function initializeOutletSwipe() {
@@ -369,20 +622,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const totalCards = workflowCards.length;
-        const arcAngle = Math.PI * 0.58;
-        const startAngle = Math.PI / 2 - arcAngle / 2;
-
-        function getCardRadius() {
-            if (window.innerWidth < 768) {
-                return window.innerWidth * 0.95;
-            }
-
-            if (window.innerWidth < 1200) {
-                return window.innerWidth * 0.72;
-            }
-
-            return window.innerWidth * 0.52;
-        }
 
         function getCountStepHeight() {
             const firstCount = countTrack.firstElementChild;
@@ -393,20 +632,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const firstCard = workflowCards[0];
             const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : 320;
             const activeCardProgress = progress * (totalCards - 1);
-            const cardGap = cardWidth * 1.02;
-            const focusOffsetX = -window.innerWidth * 0.1;
-            const baseOffsetY = window.innerWidth < 768 ? 24 : 12;
+            const cardGap = cardWidth * (window.innerWidth < 768 ? 0.88 : 0.96);
+            const focusOffsetX = 0;
+            const baseOffsetY = window.innerWidth < 768 ? 12 : 0;
 
             workflowCards.forEach((card, index) => {
                 const relativeIndex = index - activeCardProgress;
                 const distanceFromFocus = Math.abs(relativeIndex);
-                const direction = relativeIndex < 0 ? -1 : 1;
                 const x = focusOffsetX + relativeIndex * cardGap;
-                const y = baseOffsetY + Math.min(distanceFromFocus * 14, 42);
-                const rotation = gsap.utils.clamp(-14, 14, relativeIndex * 4.5);
-                const scale = gsap.utils.clamp(0.84, 1, 1 - distanceFromFocus * 0.06);
-                const cardOpacity = gsap.utils.clamp(0.18, 1, 1 - distanceFromFocus * 0.16);
-                const zIndex = totalCards - Math.round(distanceFromFocus * 10) + (direction < 0 ? 1 : 0);
+                const y = baseOffsetY + Math.min(distanceFromFocus * 20, 56);
+                const rotation = gsap.utils.clamp(-10, 10, relativeIndex * 3.2);
+                const scale = gsap.utils.clamp(0.8, 1, 1 - distanceFromFocus * 0.075);
+                const cardOpacity = gsap.utils.clamp(0.22, 1, 1 - distanceFromFocus * 0.14);
+                const zIndex = totalCards - Math.round(distanceFromFocus * 10);
 
                 gsap.set(card, {
                     x,
@@ -435,7 +673,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: "workflow_steps_trigger",
             trigger: workflowSection,
             start: "top top",
-            end: () => `+=${Math.round(window.innerHeight * 4.5)}`,
+            end: () => `+=${Math.round(window.innerHeight * 5.5)}`,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
@@ -456,6 +694,410 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function initializePinkOfficeDoorHover() {
+        const doorLink = document.querySelector(".pink_office_door_link");
+        const hoverCircle = doorLink?.querySelector(".pink_office_hover_circle");
+
+        if (!doorLink || !hoverCircle) {
+            return;
+        }
+
+        function updateCirclePosition(clientX, clientY) {
+            const rect = doorLink.getBoundingClientRect();
+            const x = ((clientX - rect.left) / rect.width) * 100;
+            const y = ((clientY - rect.top) / rect.height) * 100;
+
+            hoverCircle.style.setProperty("--circle-x", `${x}%`);
+            hoverCircle.style.setProperty("--circle-y", `${y}%`);
+        }
+
+        doorLink.addEventListener("pointerenter", (event) => {
+            updateCirclePosition(event.clientX, event.clientY);
+        });
+
+        doorLink.addEventListener("pointermove", (event) => {
+            updateCirclePosition(event.clientX, event.clientY);
+        });
+
+        doorLink.addEventListener("focus", () => {
+            hoverCircle.style.setProperty("--circle-x", "50%");
+            hoverCircle.style.setProperty("--circle-y", "50%");
+        });
+    }
+
+    function initializeSnsProductBars() {
+        const snsCards = Array.from(document.querySelectorAll(".sns_card"));
+        const productBarTemplate = document.querySelector("#sns-product-bar-template");
+
+        if (!snsCards.length || !productBarTemplate) {
+            return;
+        }
+
+        function setTextContent(element, value) {
+            if (element) {
+                element.textContent = value;
+            }
+        }
+
+        function closeExpandedCards(exceptCard = null) {
+            snsCards.forEach((card) => {
+                if (card === exceptCard) {
+                    return;
+                }
+
+                const productBar = card.querySelector(".sns_product_bar");
+                if (productBar) {
+                    productBar.classList.remove("on");
+                }
+
+                const expandButton = card.querySelector(".sns_expand_btn");
+                if (expandButton) {
+                    expandButton.setAttribute("aria-expanded", "false");
+                }
+            });
+        }
+
+        snsCards.forEach((card) => {
+            const productBar = card.querySelector(".sns_product_bar");
+
+            if (!productBar) {
+                return;
+            }
+
+            const title = productBar.querySelector("h3")?.textContent?.trim() || "VOLUME HACK TRIO";
+            const subtitle = productBar.querySelector("p")?.textContent?.trim() || "TOFFEE NUDE";
+            const priceText = productBar.querySelector("span")?.textContent?.trim() || "$29.00 $34.00";
+            const priceMatch = priceText.match(/\$[\d.]+/g) || ["$29.00", "$34.00"];
+            const currentPrice = priceMatch[0] || "$29.00";
+            const beforePrice = priceMatch[1] || "$34.00";
+            const templateContent = productBarTemplate.content.cloneNode(true);
+            const titleElement = templateContent.querySelector(".sns_product_info h3");
+            const subtitleElement = templateContent.querySelector(".sns_product_info p");
+            const currentPriceElement = templateContent.querySelector(".sns_price_current");
+            const beforePriceElement = templateContent.querySelector(".sns_price_before");
+            const listMainImage = templateContent.querySelector(".sns_product_list_item img");
+            const listMainTitle = templateContent.querySelector(".sns_product_list_text strong");
+            const listMainSubtitle = templateContent.querySelector(".sns_product_list_text span");
+            const listMainPrice = templateContent.querySelector(".sns_product_list_price");
+            const quickButton = templateContent.querySelector(".sns_quick_btn");
+            setTextContent(titleElement, title);
+            setTextContent(subtitleElement, subtitle);
+            setTextContent(currentPriceElement, currentPrice);
+            setTextContent(beforePriceElement, beforePrice);
+
+            if (listMainImage) {
+                listMainImage.alt = title;
+            }
+
+            setTextContent(listMainTitle, title);
+            setTextContent(listMainSubtitle, subtitle);
+            setTextContent(listMainPrice, currentPrice);
+
+            if (quickButton && productBar.dataset.quickSrc) {
+                quickButton.dataset.quickSrc = productBar.dataset.quickSrc;
+            }
+
+            productBar.replaceChildren(templateContent);
+        });
+
+        const expandButtons = document.querySelectorAll(".sns_expand_btn");
+
+        expandButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                const card = button.closest(".sns_card");
+
+                if (!card) {
+                    return;
+                }
+
+                const productBar = card.querySelector(".sns_product_bar");
+                if (!productBar) {
+                    return;
+                }
+
+                const willExpand = !productBar.classList.contains("on");
+                closeExpandedCards();
+
+                if (willExpand) {
+                    productBar.classList.add("on");
+                    button.setAttribute("aria-expanded", "true");
+                    return;
+                }
+
+                productBar.classList.remove("on");
+                button.setAttribute("aria-expanded", "false");
+            });
+        });
+    }
+
+    function initializeSnsSwipe() {
+        const snsSwipe = document.querySelector(".sns_swipe");
+        const leftArrow = document.querySelector(".sns_swipe_arrow_left");
+        const rightArrow = document.querySelector(".sns_swipe_arrow_right");
+        const snsCards = Array.from(document.querySelectorAll(".sns_card"));
+
+        if (!snsSwipe || !snsCards.length) {
+            return;
+        }
+
+        let isPointerDown = false;
+        let startPointerX = 0;
+        let startScrollLeft = 0;
+        let activeCard = null;
+        let activeFrame = 0;
+        let scrollEndTimer = 0;
+
+        function updateSnsArrows() {
+            if (!leftArrow || !rightArrow) {
+                return;
+            }
+
+            const maxScrollLeft = Math.max(0, snsSwipe.scrollWidth - snsSwipe.clientWidth);
+            leftArrow.classList.toggle("is_disabled", snsSwipe.scrollLeft <= 4);
+            rightArrow.classList.toggle("is_disabled", snsSwipe.scrollLeft >= maxScrollLeft - 4);
+        }
+
+        function playActiveVideo(nextActiveCard) {
+            snsCards.forEach((card) => {
+                const video = card.querySelector("video");
+
+                if (!video) {
+                    return;
+                }
+
+                if (card === nextActiveCard) {
+                    video.play().catch(() => {});
+                } else {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            });
+        }
+
+        function getClosestCardToCenter() {
+            const swipeRect = snsSwipe.getBoundingClientRect();
+            const swipeCenter = swipeRect.left + swipeRect.width / 2;
+            let closestCard = snsCards[0];
+            let closestDistance = Number.POSITIVE_INFINITY;
+
+            snsCards.forEach((card) => {
+                const cardRect = card.getBoundingClientRect();
+                const cardCenter = cardRect.left + cardRect.width / 2;
+                const distance = Math.abs(cardCenter - swipeCenter);
+
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestCard = card;
+                }
+            });
+
+            return closestCard;
+        }
+
+        function centerCard(card, behavior = "auto") {
+            if (!card) {
+                return;
+            }
+
+            const cardOffsetLeft = card.offsetLeft;
+            const targetScrollLeft = cardOffsetLeft - (snsSwipe.clientWidth - card.offsetWidth) / 2;
+            const maxScrollLeft = Math.max(0, snsSwipe.scrollWidth - snsSwipe.clientWidth);
+            const nextScrollLeft = gsap.utils.clamp(0, maxScrollLeft, targetScrollLeft);
+
+            if (behavior === "smooth") {
+                snsSwipe.scrollTo({
+                    left: nextScrollLeft,
+                    behavior: "smooth"
+                });
+                return;
+            }
+
+            snsSwipe.scrollLeft = nextScrollLeft;
+        }
+
+        function setActiveCard(nextActiveCard) {
+            if (!nextActiveCard || nextActiveCard === activeCard) {
+                return;
+            }
+
+            activeCard = nextActiveCard;
+            snsCards.forEach((card) => {
+                card.classList.toggle("is_active", card === nextActiveCard);
+                if (card !== nextActiveCard) {
+                    const productBar = card.querySelector(".sns_product_bar");
+                    if (productBar) {
+                        productBar.classList.remove("on");
+                    }
+                    const expandButton = card.querySelector(".sns_expand_btn");
+                    if (expandButton) {
+                        expandButton.setAttribute("aria-expanded", "false");
+                    }
+                }
+            });
+            playActiveVideo(nextActiveCard);
+        }
+
+        function updateActiveCard() {
+            setActiveCard(getClosestCardToCenter());
+        }
+
+        function requestActiveCardUpdate() {
+            if (activeFrame) {
+                return;
+            }
+
+            activeFrame = window.requestAnimationFrame(() => {
+                updateActiveCard();
+                activeFrame = 0;
+            });
+        }
+
+        function scheduleFinalActiveUpdate() {
+            window.clearTimeout(scrollEndTimer);
+            scrollEndTimer = window.setTimeout(() => {
+                updateActiveCard();
+            }, 80);
+        }
+
+        snsSwipe.addEventListener("pointerdown", (event) => {
+            isPointerDown = true;
+            startPointerX = event.clientX;
+            startScrollLeft = snsSwipe.scrollLeft;
+            snsSwipe.classList.add("is_dragging");
+            snsSwipe.setPointerCapture(event.pointerId);
+        });
+
+        snsSwipe.addEventListener("pointermove", (event) => {
+            if (!isPointerDown) {
+                return;
+            }
+
+            const dragDistance = event.clientX - startPointerX;
+            snsSwipe.scrollLeft = startScrollLeft - dragDistance;
+            updateSnsArrows();
+            requestActiveCardUpdate();
+        });
+
+        function releaseSnsSwipe(event) {
+            if (!isPointerDown) {
+                return;
+            }
+
+            isPointerDown = false;
+            snsSwipe.classList.remove("is_dragging");
+
+            if (event.pointerId !== undefined && snsSwipe.hasPointerCapture(event.pointerId)) {
+                snsSwipe.releasePointerCapture(event.pointerId);
+            }
+        }
+
+        snsSwipe.addEventListener("pointerup", releaseSnsSwipe);
+        snsSwipe.addEventListener("pointercancel", releaseSnsSwipe);
+        snsSwipe.addEventListener("pointerleave", releaseSnsSwipe);
+
+        if (leftArrow && rightArrow) {
+            leftArrow.addEventListener("click", () => {
+                snsSwipe.scrollBy({
+                    left: -Math.round(snsSwipe.clientWidth * 0.82),
+                    behavior: "smooth"
+                });
+            });
+
+            rightArrow.addEventListener("click", () => {
+                snsSwipe.scrollBy({
+                    left: Math.round(snsSwipe.clientWidth * 0.82),
+                    behavior: "smooth"
+                });
+            });
+        }
+
+        snsSwipe.addEventListener("scroll", () => {
+            updateSnsArrows();
+            requestActiveCardUpdate();
+            scheduleFinalActiveUpdate();
+        });
+
+        window.addEventListener("resize", () => {
+            updateSnsArrows();
+            updateActiveCard();
+        });
+
+        snsCards.forEach((card) => {
+            const video = card.querySelector("video");
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+            }
+        });
+
+        const middleCard = snsCards[Math.floor(snsCards.length / 2)];
+        centerCard(middleCard);
+        const initialCard = getClosestCardToCenter();
+        setActiveCard(initialCard);
+        updateSnsArrows();
+    }
+
+    function initializeSnsQuickModal() {
+        const quickModal = document.querySelector(".sns_quick_modal");
+        const quickFrame = document.querySelector(".sns_quick_frame");
+        const openButtons = document.querySelectorAll(".sns_quick_btn");
+        const closeButton = document.querySelector(".sns_quick_close");
+        const backdrop = document.querySelector(".sns_quick_modal_backdrop");
+
+        if (!quickModal || !quickFrame || !openButtons.length || !closeButton || !backdrop) {
+            return;
+        }
+
+        function openQuickModal(src) {
+            quickFrame.src = src;
+            quickModal.classList.add("is_open");
+            quickModal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("sns_quick_locked");
+        }
+
+        function closeQuickModal() {
+            quickModal.classList.remove("is_open");
+            quickModal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("sns_quick_locked");
+            window.setTimeout(() => {
+                if (!quickModal.classList.contains("is_open")) {
+                    quickFrame.src = "about:blank";
+                }
+            }, 340);
+        }
+
+        openButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                const src = button.dataset.quickSrc || "../quick/quick.html";
+                openQuickModal(src);
+            });
+        });
+
+        closeButton.addEventListener("click", closeQuickModal);
+        backdrop.addEventListener("click", closeQuickModal);
+
+        window.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && quickModal.classList.contains("is_open")) {
+                closeQuickModal();
+            }
+        });
+    }
+
     initializeOutletSwipe();
     initializeWorkflowSteps();
+    initializePinkOfficeDoorHover();
+    initializeBestSectionVideoScrub();
+    initializeSnsProductBars();
+    initializeSnsSwipe();
+    initializeSnsQuickModal();
+
+    if (typeof ScrollTrigger !== "undefined") {
+        ScrollTrigger.refresh();
+    }
 });
