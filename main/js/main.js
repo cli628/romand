@@ -1,3 +1,7 @@
+if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const heroSection = document.querySelector(".hero_section");
     const heroWave = heroSection?.querySelector("svg");
@@ -10,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let flattenProgress = 0;
     let targetFlattenProgress = 0;
 
-    const BASELINE_RATIO = 0.16;
+    const BASELINE_RATIO = 0.55;
     const POINT_GAP = 1;
     const WAVE_SPEED = 0.01;
 
@@ -55,15 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const amplitude =
             (
-                34 * primaryWave +
-                14 * secondaryWave +
-                15 * tertiaryWave +
+                52 * primaryWave +
+                22 * secondaryWave +
+                23 * tertiaryWave +
                 /* 웨이브 높이 */
-                20 * detailWaveA +
+                32 * detailWaveA +
                 /* 파동 잘게할지 느슨하게할지 */
-                30 * detailWaveB +
+                46 * detailWaveB +
 
-                9* detailWaveC
+                14 * detailWaveC
             ) *
             contour *
             rippleEnvelope *
@@ -85,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const startY = getWaveY(0).toFixed(2);
         const points = wavePoints.map((x) => `${x},${getWaveY(x).toFixed(2)}`);
         const pathData = [
-            "M0,0",
+            `M0,0`,
             `L0,${startY}`,
             `L${points.join(" L")}`,
             `L${waveWidth},0`,
@@ -131,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 1. GSAP ScrollTriggers implementation for Main Page sections
     // Set up reveals when scrolling down
-    const motionSections = document.querySelectorAll(".main_container section:not(.workflow_steps_section):not(.best_section)");
+    const motionSections = document.querySelectorAll(".main_container section:not(.workflow_steps_section):not(.best_section):not(.outlet_section)");
 
     if (heroSection) {
         gsap.set(heroSection, { opacity: 1 });
@@ -201,20 +205,54 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 4. New Section Bag Animation (GSAP Scrub Timeline)
+    // 4. Product Card Expand/Collapse
+    document.querySelectorAll(".product_card_header").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const card = btn.closest(".product_card");
+            const currentFloatingItem = btn.closest(".floating_item");
+            const isOpen = card.classList.toggle("is-open");
+            btn.setAttribute("aria-expanded", String(isOpen));
+            // 다른 카드 닫기
+            document.querySelectorAll(".product_card.is-open").forEach((other) => {
+                if (other !== card) {
+                    other.classList.remove("is-open");
+                    const otherBtn = other.querySelector(".product_card_header");
+                    if (otherBtn) {
+                        otherBtn.setAttribute("aria-expanded", "false");
+                    }
+                    const otherFloatingItem = other.closest(".floating_item");
+                    if (otherFloatingItem) {
+                        otherFloatingItem.classList.remove("is-open");
+                    }
+                }
+            });
+            if (currentFloatingItem) {
+                currentFloatingItem.classList.toggle("is-open", isOpen);
+            }
+        });
+    });
+
+    // 5. New Section Bag Animation (GSAP Scrub Timeline)
     const floatingItems = document.querySelectorAll(".floating_item");
     const floatingProducts = document.querySelector(".floating_products");
     const shoppingBagFront = document.querySelector(".shopping_bag_container .bag_front");
+    const shoppingBagBack  = document.querySelector(".shopping_bag_container .bag_back");
     const newSectionHeader = document.querySelector(".new_section .section_header");
     const NEW_SECTION_BAG_CONFIG = {
-        scrollLengthMultiplier: 6.8,
+        /* 스크롤 길이 배율 */
+        scrollLengthMultiplier: 6.3,
+        /* 스크롤 길이 배율 */
         scrub: 5,
+        /*  제품들이 위로 떠오르는 거리 (스크롤에 따라 y값이 음수로 이동) */
         floatingProductsShiftY: 80,
+        /* 봉투가 중앙으로 올라오는 시간 */
         floatingProductsDuration: 12,
-        bagOpenLabelAt: 0.08,
-        bagFrontBottom: -320,
-        bagFrontDuration: 18,
+        /* 봉투가 중앙으로 올라오는 시간 */
+        bagRiseDuration: 4,
+        /* 헤더 페이드 아웃 시작 시간 */
         headerFadeStartAt: 5.2,
+        /* 헤더 페이드 아웃 지속 시간 */
         headerFadeDuration: 1.4,
 
         /* 모이기 시작 시간 */
@@ -233,30 +271,31 @@ document.addEventListener("DOMContentLoaded", () => {
         dropStagger: 1,
 
         /* 각 단계 속도 */
-        dropDuration: 3,
-        
+        dropDuration: 5,
+
         /* 제품들이 중간에 모이는 위치 */
         gatherTargets: [
-            { top: "0%", left: "41%", scale: 1 },
-            { top: "0%", left: "46%", scale: 1 },
-            { top: "0%", left: "50%", scale: 1 },
-            { top: "0%", left: "54%", scale: 1 },
-            { top: "0%", left: "58%", scale: 1 }
+            { top: "0%", left: "41%", scale: 1, ease: "power1.inOut"},
+            { top: "0%", left: "46%", scale: 1, ease: "power1.inOut"},
+            { top: "0%", left: "50%", scale: 1, ease: "power1.inOut"},
+            { top: "0%", left: "54%", scale: 1, ease: "power1.inOut"},
+            { top: "0%", left: "58%", scale: 1, ease: "power1.inOut"}
         ],
-        /* 봉투로 들어가는 최종 위치 */
-        dropTarget: { top: "46%", left: "50%", scale: 0.18, opacity: 0.8 },
-        endHoldDuration: 8
+        /* 봉투로 들어가는 최종 위치 — opacity 0으로 봉투 안으로 사라짐 */
+        dropTarget: { top: "100%", left: "50%", scale: 1, opacity: 1, ease: "power2.in" },
+        /* 봉투 전체가 보인 뒤 다음 섹션으로 넘어가기 전 유지 시간 */
+        endHoldDuration: 4
     };
     if (floatingItems.length > 0) {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".animation_area",
                 pin: true,
-                start: "top top",
+                start: "top 15%",
                 end: () => `+=${Math.round(window.innerHeight * NEW_SECTION_BAG_CONFIG.scrollLengthMultiplier)}`,
                 /* 휠 하는만큼 이동 */
                 scrub: NEW_SECTION_BAG_CONFIG.scrub,
-                anticipatePin: 0.1
+                anticipatePin: 1
             }
         });
 
@@ -268,20 +307,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 0);
         }
 
-        tl.addLabel("bagOpen", NEW_SECTION_BAG_CONFIG.bagOpenLabelAt);
-
-        if (shoppingBagFront) {
-            tl.to(shoppingBagFront, {
-                bottom: NEW_SECTION_BAG_CONFIG.bagFrontBottom,
-                duration: NEW_SECTION_BAG_CONFIG.bagFrontDuration,
-                ease: "power2.out"
-            }, "bagOpen");
-        }
+        // 봉투 앞뒤 요소 모음 — 수집 단계에서는 하단 고정 (애니메이션 없음)
+        const bagElements = [shoppingBagFront, shoppingBagBack].filter(Boolean);
 
         if (newSectionHeader) {
             tl.to(newSectionHeader, {
                 opacity: 0,
-                y: -24,
+                y: 800,
                 duration: NEW_SECTION_BAG_CONFIG.headerFadeDuration,
                 ease: "power1.out"
             }, NEW_SECTION_BAG_CONFIG.headerFadeStartAt);
@@ -311,8 +343,31 @@ document.addEventListener("DOMContentLoaded", () => {
             }, dropAt);
         });
 
+        // 마지막 제품 낙하 완료 시점 계산 (dropStartAt + stagger * (items-1) + dropDuration)
+        const lastDropEnd = NEW_SECTION_BAG_CONFIG.dropStartAt
+            + (floatingItems.length - 1) * NEW_SECTION_BAG_CONFIG.dropStagger
+            + NEW_SECTION_BAG_CONFIG.dropDuration;
+
+        // 제품이 다 들어간 뒤 봉투를 화면 정 중앙으로 올림
+        if (bagElements.length > 0) {
+            // pin start(12%)를 제외한 실제 보이는 높이
+            const visibleH = window.innerHeight * (1 - 0.12);
+            const bagH     = bagElements[0].offsetHeight;
+            const bagCSSTop = parseInt(getComputedStyle(bagElements[0]).top, 10) || 0;
+            // 봉투 중앙이 가시영역 중앙에 오도록 y 이동량 계산
+            const centerTop = Math.max(0, (visibleH - bagH) / 2);
+            const riseY     = -(bagCSSTop - centerTop);
+            tl.to(bagElements, {
+                y: riseY,
+                duration: NEW_SECTION_BAG_CONFIG.bagRiseDuration,
+                ease: "power2.out"
+            }, lastDropEnd);
+        }
+
+        // 봉투 전체가 보인 뒤 스크롤 조금 더 내리면 다음 섹션으로
         tl.to({}, { duration: NEW_SECTION_BAG_CONFIG.endHoldDuration });
     }
+
 /* 레일 위의 봉투움직임에 맞추는 값 */
     function initializeBestSectionVideoScrub() {
         const bestSection = document.querySelector(".best_section");
@@ -321,33 +376,57 @@ document.addEventListener("DOMContentLoaded", () => {
         const railTrack = bestSection?.querySelector(".rail_track");
         const railItems = bestSection ? Array.from(bestSection.querySelectorAll(".rail_item")) : [];
         const BEST_SECTION_CONFIG = {
-            scrubViewportMultiplier: 14,
-            videoDurationRatio: 0.58,
+            scrubViewportMultiplier: 14,  /* 스크럽 뷰포트 배율 */
+            scrubWheelStepCount: 15,
+            scrubWheelDeltaPerStep: 480,
+            videoDurationRatio: 0.58,     /* 비디오 재생 구간 비율 (5s × 0.58 = 2.9s) */
             videoEndPadding: 0.1,
-            videoProgressEnd: 0.82,
-            exitStartProgress: 0.8,
-            exitDistanceY: 120,
+            videoProgressEnd: 0.82,       /* 이 스크롤 진행률에서 videoProgress = 1 */
+            exitStartProgress: 0.8,       /* 헤더/레일 페이드아웃 시작 */
+            exitDistanceY: 0,
             headerExitDistanceY: 90,
-            railItemStagger: 0.1,
-            railItemTravelSpan: 0.58,
-            railSinkStart: 0.8,
-            modalRevealDelay: 0.2,
-            modalRevealSpan: 0.8,
-            lineRevealDelay: 0.1,
-            lineRevealSpan: 0.7,
-            anchors: {
-                start: { x: 0.03, y: 0.16 },
-                middle: { x: 0.18, y: 0.48 },
-                end: { x: 0.22, y: 0.7 }
-            },
+            railSinkStart: 0.82,          /* pathProgress 이 값 이후부터 모달 축소/사라짐 */
+
+            /* ── Method A: 단일 공통 경로 ──────────────────────────────
+               컨베이어 벨트 곡선을 하나의 경로로 정의.
+               봉투 3개는 같은 경로를 이동하며, bagInitialOffsets 로 시작 위치를 다르게 설정.
+               비디오 좌표계: x/y 는 video 요소 너비/높이 기준 비율.
+               x < 0 은 video 왼쪽 바깥, y > 1 은 video 아래쪽 바깥. */
+            singleBagPath: [
+                { x: 0.36, y: 0.04 },   /* 진입 (봉투3 상단) */
+                { x: 0.30, y: 0.16 },   /* 봉투3 시작 위치 */
+                { x: 0.26, y: 0.28 },
+                { x: 0.23, y: 0.40 },   /* 봉투2 시작 위치 */
+                { x: 0.18, y: 0.52 },
+                { x: 0.14, y: 0.64 },   /* 봉투1 시작 위치 */
+                { x: 0.04, y: 0.76 },
+                { x: -0.18, y: 0.86 },  /* 화면 이탈 */
+                { x: -0.50, y: 0.96 }   /* 완전 이탈 */
+            ],
+
+            /* videoProgress=0 시점에서 각 봉투가 경로 상에 있는 위치 (0~1)
+               index 0 = 가장 앞선 봉투(화면 하단-좌), index 2 = 가장 늦은 봉투(화면 상단) */
+            bagInitialOffsets: [0.62, 0.37, 0.14],
+
+            /* videoProgress 1 증가 시 경로를 얼마나 이동하는지 */
+            bagTravelRate: 0.85,
+
+            /* 각 봉투 모달 페이드인 시작 시점 (videoProgress 기준) */
+            bagFadeStarts: [0.0, 0.0, 0.06],
+            bagFadeDuration: 0.12,        /* 페이드인 지속 시간 */
+
+            itemAnchorOffset: { x: -75, y: -36 },
+            /* 각 봉투 모달의 미세 위치 보정 — 미리 확인 후 조정 */
             itemOffsets: [
                 { x: 0, y: 0 },
-                { x: 85, y: 30 },
-                { x: 300, y: 130 }
+                { x: 0, y: 0 },
+                { x: 0, y: 0 }
             ]
         };
 
         if (!bestSection || !bestVideo || !bestHeader || !railTrack || typeof ScrollTrigger === "undefined" || typeof gsap === "undefined") {
+            /* best_section 없으면 바로 workflow 초기화 */
+            initializeWorkflowSteps();
             return;
         }
 
@@ -357,7 +436,8 @@ document.addEventListener("DOMContentLoaded", () => {
         bestVideo.currentTime = 0;
 
         function setupBestVideoScrub() {
-            const scrubDistance = () => Math.round(window.innerHeight * BEST_SECTION_CONFIG.scrubViewportMultiplier);
+            const scrubDistance = () =>
+                Math.round(BEST_SECTION_CONFIG.scrubWheelStepCount * BEST_SECTION_CONFIG.scrubWheelDeltaPerStep);
             const scrubDuration = Math.max(
                 BEST_SECTION_CONFIG.videoEndPadding,
                 (bestVideo.duration || BEST_SECTION_CONFIG.videoEndPadding) * BEST_SECTION_CONFIG.videoDurationRatio
@@ -366,48 +446,70 @@ document.addEventListener("DOMContentLoaded", () => {
             function getSectionMetrics() {
                 const sectionWidth = bestSection.offsetWidth;
                 const sectionHeight = bestSection.offsetHeight;
+                const sectionRect = bestSection.getBoundingClientRect();
+                const videoRect = bestVideo.getBoundingClientRect();
+                const videoLeft = videoRect.left - sectionRect.left;
+                const videoTop = videoRect.top - sectionRect.top;
+                const videoWidth = videoRect.width || sectionWidth * 0.8;
+                const videoHeight = videoRect.height || sectionHeight;
                 return {
                     width: sectionWidth,
                     height: sectionHeight,
-                    start: {
-                        x: sectionWidth * BEST_SECTION_CONFIG.anchors.start.x,
-                        y: sectionHeight * BEST_SECTION_CONFIG.anchors.start.y
-                    },
-                    middle: {
-                        x: sectionWidth * BEST_SECTION_CONFIG.anchors.middle.x,
-                        y: sectionHeight * BEST_SECTION_CONFIG.anchors.middle.y
-                    },
-                    end: {
-                        x: sectionWidth * BEST_SECTION_CONFIG.anchors.end.x,
-                        y: sectionHeight * BEST_SECTION_CONFIG.anchors.end.y
-                    }
+                    singlePathPoints: BEST_SECTION_CONFIG.singleBagPath.map((point) => ({
+                        x: videoLeft + videoWidth * point.x,
+                        y: videoTop + videoHeight * point.y
+                    }))
                 };
             }
 
-            function getItemPosition(metrics, itemIndex, progress) {
-                const offset = BEST_SECTION_CONFIG.itemOffsets[itemIndex] || { x: 0, y: 0 };
-                const start = {
-                    x: metrics.start.x + offset.x,
-                    y: metrics.start.y + offset.y
-                };
-                const middle = {
-                    x: metrics.middle.x + offset.x,
-                    y: metrics.middle.y + offset.y
-                };
-                const end = metrics.end;
+            function interpolateCatmullRom(p0, p1, p2, p3, t) {
+                const v0 = (p2 - p0) * 0.5;
+                const v1 = (p3 - p1) * 0.5;
+                const t2 = t * t;
+                const t3 = t2 * t;
+                return (
+                    (2 * p1 - 2 * p2 + v0 + v1) * t3 +
+                    (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 +
+                    v0 * t +
+                    p1
+                );
+            }
 
-                if (progress <= 0.55) {
-                    const localProgress = progress / 0.55;
-                    return {
-                        x: gsap.utils.interpolate(start.x, middle.x, localProgress),
-                        y: gsap.utils.interpolate(start.y, middle.y, localProgress)
-                    };
+            function samplePath(points, progress) {
+                if (!points.length) {
+                    return { x: 0, y: 0 };
                 }
-
-                const localProgress = (progress - 0.55) / 0.45;
+                if (points.length === 1) {
+                    return { x: points[0].x, y: points[0].y };
+                }
+                const clamped = gsap.utils.clamp(0, 1, progress);
+                const maxIndex = points.length - 1;
+                const scaled = clamped * maxIndex;
+                const index = Math.min(maxIndex - 1, Math.floor(scaled));
+                const localT = scaled - index;
+                const p0 = points[Math.max(0, index - 1)];
+                const p1 = points[index];
+                const p2 = points[index + 1];
+                const p3 = points[Math.min(maxIndex, index + 2)];
                 return {
-                    x: gsap.utils.interpolate(middle.x, end.x, localProgress),
-                    y: gsap.utils.interpolate(middle.y, end.y, localProgress)
+                    x: interpolateCatmullRom(p0.x, p1.x, p2.x, p3.x, localT),
+                    y: interpolateCatmullRom(p0.y, p1.y, p2.y, p3.y, localT)
+                };
+            }
+
+            function getItemPosition(metrics, itemIndex, videoProgress) {
+                const initialOffset = BEST_SECTION_CONFIG.bagInitialOffsets[itemIndex];
+                const pathProgress = gsap.utils.clamp(
+                    0,
+                    1,
+                    initialOffset + videoProgress * BEST_SECTION_CONFIG.bagTravelRate
+                );
+                const bagPoint = samplePath(metrics.singlePathPoints, pathProgress);
+                const anchorOffset = BEST_SECTION_CONFIG.itemAnchorOffset;
+                const offset = BEST_SECTION_CONFIG.itemOffsets[itemIndex] || { x: 0, y: 0 };
+                return {
+                    x: bagPoint.x + anchorOffset.x + offset.x,
+                    y: bagPoint.y + anchorOffset.y + offset.y
                 };
             }
 
@@ -425,49 +527,51 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 railItems.forEach((item, index) => {
-                    const itemProgress = gsap.utils.clamp(
+                    /* 이 봉투의 경로 진행률 (0=시작지점, 1=완전이탈) */
+                    const bagPathProgress = gsap.utils.clamp(
                         0,
                         1,
-                        (videoProgress - index * BEST_SECTION_CONFIG.railItemStagger) / BEST_SECTION_CONFIG.railItemTravelSpan
+                        BEST_SECTION_CONFIG.bagInitialOffsets[index] + videoProgress * BEST_SECTION_CONFIG.bagTravelRate
                     );
+
+                    /* 페이드인 진행률 — bagFadeStarts 로 봉투별 등장 시점 제어 */
+                    const fadeStart = BEST_SECTION_CONFIG.bagFadeStarts[index];
+                    const appearProgress = gsap.utils.clamp(
+                        0,
+                        1,
+                        (videoProgress - fadeStart) / BEST_SECTION_CONFIG.bagFadeDuration
+                    );
+
+                    /* railSinkStart 이후 pathProgress 기준으로 모달 축소/사라짐 */
                     const sinkProgress = gsap.utils.clamp(
                         0,
                         1,
-                        (itemProgress - BEST_SECTION_CONFIG.railSinkStart) / (1 - BEST_SECTION_CONFIG.railSinkStart)
+                        (bagPathProgress - BEST_SECTION_CONFIG.railSinkStart) / (1 - BEST_SECTION_CONFIG.railSinkStart)
                     );
-                    const position = getItemPosition(metrics, index, itemProgress);
+
+                    const position = getItemPosition(metrics, index, videoProgress);
                     const modal = item.querySelector(".product_modal");
                     const line = item.querySelector(".connect_line");
 
                     gsap.set(item, {
                         x: position.x,
                         y: position.y,
-                        opacity: gsap.utils.clamp(0, 1, itemProgress * 1.35) * (1 - sinkProgress) * introOpacity,
+                        opacity: appearProgress * (1 - sinkProgress) * introOpacity,
                         scale: gsap.utils.interpolate(1, 0.72, sinkProgress)
                     });
 
                     if (modal) {
-                        const modalProgress = gsap.utils.clamp(
-                            0,
-                            1,
-                            (itemProgress - BEST_SECTION_CONFIG.modalRevealDelay) / BEST_SECTION_CONFIG.modalRevealSpan
-                        );
                         gsap.set(modal, {
-                            opacity: modalProgress * (1 - sinkProgress) * introOpacity,
-                            scale: gsap.utils.interpolate(0.88, 1, modalProgress) * gsap.utils.interpolate(1, 0.82, sinkProgress),
-                            y: gsap.utils.interpolate(20, 0, modalProgress) - exitProgress * 24
+                            opacity: appearProgress * (1 - sinkProgress) * introOpacity,
+                            scale: gsap.utils.interpolate(0.88, 1, appearProgress) * gsap.utils.interpolate(1, 0.82, sinkProgress),
+                            y: gsap.utils.interpolate(20, 0, appearProgress) - exitProgress * 24
                         });
                     }
 
                     if (line) {
-                        const lineProgress = gsap.utils.clamp(
-                            0,
-                            1,
-                            (itemProgress - BEST_SECTION_CONFIG.lineRevealDelay) / BEST_SECTION_CONFIG.lineRevealSpan
-                        );
                         gsap.set(line, {
-                            scaleX: lineProgress,
-                            opacity: lineProgress * 0.9 * (1 - sinkProgress) * introOpacity
+                            scaleX: appearProgress,
+                            opacity: appearProgress * 0.9 * (1 - sinkProgress) * introOpacity
                         });
                     }
                 });
@@ -489,11 +593,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             ScrollTrigger.create({
                 id: "best_video_scrub",
-                trigger: bestSection,
-                start: "top top",
+                trigger: bestVideo,
+                start: "center center",
                 end: () => `+=${scrubDistance()}`,
                 scrub: true,
-                pin: true,
+                pin: bestSection,
                 pinSpacing: true,
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
@@ -511,6 +615,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             updateBestSectionFrame(0);
+
+            /* best_section pin spacer 생성 후 → refresh → workflow_steps trigger 초기화
+               이 순서여야 trigger 위치가 7200px spacer를 포함해서 정확히 계산됨 */
+            ScrollTrigger.refresh();
+            initializeWorkflowSteps();
         }
 
         if (bestVideo.readyState >= 1) {
@@ -519,6 +628,44 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         bestVideo.addEventListener("loadedmetadata", setupBestVideoScrub, { once: true });
+    }
+
+    function initializeOutletReveal() {
+        const outletSection = document.querySelector(".outlet_section");
+        if (!outletSection) return;
+
+        const visualPhoto  = outletSection.querySelector(".outlet_visual_photo");
+        const putPhoto     = outletSection.querySelector(".outlet_put_photo");
+        const outletHeader = outletSection.querySelector(".outlet_header");
+        const revealTargets = [visualPhoto, putPhoto, outletHeader].filter(Boolean);
+
+        /* 섹션이 화면 아래에 있을 때만 초기 숨김 */
+        if (outletSection.getBoundingClientRect().top > window.innerHeight) {
+            gsap.set(revealTargets, { y: 50, opacity: 0 });
+        }
+
+        function playReveal() {
+            gsap.killTweensOf(revealTargets);
+            revealTargets.forEach((target, index) => {
+                gsap.fromTo(target,
+                    { y: 50, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.8, ease: "power2.out", delay: index * 0.22 }
+                );
+            });
+        }
+
+        function hideReveal() {
+            gsap.killTweensOf(revealTargets);
+            gsap.set(revealTargets, { y: 50, opacity: 0 });
+        }
+
+        /* ScrollTrigger 대신 IntersectionObserver 사용 — pin spacer 위치 오산 문제 회피 */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { playReveal(); } else { hideReveal(); }
+            });
+        }, { threshold: 0.1 });
+        observer.observe(outletSection);
     }
 
     function initializeOutletSwipe() {
@@ -617,7 +764,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const workflowCards = gsap.utils.toArray(".workflow_step_card:not(.workflow_step_card_empty)");
         const countTrack = document.querySelector(".workflow_steps_count_track");
 
-        if (!workflowSection || !workflowCards.length || !countTrack) {
+        if (!workflowSection || !workflowCards.length || !countTrack || typeof ScrollTrigger === "undefined") {
             return;
         }
 
@@ -631,19 +778,22 @@ document.addEventListener("DOMContentLoaded", () => {
         function updateCardPositions(progress = 0) {
             const firstCard = workflowCards[0];
             const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : 320;
-            const activeCardProgress = progress * (totalCards - 1);
-            const cardGap = cardWidth * (window.innerWidth < 768 ? 0.88 : 0.96);
-            const focusOffsetX = 0;
-            const baseOffsetY = window.innerWidth < 768 ? 12 : 0;
+            const isMobile = window.innerWidth < 768;
+            const cardGap = cardWidth * (isMobile ? 0.88 : 0.96);
+            const baseOffsetY = isMobile ? 12 : 0;
+
+            /* progress=0 → 모든 카드가 오른쪽 / progress=1 → 마지막 카드가 중앙 */
+            const entryOffset = 1.5;
+            const activeCardProgress = -entryOffset + progress * (totalCards - 1 + entryOffset);
 
             workflowCards.forEach((card, index) => {
                 const relativeIndex = index - activeCardProgress;
                 const distanceFromFocus = Math.abs(relativeIndex);
-                const x = focusOffsetX + relativeIndex * cardGap;
-                const y = baseOffsetY + Math.min(distanceFromFocus * 20, 56);
-                const rotation = gsap.utils.clamp(-10, 10, relativeIndex * 3.2);
-                const scale = gsap.utils.clamp(0.8, 1, 1 - distanceFromFocus * 0.075);
-                const cardOpacity = gsap.utils.clamp(0.22, 1, 1 - distanceFromFocus * 0.14);
+                const x = relativeIndex * cardGap;
+                const y = baseOffsetY + Math.min(distanceFromFocus * 24, 64);
+                const rotation = gsap.utils.clamp(-14, 14, relativeIndex * 3.6);
+                const scale = gsap.utils.clamp(0.75, 1, 1 - distanceFromFocus * 0.08);
+                const cardOpacity = gsap.utils.clamp(0.15, 1, 1 - distanceFromFocus * 0.16);
                 const zIndex = totalCards - Math.round(distanceFromFocus * 10);
 
                 gsap.set(card, {
@@ -677,6 +827,7 @@ document.addEventListener("DOMContentLoaded", () => {
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
+            invalidateOnRefresh: true,
             onUpdate: (self) => {
                 updateCardPositions(self.progress);
                 updateCounter(self.progress);
@@ -1089,10 +1240,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    initializeOutletReveal();
     initializeOutletSwipe();
-    initializeWorkflowSteps();
     initializePinkOfficeDoorHover();
-    initializeBestSectionVideoScrub();
+    initializeBestSectionVideoScrub(); /* 내부에서 setupBestVideoScrub 완료 후 initializeWorkflowSteps() 호출 */
     initializeSnsProductBars();
     initializeSnsSwipe();
     initializeSnsQuickModal();
