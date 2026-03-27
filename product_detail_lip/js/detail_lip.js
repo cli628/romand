@@ -314,7 +314,37 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================
-  // Review Visual 동기화 & Floating 애니메이션
+  // Review Visual 가변 속도 패럴랙스 (Fast-Slow-Fast)
+  // ============================================
+  const reviewVisual = document.querySelector('.review_visual');
+  const leftBlock = document.querySelector('.left_block');
+  const rightBlock = document.querySelector('.right_block');
+
+  if (reviewVisual && leftBlock && rightBlock) {
+    const visualTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: reviewVisual,
+        start: "top 90%", // 섹션이 보이기 시작할 때 좀 더 일찍 시작
+        end: "bottom 10%", // 좀 더 늦게 종료
+        scrub: 1,
+      }
+    });
+
+    // 좌측 블록: Bottom -> Top (+600 -> -600)
+    // 우측 블록: Top -> Bottom (-600 -> +600)
+    // 1단계: 나타나며 빠르게 진입 (autoAlpha 0->1, y 600->150)
+    visualTl.fromTo(leftBlock, { y: 600, autoAlpha: 0 }, { y: 150, autoAlpha: 1, ease: "power2.out", duration: 1 })
+      .fromTo(rightBlock, { y: -600, autoAlpha: 0 }, { y: -150, autoAlpha: 1, ease: "power2.out", duration: 1 }, 0)
+      // 2단계: 중앙에서 천천히 이동 (y 150->-150) - 이 구간이 가장 길게 느껴지도록
+      .to(leftBlock, { y: -150, ease: "none", duration: 2.5 })
+      .to(rightBlock, { y: 150, ease: "none", duration: 2.5 }, 1)
+      // 3단계: 빠르게 사라짐 (autoAlpha 1->0, y -150->-600)
+      .to(leftBlock, { y: -600, autoAlpha: 0, ease: "power2.in", duration: 1 })
+      .to(rightBlock, { y: 600, autoAlpha: 0, ease: "power2.in", duration: 1 }, 3.5);
+  }
+
+  // ============================================
+  // Review Visual 동기화 (탭 전환 시 이미지 교체)
   // ============================================
   function updateReviewVisual(tabKey) {
     const leftImg = document.querySelector('.visual_block.left_block .visual_img_wrap img');
@@ -328,58 +358,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================
-  // Review 섹션 독립 가로 드래그 (클릭 시에만 작동)
+  // Review 섹션 자동 롤링을 위한 클로닝 (무한 루프)
   // ============================================
   const reviewRows = document.querySelectorAll('.review_row');
 
-  /**
-   * 각 로우에 대해 독립적인 드래그 기능을 초기화하는 함수
-   * @param {HTMLElement} row - 드래그 기능을 적용할 로우 요소
-   */
-  function initDraggableRow(row) {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    // 드래그 시작
-    const dragStart = (e) => {
-      isDown = true;
-      row.classList.add('grabbing');
-      // 터치/마우스 좌표 통합
-      const pageX = e.pageX || (e.touches && e.touches[0].pageX);
-      startX = pageX - row.offsetLeft;
-      scrollLeft = row.scrollLeft;
-    };
-
-    // 드래그 종료
-    const dragEnd = () => {
-      isDown = false;
-      row.classList.remove('grabbing');
-    };
-
-    // 드래그중
-    const dragMove = (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const pageX = e.pageX || (e.touches && e.touches[0].pageX);
-      const x = pageX - row.offsetLeft;
-      const walk = (x - startX) * 2; // 스크롤 감도
-      row.scrollLeft = scrollLeft - walk;
-    };
-
-    // 마우스 이벤트 바인딩
-    row.addEventListener('mousedown', dragStart);
-    row.addEventListener('mouseleave', dragEnd);
-    row.addEventListener('mouseup', dragEnd);
-    row.addEventListener('mousemove', dragMove);
-
-    // 터치 이벤트 바인딩
-    row.addEventListener('touchstart', dragStart, { passive: false });
-    row.addEventListener('touchend', dragEnd);
-    row.addEventListener('touchmove', dragMove, { passive: false });
+  function setupInfiniteRolling(row) {
+    const originalContent = row.innerHTML;
+    // 무한 루프를 위해 콘텐츠를 한 번 더 복제하여 뒤에 붙임
+    row.innerHTML = originalContent + originalContent;
   }
 
-  // 모든 리뷰 로우에 드래그 기능 적용
-  reviewRows.forEach(row => initDraggableRow(row));
+  // 모든 리뷰 로우에 무한 롤링 셋업 적용
+  reviewRows.forEach(row => setupInfiniteRolling(row));
 
 }); //여기 밖으로 넘어가면 안돼용
