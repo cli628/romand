@@ -40,6 +40,277 @@
     <script src="js/order.js"></script>
 </head>
 <body>
-    <h1>테스트</h1>
+    <div class="wrap">
+    <div class="order_container">
+        <!-- CONTACT SECTION -->
+        <section class="order_section">
+            <h2 class="section_title">CONTACT</h2>
+            <div class="form_group">
+                <label class="form_label">Email</label>
+                <input type="email" class="form_input" placeholder="">
+            </div>
+            <div class="form_group checkbox_group">
+                <input type="checkbox" id="contact_agree" class="form_checkbox">
+                <label for="contact_agree" class="checkbox_label">
+                    I agree to receive commercial communications about románd, including its products, promotions, and events, as well as communications from its partners and/or entities related to the brand's activities
+                </label>
+            </div>
+        </section>
+
+        <!-- DELIVERY SECTION -->
+        <section class="order_section">
+            <h2 class="section_title">DELIVERY</h2>
+            <div class="form_group">
+                <label class="form_label">Country/Region</label>
+                <div class="form_select_wrapper">
+                    <select class="form_select">
+                        <option>South Korea</option>
+                    </select>
+                    <svg class="select_icon" viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M7 10l5 5 5-5z" fill="currentColor"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="form_row">
+                <div class="form_group">
+                    <label class="form_label">First Name</label>
+                    <input type="text" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label class="form_label">Last Name</label>
+                    <input type="text" class="form_input" placeholder="">
+                </div>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Postal Code</label>
+                <input type="text" class="form_input" placeholder="">
+            </div>
+
+            <div class="form_row">
+                <div class="form_group">
+                    <label class="form_label">Province</label>
+                    <div class="form_select_wrapper">
+                        <select class="form_select">
+                            <option>Seoul</option>
+                        </select>
+                        <svg class="select_icon" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M7 10l5 5 5-5z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="form_group">
+                    <label class="form_label">City</label>
+                    <input type="text" class="form_input" placeholder="">
+                </div>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Address</label>
+                <input type="text" class="form_input" placeholder="">
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Apartment, suite, etc. (optional)</label>
+                <input type="text" class="form_input" placeholder="">
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Phone</label>
+                <input type="tel" class="form_input" placeholder="">
+            </div>
+        </section>
+
+        <!-- SHOPPING METHOD SECTION -->
+        <section class="order_section">
+            <h2 class="section_title">SHOPPING METHOD</h2>
+            
+            <div class="radio_group">
+                <div class="radio_item">
+                    <input type="radio" id="shipping-standard" name="shipping" class="form_radio" checked>
+                    <label for="shipping-standard" class="radio-label">
+                        <span class="radio_title">Standard Courier</span>
+                        <span class="radio-desc">7 to 10 business days</span>
+                    </label>
+                    <span class="radio_price">Free</span>
+                </div>
+                
+                <div class="radio_item">
+                    <input type="radio" id="shipping-express" name="shipping" class="form_radio">
+                    <label for="shipping-express" class="radio-label">
+                        <span class="radio_title">Express Courier (Air)</span>
+                        <span class="radio-desc">4 to 6 business days</span>
+                    </label>
+                    <span class="radio_price">14.6 USD</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAYMENT SECTION -->
+        <section class="order_section">
+            <h2 class="section_title">PAYMENT</h2>
+            
+            <div class="radio_group">
+                <div class="radio_item">
+                    <input type="radio" id="payment-card" name="payment" class="form_radio" checked>
+                    <label for="payment-card" class="radio-label">
+                        Credit or Debit Card
+                    </label>
+                    <div class="payment_cards">
+                        <img src="./img/card_1.png" alt="Visa" class="card_icon">
+                        <img src="./img/card_2.png" alt="Mastercard" class="card_icon">
+                        <img src="./img/card_3.png" alt="Amex" class="card_icon">
+                        <span class="card_more">+3</span>
+                    </div>
+                </div>
+                
+                <div class="radio_item">
+                    <input type="radio" id="payment-other" name="payment" class="form_radio">
+                    <label for="payment-other" class="radio-label">
+                        More Payment Options
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- BILLING ADDRESS SECTION -->
+        <section class="order_section">
+            <h2 class="section_title">BILLING ADDRESS</h2>
+            
+            <div class="radio_group">
+                <div class="radio_item">
+                    <input type="radio" id="billing-same" name="billing" class="form_radio" checked>
+                    <label for="billing-same" class="radio-label">
+                        Same as shipping address
+                    </label>
+                </div>
+                
+                <div class="radio_item">
+                    <input type="radio" id="billing-different" name="billing" class="form_radio">
+                    <label for="billing-different" class="radio-label">
+                        Use a different billing address
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- TERMS SECTION -->
+        <section class="order_section">
+            <p class="terms_text">
+                By clicking below and placing your order, you agree: (i) to make your purchase from románd as the merchant of record for this transaction, subject to románd's Terms & Conditions; (ii) that your information will be handled by románd in accordance with the románd Privacy Policy; and (iii) that your information (excluding payment details) may be shared between románd and its partners and/or service providers.
+            </p>
+
+            <div class="checkbox_list">
+                <div class="checkbox_item">
+                    <input type="checkbox" id="terms-age" class="form_checkbox">
+                    <label for="terms-age" class="checkbox_label">I am 14 years or older.</label>
+                </div>
+                <div class="checkbox_item">
+                    <input type="checkbox" id="terms-tc" class="form_checkbox">
+                    <label for="terms-tc" class="checkbox_label">I accept the románd Terms & Conditions</label>
+                </div>
+                <div class="checkbox_item">
+                    <input type="checkbox" id="terms-privacy" class="form_checkbox">
+                    <label for="terms-privacy" class="checkbox_label">I accept the collection and use of personal information (románd Privacy Policy)</label>
+                </div>
+                <div class="checkbox_item">
+                    <input type="checkbox" id="terms-partners" class="form_checkbox">
+                    <label for="terms-partners" class="checkbox_label">I accept the third party provision of personal information (románd Privacy Policy)</label>
+                </div>
+                <div class="checkbox_item">
+                    <input type="checkbox" id="terms-all" class="form_checkbox">
+                    <label for="terms-all" class="checkbox_label">Accept all</label>
+                </div>
+            </div>
+
+            <p class="terms_text">
+                By placing this order, you are consenting to our Terms of Use and Privacy Policy.
+            </p>
+        </section>
+
+        <!-- ADDITIONAL INFORMATION SECTION -->
+        <section class="order_section">
+            <h2 class="section_title">ADDITIONAL INFORMATION</h2>
+            <div class="form_group">
+                <label class="form_label">Personal Customs Code</label>
+                <input type="text" class="form_input" placeholder="">
+            </div>
+        </section>
+
+        <!-- PAY NOW BUTTON -->
+        <button class="btn_pay_now">PAY NOW</button>
+    </div>
+    <div class="oder_paper">
+        <!-- Paper Header with Logo -->
+        <div class="paper_header">
+            <h1 class="paper_logo">rom&nd</h1>
+        </div>
+
+        <!-- Items Header -->
+        <div class="paper_items_header">
+            <span class="header_col header_quantity">Quantity</span>
+            <span class="header_col header_product">Product Name</span>
+            <span class="header_col header_amount">Amount</span>
+        </div>
+
+        <!-- Items List -->
+        <div class="paper_items">
+            <!-- Item 1 -->
+            <div class="paper_item">
+                <div class="item_product">
+                    <div class="item_image_box">
+                        <img src="./img/cart1.png" alt="JUICY LASTING TINT" class="paper_item_image">
+                    </div>
+                    <div class="item_info">
+                        <h3 class="item_product_name">JUICY LASTING TINT</h3>
+                        <p class="item_product_color">Pig Fig</p>
+                    </div>
+                </div>
+                <span class="item_price">$ 14.00</span>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="paper_item">
+                <div class="item_product">
+                    <div class="item_image_box">
+                        <img src="./img/cart2.png" alt="VOLUME HACK TRIO" class="paper_item_image">
+                    </div>
+                    <div class="item_info">
+                        <h3 class="item_product_name">VOLUME HACK TRIO</h3>
+                        <p class="item_product_color">Toffee Nude</p>
+                    </div>
+                </div>
+                <span class="item_price">$ 29.00</span>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="paper_item">
+                <div class="item_product">
+                    <div class="item_image_box">
+                        <img src="./img/cart3.png" alt="GLASTING MELTING BALM" class="paper_item_image">
+                    </div>
+                    <div class="item_info">
+                        <h3 class="item_product_name">GLASTING MELTING BAL...</h3>
+                        <p class="item_product_color">Lovely Pink</p>
+                    </div>
+                </div>
+                <span class="item_price">$ 28.00</span>
+            </div>
+        </div>
+
+        <!-- Items Footer -->
+        <div class="paper_items_footer">
+            <span class="header_col header_quantity">Quantity</span>
+            <span class="header_col header_product">Product Name</span>
+            <span class="header_col header_amount">Amount</span>
+        </div>
+
+        <!-- Decorative Wavy Bottom -->
+        <svg class="paper_wavy_bottom" viewBox="0 0 400 40" preserveAspectRatio="none">
+            <path d="M0,20 Q10,10 20,20 T40,20 T60,20 T80,20 T100,20 T120,20 T140,20 T160,20 T180,20 T200,20 T220,20 T240,20 T260,20 T280,20 T300,20 T320,20 T340,20 T360,20 T380,20 T400,20 L400,40 L0,40 Z" fill="white"/>
+        </svg>
+    </div>
+    </div><!-- //.wrap -->
 </body>
 </html>
