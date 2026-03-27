@@ -1,95 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="롬앤의 시그니쳐이자 오프라인 체험 공간인 핑크오피스를 소개하는 페이지입니다."
+    />
+    <meta
+      name="keywords"
+      content="롬앤, romand, romend, 핑크오피스, 퍼스널컬러, 롬, 앤, rom"
+    />
+    <meta name="author" content="team_sixman" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pinkoffice</title>
+    <!-- 파비콘 -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <!-- 폰트어썸 - 안쓰시면 삭제 -->
+    <script
+      src="https://kit.fontawesome.com/193fa424cf.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- 슬라이더 - 안쓰시면 삭제-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+    <!-- jsap - 안쓰시면 삭제 -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <!--  jsap 스크롤트리거 - 안쓰시면 삭제-->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js"></script>
+    <!-- 리셋 css-->
+    <link rel="stylesheet" href="../common/css/reset.css" />
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="../common/css/common_style.css" />
+    <!-- 공통 헤더 푸터 햄메뉴 media -->
+    <link rel="stylesheet" href="../common/css/common_media.css" />
+    <!-- 각자 css-->
+    <link rel="stylesheet" href="css/pinkoffice.css" />
+    <link rel="stylesheet" href="css/pinkoffice_media.css" />
+    <!-- 슬라이드 스와이퍼 스크립트 - 안쓰시면 삭제-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <!-- 공통 script-->
+    <script src="../common/js/common.js"></script>
+    <!-- 각자 script -->
+    <script src="js/pinkoffice.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="description" content="롬앤의 시그니쳐이자 오프라인 체험 공간인 핑크오피스를 소개하는 페이지입니다.">
-  <meta name="keywords" content="롬앤, romand, romend, 핑크오피스, 퍼스널컬러, 롬, 앤, rom">
-  <meta name="author" content="team_sixman">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>pinkoffice</title>
-  <!-- 파비콘 -->
-  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-  <!-- 폰트어썸 - 안쓰시면 삭제 -->
-  <script src="https://kit.fontawesome.com/193fa424cf.js" crossorigin="anonymous"></script>
-  <!-- 슬라이더 - 안쓰시면 삭제-->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
-  <!-- jsap - 안쓰시면 삭제 -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-  <!--  jsap 스크롤트리거 - 안쓰시면 삭제-->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js"></script>
-  <!-- 리셋 css-->
-  <link rel="stylesheet" href="../common/css/reset.css">
-  <!-- 공통 css -->
-  <link rel="stylesheet" href="../common/css/common_style.css">
-  <!-- 공통 헤더 푸터 햄메뉴 media -->
-  <link rel="stylesheet" href="../common/css/common_media.css">
-  <!-- 각자 css-->
-  <link rel="stylesheet" href="css/pinkoffice.css">
-  <link rel="stylesheet" href="css/pinkoffice_media.css">
-  <!-- 슬라이드 스와이퍼 스크립트 - 안쓰시면 삭제-->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-  <!-- 공통 script-->
-  <script src="../common/js/common.js"></script>
-  <!-- 각자 script -->
-  <script src="js/pinkoffice.js"></script>
-</head>
+  <body>
+    <div class="ham_modal"></div>
+    <!-- //.ham_modal -->
+    <header></header>
 
-<body>
-  <div class="ham_modal">
+    <div class="wrap">
+      <section id="personal_color" class="personal_color">
+        <h2>PERSONAL COLOR</h2>
+      </section>
+      <section id="color_mixing" class="color_mixing">
+        <h2>COLOR MIXING</h2>
+      </section>
+      <section id="coha_community" class="coha_community">
+        <h2>COHA COMMUNITY</h2>
+      </section>
+      <section id="coha" class="coha">
+        <h2>COHA</h2>
+      </section>
+      <section id="only_pink_office" class="only_pink_office">
+        <div class="only_inner_wrap">
+          <!-- 좌측 풀 사이즈 이미지 영역 -->
+          <div class="only_vid_wrap">
+            <img
+              src="img/only_main_vid.png"
+              alt="Main Video Placeholder"
+              class="only_vid_img"
+            />
+          </div>
 
-  </div><!-- //.ham_modal -->
-  <header><button type="button" class="ham"><i class="fa-solid fa-bars"></i></button></header>
+          <!-- 우측 텍스트 영역 -->
+          <div class="only_content_wrap">
+            <div class="only_pink_bar"></div>
+            <div class="only_title_wrap">
+              <h2 class="only_title">
+                <span class="only_title_black">Find Your</span>
+                <img
+                  src="img/only_texture.png"
+                  alt="Product Texture"
+                  class="only_texture_img"
+                />
+                <span class="only_title_pink">Own Color</span>
+              </h2>
+            </div>
+            <div class="only_desc">
+              <p>
+                Discover the colors that suit you through a <br />customized
+                personal color analysis.
+              </p>
+              <p>
+                Find your own unique shade with mood-based <br />consulting and
+                various methods.
+              </p>
+              <p>
+                After the session, you’ll receive a pouch analysis and
+                <br />rom&nd product recommendations.
+              </p>
+              <p>Experience it at Pink Office’s personal color zone.</p>
+            </div>
+            <p class="only_notice">
+              Please note: If you withdraw your Koha membership, access to your
+              entry QR code may <br />be limited, which can restrict
+              participation.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="green_chemi" class="green_chemi">
+        <div class="bokeh_wrap">
+          <div class="bokeh"></div>
+          <div class="bokeh"></div>
+          <div class="bokeh"></div>
+          <div class="bokeh"></div>
+        </div>
+        <div class="content_inner">
+          <!-- 중앙 텍스트 영역 -->
+          <div class="text_box">
+            <h2 class="title">
+              <span class="point_color">GREENCHEMI</span> PROJECT
+            </h2>
+            <p class="subtitle">
+              TURN YOUR <span class="point_color">EMPTIES</span> INTO
+              <span class="point_color">NEW BEAUTY</span>
+            </p>
+            <div class="desc">
+              <p>The Green Chemi Project is rom&nd’s eco-friendly</p>
+              <p>initiative that turns used cosmetic empties</p>
+              <p>into something meaningful.</p>
+              <p>Join us in creating a more sustainable beauty cycle.</p>
+            </div>
+            <a href="#" class="cta_btn">
+              <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+              <span class="btn_text">EXPLORE THE CHEMI PROJECT</span>
+            </a>
+          </div>
 
-  <nav class="side_nav">
-    <ul>
-      <!-- 1F -->
-      <li class="nav_group">
-        <div class="group_header" data-full="1F PINKOFFICE" data-target="pink_office">1F</div>
-        <ul class="sub_nav">
-          <li class="nav_item" data-target="green_chemi">GREENCHEMI</li>
-          <li class="nav_item" data-target="only_pink_office">ONLY PINKOFFICE</li>
-        </ul>
-      </li>
-
-      <!-- 2F -->
-      <li class="nav_group">
-        <div class="group_header" data-full="2F COHA" data-target="coha">2F</div>
-        <ul class="sub_nav">
-          <li class="nav_item" data-target="coha_community">COHA COMMUNITY</li>
-          <li class="nav_item" data-target="color_mixing">COLOR MIXING</li>
-          <li class="nav_item" data-target="personal_color">PERSONAL COLOR</li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-
-
-  <div class="wrap">
-
-    <section id="pink_office" class="pink_office">
-      <h2>PINK OFFICE</h2>
-    </section>
-    <section id="green_chemi" class="green_chemi">
-      <h2>GREEN CHEMI</h2>
-    </section>
-    <section id="only_pink_office" class="only_pink_office">
-      <h2>ONLY PINK OFFICE</h2>
-    </section>
-    <section id="coha" class="coha">
-      <h2>COHA</h2>
-    </section>
-    <section id="coha_community" class="coha_community">
-      <h2>COHA COMMUNITY</h2>
-    </section>
-    <section id="color_mixing" class="color_mixing">
-      <h2>COLOR MIXING</h2>
-    </section>
-    <section id="personal_color" class="personal_color">
-      <h2>PERSONAL COLOR</h2>
-    </section>
-  </div>
-  <footer></footer>
-</body>
-
+          <!-- 우측 수거함 및 틴트 투입 연출 -->
+          <div class="box_wrap">
+            <div class="box_img">
+              <img src="img/chemi_box.png" alt="Recycle Box" />
+            </div>
+            <div class="chemi_tints">
+              <img
+                src="img/chemi_tint1.png"
+                alt="Tint 1"
+                class="chemi_tint chemi_tint_1"
+              />
+              <img
+                src="img/chemi_tint2.png"
+                alt="Tint 2"
+                class="chemi_tint chemi_tint_2"
+              />
+              <img
+                src="img/chemi_tint3.png"
+                alt="Tint 3"
+                class="chemi_tint chemi_tint_3"
+              />
+              <img
+                src="img/chemi_tint4.png"
+                alt="Tint 4"
+                class="chemi_tint chemi_tint_4"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="pink_office" class="pink_office">
+        <h2>PINK OFFICE</h2>
+      </section>
+    </div>
+    <button type="button" class="ham"><i class="fa-solid fa-bars"></i></button>
+  </body>
 </html>
