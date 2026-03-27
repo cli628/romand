@@ -1,8 +1,8 @@
-if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+﻿if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded",  () => {
     const heroSection = document.querySelector(".hero_section");
     const heroWave = heroSection?.querySelector("svg");
     const heroWavePath = heroWave?.querySelector("path");
@@ -62,9 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 52 * primaryWave +
                 22 * secondaryWave +
                 23 * tertiaryWave +
-                /* 웨이브 높이 */
+                /* ?⑥씠釉??믪씠 */
                 32 * detailWaveA +
-                /* 파동 잘게할지 느슨하게할지 */
+                /* ?뚮룞 ?섍쾶?좎? ?먯뒯?섍쾶?좎? */
                 46 * detailWaveB +
 
                 14 * detailWaveC
@@ -176,14 +176,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 1-1. personal_color_section - 스크롤 패럴랙스 배경 + 플로팅 콘텐츠
+    // 1-1. personal_color_section - ?ㅽ겕濡??⑤윺?숈뒪 諛곌꼍 + ?뚮줈??肄섑뀗痢?
     const personalColorSection = document.querySelector(".personal_color_section");
     if (personalColorSection && typeof ScrollTrigger !== "undefined") {
         const personalColorBg      = personalColorSection.querySelector(".personal_color_bg");
         const personalColorContent = personalColorSection.querySelector(".personal_color_content");
 
-        /* 배경 패럴랙스: 섹션이 뷰포트를 통과하는 동안 bg를 느리게 이동
-           → 배경이 고정된 것처럼 보이고 위아래 섹션이 앞에 있는 느낌 */
+        /* 諛곌꼍 ?⑤윺?숈뒪: ?뱀뀡??酉고룷?몃? ?듦낵?섎뒗 ?숈븞 bg瑜??먮━寃??대룞
+           ??諛곌꼍??怨좎젙??寃껋쿂??蹂댁씠怨??꾩븘???뱀뀡???욎뿉 ?덈뒗 ?먮굦 */
         if (personalColorBg) {
             gsap.fromTo(personalColorBg,
                 { y: "-20%" },
@@ -201,8 +201,8 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         }
 
-        /* 콘텐츠: 하위 3개(h2, p, a)에 딜레이 스태거 적용
-           IntersectionObserver 사용 — pin spacer 위치 오산 방지 */
+        /* 肄섑뀗痢? ?섏쐞 3媛?h2, p, a)???쒕젅???ㅽ깭嫄??곸슜
+           IntersectionObserver ?ъ슜 ??pin spacer ?꾩튂 ?ㅼ궛 諛⑹? */
         if (personalColorContent) {
             const contentItems = Array.from(personalColorContent.children);
             gsap.set(contentItems, { y: 3, opacity: 0 });
@@ -226,13 +226,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // 1-2. pink_office_intro - 스태거 진입 연출
+    // 1-2. pink_office_intro - ?ㅽ깭嫄?吏꾩엯 ?곗텧
     const pinkOfficeIntroEl = document.querySelector(".pink_office_intro");
     if (pinkOfficeIntroEl) {
         const pinkIntroItems = Array.from(pinkOfficeIntroEl.children);
         const PINK_Y = 30;
 
-        /* 섹션이 화면 아래 있을 때만 초기 숨김 — 이미 보이는 상태면 그대로 */
+        /* ?뱀뀡???붾㈃ ?꾨옒 ?덉쓣 ?뚮쭔 珥덇린 ?④? ???대? 蹂댁씠???곹깭硫?洹몃?濡?*/
         const pinkSectionEl = document.querySelector(".pink_office_section");
         if (!pinkSectionEl || pinkSectionEl.getBoundingClientRect().top > window.innerHeight) {
             gsap.set(pinkIntroItems, { y: PINK_Y, opacity: 0 });
@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         stagger: 0.18
                     });
                 } else {
-                    /* 이탈 시 초기와 동일한 y값으로 리셋 — 불일치 방지 */
+                    /* ?댄깉 ??珥덇린? ?숈씪??y媛믪쑝濡?由ъ뀑 ??遺덉씪移?諛⑹? */
                     gsap.set(pinkIntroItems, { y: PINK_Y, opacity: 0 });
                 }
             });
@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const currentFloatingItem = btn.closest(".floating_item");
             const isOpen = card.classList.toggle("is-open");
             btn.setAttribute("aria-expanded", String(isOpen));
-            // 다른 카드 닫기
+            // ?ㅻⅨ 移대뱶 ?リ린
             document.querySelectorAll(".product_card.is-open").forEach((other) => {
                 if (other !== card) {
                     other.classList.remove("is-open");
@@ -321,40 +321,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const shoppingBagBack  = document.querySelector(".shopping_bag_container .bag_back");
     const newSectionHeader = document.querySelector(".new_section .section_header");
     const NEW_SECTION_BAG_CONFIG = {
-        /* 스크롤 길이 배율 */
+        /* ?ㅽ겕濡?湲몄씠 諛곗쑉 */
         scrollLengthMultiplier: 6.3,
-        /* 스크롤 길이 배율 */
+        /* ?ㅽ겕濡?湲몄씠 諛곗쑉 */
         scrub: 5,
-        /*  제품들이 위로 떠오르는 거리 (스크롤에 따라 y값이 음수로 이동) */
+        /*  ?쒗뭹?ㅼ씠 ?꾨줈 ?좎삤瑜대뒗 嫄곕━ (?ㅽ겕濡ㅼ뿉 ?곕씪 y媛믪씠 ?뚯닔濡??대룞) */
         floatingProductsShiftY: 80,
-        /* 봉투가 중앙으로 올라오는 시간 */
+        /* 遊됲닾媛 以묒븰?쇰줈 ?щ씪?ㅻ뒗 ?쒓컙 */
         floatingProductsDuration: 12,
-        /* 봉투가 중앙으로 올라오는 시간 */
+        /* 遊됲닾媛 以묒븰?쇰줈 ?щ씪?ㅻ뒗 ?쒓컙 */
         bagRiseDuration: 4,
-        /* 헤더 페이드 아웃 시작 시간 */
+        /* ?ㅻ뜑 ?섏씠???꾩썐 ?쒖옉 ?쒓컙 */
         headerFadeStartAt: 5.2,
-        /* 헤더 페이드 아웃 지속 시간 */
+        /* ?ㅻ뜑 ?섏씠???꾩썐 吏???쒓컙 */
         headerFadeDuration: 1.4,
 
-        /* 모이기 시작 시간 */
+        /* 紐⑥씠湲??쒖옉 ?쒓컙 */
         gatherStartAt: 3,
 
-        /* 제품 간 간격 */
+        /* ?쒗뭹 媛?媛꾧꺽 */
         gatherStagger: 1,
 
-        /* 각 단계 속도 */
+        /* 媛??④퀎 ?띾룄 */
         gatherDuration: 1.2,
 
-        /* 봉투로 들어가는 시작 시간 */
+        /* 遊됲닾濡??ㅼ뼱媛???쒖옉 ?쒓컙 */
         dropStartAt: 6,
 
-        /* 봉투로 들어가는 간격 */
+        /* 遊됲닾濡??ㅼ뼱媛??媛꾧꺽 */
         dropStagger: 1,
 
-        /* 각 단계 속도 */
+        /* 媛??④퀎 ?띾룄 */
         dropDuration: 5,
 
-        /* 제품들이 중간에 모이는 위치 */
+        /* ?쒗뭹?ㅼ씠 以묎컙??紐⑥씠???꾩튂 */
         gatherTargets: [
             { top: "0%", left: "41%", scale: 1, ease: "power1.inOut"},
             { top: "0%", left: "46%", scale: 1, ease: "power1.inOut"},
@@ -362,9 +362,9 @@ document.addEventListener("DOMContentLoaded", () => {
             { top: "0%", left: "54%", scale: 1, ease: "power1.inOut"},
             { top: "0%", left: "58%", scale: 1, ease: "power1.inOut"}
         ],
-        /* 봉투로 들어가는 최종 위치 — opacity 0으로 봉투 안으로 사라짐 */
+        /* 遊됲닾濡??ㅼ뼱媛??理쒖쥌 ?꾩튂 ??opacity 0?쇰줈 遊됲닾 ?덉쑝濡??щ씪吏?*/
         dropTarget: { top: "100%", left: "50%", scale: 1, opacity: 1, ease: "power2.in" },
-        /* 봉투 전체가 보인 뒤 다음 섹션으로 넘어가기 전 유지 시간 */
+        /* 遊됲닾 ?꾩껜媛 蹂댁씤 ???ㅼ쓬 ?뱀뀡?쇰줈 ?섏뼱媛湲????좎? ?쒓컙 */
         endHoldDuration: 4
     };
     if (floatingItems.length > 0) {
@@ -374,7 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 pin: true,
                 start: "top 15%",
                 end: () => `+=${Math.round(window.innerHeight * NEW_SECTION_BAG_CONFIG.scrollLengthMultiplier)}`,
-                /* 휠 하는만큼 이동 */
+                /* ???섎뒗留뚰겮 ?대룞 */
                 scrub: NEW_SECTION_BAG_CONFIG.scrub,
                 anticipatePin: 1
             }
@@ -388,7 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 0);
         }
 
-        // 봉투 앞뒤 요소 모음 — 수집 단계에서는 하단 고정 (애니메이션 없음)
+        // 遊됲닾 ?욌뮘 ?붿냼 紐⑥쓬 ???섏쭛 ?④퀎?먯꽌???섎떒 怨좎젙 (?좊땲硫붿씠???놁쓬)
         const bagElements = [shoppingBagFront, shoppingBagBack].filter(Boolean);
 
         if (newSectionHeader) {
@@ -433,18 +433,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }, dropAt);
 });
 
-        // 마지막 제품 낙하 완료 시점 계산 (dropStartAt + stagger * (items-1) + dropDuration)
+        // 留덉?留??쒗뭹 ?숉븯 ?꾨즺 ?쒖젏 怨꾩궛 (dropStartAt + stagger * (items-1) + dropDuration)
         const lastDropEnd = NEW_SECTION_BAG_CONFIG.dropStartAt
             + (floatingItems.length - 1) * NEW_SECTION_BAG_CONFIG.dropStagger
             + NEW_SECTION_BAG_CONFIG.dropDuration;
 
-        // 제품이 다 들어간 뒤 봉투를 화면 정 중앙으로 올림
+        // ?쒗뭹?????ㅼ뼱媛???遊됲닾瑜??붾㈃ ??以묒븰?쇰줈 ?щ┝
         if (bagElements.length > 0) {
-            // pin start(12%)를 제외한 실제 보이는 높이
+            // pin start(12%)瑜??쒖쇅???ㅼ젣 蹂댁씠???믪씠
             const visibleH = window.innerHeight * (1 - 0.12);
             const bagH     = bagElements[0].offsetHeight;
             const bagCSSTop = parseInt(getComputedStyle(bagElements[0]).top, 10) || 0;
-            // 봉투 중앙이 가시영역 중앙에 오도록 y 이동량 계산
+            // 遊됲닾 以묒븰??媛?쒖쁺??以묒븰???ㅻ룄濡?y ?대룞??怨꾩궛
             const centerTop = Math.max(0, (visibleH - bagH) / 2);
             const riseY     = -(bagCSSTop - centerTop);
             tl.to(bagElements, {
@@ -454,11 +454,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }, lastDropEnd);
         }
 
-        // 봉투 전체가 보인 뒤 스크롤 조금 더 내리면 다음 섹션으로
+        // 遊됲닾 ?꾩껜媛 蹂댁씤 ???ㅽ겕濡?議곌툑 ???대━硫??ㅼ쓬 ?뱀뀡?쇰줈
         tl.to({}, { duration: NEW_SECTION_BAG_CONFIG.endHoldDuration });
     }
 
-/* 레일 위의 봉투움직임에 맞추는 값 */
+/* ?덉씪 ?꾩쓽 遊됲닾?吏곸엫??留욎텛??媛?*/
     function initializeBestSectionVideoScrub() {
         const bestSection = document.querySelector(".best_section");
         const bestVideo = bestSection?.querySelector(".best_bg video");
@@ -466,58 +466,58 @@ document.addEventListener("DOMContentLoaded", () => {
         const railTrack = bestSection?.querySelector(".rail_track");
         const railItems = bestSection ? Array.from(bestSection.querySelectorAll(".rail_item")) : [];
         const BEST_SECTION_CONFIG = {
-            scrubViewportMultiplier: 14,  /* 스크럽 뷰포트 배율 */
+            scrubViewportMultiplier: 14,  /* ?ㅽ겕??酉고룷??諛곗쑉 */
             scrubWheelStepCount: 15,
             scrubWheelDeltaPerStep: 480,
-            videoDurationRatio: 0.58,     /* 비디오 재생 구간 비율 (5s × 0.58 = 2.9s) */
+            videoDurationRatio: 0.58,     /* 鍮꾨뵒???ъ깮 援ш컙 鍮꾩쑉 (5s 횞 0.58 = 2.9s) */
             videoEndPadding: 0.1,
-            videoProgressEnd: 0.82,       /* 이 스크롤 진행률에서 videoProgress = 1 */
-            exitStartProgress: 0.8,       /* 헤더/레일 페이드아웃 시작 */
+            videoProgressEnd: 0.82,       /* ???ㅽ겕濡?吏꾪뻾瑜좎뿉??videoProgress = 1 */
+            exitStartProgress: 0.8,       /* ?ㅻ뜑/?덉씪 ?섏씠?쒖븘???쒖옉 */
             exitDistanceY: 0,
             headerExitDistanceY: 90,
-            railSinkStart: 0.82,          /* pathProgress 이 값 이후부터 모달 축소/사라짐 */
+            railSinkStart: 0.82,          /* pathProgress ??媛??댄썑遺??紐⑤떖 異뺤냼/?щ씪吏?*/
 
-            /* ── Method A: 단일 공통 경로 ──────────────────────────────
-               컨베이어 벨트 곡선을 하나의 경로로 정의.
-               봉투 3개는 같은 경로를 이동하며, bagInitialOffsets 로 시작 위치를 다르게 설정.
-               비디오 좌표계: x/y 는 video 요소 너비/높이 기준 비율.
-               x < 0 은 video 왼쪽 바깥, y > 1 은 video 아래쪽 바깥. */
+            /* ?? Method A: ?⑥씪 怨듯넻 寃쎈줈 ??????????????????????????????
+               而⑤쿋?댁뼱 踰⑦듃 怨≪꽑???섎굹??寃쎈줈濡??뺤쓽.
+               遊됲닾 3媛쒕뒗 媛숈? 寃쎈줈瑜??대룞?섎ŉ, bagInitialOffsets 濡??쒖옉 ?꾩튂瑜??ㅻⅤ寃??ㅼ젙.
+               鍮꾨뵒??醫뚰몴怨? x/y ??video ?붿냼 ?덈퉬/?믪씠 湲곗? 鍮꾩쑉.
+               x < 0 ? video ?쇱そ 諛붽묑, y > 1 ? video ?꾨옒履?諛붽묑. */
             // singleBagPath: [
-            //     { x: -0.75, y: 0.5 },   /* 진입 (봉투3 상단) */
-            //     { x: -0.4, y: 0.45 },   /* 봉투3 시작 위치 */
+            //     { x: -0.75, y: 0.5 },   /* 吏꾩엯 (遊됲닾3 ?곷떒) */
+            //     { x: -0.4, y: 0.45 },   /* 遊됲닾3 ?쒖옉 ?꾩튂 */
             //     { x: -0.08, y: 0.35 },
-            //     { x: 0.23, y: 0.40 },   /* 봉투2 시작 위치 */
+            //     { x: 0.23, y: 0.40 },   /* 遊됲닾2 ?쒖옉 ?꾩튂 */
             //     { x: 0.18, y: 0.52 },
-            //     { x: 0.04, y: 0.54 },   /* 봉투1 시작 위치 */
+            //     { x: 0.04, y: 0.54 },   /* 遊됲닾1 ?쒖옉 ?꾩튂 */
             //     { x: -0.14, y: 0.66 },
-            //     { x: -0.28, y: 0.76 },  /* 화면 이탈 */
-            //     { x: -0.60, y: 0.86 }   /* 완전 이탈 */
+            //     { x: -0.28, y: 0.76 },  /* ?붾㈃ ?댄깉 */
+            //     { x: -0.60, y: 0.86 }   /* ?꾩쟾 ?댄깉 */
             // ],
 
             singleBagPath: [
-                { x: 0.1, y: 0.10 },   /* 진입 (봉투3 상단) */
-                { x: 0.1, y: 0.235 },   /* 봉투3 시작 위치 */
+                { x: 0.1, y: 0.10 },   /* 吏꾩엯 (遊됲닾3 ?곷떒) */
+                { x: 0.1, y: 0.235 },   /* 遊됲닾3 ?쒖옉 ?꾩튂 */
                 { x: 0.21, y: 0.35 },
-                { x: 0.23, y: 0.40 },   /* 봉투2 시작 위치 */
+                { x: 0.23, y: 0.40 },   /* 遊됲닾2 ?쒖옉 ?꾩튂 */
                 { x: 0.18, y: 0.52 },
-                { x: 0.04, y: 0.54 },   /* 봉투1 시작 위치 */
+                { x: 0.04, y: 0.54 },   /* 遊됲닾1 ?쒖옉 ?꾩튂 */
                 { x: -0.18, y: 0.66 },
-                { x: -0.5, y: 0.76 },  /* 화면 이탈 */
-                { x: -0.8, y: 0.86 }   /* 완전 이탈 */
+                { x: -0.5, y: 0.76 },  /* ?붾㈃ ?댄깉 */
+                { x: -0.8, y: 0.86 }   /* ?꾩쟾 ?댄깉 */
             ],
-            /* videoProgress=0 시점에서 각 봉투가 경로 상에 있는 위치 (0~1)
-               index 0 = 가장 앞선 봉투(화면 하단-좌), index 2 = 가장 늦은 봉투(화면 상단) */
+            /* videoProgress=0 ?쒖젏?먯꽌 媛?遊됲닾媛 寃쎈줈 ?곸뿉 ?덈뒗 ?꾩튂 (0~1)
+               index 0 = 媛???욎꽑 遊됲닾(?붾㈃ ?섎떒-醫?, index 2 = 媛????? 遊됲닾(?붾㈃ ?곷떒) */
             bagInitialOffsets: [0.62, 0.37, 0.08],
 
-            /* videoProgress 1 증가 시 경로를 얼마나 이동하는지 */
+            /* videoProgress 1 利앷? ??寃쎈줈瑜??쇰쭏???대룞?섎뒗吏 */
             bagTravelRate: 0.5,
 
-            /* 각 봉투 모달 페이드인 시작 시점 (videoProgress 기준) */
+            /* 媛?遊됲닾 紐⑤떖 ?섏씠?쒖씤 ?쒖옉 ?쒖젏 (videoProgress 湲곗?) */
             bagFadeStarts: [0.0, 0.0, 0.06],
-            bagFadeDuration: 0.12,        /* 페이드인 지속 시간 */
+            bagFadeDuration: 0.12,        /* ?섏씠?쒖씤 吏???쒓컙 */
 
             itemAnchorOffset: { x: 210, y: -36 },
-            /* 각 봉투 모달의 미세 위치 보정 — 미리 확인 후 조정 */
+            /* 媛?遊됲닾 紐⑤떖??誘몄꽭 ?꾩튂 蹂댁젙 ??誘몃━ ?뺤씤 ??議곗젙 */
             itemOffsets: [
                 { x: 0, y: 0 },
                 { x: 0, y: 0 },
@@ -526,7 +526,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         if (!bestSection || !bestVideo || !bestHeader || !railTrack || typeof ScrollTrigger === "undefined" || typeof gsap === "undefined") {
-            /* best_section 없으면 바로 workflow 초기화 */
+            /* best_section ?놁쑝硫?諛붾줈 workflow 珥덇린??*/
             initializeWorkflowSteps();
             return;
         }
@@ -628,14 +628,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 railItems.forEach((item, index) => {
-                    /* 이 봉투의 경로 진행률 (0=시작지점, 1=완전이탈) */
+                    /* ??遊됲닾??寃쎈줈 吏꾪뻾瑜?(0=?쒖옉吏?? 1=?꾩쟾?댄깉) */
                     const bagPathProgress = gsap.utils.clamp(
                         0,
                         1,
                         BEST_SECTION_CONFIG.bagInitialOffsets[index] + videoProgress * BEST_SECTION_CONFIG.bagTravelRate
                     );
 
-                    /* 페이드인 진행률 — bagFadeStarts 로 봉투별 등장 시점 제어 */
+                    /* ?섏씠?쒖씤 吏꾪뻾瑜???bagFadeStarts 濡?遊됲닾蹂??깆옣 ?쒖젏 ?쒖뼱 */
                     const fadeStart = BEST_SECTION_CONFIG.bagFadeStarts[index];
                     const appearProgress = gsap.utils.clamp(
                         0,
@@ -643,7 +643,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         (videoProgress - fadeStart) / BEST_SECTION_CONFIG.bagFadeDuration
                     );
 
-                    /* railSinkStart 이후 pathProgress 기준으로 모달 축소/사라짐 */
+                    /* railSinkStart ?댄썑 pathProgress 湲곗??쇰줈 紐⑤떖 異뺤냼/?щ씪吏?*/
                     const sinkProgress = gsap.utils.clamp(
                         0,
                         1,
@@ -654,11 +654,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     const modal = item.querySelector(".product_modal");
                     const line = item.querySelector(".connect_line");
 
-                    /* sinkProgress 시작 시 item별로 아래로 슬금슬금 이동 (item2, 3 더 많이) */
+                    /* sinkProgress ?쒖옉 ??item蹂꾨줈 ?꾨옒濡??ш툑?ш툑 ?대룞 (item2, 3 ??留롮씠) */
                     const sinkDropAmounts = [0, 650, 950];  /*  */
                     const sinkDropY = sinkProgress * (sinkDropAmounts[index] || 0);
 
-                    /* 아이템별 opacity 페이드 시작 지연 — item2는 더 이동 후 사라짐, item3은 오래 머뭄 */
+                    /* ?꾩씠?쒕퀎 opacity ?섏씠???쒖옉 吏????item2?????대룞 ???щ씪吏? item3? ?ㅻ옒 癒몃춣 */
                     const sinkOpacityDelays = [0, 0.60, 0.82];
                     const sinkOpacityDelay = sinkOpacityDelays[index] || 0;
                     const sinkOpacityProgress = gsap.utils.clamp(
@@ -729,8 +729,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             updateBestSectionFrame(0);
 
-            /* best_section pin spacer 생성 후 → refresh → workflow_steps trigger 초기화
-               이 순서여야 trigger 위치가 7200px spacer를 포함해서 정확히 계산됨 */
+            /* best_section pin spacer ?앹꽦 ????refresh ??workflow_steps trigger 珥덇린??
+               ???쒖꽌?ъ빞 trigger ?꾩튂媛 7200px spacer瑜??ы븿?댁꽌 ?뺥솗??怨꾩궛??*/
             ScrollTrigger.refresh();
             initializeWorkflowSteps();
         }
@@ -752,7 +752,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const outletHeader = outletSection.querySelector(".outlet_header");
         const revealTargets = [visualPhoto, putPhoto, outletHeader].filter(Boolean);
 
-        /* 섹션이 화면 아래에 있을 때만 초기 숨김 */
+        /* ?뱀뀡???붾㈃ ?꾨옒???덉쓣 ?뚮쭔 珥덇린 ?④? */
         if (outletSection.getBoundingClientRect().top > window.innerHeight) {
             gsap.set(revealTargets, { y: 50, opacity: 0 });
         }
@@ -772,7 +772,7 @@ document.addEventListener("DOMContentLoaded", () => {
             gsap.set(revealTargets, { y: 50, opacity: 0 });
         }
 
-        /* ScrollTrigger 대신 IntersectionObserver 사용 — pin spacer 위치 오산 문제 회피 */
+        /* ScrollTrigger ???IntersectionObserver ?ъ슜 ??pin spacer ?꾩튂 ?ㅼ궛 臾몄젣 ?뚰뵾 */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) { playReveal(); } else { hideReveal(); }
@@ -884,11 +884,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const totalCards = workflowCards.length;
         const workflowCounter = workflowSection.querySelector(".workflow_steps_counter");
 
-        /* 전체 스크롤 중 타이틀 페이드인이 차지하는 비율
-           나머지 88% 구간에서 카드 이동 → 기존 5.5vh 대비 80% 거리만 카드 이동 */
+        /* Title reveal ratio in the pinned workflow section */
         const TITLE_PHASE_END = 0.12;
 
-        /* 진입 시 타이틀 숨김 */
+        /* 吏꾩엯 ????댄? ?④? */
         if (workflowCounter) {
             gsap.set(workflowCounter, { opacity: 0, y: 18 });
         }
@@ -898,16 +897,19 @@ document.addEventListener("DOMContentLoaded", () => {
             return firstCount ? firstCount.getBoundingClientRect().height : 120;
         }
 
-        /* 타이틀 페이드인 (progress 0 → TITLE_PHASE_END) */
+        /* ??댄? ?섏씠?쒖씤 (progress 0 ??TITLE_PHASE_END) */
         function updateTitle(progress) {
             if (!workflowCounter) return;
             const t = gsap.utils.clamp(0, 1, progress / TITLE_PHASE_END);
             gsap.set(workflowCounter, { opacity: t, y: gsap.utils.interpolate(18, 0, t) });
         }
 
-        /* 카드 이동은 TITLE_PHASE_END 이후부터 시작 */
+        /* Cards start after title phase */
         function getCardProgress(progress) {
-            if (progress <= TITLE_PHASE_END) return 0;
+            if (progress <= TITLE_PHASE_END) {
+                return 0;
+            }
+
             return (progress - TITLE_PHASE_END) / (1 - TITLE_PHASE_END);
         }
 
@@ -919,7 +921,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const cardGap = cardWidth * (isMobile ? 1.1 : 1.35);
             const baseOffsetY = isMobile ? 12 : 0;
 
-            /* cardProgress=0 → 카드 오른쪽 대기 / cardProgress=1 → 마지막 카드 중앙 */
+            /* cardProgress=0 ??移대뱶 ?ㅻⅨ履??湲?/ cardProgress=1 ??留덉?留?移대뱶 以묒븰 */
             const entryOffset = 1.5;
             const activeCardProgress = -entryOffset + cardProgress * (totalCards - 1 + entryOffset);
 
@@ -957,7 +959,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        /* end를 5.0*vh로 설정: 타이틀 12% + 카드 88% = 5.5*0.8 = 4.4vh 이동 → 80% 지점에서 핀 해제 */
+        /* Pinned workflow scroll distance */
         ScrollTrigger.create({
             id: "workflow_steps_trigger",
             trigger: workflowSection,
@@ -985,16 +987,113 @@ document.addEventListener("DOMContentLoaded", () => {
             updateCounter(currentProgress);
         });
 
-        /* workflow pin spacer 생성 완료 후 아래 섹션 초기화 */
+        /* workflow pin spacer ?앹꽦 ?꾨즺 ???꾨옒 ?뱀뀡 珥덇린??*/
         initializePinkOfficeScroll();
     }
 
     function initializePinkOfficeDoorHover() {
+        const pinkSection = document.querySelector(".pink_office_section");
         const doorLink = document.querySelector(".pink_office_door_link");
         const hoverCircle = doorLink?.querySelector(".pink_office_hover_circle");
 
-        if (!doorLink || !hoverCircle) {
+        if (!pinkSection || !doorLink || !hoverCircle) {
             return;
+        }
+
+        const finePointerQuery =
+            typeof window.matchMedia === "function" ? window.matchMedia("(pointer: fine)") : null;
+        const enableMouseArrow = !finePointerQuery || finePointerQuery.matches;
+        const svgNamespace = "http://www.w3.org/2000/svg";
+        let arrowLayer = null;
+        let arrowPath = null;
+        let arrowHead = null;
+
+        if (enableMouseArrow) {
+            arrowLayer = document.createElementNS(svgNamespace, "svg");
+            arrowLayer.setAttribute("class", "pink_office_mouse_arrow");
+            arrowLayer.setAttribute("aria-hidden", "true");
+            arrowLayer.setAttribute("preserveAspectRatio", "none");
+
+            arrowPath = document.createElementNS(svgNamespace, "path");
+            arrowPath.setAttribute("class", "pink_office_mouse_arrow_path");
+
+            arrowHead = document.createElementNS(svgNamespace, "path");
+            arrowHead.setAttribute("class", "pink_office_mouse_arrow_head");
+
+            arrowLayer.appendChild(arrowPath);
+            arrowLayer.appendChild(arrowHead);
+            document.body.appendChild(arrowLayer);
+        }
+
+        function updateArrowViewBox() {
+            if (!arrowLayer) {
+                return;
+            }
+
+            arrowLayer.setAttribute("viewBox", `0 0 ${window.innerWidth} ${window.innerHeight}`);
+        }
+
+        function setArrowVisible(isVisible) {
+            if (!arrowLayer) {
+                return;
+            }
+
+            arrowLayer.classList.toggle("is_visible", Boolean(isVisible));
+        }
+
+        function updateArrow(clientX, clientY) {
+            if (!arrowLayer || !arrowPath || !arrowHead) {
+                return;
+            }
+
+            const rect = doorLink.getBoundingClientRect();
+            const insideDoor =
+                clientX >= rect.left &&
+                clientX <= rect.right &&
+                clientY >= rect.top &&
+                clientY <= rect.bottom;
+
+            if (insideDoor) {
+                setArrowVisible(false);
+                return;
+            }
+
+            const targetX = rect.left + rect.width * 0.5;
+            const targetY = rect.top + rect.height * 0.5;
+            const dx = targetX - clientX;
+            const dy = targetY - clientY;
+            const distance = Math.hypot(dx, dy);
+
+            if (!Number.isFinite(distance) || distance < 30) {
+                setArrowVisible(false);
+                return;
+            }
+
+            const normalX = dx / distance;
+            const normalY = dy / distance;
+            const bend = Math.min(96, distance * 0.22);
+            const controlX = clientX + dx * 0.46 - normalY * bend * 0.18;
+            const controlY = clientY + dy * 0.46 + normalX * bend * 0.18;
+
+            arrowPath.setAttribute(
+                "d",
+                `M ${clientX.toFixed(1)} ${clientY.toFixed(1)} Q ${controlX.toFixed(1)} ${controlY.toFixed(1)} ${targetX.toFixed(1)} ${targetY.toFixed(1)}`
+            );
+
+            const angle = Math.atan2(targetY - controlY, targetX - controlX);
+            const headSize = 12;
+            const spread = Math.PI / 7;
+            const leftX = targetX - Math.cos(angle - spread) * headSize;
+            const leftY = targetY - Math.sin(angle - spread) * headSize;
+            const rightX = targetX - Math.cos(angle + spread) * headSize;
+            const rightY = targetY - Math.sin(angle + spread) * headSize;
+
+            arrowHead.setAttribute(
+                "d",
+                `M ${targetX.toFixed(1)} ${targetY.toFixed(1)} L ${leftX.toFixed(1)} ${leftY.toFixed(1)} L ${rightX.toFixed(1)} ${rightY.toFixed(1)} Z`
+            );
+
+            setArrowVisible(true);
         }
 
         function updateCirclePosition(clientX, clientY) {
@@ -1014,21 +1113,55 @@ document.addEventListener("DOMContentLoaded", () => {
             updateCirclePosition(event.clientX, event.clientY);
         });
 
+        if (enableMouseArrow) {
+            updateArrowViewBox();
+
+            pinkSection.addEventListener("pointerenter", (event) => {
+                if (event.pointerType && event.pointerType !== "mouse") {
+                    return;
+                }
+                updateArrow(event.clientX, event.clientY);
+            });
+
+            pinkSection.addEventListener("pointermove", (event) => {
+                if (event.pointerType && event.pointerType !== "mouse") {
+                    return;
+                }
+                updateArrow(event.clientX, event.clientY);
+            });
+
+            pinkSection.addEventListener("pointerleave", () => {
+                setArrowVisible(false);
+            });
+
+            doorLink.addEventListener("pointerenter", () => {
+                setArrowVisible(false);
+            });
+
+            window.addEventListener("resize", () => {
+                updateArrowViewBox();
+                setArrowVisible(false);
+            });
+        }
+
         doorLink.addEventListener("focus", () => {
             hoverCircle.style.setProperty("--circle-x", "50%");
             hoverCircle.style.setProperty("--circle-y", "50%");
+            setArrowVisible(false);
         });
     }
 
     function initializePinkOfficeScroll() {
         const pinkSection = document.querySelector(".pink_office_section");
-        if (!pinkSection || typeof ScrollTrigger === "undefined") return;
+        if (!pinkSection || typeof ScrollTrigger === "undefined" || typeof gsap === "undefined") return;
 
         const pinkVisual = pinkSection.querySelector(".pink_office_visual");
 
-        /* CSS sticky가 slow scroll 담당 — JS pin 불필요
-           건물 이미지: "top top" → "bottom top" = 섹션(370vh) 완전히 지나칠 때까지 scrub */
+        /* CSS sticky媛 slow scroll ?대떦 ??JS pin 遺덊븘??
+           嫄대Ъ ?대?吏: "top top" ??"bottom top" = ?뱀뀡(370vh) ?꾩쟾??吏?섏튌 ?뚭퉴吏 scrub */
         if (pinkVisual) {
+            gsap.set(pinkVisual, { willChange: "transform" });
+
             gsap.fromTo(pinkVisual,
                 { y: 160 },
                 {
@@ -1046,6 +1179,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function normalizeSnsQuickSrc(src) {
+        const fallback = "../quick/quick.html?embedded=1";
+        if (!src) {
+            return fallback;
+        }
+
+        let normalized = String(src).trim();
+        if (!normalized) {
+            return fallback;
+        }
+
+        if (normalized.startsWith("./quick/")) {
+            normalized = normalized.replace("./quick/", "../quick/");
+        }
+
+        if (normalized === "../quick/quick.html") {
+            normalized = "../quick/quick.html?embedded=1";
+        }
+
+        return normalized;
+    }
+
     function initializeSnsProductBars() {
         const snsCards = Array.from(document.querySelectorAll(".sns_card"));
         const productBarTemplate = document.querySelector("#sns-product-bar-template");
@@ -1057,6 +1212,75 @@ document.addEventListener("DOMContentLoaded", () => {
         function setTextContent(element, value) {
             if (element) {
                 element.textContent = value;
+            }
+        }
+
+        const relatedProductPool = [
+            { title: "LIP MATE PENCIL", subtitle: "Soft contour line", currentPrice: "$12.00", beforePrice: "", image: "img/new_brow.png" },
+            { title: "GLASTING COLOR GLOSS", subtitle: "Glow finishing layer", currentPrice: "$14.00", beforePrice: "", image: "img/new_gloss.png" },
+            { title: "BETTER THAN PALETTE", subtitle: "Mood eye shadow", currentPrice: "$26.00", beforePrice: "", image: "img/new_shadow.png" },
+            { title: "BARE WATER CUSHION", subtitle: "Fresh glow skin", currentPrice: "$21.00", beforePrice: "", image: "img/new_cushion.png" },
+            { title: "GLASTING MELTING BALM", subtitle: "Moist balm texture", currentPrice: "$16.00", beforePrice: "", image: "img/new_balm.png" },
+            { title: "THE JUICY LASTING TINT", subtitle: "Daily MLBB tint", currentPrice: "$15.00", beforePrice: "", image: "img/best_01.png" },
+            { title: "SLIDE IN SINGLE", subtitle: "Smooth single shadow", currentPrice: "$8.00", beforePrice: "", image: "img/best_02.png" },
+            { title: "VOLUME HACK TRIO", subtitle: "Contour volume set", currentPrice: "$29.00", beforePrice: "$34.00", image: "img/best_03.png" }
+        ];
+
+        function getDesiredListCount(productBar) {
+            const rawCount = Number.parseInt(productBar?.dataset.listCount || "", 10);
+            if (!Number.isNaN(rawCount)) {
+                return Math.max(1, Math.min(3, rawCount));
+            }
+
+            return 2;
+        }
+
+        function pickRelatedProducts(cardIndex, mainTitle, count) {
+            if (!relatedProductPool.length || count <= 0) {
+                return [];
+            }
+
+            const filtered = relatedProductPool.filter(
+                (candidate) => candidate.title.toLowerCase() !== String(mainTitle || "").toLowerCase()
+            );
+
+            if (!filtered.length) {
+                return [];
+            }
+
+            const picked = [];
+            const offset = (cardIndex * 2) % filtered.length;
+
+            for (let i = 0; i < count; i += 1) {
+                picked.push(filtered[(offset + i) % filtered.length]);
+            }
+
+            return picked;
+        }
+
+        function applyListItemContent(listItem, itemData) {
+            if (!listItem || !itemData) {
+                return;
+            }
+
+            const image = listItem.querySelector("img");
+            const titleElement = listItem.querySelector(".sns_product_list_text strong");
+            const subtitleElement = listItem.querySelector(".sns_product_list_text span");
+            const currentPriceElement = listItem.querySelector(".sns_price_current");
+            const beforePriceElement = listItem.querySelector(".sns_price_before");
+
+            if (image) {
+                image.src = itemData.image || "img/sns_video02_lip01.png";
+                image.alt = itemData.title || "";
+            }
+
+            setTextContent(titleElement, itemData.title || "");
+            setTextContent(subtitleElement, itemData.subtitle || "");
+            setTextContent(currentPriceElement, itemData.currentPrice || "");
+
+            if (beforePriceElement) {
+                setTextContent(beforePriceElement, itemData.beforePrice || "");
+                beforePriceElement.style.display = itemData.beforePrice ? "inline" : "none";
             }
         }
 
@@ -1078,44 +1302,78 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        snsCards.forEach((card) => {
+        snsCards.forEach((card, cardIndex) => {
             const productBar = card.querySelector(".sns_product_bar");
 
             if (!productBar) {
                 return;
             }
 
+            const originalQuickButton = productBar.querySelector(".sns_quick_btn");
+            const originalThumbImage = productBar.querySelector(".sns_product_thumb img");
+            const originalQuickSrc =
+                originalQuickButton?.dataset.quickSrc ||
+                originalQuickButton?.getAttribute("href") ||
+                "";
+            const originalThumbSrc = originalThumbImage?.getAttribute("src") || "img/sns_video02_lip01.png";
             const title = productBar.querySelector("h3")?.textContent?.trim() || "VOLUME HACK TRIO";
             const subtitle = productBar.querySelector("p")?.textContent?.trim() || "TOFFEE NUDE";
             const priceText = productBar.querySelector("span")?.textContent?.trim() || "$29.00 $34.00";
             const priceMatch = priceText.match(/\$[\d.]+/g) || ["$29.00", "$34.00"];
             const currentPrice = priceMatch[0] || "$29.00";
-            const beforePrice = priceMatch[1] || "$34.00";
+            const beforePrice = priceMatch.length > 1 ? priceMatch[1] : "";
             const templateContent = productBarTemplate.content.cloneNode(true);
+            const thumbImage = templateContent.querySelector(".sns_product_thumb img");
             const titleElement = templateContent.querySelector(".sns_product_info h3");
             const subtitleElement = templateContent.querySelector(".sns_product_info p");
             const currentPriceElement = templateContent.querySelector(".sns_price_current");
             const beforePriceElement = templateContent.querySelector(".sns_price_before");
-            const listMainImage = templateContent.querySelector(".sns_product_list_item img");
-            const listMainTitle = templateContent.querySelector(".sns_product_list_text strong");
-            const listMainSubtitle = templateContent.querySelector(".sns_product_list_text span");
-            const listMainPrice = templateContent.querySelector(".sns_product_list_price");
+            const listContainer = templateContent.querySelector(".sns_product_list");
+            const listItemTemplate = listContainer?.querySelector(".sns_product_list_item");
             const quickButton = templateContent.querySelector(".sns_quick_btn");
+
+            if (thumbImage) {
+                thumbImage.src = originalThumbSrc;
+                thumbImage.alt = title;
+            }
+
             setTextContent(titleElement, title);
             setTextContent(subtitleElement, subtitle);
             setTextContent(currentPriceElement, currentPrice);
-            setTextContent(beforePriceElement, beforePrice);
-
-            if (listMainImage) {
-                listMainImage.alt = title;
+            if (beforePriceElement) {
+                setTextContent(beforePriceElement, beforePrice);
+                beforePriceElement.style.display = beforePrice ? "inline" : "none";
             }
 
-            setTextContent(listMainTitle, title);
-            setTextContent(listMainSubtitle, subtitle);
-            setTextContent(listMainPrice, currentPrice);
+            const desiredListCount = getDesiredListCount(productBar);
+            const relatedProducts = pickRelatedProducts(cardIndex, title, Math.max(0, desiredListCount - 1));
+            const listData = [
+                {
+                    title,
+                    subtitle,
+                    currentPrice,
+                    beforePrice,
+                    image: originalThumbSrc
+                },
+                ...relatedProducts
+            ];
 
-            if (quickButton && productBar.dataset.quickSrc) {
-                quickButton.dataset.quickSrc = productBar.dataset.quickSrc;
+            if (listContainer && listItemTemplate) {
+                listContainer.replaceChildren();
+                const visualListData = [...listData].reverse();
+                visualListData.forEach((itemData) => {
+                    const listItem = listItemTemplate.cloneNode(true);
+                    applyListItemContent(listItem, itemData);
+                    listContainer.appendChild(listItem);
+                });
+            }
+
+            if (quickButton) {
+                const normalizedQuickSrc = normalizeSnsQuickSrc(originalQuickSrc);
+                quickButton.dataset.quickSrc = normalizedQuickSrc;
+                if (quickButton.tagName === "A") {
+                    quickButton.setAttribute("href", normalizedQuickSrc);
+                }
             }
 
             productBar.replaceChildren(templateContent);
@@ -1285,6 +1543,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         snsSwipe.addEventListener("pointerdown", (event) => {
+            if (event.button !== undefined && event.button !== 0) {
+                return;
+            }
+
+            if (
+                event.target.closest(
+                    ".sns_quick_btn, .sns_expand_btn, .sns_product_list_panel, .sns_product_list_item, button, a, input, textarea, select"
+                )
+            ) {
+                return;
+            }
+
             isPointerDown = true;
             dragMoved = false;
             startPointerX = event.clientX;
@@ -1403,14 +1673,14 @@ document.addEventListener("DOMContentLoaded", () => {
             button.addEventListener("click", (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-                const src = button.dataset.quickSrc || "../quick/quick.html?embedded=1";
+                const src = normalizeSnsQuickSrc(button.dataset.quickSrc || button.getAttribute("href") || "");
                 openQuickModal(src);
             });
         });
 
         backdrop.addEventListener("click", closeQuickModal);
 
-        // quick.html 내부 닫기 버튼에서 postMessage로 닫기 요청 수신
+        // quick.html ?대? ?リ린 踰꾪듉?먯꽌 postMessage濡??リ린 ?붿껌 ?섏떊
         window.addEventListener("message", (event) => {
             if (event.data === "closeQuickModal") {
                 closeQuickModal();
@@ -1430,7 +1700,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const overlay  = section.querySelector(".personal_color_overlay");
 
-        /* 기본 spotlight 위치 (오른쪽 중앙 — 콘텐츠가 오른쪽에 있으므로) */
+        /* 湲곕낯 spotlight ?꾩튂 (?ㅻⅨ履?以묒븰 ??肄섑뀗痢좉? ?ㅻⅨ履쎌뿉 ?덉쑝誘濡? */
         const DEFAULT_X = 60;
         const DEFAULT_Y = 50;
 
@@ -1445,7 +1715,7 @@ document.addEventListener("DOMContentLoaded", () => {
             currentX = lerp(currentX, targetX, 0.055);
             currentY = lerp(currentY, targetY, 0.055);
 
-            /* spotlight 위치만 업데이트 — bg/콘텐츠는 스크롤 패럴랙스/플로팅이 담당 */
+            /* spotlight ?꾩튂留??낅뜲?댄듃 ??bg/肄섑뀗痢좊뒗 ?ㅽ겕濡??⑤윺?숈뒪/?뚮줈?낆씠 ?대떦 */
             if (overlay) {
                 overlay.style.setProperty("--spotlight-x", `${currentX.toFixed(2)}%`);
                 overlay.style.setProperty("--spotlight-y", `${currentY.toFixed(2)}%`);
@@ -1479,54 +1749,9 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeOutletSwipe();
     initializePersonalColorBanner();
     initializePinkOfficeDoorHover();
-    initializeBestSectionVideoScrub(); /* 내부에서 setupBestVideoScrub 완료 후 initializeWorkflowSteps() 호출 */
+    initializeBestSectionVideoScrub(); /* ?대??먯꽌 setupBestVideoScrub ?꾨즺 ??initializeWorkflowSteps() ?몄텧 */
     initializeSnsProductBars();
     initializeSnsSwipe();
-    function initializeSnsQuickModal() {
-    const quickModal = document.querySelector(".sns_quick_modal");
-    const quickFrame = document.querySelector(".sns_quick_frame");
-    const openButtons = document.querySelectorAll(".sns_quick_btn");
-    const backdrop = document.querySelector(".sns_quick_modal_backdrop");
-
-    console.log("quickModal:", quickModal);
-    console.log("quickFrame:", quickFrame);
-    console.log("openButtons:", openButtons.length);
-    console.log("backdrop:", backdrop);
-
-    if (!quickModal || !quickFrame || !openButtons.length || !backdrop) {
-        console.log("퀵모달 요소 부족");
-        return;
-    }
-
-    function openQuickModal(src) {
-        console.log("open src:", src);
-        quickFrame.src = src;
-        quickModal.classList.add("is_open");
-        quickModal.setAttribute("aria-hidden", "false");
-        document.body.classList.add("sns_quick_locked");
-    }
-
-    function closeQuickModal() {
-        quickModal.classList.remove("is_open");
-        quickModal.setAttribute("aria-hidden", "true");
-        document.body.classList.remove("sns_quick_locked");
-
-        window.setTimeout(() => {
-            if (!quickModal.classList.contains("is_open")) {
-                quickFrame.src = "about:blank";
-            }
-        }, 340);
-    }
-
-    openButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            const src = button.dataset.quickSrc || "./quick/quick.html?embedded=1";
-            openQuickModal(src);
-        });
-    });
-
-    backdrop.addEventListener("click", closeQuickModal);
-}
+    initializeSnsQuickModal();
 });
+
