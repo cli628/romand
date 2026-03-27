@@ -1,2 +1,941 @@
 @charset "utf-8";
 
+header {
+  height: 72px;
+  width: 100%;
+  background: var(--g-color2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* ============================================
+   Contents 섹션
+   ============================================ */
+
+/* -- 전체 레이아웃 -- */
+.contents {
+  width: 100%;
+  height: 100vh;
+  padding-top: 72px;
+  background: var(--white);
+}
+
+.contents_inner {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  /* align-items: flex-start; */
+}
+
+/* -- 왼쪽: 이미지 + 탭 -- */
+.contents_left {
+  flex: 1;
+  display: flex;
+  /* align-items: flex-start; */
+  position: relative;
+}
+
+.contents_img_wrap {
+  flex: 1;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 탭별 이미지 세트 */
+.contents_img_set {
+  width: 100%;
+  display: none;
+}
+
+.contents_img_set.tab_active {
+  display: block;
+}
+
+/* 메인 이미지 */
+.contents_main_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.contents_main_img img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.main_img_placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: var(--g-color2);
+}
+
+/* 서브 이미지 */
+.contents_sub_img {
+  display: flex;
+  gap: 30px;
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.sub_img_placeholder {
+  width: 115px;
+  height: 115px;
+  background-color: var(--g-color2);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.sub_img_placeholder:hover {
+  transform: translateY(-5px);
+}
+
+/* -- 세로 탭 메뉴 -- */
+.tab_menu {
+  width: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 2;
+  gap: 7px;
+}
+
+.tab_btn {
+  width: 100%;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  padding: 18px 18px;
+  font-family: var(--font-poppins);
+  font-size: 14px;
+  font-weight: 300;
+  cursor: pointer;
+  background-color: var(--g-color2);
+  color: var(--g-color3);
+  border: none;
+  border-radius: 0 5px 5px 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.tab_btn:hover {
+  background: var(--p-color3);
+  color: var(--white);
+}
+
+.tab_btn.tab_active {
+  background: var(--p-color3);
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* -- 오른쪽: 상품 정보 -- */
+.contents_right {
+  flex: 1;
+  padding: 90px 60px;
+  position: relative;
+}
+
+/* 상단 태그 (VEGAN, SNS) */
+.contents_tags_top {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tag_btn {
+  display: flex;
+  justify-content: center;
+  padding: 4px 7px;
+  font-size: 14px;
+  font-family: var(--font-quicksand);
+  font-weight: 300;
+  line-height: 120%;
+  color: var(--white);
+  border-radius: 3px;
+  background: var(--g-color6);
+}
+
+/* 해시태그 (#summer 등) */
+.contents_tags {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.hash_tag {
+  padding: 3px 4px;
+  font-size: 14px;
+  line-height: 120%;
+  font-weight: 300;
+  font-family: var(--font-quicksand);
+  border: 1px solid var(--g-color6);
+  color: var(--black);
+}
+
+/* 위시리스트 하트 */
+.contents_wish {
+  position: absolute;
+  top: 90px;
+  right: 60px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--black);
+  transition: color 0.3s;
+}
+
+.contents_wish:hover,
+.contents_wish.wish_active {
+  color: var(--p-color4);
+}
+
+/* 상품명 */
+.product_name {
+  font-size: 32px;
+  font-weight: 700;
+  font-family: var(--font-poppins);
+  color: var(--g-color6);
+  margin-bottom: 20px;
+}
+
+/* 상품 설명 */
+.product_desc {
+  font-size: 20px;
+  font-family: var(--font-quicksand);
+  line-height: 1.5;
+  color: var(--g-color6);
+  margin-bottom: 16px;
+}
+
+/* 별점 */
+.product_rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.rating_stars {
+  color: var(--g-color6);
+  font-size: 20px;
+  font-weight: 500;
+  font-family: var(--font-poppins);
+}
+
+.rating_score {
+  color: var(--g-color6);
+  font-size: 20px;
+  font-weight: 600;
+  font-family: var(--font-poppins);
+}
+
+.rating_count {
+  color: var(--g-color3);
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--font-poppins);
+}
+
+/* 가격 */
+.product_price {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--black);
+  margin-bottom: 16px;
+}
+
+/* 인증 배지 */
+.product_badge {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 16px;
+}
+
+.badge_item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--g-color6);
+  font-family: var(--font-quicksand);
+}
+
+.badge_item img {
+  width: 30px;
+  height: auto;
+}
+
+/* 컬러 선택 */
+.product_color {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  margin-bottom: 16px;
+}
+
+.color_label {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--black);
+  font-family: var(--font-quicksand);
+}
+
+.color_options {
+  display: flex;
+  gap: 15px;
+}
+
+.color_circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+  outline: none;
+}
+
+.color_circle:hover {
+  transform: scale(1.15);
+}
+
+.color_circle.color_active {
+  border-color: var(--g-color4);
+  box-shadow: 0 0 0 2px var(--white) inset;
+}
+
+/* 옵션 */
+.product_option {
+  height: 61px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.option_label {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--black);
+  font-family: var(--font-quicksand);
+}
+
+.option_selected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.option_color_dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.option_name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black);
+  font-family: var(--font-quicksand);
+}
+
+/* 수량 */
+.product_quantity {
+  height: 61px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.quantity_label {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--black);
+  font-family: var(--font-quicksand);
+}
+
+.quantity_control {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.quantity_btn {
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--black);
+  transition: background-color 0.2s;
+}
+
+.quantity_value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black);
+}
+
+/* 버튼 */
+.product_buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.btn_cart,
+.btn_buy {
+  flex: 1;
+  height: 60px;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  font-family: var(--font-quicksand);
+  color: var(--white);
+}
+
+.btn_cart {
+  background-color: var(--g-color5);
+}
+
+.btn_buy {
+  background-color: var(--p-color5);
+}
+
+.btn_cart:hover,
+.btn_buy:hover {
+  opacity: 0.85;
+}
+
+/* 아코디언 */
+.accordion_item {
+  border-bottom: 1px solid var(--g-color9);
+}
+
+.accordion_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 61px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--g-color9);
+}
+
+.accordion_header i {
+  font-size: 14px;
+  transition: transform 0.3s;
+}
+
+.accordion_body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  font-size: 14px;
+  color: var(--g-color5);
+  line-height: 140%;
+  font-weight: 300;
+}
+
+.accordion_item.accordion_open .accordion_body {
+  max-height: 250px;
+  padding-bottom: 20px;
+}
+
+/* 국기 플레이스홀더 */
+.shipping_flags {
+  display: flex;
+  gap: 18px;
+}
+
+.shipping_flags img {
+  width: 40px;
+  height: 28px;
+  object-fit: cover;
+}
+
+.flag_placeholder {
+  width: 40px;
+  height: 28px;
+  background-color: var(--g-color3);
+}
+
+/* ============================================
+   Personal 섹션
+   ============================================ */
+.personal {
+  width: 100%;
+  padding: 150px 0;
+  background-color: var(--white);
+  overflow: hidden;
+  position: relative;
+}
+
+.personal_inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.personal_header {
+  position: relative;
+  margin-bottom: 100px;
+}
+
+.personal_hashtags {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hashtag {
+  font-family: var(--font-poppins);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--g-color6);
+  padding: 5px 20px;
+  background-color: var(--white);
+  border-radius: 50px;
+  border: 1px solid var(--g-color6);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  opacity: 0;
+  /* JS 애니메이션 전까지 숨김 */
+  position: absolute;
+}
+
+/* 해시태그 배치 (제목과 겹치도록 조정) */
+.hashtag:nth-child(1) {
+  left: 11%;
+  top: 60px;
+}
+
+.hashtag:nth-child(2) {
+  left: 32%;
+  top: 15px;
+}
+
+.hashtag:nth-child(3) {
+  left: 56%;
+  top: 85px;
+}
+
+.hashtag:nth-child(4) {
+  left: 75%;
+  top: 10px;
+}
+
+.personal_title {
+  font-family: var(--font-poppins);
+  font-size: 110px;
+  font-weight: 700;
+  color: var(--g-color6);
+  letter-spacing: -3%;
+}
+
+/* 카드 컨테이너 - 가로 정렬로 변경 */
+.personal_cards_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  height: auto;
+  position: relative;
+  margin: 0 auto 80px;
+  max-width: 1300px;
+}
+
+.personal_card {
+  width: 290px;
+  height: 440px;
+  position: relative;
+  perspective: 1200px;
+  opacity: 0;
+  /* GSAP 등장 애니메이션을 위해 초기값 0 */
+}
+
+/* 호버 시 뒤집기 */
+.personal_card:hover .card_inner {
+  transform: rotateY(180deg);
+}
+
+.card_inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card_front,
+.card_back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card_front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card_back {
+  transform: rotateY(180deg);
+  position: relative;
+}
+
+/* 카드 뒷면 텍스트 배치 (이미지 참조) */
+.season_name {
+  position: absolute;
+  top: 30px;
+  left: 25px;
+  font-family: var(--font-poppins);
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--g-color9);
+}
+
+.tone_name {
+  position: absolute;
+  bottom: 30px;
+  right: 25px;
+  font-family: var(--font-poppins);
+  font-size: 34px;
+  font-weight: 500;
+  color: var(--g-color9);
+}
+
+/* 시즌별 특징 배경색 (이미지 참조 보정) */
+#card_spring .card_back {
+  background-color: #FFEAEE;
+}
+
+#card_summer .card_back {
+  background-color: #F6A1BA;
+}
+
+#card_autumn .card_back {
+  background-color: #CCE153;
+}
+
+#card_winter .card_back {
+  background-color: #7BB8F7;
+}
+
+/* 버튼 */
+.personal_footer {
+  margin-top: 40px;
+}
+
+.btn_personal {
+  display: inline-block;
+  padding: 18px 45px;
+  font-family: var(--font-quicksand);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--p-color5);
+  background-color: transparent;
+  border: 2px solid var(--p-color2);
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn_personal:hover {
+  background-color: var(--p-color2);
+  color: var(--white);
+}
+
+/* ============================================
+   Review Visual 섹션
+   ============================================ */
+.review_visual {
+  width: 100%;
+  padding: 80px 240px;
+  background-color: var(--white);
+  overflow: hidden;
+}
+
+.review_visual_inner {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 27px;
+}
+
+.visual_block {
+  display: flex;
+  gap: 30px;
+}
+
+.right_block {
+  margin-top: 150px;
+  /* 지그재그 배치 */
+  align-items: flex-start;
+}
+
+/* 세로 텍스트 */
+.vertical_text {
+  font-family: var(--font-poppins);
+  font-size: 80px;
+  font-weight: 300;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  line-height: 150%;
+}
+
+.text_glasting {
+  color: var(--g-color2);
+}
+
+.text_melting {
+  color: var(--p-color2);
+  writing-mode: vertical-lr;
+  transform: rotate(0deg);
+}
+
+/* 이미지 랩 */
+.visual_img_wrap {
+  width: 400px;
+  height: 571px;
+  border-radius: 35px 0 0 35px;
+  overflow: hidden;
+  position: relative;
+}
+
+.right_block .visual_img_wrap {
+  border-radius: 0 35px 35px 0;
+}
+
+.visual_img_wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ============================================
+   Review 섹션 (2-Row Draggable)
+   ============================================ */
+.review {
+  width: 100%;
+  padding: 100px 0 250px 240px;
+  background-color: var(--white);
+  /*   overflow: hidden; */
+}
+
+.review_header {
+  margin: 0 auto;
+  padding-right: 240px;
+  padding-bottom: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.review_title {
+  font-family: var(--font-poppins);
+  font-size: 80px;
+  font-weight: 500;
+  color: var(--g-color5);
+  line-height: 150%;
+  letter-spacing: -3%;
+}
+
+.review_more {
+  font-family: var(--font-poppins);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--g-color3);
+  border: 1px solid var(--g-color3);
+  transition: var(--transition);
+  padding: 5px 23px;
+  border-radius: 55px;
+  line-height: 150%;
+}
+
+.review_more:hover {
+  color: var(--p-color5);
+  border: 1px solid var(--p-color5);
+}
+
+.review_draggable_container {
+  width: 100%;
+  padding-bottom: 60px;
+  /* shadow clipping 방지 */
+}
+
+.review_contents {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  width: 100%;
+}
+
+.review_row {
+  display: flex;
+  gap: 70px;
+  overflow-x: auto;
+  cursor: grab;
+  user-select: none;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.review_row::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+.review_row:active {
+  cursor: grabbing;
+}
+
+.review_card {
+  width: 323px;
+  height: 579px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0px 4px 8.7px 0px rgba(0, 0, 0, 0.17);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+  position: relative;
+  /* 절대 배치 자식의 기준점 */
+}
+
+.card_img_wrap {
+  width: 100%;
+  height: 391px;
+  overflow: hidden;
+}
+
+.card_img_wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  -webkit-user-drag: none;
+  /* 드래그 방지 */
+  user-select: none;
+}
+
+.review_card:hover .card_img_wrap img {
+  transform: scale(1.05);
+}
+
+.card_body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--white);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+}
+
+.card_author {
+  font-family: var(--font-poppins);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--g-color6);
+  line-height: 150%;
+  border-bottom: 1px solid var(--p-color3);
+  padding-bottom: 10px;
+}
+
+.card_text_wrap {
+  max-height: 70px;
+  /* 18px * 1.5 * 2 + 20px(padding) */
+  overflow: hidden;
+  padding: 10px 0;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card_text {
+  font-family: var(--font-poppins);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--g-color6);
+  /* 멀티라인 말줄임 설정 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  /* 표준 속성 추가 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.review_card:hover .card_text {
+  display: block;
+  /* 말줄임 해제 */
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.review_card:hover .card_text_wrap {
+  max-height: 1000px;
+  /* 호버 시 확장 */
+}
+
+.card_meta {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card_stars {
+  color: var(--gr-color1);
+  font-family: var(--font-poppins);
+  font-size: 18px;
+  line-height: 150%;
+  font-weight: 600;
+}
+
+.card_date {
+  font-family: var(--font-poppins);
+  font-size: 14px;
+  color: var(--g-color3);
+  line-height: 150%;
+  font-weight: 300;
+}
+
+footer {
+  width: 100%;
+  height: 200px;
+  background-color: var(--g-color1);
+}
