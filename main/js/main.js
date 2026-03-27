@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 1. GSAP ScrollTriggers implementation for Main Page sections
     // Set up reveals when scrolling down
-    const motionSections = document.querySelectorAll(".main_container section:not(.workflow_steps_section):not(.best_section):not(.outlet_section)");
+    const motionSections = document.querySelectorAll(".main_container section:not(.workflow_steps_section):not(.best_section):not(.outlet_section):not(.personal_color_section)");
 
     if (heroSection) {
         gsap.set(heroSection, { opacity: 1 });
@@ -175,6 +175,87 @@ document.addEventListener("DOMContentLoaded", () => {
             stagger: 0.04
         });
     });
+
+    // 1-1. personal_color_section - 스크롤 패럴랙스 배경 + 플로팅 콘텐츠
+    const personalColorSection = document.querySelector(".personal_color_section");
+    if (personalColorSection && typeof ScrollTrigger !== "undefined") {
+        const personalColorBg      = personalColorSection.querySelector(".personal_color_bg");
+        const personalColorContent = personalColorSection.querySelector(".personal_color_content");
+
+        /* 배경 패럴랙스: 섹션이 뷰포트를 통과하는 동안 bg를 느리게 이동
+           → 배경이 고정된 것처럼 보이고 위아래 섹션이 앞에 있는 느낌 */
+        if (personalColorBg) {
+            gsap.fromTo(personalColorBg,
+                { y: "-20%" },
+                {
+                    y: "20%",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: personalColorSection,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true,
+                        invalidateOnRefresh: true
+                    }
+                }
+            );
+        }
+
+        /* 콘텐츠: 하위 3개(h2, p, a)에 딜레이 스태거 적용
+           IntersectionObserver 사용 — pin spacer 위치 오산 방지 */
+        if (personalColorContent) {
+            const contentItems = Array.from(personalColorContent.children);
+            gsap.set(contentItems, { y: 3, opacity: 0 });
+
+            const contentObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        gsap.to(contentItems, {
+                            y: 0,
+                            opacity: 1,
+                            duration: 0.3,
+                            ease: "power2.out",
+                            stagger: 0.04
+                        });
+                    } else {
+                        gsap.set(contentItems, { y: 3, opacity: 0 });
+                    }
+                });
+            }, { threshold: 0.1 });
+            contentObserver.observe(personalColorSection);
+        }
+    }
+
+    // 1-2. pink_office_intro - 스태거 진입 연출
+    const pinkOfficeIntroEl = document.querySelector(".pink_office_intro");
+    if (pinkOfficeIntroEl) {
+        const pinkIntroItems = Array.from(pinkOfficeIntroEl.children);
+        const PINK_Y = 30;
+
+        /* 섹션이 화면 아래 있을 때만 초기 숨김 — 이미 보이는 상태면 그대로 */
+        const pinkSectionEl = document.querySelector(".pink_office_section");
+        if (!pinkSectionEl || pinkSectionEl.getBoundingClientRect().top > window.innerHeight) {
+            gsap.set(pinkIntroItems, { y: PINK_Y, opacity: 0 });
+        }
+
+        const pinkIntroObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    gsap.to(pinkIntroItems, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.9,
+                        ease: "power2.out",
+                        stagger: 0.18
+                    });
+                } else {
+                    /* 이탈 시 초기와 동일한 y값으로 리셋 — 불일치 방지 */
+                    gsap.set(pinkIntroItems, { y: PINK_Y, opacity: 0 });
+                }
+            });
+        }, { threshold: 0.15 });
+        pinkIntroObserver.observe(pinkOfficeIntroEl);
+    }
 
     // 2. Animate product items consecutively on scroll
     const productLists = document.querySelectorAll(".best_product_list, .swatch_product_list");
@@ -319,29 +400,38 @@ document.addEventListener("DOMContentLoaded", () => {
             }, NEW_SECTION_BAG_CONFIG.headerFadeStartAt);
         }
 
-        floatingItems.forEach((item, index) => {
-            const gatherTarget = NEW_SECTION_BAG_CONFIG.gatherTargets[index] || NEW_SECTION_BAG_CONFIG.gatherTargets[NEW_SECTION_BAG_CONFIG.gatherTargets.length - 1];
-            const gatherAt = NEW_SECTION_BAG_CONFIG.gatherStartAt + index * NEW_SECTION_BAG_CONFIG.gatherStagger;
-            const dropAt = NEW_SECTION_BAG_CONFIG.dropStartAt + index * NEW_SECTION_BAG_CONFIG.dropStagger;
+    floatingItems.forEach((item, index) => {
+    const gatherTarget = NEW_SECTION_BAG_CONFIG.gatherTargets[index] || NEW_SECTION_BAG_CONFIG.gatherTargets[NEW_SECTION_BAG_CONFIG.gatherTargets.length - 1];
+    const gatherAt = NEW_SECTION_BAG_CONFIG.gatherStartAt + index * NEW_SECTION_BAG_CONFIG.gatherStagger;
+    const dropAt = NEW_SECTION_BAG_CONFIG.dropStartAt + index * NEW_SECTION_BAG_CONFIG.dropStagger;
+    const productCardHeader = item.querySelector(".product_card_header");
 
-            tl.to(item, {
-                top: gatherTarget.top,
-                left: gatherTarget.left,
-                scale: gatherTarget.scale,
-                opacity: 1,
-                duration: NEW_SECTION_BAG_CONFIG.gatherDuration,
-                ease: "power2.out"
-            }, gatherAt);
+    tl.to(item, {
+        top: gatherTarget.top,
+        left: gatherTarget.left,
+        scale: gatherTarget.scale,
+        opacity: 1,
+        duration: NEW_SECTION_BAG_CONFIG.gatherDuration,
+        ease: "power2.out"
+    }, gatherAt);
 
-            tl.to(item, {
-                top: NEW_SECTION_BAG_CONFIG.dropTarget.top,
-                left: NEW_SECTION_BAG_CONFIG.dropTarget.left,
-                scale: NEW_SECTION_BAG_CONFIG.dropTarget.scale,
-                opacity: NEW_SECTION_BAG_CONFIG.dropTarget.opacity,
-                duration: NEW_SECTION_BAG_CONFIG.dropDuration,
-                ease: "power2.in"
-            }, dropAt);
-        });
+    if (productCardHeader) {
+        tl.to(productCardHeader, {
+            opacity: 0,
+            duration: 1,
+            ease: "power1.out"
+        }, dropAt + 0.2);
+    }
+
+    tl.to(item, {
+        top: NEW_SECTION_BAG_CONFIG.dropTarget.top,
+        left: NEW_SECTION_BAG_CONFIG.dropTarget.left,
+        scale: NEW_SECTION_BAG_CONFIG.dropTarget.scale,
+        opacity: NEW_SECTION_BAG_CONFIG.dropTarget.opacity,
+        duration: NEW_SECTION_BAG_CONFIG.dropDuration,
+        ease: "power2.in"
+    }, dropAt);
+});
 
         // 마지막 제품 낙하 완료 시점 계산 (dropStartAt + stagger * (items-1) + dropDuration)
         const lastDropEnd = NEW_SECTION_BAG_CONFIG.dropStartAt
@@ -392,30 +482,41 @@ document.addEventListener("DOMContentLoaded", () => {
                봉투 3개는 같은 경로를 이동하며, bagInitialOffsets 로 시작 위치를 다르게 설정.
                비디오 좌표계: x/y 는 video 요소 너비/높이 기준 비율.
                x < 0 은 video 왼쪽 바깥, y > 1 은 video 아래쪽 바깥. */
+            // singleBagPath: [
+            //     { x: -0.75, y: 0.5 },   /* 진입 (봉투3 상단) */
+            //     { x: -0.4, y: 0.45 },   /* 봉투3 시작 위치 */
+            //     { x: -0.08, y: 0.35 },
+            //     { x: 0.23, y: 0.40 },   /* 봉투2 시작 위치 */
+            //     { x: 0.18, y: 0.52 },
+            //     { x: 0.04, y: 0.54 },   /* 봉투1 시작 위치 */
+            //     { x: -0.14, y: 0.66 },
+            //     { x: -0.28, y: 0.76 },  /* 화면 이탈 */
+            //     { x: -0.60, y: 0.86 }   /* 완전 이탈 */
+            // ],
+
             singleBagPath: [
-                { x: 0.36, y: 0.04 },   /* 진입 (봉투3 상단) */
-                { x: 0.30, y: 0.16 },   /* 봉투3 시작 위치 */
-                { x: 0.26, y: 0.28 },
+                { x: 0.1, y: 0.10 },   /* 진입 (봉투3 상단) */
+                { x: 0.1, y: 0.235 },   /* 봉투3 시작 위치 */
+                { x: 0.21, y: 0.35 },
                 { x: 0.23, y: 0.40 },   /* 봉투2 시작 위치 */
                 { x: 0.18, y: 0.52 },
-                { x: 0.14, y: 0.64 },   /* 봉투1 시작 위치 */
-                { x: 0.04, y: 0.76 },
-                { x: -0.18, y: 0.86 },  /* 화면 이탈 */
-                { x: -0.50, y: 0.96 }   /* 완전 이탈 */
+                { x: 0.04, y: 0.54 },   /* 봉투1 시작 위치 */
+                { x: -0.18, y: 0.66 },
+                { x: -0.5, y: 0.76 },  /* 화면 이탈 */
+                { x: -0.8, y: 0.86 }   /* 완전 이탈 */
             ],
-
             /* videoProgress=0 시점에서 각 봉투가 경로 상에 있는 위치 (0~1)
                index 0 = 가장 앞선 봉투(화면 하단-좌), index 2 = 가장 늦은 봉투(화면 상단) */
-            bagInitialOffsets: [0.62, 0.37, 0.14],
+            bagInitialOffsets: [0.62, 0.37, 0.08],
 
             /* videoProgress 1 증가 시 경로를 얼마나 이동하는지 */
-            bagTravelRate: 0.85,
+            bagTravelRate: 0.5,
 
             /* 각 봉투 모달 페이드인 시작 시점 (videoProgress 기준) */
             bagFadeStarts: [0.0, 0.0, 0.06],
             bagFadeDuration: 0.12,        /* 페이드인 지속 시간 */
 
-            itemAnchorOffset: { x: -75, y: -36 },
+            itemAnchorOffset: { x: 210, y: -36 },
             /* 각 봉투 모달의 미세 위치 보정 — 미리 확인 후 조정 */
             itemOffsets: [
                 { x: 0, y: 0 },
@@ -553,25 +654,37 @@ document.addEventListener("DOMContentLoaded", () => {
                     const modal = item.querySelector(".product_modal");
                     const line = item.querySelector(".connect_line");
 
+                    /* sinkProgress 시작 시 item별로 아래로 슬금슬금 이동 (item2, 3 더 많이) */
+                    const sinkDropAmounts = [0, 650, 950];  /*  */
+                    const sinkDropY = sinkProgress * (sinkDropAmounts[index] || 0);
+
+                    /* 아이템별 opacity 페이드 시작 지연 — item2는 더 이동 후 사라짐, item3은 오래 머뭄 */
+                    const sinkOpacityDelays = [0, 0.60, 0.82];
+                    const sinkOpacityDelay = sinkOpacityDelays[index] || 0;
+                    const sinkOpacityProgress = gsap.utils.clamp(
+                        0, 1,
+                        (sinkProgress - sinkOpacityDelay) / (1 - sinkOpacityDelay)
+                    );
+
                     gsap.set(item, {
                         x: position.x,
-                        y: position.y,
-                        opacity: appearProgress * (1 - sinkProgress) * introOpacity,
+                        y: position.y + sinkDropY,
+                        opacity: appearProgress * (1 - sinkOpacityProgress) * introOpacity,
                         scale: gsap.utils.interpolate(1, 0.72, sinkProgress)
                     });
 
                     if (modal) {
                         gsap.set(modal, {
-                            opacity: appearProgress * (1 - sinkProgress) * introOpacity,
+                            opacity: appearProgress * (1 - sinkOpacityProgress) * introOpacity,
                             scale: gsap.utils.interpolate(0.88, 1, appearProgress) * gsap.utils.interpolate(1, 0.82, sinkProgress),
-                            y: gsap.utils.interpolate(20, 0, appearProgress) - exitProgress * 24
+                            y: gsap.utils.interpolate(20, 0, appearProgress) - exitProgress * 24 + sinkDropY
                         });
                     }
 
                     if (line) {
                         gsap.set(line, {
-                            scaleX: appearProgress,
-                            opacity: appearProgress * 0.9 * (1 - sinkProgress) * introOpacity
+                            scaleX: 1,
+                            opacity: appearProgress * (1 - sinkOpacityProgress) * introOpacity
                         });
                     }
                 });
@@ -649,7 +762,7 @@ document.addEventListener("DOMContentLoaded", () => {
             revealTargets.forEach((target, index) => {
                 gsap.fromTo(target,
                     { y: 50, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.8, ease: "power2.out", delay: index * 0.22 }
+                    { y: 0, opacity: 1, duration: .3, ease: "power2.out", delay: 0.06 + index * 0.18 }
                 );
             });
         }
@@ -664,7 +777,7 @@ document.addEventListener("DOMContentLoaded", () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) { playReveal(); } else { hideReveal(); }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.2 });
         observer.observe(outletSection);
     }
 
@@ -769,22 +882,46 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const totalCards = workflowCards.length;
+        const workflowCounter = workflowSection.querySelector(".workflow_steps_counter");
+
+        /* 전체 스크롤 중 타이틀 페이드인이 차지하는 비율
+           나머지 88% 구간에서 카드 이동 → 기존 5.5vh 대비 80% 거리만 카드 이동 */
+        const TITLE_PHASE_END = 0.12;
+
+        /* 진입 시 타이틀 숨김 */
+        if (workflowCounter) {
+            gsap.set(workflowCounter, { opacity: 0, y: 18 });
+        }
 
         function getCountStepHeight() {
             const firstCount = countTrack.firstElementChild;
             return firstCount ? firstCount.getBoundingClientRect().height : 120;
         }
 
+        /* 타이틀 페이드인 (progress 0 → TITLE_PHASE_END) */
+        function updateTitle(progress) {
+            if (!workflowCounter) return;
+            const t = gsap.utils.clamp(0, 1, progress / TITLE_PHASE_END);
+            gsap.set(workflowCounter, { opacity: t, y: gsap.utils.interpolate(18, 0, t) });
+        }
+
+        /* 카드 이동은 TITLE_PHASE_END 이후부터 시작 */
+        function getCardProgress(progress) {
+            if (progress <= TITLE_PHASE_END) return 0;
+            return (progress - TITLE_PHASE_END) / (1 - TITLE_PHASE_END);
+        }
+
         function updateCardPositions(progress = 0) {
+            const cardProgress = getCardProgress(progress);
             const firstCard = workflowCards[0];
             const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : 320;
             const isMobile = window.innerWidth < 768;
-            const cardGap = cardWidth * (isMobile ? 0.88 : 0.96);
+            const cardGap = cardWidth * (isMobile ? 1.1 : 1.35);
             const baseOffsetY = isMobile ? 12 : 0;
 
-            /* progress=0 → 모든 카드가 오른쪽 / progress=1 → 마지막 카드가 중앙 */
+            /* cardProgress=0 → 카드 오른쪽 대기 / cardProgress=1 → 마지막 카드 중앙 */
             const entryOffset = 1.5;
-            const activeCardProgress = -entryOffset + progress * (totalCards - 1 + entryOffset);
+            const activeCardProgress = -entryOffset + cardProgress * (totalCards - 1 + entryOffset);
 
             workflowCards.forEach((card, index) => {
                 const relativeIndex = index - activeCardProgress;
@@ -808,7 +945,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function updateCounter(progress = 0) {
-            const activeIndex = Math.min(totalCards - 1, Math.max(0, Math.round(progress * (totalCards - 1))));
+            const cardProgress = getCardProgress(progress);
+            const activeIndex = Math.min(totalCards - 1, Math.max(0, Math.round(cardProgress * (totalCards - 1))));
             const targetY = -activeIndex * getCountStepHeight();
 
             gsap.to(countTrack, {
@@ -819,16 +957,18 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        /* end를 5.0*vh로 설정: 타이틀 12% + 카드 88% = 5.5*0.8 = 4.4vh 이동 → 80% 지점에서 핀 해제 */
         ScrollTrigger.create({
             id: "workflow_steps_trigger",
             trigger: workflowSection,
             start: "top top",
-            end: () => `+=${Math.round(window.innerHeight * 5.5)}`,
+            end: () => `+=${Math.round(window.innerHeight * 5.0)}`,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
+                updateTitle(self.progress);
                 updateCardPositions(self.progress);
                 updateCounter(self.progress);
             }
@@ -840,9 +980,13 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener("resize", () => {
             const workflowTrigger = ScrollTrigger.getById("workflow_steps_trigger");
             const currentProgress = workflowTrigger ? workflowTrigger.progress : 0;
+            updateTitle(currentProgress);
             updateCardPositions(currentProgress);
             updateCounter(currentProgress);
         });
+
+        /* workflow pin spacer 생성 완료 후 아래 섹션 초기화 */
+        initializePinkOfficeScroll();
     }
 
     function initializePinkOfficeDoorHover() {
@@ -874,6 +1018,32 @@ document.addEventListener("DOMContentLoaded", () => {
             hoverCircle.style.setProperty("--circle-x", "50%");
             hoverCircle.style.setProperty("--circle-y", "50%");
         });
+    }
+
+    function initializePinkOfficeScroll() {
+        const pinkSection = document.querySelector(".pink_office_section");
+        if (!pinkSection || typeof ScrollTrigger === "undefined") return;
+
+        const pinkVisual = pinkSection.querySelector(".pink_office_visual");
+
+        /* CSS sticky가 slow scroll 담당 — JS pin 불필요
+           건물 이미지: "top top" → "bottom top" = 섹션(370vh) 완전히 지나칠 때까지 scrub */
+        if (pinkVisual) {
+            gsap.fromTo(pinkVisual,
+                { y: 160 },
+                {
+                    y: -120,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: pinkSection,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: 3,
+                        invalidateOnRefresh: true
+                    }
+                }
+            );
+        }
     }
 
     function initializeSnsProductBars() {
@@ -1000,6 +1170,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let activeCard = null;
         let activeFrame = 0;
         let scrollEndTimer = 0;
+        let dragMoved = false;
 
         function updateSnsArrows() {
             if (!leftArrow || !rightArrow) {
@@ -1115,6 +1286,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         snsSwipe.addEventListener("pointerdown", (event) => {
             isPointerDown = true;
+            dragMoved = false;
             startPointerX = event.clientX;
             startScrollLeft = snsSwipe.scrollLeft;
             snsSwipe.classList.add("is_dragging");
@@ -1127,6 +1299,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const dragDistance = event.clientX - startPointerX;
+            if (Math.abs(dragDistance) > 5) {
+                dragMoved = true;
+            }
             snsSwipe.scrollLeft = startScrollLeft - dragDistance;
             updateSnsArrows();
             requestActiveCardUpdate();
@@ -1182,6 +1357,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 video.pause();
                 video.currentTime = 0;
             }
+            card.addEventListener("click", () => {
+                if (dragMoved || card === activeCard) return;
+                centerCard(card, "smooth");
+                setActiveCard(card);
+            });
         });
 
         const middleCard = snsCards[Math.floor(snsCards.length / 2)];
@@ -1195,10 +1375,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const quickModal = document.querySelector(".sns_quick_modal");
         const quickFrame = document.querySelector(".sns_quick_frame");
         const openButtons = document.querySelectorAll(".sns_quick_btn");
-        const closeButton = document.querySelector(".sns_quick_close");
         const backdrop = document.querySelector(".sns_quick_modal_backdrop");
 
-        if (!quickModal || !quickFrame || !openButtons.length || !closeButton || !backdrop) {
+        if (!quickModal || !quickFrame || !openButtons.length || !backdrop) {
             return;
         }
 
@@ -1224,14 +1403,19 @@ document.addEventListener("DOMContentLoaded", () => {
             button.addEventListener("click", (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-
-                const src = button.dataset.quickSrc || "../quick/quick.html";
+                const src = button.dataset.quickSrc || "../quick/quick.html?embedded=1";
                 openQuickModal(src);
             });
         });
 
-        closeButton.addEventListener("click", closeQuickModal);
         backdrop.addEventListener("click", closeQuickModal);
+
+        // quick.html 내부 닫기 버튼에서 postMessage로 닫기 요청 수신
+        window.addEventListener("message", (event) => {
+            if (event.data === "closeQuickModal") {
+                closeQuickModal();
+            }
+        });
 
         window.addEventListener("keydown", (event) => {
             if (event.key === "Escape" && quickModal.classList.contains("is_open")) {
@@ -1240,8 +1424,60 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function initializePersonalColorBanner() {
+        const section = document.querySelector(".personal_color_section");
+        if (!section) return;
+
+        const overlay  = section.querySelector(".personal_color_overlay");
+
+        /* 기본 spotlight 위치 (오른쪽 중앙 — 콘텐츠가 오른쪽에 있으므로) */
+        const DEFAULT_X = 60;
+        const DEFAULT_Y = 50;
+
+        let targetX = DEFAULT_X, targetY = DEFAULT_Y;
+        let currentX = DEFAULT_X, currentY = DEFAULT_Y;
+        let rafId = null;
+        let isInside = false;
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+
+        function tick() {
+            currentX = lerp(currentX, targetX, 0.055);
+            currentY = lerp(currentY, targetY, 0.055);
+
+            /* spotlight 위치만 업데이트 — bg/콘텐츠는 스크롤 패럴랙스/플로팅이 담당 */
+            if (overlay) {
+                overlay.style.setProperty("--spotlight-x", `${currentX.toFixed(2)}%`);
+                overlay.style.setProperty("--spotlight-y", `${currentY.toFixed(2)}%`);
+            }
+
+            const moving = Math.abs(currentX - targetX) > 0.04 || Math.abs(currentY - targetY) > 0.04;
+            if (isInside || moving) {
+                rafId = requestAnimationFrame(tick);
+            } else {
+                rafId = null;
+            }
+        }
+
+        section.addEventListener("pointermove", (e) => {
+            const rect = section.getBoundingClientRect();
+            targetX = ((e.clientX - rect.left) / rect.width) * 100;
+            targetY = ((e.clientY - rect.top) / rect.height) * 100;
+            isInside = true;
+            if (!rafId) rafId = requestAnimationFrame(tick);
+        });
+
+        section.addEventListener("pointerleave", () => {
+            isInside = false;
+            targetX = DEFAULT_X;
+            targetY = DEFAULT_Y;
+            if (!rafId) rafId = requestAnimationFrame(tick);
+        });
+    }
+
     initializeOutletReveal();
     initializeOutletSwipe();
+    initializePersonalColorBanner();
     initializePinkOfficeDoorHover();
     initializeBestSectionVideoScrub(); /* 내부에서 setupBestVideoScrub 완료 후 initializeWorkflowSteps() 호출 */
     initializeSnsProductBars();

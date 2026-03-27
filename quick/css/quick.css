@@ -558,3 +558,27 @@ a.view_details_link {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(255, 141, 171, 0.3);
 }
+/* ── 임베딩 모드 (iframe ?embedded=1) ───────────────────── */
+body.is_embedded {
+    overflow: hidden;
+}
+
+body.is_embedded .quick_shop_modal {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+body.is_embedded .modal_overlay {
+    display: none;
+}
+
+body.is_embedded .modal_content {
+    width: 100%;
+    height: 100vh;
+    box-shadow: none;
+    animation: none;
+    border-radius: 0;
+}

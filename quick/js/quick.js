@@ -1,5 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // iframe으로 임베딩된 경우 body에 클래스 추가 + 닫기 버튼 postMessage 연결
+    const isEmbedded = new URLSearchParams(location.search).get('embedded') === '1';
+    if (isEmbedded) {
+        document.body.classList.add('is_embedded');
+        const closeBtn = document.querySelector('.close_btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                window.parent.postMessage('closeQuickModal', '*');
+            });
+        }
+    }
+
+
 
 
 

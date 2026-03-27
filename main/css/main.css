@@ -4,11 +4,11 @@ body {
     font-family: var(--font-poppins);
     color: var(--g-color8);
     background-color: var(--white);
-    /* 고정된 GNB 높이 확보 */
+    overflow-x: clip;
 }
 
 body>link {
-    z-index: 10new_section;
+    z-index: 10;
 }
 
 .main_container {
@@ -16,24 +16,20 @@ body>link {
     position: relative;
 }
 
-.main_container .main_visual {
-    width: 100%;
-    height: 100vh;
+.main_visual{
+    width:100%;height:100vh;
+    }
+
+.main_visual>.main_bg{
+    width:100%;height:100%;
 }
 
-.main_container .main_visual .main_bg {
-    width: 100%;
-    height: 100%;
+.main_visual>.main_bg>video{
+    width:100%;height:100%;
+    object-fit:cover;
+    display:block;
 }
 
-.main_container .main_visual .main_bg video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: relative;
-    top: 0;
-    left: 0;
-}
 /* wave section */
 .hero_section {
     width: 100%;
@@ -254,11 +250,12 @@ pattern.img1 {
 
 /* Outlet Custom */
 .outlet_section {
+    width: 100%;
     position: relative;
     overflow: hidden;
     background-color: #fbfbfb;
     min-height: 1360px;
-    padding: 120px 0 ;
+    padding: 220px 0 120px;
     box-sizing: border-box;
 }
 
@@ -412,6 +409,7 @@ pattern.img1 {
     position: relative;
     display: block;
     flex: 1 1 auto;
+    min-width: 0;
     overflow-x: auto;
     overflow-y: hidden;
     width: 100%;
@@ -437,7 +435,7 @@ pattern.img1 {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 156px;
-    gap: 42px;
+    gap: 150px;
     align-items: end;
     width: max-content;
     min-width: max-content;
@@ -463,16 +461,20 @@ pattern.img1 {
 }
 
 .outlet_product_item h3 {
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 6px;
-    color: #4a464d;
-    line-height: 1.25;
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 4px;
+    color: #3a3a3a;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
 }
 
 .outlet_product_item p {
-    font-size: 14px;
-    color: #a3a0a6;
+    font-size: 12px;
+    color: #a0a0a0;
+    font-family: var(--font-poppins);
+    font-weight: 300;
+    letter-spacing: 0.01em;
 }
 
 /* Break Section */
@@ -565,7 +567,7 @@ pattern.img1 {
 .personal_color_section {
     position: relative;
     overflow: hidden;
-    min-height: 760px;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -612,24 +614,28 @@ pattern.img1 {
 }
 .personal_color_bg {
     position: absolute;
-    inset: 0;
+    inset: 7% 0;
     z-index: 0;
 }
 
 .personal_color_bg img {
     width: 100%;
-    height: 100%;
+
     object-fit: cover;
     object-position: center center;
     filter: brightness(1.04) saturate(0.92);
 }
 
 .personal_color_overlay {
+    --spotlight-x: 60%;
+    --spotlight-y: 50%;
     position: absolute;
     inset: 0;
     z-index: 1;
     background:
+        radial-gradient(ellipse 58% 72% at var(--spotlight-x) var(--spotlight-y), rgba(255, 245, 248, 0.28) 0%, rgba(255, 255, 255, 0) 62%),
         linear-gradient(90deg, rgba(229, 241, 252, 0.18) 0%, rgba(238, 236, 249, 0.12) 44%, rgba(249, 248, 245, 0.18) 100%);
+    will-change: background;
 }
 
 .personal_color_btn {
@@ -685,9 +691,14 @@ pattern.img1 {
 /* Pink Office */
 .pink_office_section {
     position: relative;
-    padding: 110px 24px 140px;
+    height: 370vh;      /* 섹션을 길게 — sticky inner가 이 구간 동안 고정됨 */
+    overflow: clip;     /* clip은 sticky를 방해하지 않으면서 넘침 차단 */
+}
 
-    overflow: hidden;
+.pink_office_inner {
+    position: sticky;
+    top: 0;
+    padding: 110px 24px 140px;
 }
 
 .pink_office_intro {
@@ -743,8 +754,8 @@ pattern.img1 {
 .pink_office_visual {
     position: relative;
     left: 50%;
-    width: 1920px;
-    margin-left: -960px;
+    width: 100vw;
+    transform: translateX(-50%);
     max-width: none;
 }
 
@@ -819,7 +830,7 @@ pattern.img1 {
 
 .sns_section .sns_stage {
     position: relative;
-    width: min(100% - 48px, 100vw);
+    width: 100%;
     padding: 96px 0;
     border-radius: 0 0 100px 100px;
     background: var(--white);
@@ -847,30 +858,31 @@ pattern.img1 {
     font-family: var(--font-poppins);
     margin: 0;
     color: var(--black);
-    font-size: clamp(44px, 5.2vw, 82px);
-    font-weight: 500;
-    line-height: 1.04;
-    letter-spacing: -0.06em;
+    line-height: 1.08;
+    letter-spacing: -0.05em;
 }
-.sns_section_header p{
-        font-weight: 400;
-    font-size: clamp(44px, 4vw, 74px);
 
-}
-.sns_section_header span {
-    flex: .5;
+/* "Even the Same Color" — 첫 줄, 가벼운 무게 */
+.sns_section_header p {
+    display: block;
+    font-size: clamp(38px, 4vw, 68px);
+    font-weight: 400;
     color: var(--black);
-    font-size: clamp(18px, 5rem, 90px);
-    font-weight: 500;
-
+    margin-bottom: 4px;
 }
 
+/* "Expressed" — 두 번째 줄 앞부분, 검정 bold */
+.sns_section_header span {
+    font-size: clamp(44px, 5.2vw, 82px);
+    font-weight: 700;
+    color: var(--black);
+}
+
+/* "Your Way" — 두 번째 줄 뒷부분, 파란색 bold */
 .sns_section_header strong {
-    flex: 1;
+    font-size: clamp(44px, 5.2vw, 82px);
+    font-weight: 700;
     color: #61aaff;
-    font-weight: 600;
-    font-size: clamp(18px, 5rem, 90px);
-    
 }
 
 .sns_carousel {
@@ -878,8 +890,8 @@ pattern.img1 {
     display: flex;
     align-items: flex-start;
     gap: 18px;
-    padding: 56px 28px 0;
-    overflow: hidden;
+    padding: 56px 0 0;
+    overflow: visible;
 }
 /* 
 .sns_swipe_arrow {
@@ -935,11 +947,11 @@ pattern.img1 {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 320px;
-    gap: 110px;
+    gap: 120px;
     align-items: end;
     width: max-content;
     min-width: max-content;
-    padding-inline: max(40px, calc(50vw - 200px));
+    padding-inline: max(20px, calc(50vw - 200px));
 }
 
 .sns_card {
@@ -998,29 +1010,30 @@ pattern.img1 {
 
 .sns_product_bar {
     position: absolute;
+    width: 350px;
     left: 50%;
     bottom: 150px;
     z-index: 8;
     transform: translateX(-50%);
     transform-origin: center bottom;
-    width: 320px;
-    max-width: none;
+    /* flex → grid: panel을 위에 배치하여 위쪽으로 확장 */
     display: grid;
-    grid-template-columns: 52px minmax(0, 1fr) auto;
+    grid-template-columns: auto 1fr auto;
     grid-template-areas:
         "panel panel panel"
         "thumb info actions";
-    align-items: end;
+    align-items: center;
     column-gap: 10px;
     row-gap: 0;
     min-height: 44px;
-    padding: 8px 10px;
-    border-radius: 14px;
     background: linear-gradient(0deg, rgba(185, 185, 185, 0.35) -0.29%, rgba(255, 255, 255, 0.35) 99.71%);
     box-shadow: 0 12px 24px rgba(26, 28, 34, 0.1);
     transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.34s ease, background-color 0.34s ease, border-radius 0.34s ease;
-    overflow: visible;
-    border: 1px solid rgba(239 , 238 , 238 , 0.25);
+    overflow: hidden;
+    border-radius: 25px;
+    border: 1px solid rgba(239, 238, 238, 0.25);
+    backdrop-filter: blur(5.5px);
+    padding: 12px 16px;
 }
 
 .sns_product_thumb {
@@ -1028,13 +1041,11 @@ pattern.img1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* width: 52px; */
-    /* min-height: 34px; */
+
 }
 
 .sns_product_thumb img {
     display: block;
-    /* width: 100%; */
     max-height: 34px;
     object-fit: contain;
 }
@@ -1165,7 +1176,7 @@ letter-spacing: -0.39px;
 
 .sns_product_list_inner {
     overflow-y: auto;
-    max-height: 260px;
+    max-height: 320px;
     padding: 0;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
@@ -1181,86 +1192,152 @@ letter-spacing: -0.39px;
 }
 
 .sns_product_list {
-    display: none;
+    display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 0 0 4px;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.24s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    gap: 2px;
+    padding: 4px 0;
 }
 
 .sns_product_list_item {
     display: grid;
-    grid-template-columns: 36px minmax(0, 1fr) auto;
+    grid-template-columns: 100px 1fr;
     align-items: center;
-    gap: 8px;
-    min-height: 46px;
-    padding: 7px 10px;
+    gap: 14px;
+    min-height: 90px;
+    padding: 10px 14px;
+    border-radius: 10px;
     transition: background 0.15s;
 }
 
 .sns_product_list_item:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .sns_product_list_item img {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.06);
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .sns_product_list_text {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 3px;
     overflow: hidden;
 }
 
-.sns_product_list_text strong,
-.sns_product_list_price {
-    color: #ffffff;
-    font-size: 10px;
+.sns_product_list_text strong {
+    color: #1a1a2e;
+    font-size: 13px;
     font-weight: 700;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-family: var(--font-poppins);
 }
 
 .sns_product_list_text span {
     display: block;
-    margin-top: 2px;
-    color: rgba(255, 255, 255, 0.52);
-    font-size: 9px;
+    color: rgba(60, 40, 50, 0.75);
+    font-size: 11px;
+    font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.sns_product_list_text .sns_price_row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.sns_product_list_text .sns_price_current,
+.sns_product_list_price {
+    color: #1a1a2e;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-family: var(--font-poppins);
+}
+
+.sns_product_list_text .sns_price_before {
+    color: #888;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: line-through;
+    opacity: 0.85;
 }
 
 .sns_product_bar.on {
     z-index: 25;
+    border-radius: 18px;
+    background: linear-gradient(160deg, rgba(240, 230, 235, 0.82) 0%, rgba(255, 248, 250, 0.78) 100%);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    align-items: start;
+    padding: 14px 50px 14px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* 확장 시 우측에 버튼 세로 배치 (상단 ↓, 하단 +) */
+.sns_product_bar.on .sns_product_actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    gap: 0;
 }
 
 .sns_product_bar.on .sns_product_list_panel {
-    max-height: 260px;
+    max-height: 340px;
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
-    margin-bottom: 10px;
-    border-bottom-width: 1px;
+    border-bottom: 1px solid rgba(200, 180, 190, 0.25);
+    padding-bottom: 8px;
+    margin-bottom: 0;
 }
 
-.sns_product_bar.on .sns_product_list {
-    display: flex;
-    opacity: 1;
-    transform: translateY(0);
-}
 
+/* 확장 시 expand 버튼은 아래 방향 chevron */
 .sns_product_bar.on .sns_expand_btn svg {
     transform: rotate(180deg);
+}
+
+/* 확장 시 버튼 스타일 — 기준 이미지에 맞는 핑크 원형 */
+.sns_product_bar.on .sns_expand_btn,
+.sns_product_bar.on .sns_quick_btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--p-color4);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--p-color4);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sns_product_bar.on .sns_quick_btn {
+    background: var(--p-color4);
+    color: #fff;
+    border-color: var(--p-color4);
+    font-size: 20px;
+    font-weight: 300;
 }
 
 .sns_quick_modal {
@@ -1302,34 +1379,6 @@ letter-spacing: -0.39px;
 
 .sns_quick_modal.is_open .sns_quick_panel {
     transform: translateX(0);
-}
-
-.sns_quick_panel_header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 72px;
-    padding: 0 24px;
-    border-bottom: 1px solid rgba(32, 34, 40, 0.08);
-}
-
-.sns_quick_panel_header h3 {
-    margin: 0;
-    color: #23252d;
-    font-size: 20px;
-    font-weight: 800;
-}
-
-.sns_quick_close {
-    width: 42px;
-    height: 42px;
-    border: 0;
-    border-radius: 999px;
-    background: #f4f5f8;
-    color: #23252d;
-    font-size: 26px;
-    line-height: 1;
-    cursor: pointer;
 }
 
 .sns_quick_frame {
@@ -1591,7 +1640,13 @@ body.sns_quick_locked {
     width: 700px;
     pointer-events: none;
 }
-
+/* .pin{
+    position: absolute;
+    top: 550px;
+    left: 0;
+    width: 135px;
+    height: 166px;
+} */
 .shopping_bag_container .bag_back { z-index: 1; }
 .shopping_bag_container .bag_front { z-index: 3; }
 
@@ -1715,7 +1770,7 @@ body.sns_quick_locked {
     position: absolute;
     top: 40px;
     left: 80px;
-    width: 150px;
+    width: 300px;
     height: 2px;
     background-color: var(--p-color5);
     transform-origin: left center;
@@ -1732,14 +1787,13 @@ body.sns_quick_locked {
     background-color: var(--p-color5);
 }
 
-.product_modal {
+.rail_item .product_modal {
     position: absolute;
-    top: -50px;
-    left: 230px;
-    width: 260px;
+    top: -80px;
+    left: 350px;
+    width: 390px;
     background-color: var(--white);
-    padding: 8px;
-    border-radius: 5px;
+    border: 4px solid var(--p-color5);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
     text-align: center;
@@ -1747,40 +1801,33 @@ body.sns_quick_locked {
     display: block;
 }
 
-.product_modal.link_modal {
+.rail_item .product_modal.link_modal {
     cursor: pointer;
 }
 
-.product_modal:hover {
-    transform: translateY(-5px);
-}
-
 .modal_img {
-    background-color: var(--g-color1);
-    border-radius: 3px;
     overflow: hidden;
 }
 
 .modal_img img {
     width: 100%;
-    aspect-ratio: 16/9;
+    height: 100%;
     object-fit: cover;
     display: block;
 }
 
-.modal_label {
+.rail_item .modal_label {
     position: absolute;
     bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--p-color5);
     color: var(--white);
-    padding: 6px 20px;
+    padding: 10px 20px;
     border-radius: 20px;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 300;
     white-space: nowrap;
-    box-shadow: 0 4px 10px rgba(239, 116, 155, 0.4);
 }
 
 .workflow_steps_section {
