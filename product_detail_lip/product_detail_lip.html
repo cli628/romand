@@ -1,39 +1,694 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="립제품의 상세페이지입니다.">
-    <meta name="keywords" content="롬앤, romand, romend, 핑크오피스, 퍼스널컬러, 롬, 앤, rom">
-    <meta name="author" content="team_sixman">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="립제품의 상세페이지입니다." />
+    <meta
+      name="keywords"
+      content="롬앤, romand, romend, 핑크오피스, 퍼스널컬러, 롬, 앤, rom"
+    />
+    <meta name="author" content="team_sixman" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>order</title>
     <!-- 파비콘 -->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
     <!-- 폰트어썸 - 안쓰시면 삭제 -->
-    <script src="https://kit.fontawesome.com/193fa424cf.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/193fa424cf.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- 슬라이더 - 안쓰시면 삭제-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
     <!-- gsap - 안쓰시면 삭제 -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <!--  gsap 스크롤트리거 - 안쓰시면 삭제-->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js"></script>
     <!-- 리셋 css-->
-    <link rel="stylesheet" href="../common/css/reset.css">
+    <link rel="stylesheet" href="../common/css/reset.css" />
     <!-- 공통 css -->
-    <link rel="stylesheet" href="../common/css/common_style.css">
+    <link rel="stylesheet" href="../common/css/common_style.css" />
     <!-- 공통 헤더 푸터 햄메뉴 media -->
-    <link rel="stylesheet" href="../common/css/common_media.css">
+    <link rel="stylesheet" href="../common/css/common_media.css" />
     <!-- 각자 css-->
-    <link rel="stylesheet" href="css/detail_lip.css">
-    <link rel="stylesheet" href="css/detail_lip_media.css">
+    <link rel="stylesheet" href="css/detail_lip.css" />
+    <link rel="stylesheet" href="css/detail_lip_media.css" />
     <!-- 슬라이드 스와이퍼 스크립트 - 안쓰시면 삭제-->
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <!-- 공통 script-->
     <script src="../common/js/common.js"></script>
     <!-- 각자 script -->
     <script src="js/detail_lip.js"></script>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <header></header>
+    <div class="wrap">
+      <section class="contents">
+        <div class="contents_inner">
+          <!-- 왼쪽: 이미지 + 탭 메뉴 -->
+          <div class="contents_left">
+            <div class="contents_img_wrap">
+              <!-- 탭별 이미지 세트: ORIGINAL (기본 활성) -->
+              <div class="contents_img_set tab_active" data-tab="original">
+                <div class="contents_main_img">
+                  <img src="img/contents_thum.png" alt="ORIGINAL 메인 이미지" />
+                </div>
+                <div class="contents_sub_img">
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                </div>
+              </div>
+              <!-- 탭별 이미지 세트: NEW BARE -->
+              <div class="contents_img_set" data-tab="newbare">
+                <div class="contents_main_img">
+                  <div class="main_img_placeholder"></div>
+                </div>
+                <div class="contents_sub_img">
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                </div>
+              </div>
+              <!-- 탭별 이미지 세트: Dusty on the Nude -->
+              <div class="contents_img_set" data-tab="dusty">
+                <div class="contents_main_img">
+                  <div class="main_img_placeholder"></div>
+                </div>
+                <div class="contents_sub_img">
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                </div>
+              </div>
+              <!-- 탭별 이미지 세트: Black Spectrum -->
+              <div class="contents_img_set" data-tab="black">
+                <div class="contents_main_img">
+                  <div class="main_img_placeholder"></div>
+                </div>
+                <div class="contents_sub_img">
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                  <div class="sub_img_placeholder"></div>
+                </div>
+              </div>
+            </div>
+            <!-- 세로 탭 메뉴 -->
+            <ul class="tab_menu">
+              <li class="tab_btn tab_active" data-tab="original">original</li>
+              <li class="tab_btn" data-tab="newbare">new bare</li>
+              <li class="tab_btn" data-tab="dusty">dusty on the nude</li>
+              <li class="tab_btn" data-tab="black">black spectrum</li>
+            </ul>
+          </div>
+          <!-- //.contents_left -->
+
+          <!-- 오른쪽: 상품 정보 -->
+          <div class="contents_right">
+            <!-- 상단 태그 -->
+            <div class="contents_tags_top">
+              <span class="tag_btn">VEGAN</span>
+              <span class="tag_btn">SNS</span>
+            </div>
+            <div class="contents_tags">
+              <span class="hash_tag">#summer</span>
+              <span class="hash_tag">#winter</span>
+              <span class="hash_tag">#warm</span>
+              <span class="hash_tag">#cool</span>
+            </div>
+            <!-- 위시리스트 -->
+            <button class="contents_wish" aria-label="위시리스트 추가">
+              <i class="fa-regular fa-heart"></i>
+            </button>
+
+            <!-- 상품명 -->
+            <h2 class="product_name">Glasting Melting Balm</h2>
+            <!-- 상품 설명 -->
+            <p class="product_desc">
+              Soft, melting texture lip balm for plump, hydrated lips with a
+              sleek, glass-like shine. Delivers a subtle, muted tone or
+              refreshing pop of color.
+            </p>
+
+            <!-- 별점 -->
+            <div class="product_rating">
+              <span class="rating_stars">★★★★★</span>
+              <span class="rating_score">5.0</span>
+              <span class="rating_count">(27)</span>
+            </div>
+
+            <!-- 가격 -->
+            <div class="product_price">$ 4.00</div>
+
+            <!-- 인증 배지 -->
+            <div class="product_badge">
+              <div class="badge_item">
+                <img src="img/icon/personal_vegan_icon.png" alt="vegan free" />
+                <span>vegan free</span>
+              </div>
+              <div class="badge_item">
+                <img
+                  src="img/icon/personal_cruelty_icon.png"
+                  alt="cruelty free"
+                />
+                <span>cruelty free</span>
+              </div>
+            </div>
+
+            <!-- 컬러 선택 -->
+            <div class="product_color">
+              <span class="color_label">Color</span>
+              <div class="color_options">
+                <button
+                  class="color_circle color_active"
+                  data-color="01"
+                  data-name="01 Coco Nude"
+                  style="background-color: #fc6880"
+                ></button>
+                <button
+                  class="color_circle"
+                  data-color="02"
+                  data-name="02 Lovey Pink"
+                  style="background-color: #d4534b"
+                ></button>
+                <button
+                  class="color_circle"
+                  data-color="03"
+                  data-name="03 Sorbet Balm"
+                  style="background-color: #bf2638"
+                ></button>
+                <button
+                  class="color_circle"
+                  data-color="04"
+                  data-name="04 Hippie Berry"
+                  style="background-color: #ad5c4b"
+                ></button>
+                <button
+                  class="color_circle"
+                  data-color="05"
+                  data-name="05 Nougat Sand"
+                  style="background-color: #ba5155"
+                ></button>
+                <button
+                  class="color_circle"
+                  data-color="06"
+                  data-name="06 Kaya Fig"
+                  style="background-color: #a84a56"
+                ></button>
+                <button
+                  class="color_circle"
+                  data-color="06"
+                  data-name="07 Mauve Whip"
+                  style="background-color: #ad535d"
+                ></button>
+              </div>
+            </div>
+
+            <!-- 옵션 -->
+            <div class="product_option">
+              <span class="option_label">Option</span>
+              <div class="option_selected">
+                <span
+                  class="option_color_dot"
+                  style="background-color: #e8919a"
+                ></span>
+                <span class="option_name">01 Coco Nude</span>
+              </div>
+            </div>
+
+            <!-- 수량 -->
+            <div class="product_quantity">
+              <span class="quantity_label">Quantity</span>
+              <div class="quantity_control">
+                <button
+                  class="quantity_btn quantity_minus"
+                  aria-label="수량 감소"
+                >
+                  -
+                </button>
+                <span class="quantity_value">1</span>
+                <button
+                  class="quantity_btn quantity_plus"
+                  aria-label="수량 증가"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <!-- 버튼 -->
+            <div class="product_buttons">
+              <button class="btn_cart">Add to cart</button>
+              <button class="btn_buy">Buy now</button>
+            </div>
+
+            <!-- 아코디언 -->
+            <div class="product_accordion">
+              <div class="accordion_item">
+                <button class="accordion_header">
+                  <span>Cosmetic ingredients</span>
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+                <div class="accordion_body">
+                  <p>
+                    Diisostearyl Malate, Bis-Behenyl/Isostearyl/Phytosteryl
+                    Dimer Dilinoleyl Dimer Dilinoleate, Polyglyceryl-2
+                    Triisostearate, Bis-Diglyceryl Polyacyladipate-2, Paraffin,
+                    Tridecyl Trimellitate, Pentaerythrityl Tetraisostearate,
+                    Microcrystalline Wax, Sorbitan Isostearate, 1,2-Hexanediol,
+                    Disteardimonium Hectorite, Synthetic Wax, Ethylene/Propylene
+                    Copolymer, Propylene Carbonate, Titanium Dioxide (CI 77891),
+                    Fragrance, Limonene, Linalool, Simmondsia Chinensis (Jojoba)
+                    Seed Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Prunus
+                    Armeniaca (Apricot) Kernel Oil, Oenothera Biennis (Evening
+                    Primrose) Oil, Argania Spinosa Kernel Oil, Butyrospermum
+                    Parkii (Shea) Butter, Camellia Japonica Seed Oil,
+                    Caprylic/Capric Triglyceride, Rosa Canina Fruit Extract,
+                    Mangifera Indica (Mango) Fruit Extract, Iron Oxide Red (CI
+                    77491), Olea Europaea (Olive) Fruit Oil, Yellow 5 Lake (CI
+                    19140), Red 7 Lake (CI 15850), Olea Europaea (Olive) Fruit
+                    Oi, Red 28 Lake (CI 45410), Iron Oxide Black (CI 77499),
+                    Yellow 6 lake (CI 15985), Blue 1 Lake (CI 42090).
+                  </p>
+                </div>
+              </div>
+              <div class="accordion_item">
+                <button class="accordion_header">
+                  <span>Available shipping countries</span>
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+                <div class="accordion_body">
+                  <div class="shipping_flags">
+                    <img src="img/icon/flag_korea.png" alt="Korea" />
+                    <img src="img/icon/flag_uk.png" alt="UK" />
+                    <img src="img/icon/flag_german.png" alt="Germany" />
+                    <img src="img/icon/flag_france.png" alt="France" />
+                    <img src="img/icon/flag_china.png" alt="China" />
+                    <img src="img/icon/flag_ausie.png" alt="Australia" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- //.contents_right -->
+        </div>
+        <!-- //.contents_inner -->
+      </section>
+      <section class="personal">
+        <div class="personal_inner">
+          <div class="personal_header">
+            <div class="personal_hashtags">
+              <span class="hashtag">#SPRING</span>
+              <span class="hashtag">#SUMMER</span>
+              <span class="hashtag">#AUTUMN</span>
+              <span class="hashtag">#WINTER</span>
+            </div>
+            <h2 class="personal_title">Personal color</h2>
+          </div>
+
+          <div class="personal_cards_container">
+            <div class="personal_card" id="card_spring">
+              <div class="card_inner">
+                <div class="card_front">
+                  <img
+                    src="img/personal/personal_spring_card.png"
+                    alt="Spring"
+                  />
+                </div>
+                <div class="card_back">
+                  <span class="season_name">spring</span>
+                  <span class="tone_name">warm</span>
+                </div>
+              </div>
+            </div>
+            <div class="personal_card" id="card_summer">
+              <div class="card_inner">
+                <div class="card_front">
+                  <img
+                    src="img/personal/personal_summer_card.png"
+                    alt="Summer"
+                  />
+                </div>
+                <div class="card_back">
+                  <span class="season_name">Summer</span>
+                  <span class="tone_name">cool</span>
+                </div>
+              </div>
+            </div>
+            <div class="personal_card" id="card_autumn">
+              <div class="card_inner">
+                <div class="card_front">
+                  <img
+                    src="img/personal/personal_autumn_card.png"
+                    alt="Autumn"
+                  />
+                </div>
+                <div class="card_back">
+                  <span class="season_name">Autumn</span>
+                  <span class="tone_name">warm</span>
+                </div>
+              </div>
+            </div>
+            <div class="personal_card" id="card_winter">
+              <div class="card_inner">
+                <div class="card_front">
+                  <img
+                    src="img/personal/personal_winter_card.png"
+                    alt="Winter"
+                  />
+                </div>
+                <div class="card_back">
+                  <span class="season_name">Winter</span>
+                  <span class="tone_name">cool</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="personal_footer">
+            <a href="#" class="btn_personal">Go to personal page</a>
+          </div>
+        </div>
+      </section>
+      <section class="review_visual">
+        <div class="review_visual_inner">
+          <!-- 좌측 비주얼 블록 -->
+          <div class="visual_block left_block">
+            <div class="vertical_text text_glasting">Glasting</div>
+            <div class="visual_img_wrap">
+              <img
+                src="img/review_visual/original_left.jpg"
+                alt="Review Left Style"
+              />
+            </div>
+          </div>
+
+          <!-- 우측 비주얼 블록 -->
+          <div class="visual_block right_block">
+            <div class="visual_img_wrap">
+              <img
+                src="img/review_visual/original_right.jpg"
+                alt="Review Right Product"
+              />
+            </div>
+            <div class="vertical_text text_melting">melting balm</div>
+          </div>
+        </div>
+      </section>
+      <section class="review">
+        <div class="review_header">
+          <h2 class="review_title">Review</h2>
+          <a href="#" class="review_more">more</a>
+        </div>
+
+        <div class="review_draggable_container">
+          <div class="review_contents">
+            <!-- 첫 번째 줄 (1~6) -->
+            <ul class="review_row row_top">
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_1.png"
+                    alt="Review 1"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">Saqueo H.</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      This is the best color for me, enhance my natural color
+                      and add quite a bit of shine. My favorite color by far.
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★★★</span
+                    ><span class="card_date">2026.03.26</span>
+                  </div>
+                </div>
+              </li>
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_2.png"
+                    alt="Review 2"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">Ardell</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      Beautiful color adding to my purse 🌟✨
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★★☆</span
+                    ><span class="card_date">2026.03.26</span>
+                  </div>
+                </div>
+              </li>
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_3.png"
+                    alt="Review 3"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">Anonymous</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      This is a really nice color on me and I can use it
+                      everyday. Actually, can’t live without this that I ordered
+                      extras.It is my everyday lippy’s.
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★★★</span
+                    ><span class="card_date">2026.03.23</span>
+                  </div>
+                </div>
+              </li>
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_4.png"
+                    alt="Review 4"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">Anonymous</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      love the formula, feels like normal lip balm but is shiny
+                      and pretty!
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★★★</span
+                    ><span class="card_date">2026.03.23</span>
+                  </div>
+                </div>
+              </li>
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_5.png"
+                    alt="Review 5"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">Anonymous</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      Cute packaging and the color was precious with an amazing
+                      glow.
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★★★</span
+                    ><span class="card_date">2026.03.21</span>
+                  </div>
+                </div>
+              </li>
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_6.png"
+                    alt="Review 6"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">Emily K.</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      I like not only how vivid the color is but also how it’s
+                      so easy to apply. My lips get chapped soon after using it
+                      tho.
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★★☆</span
+                    ><span class="card_date">2026.03.21</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            <!-- 두 번째 줄 (7~12) -->
+            <ul class="review_row row_bottom">
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_7.png"
+                    alt="Review 7"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">Shaeleigh</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      Shipped fast and the consistency is nice and smooth, not
+                      sticky. But color was not as promised 😢 and it’s quite
+                      small.
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★☆☆</span
+                    ><span class="card_date">2026.03.11</span>
+                  </div>
+                </div>
+              </li>
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_8.png"
+                    alt="Review 8"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">Anonymous</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      Love this shades, use this for all my life
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★★★</span
+                    ><span class="card_date">2026.03.20</span>
+                  </div>
+                </div>
+              </li>
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_9.png"
+                    alt="Review 9"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">TRANSFER B.</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      I have the shade Kaya fig. It’s the perfect, your lips but
+                      better shade for me! I love the formula and the smell
+                      isn’t too strong. It’s just right!
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★★★</span
+                    ><span class="card_date">2026.03.18</span>
+                  </div>
+                </div>
+              </li>
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_10.png"
+                    alt="Review 10"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">N S.</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      i like the texture, its quite sticky but not gloopy. very
+                      hydrating and looks hydrating
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★★★</span
+                    ><span class="card_date">2026.03.18</span>
+                  </div>
+                </div>
+              </li>
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_11.png"
+                    alt="Review 11"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">Anonymous</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      It makes my lips feel super soft, the colors gorgeous and
+                      accurate to the visual, and it’s even better if you get it
+                      with its matching gloss!! *^
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★★★</span
+                    ><span class="card_date">2026.03.16</span>
+                  </div>
+                </div>
+              </li>
+              <li class="review_card">
+                <div class="card_img_wrap">
+                  <img
+                    src="img/review/review_12.png"
+                    alt="Review 12"
+                    draggable="false"
+                  />
+                </div>
+                <div class="card_body">
+                  <h4 class="card_author">Christina</h4>
+                  <div class="card_text_wrap">
+                    <p class="card_text">
+                      Such a pretty color with a nice, not overly sweet, smell.
+                      Not too sticky and leaves my lips feeling soft
+                    </p>
+                  </div>
+                  <div class="card_meta">
+                    <span class="card_stars">★★★★☆</span
+                    ><span class="card_date">2026.03.14</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <footer></footer>
+    </div>
+    <!-- //.wrap -->
+    <footer></footer>
+  </body>
 </html>
