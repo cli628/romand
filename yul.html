@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KI ONE Scroll Explosion Effect</title>
+
+  <!-- ✅ CDN 모음 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap">
+  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Montserrat", sans-serif;
+      background: #333;
+      color: #222;
+      overflow-x: hidden;
+      height: 700vh;
+    }
+
+    .hero_section {
+      width: 100%;
+      height: 70vh;
+      background: url("./main/img/new_bag_front.png") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 3rem;
+      letter-spacing: 2px;
+      text-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .cocktail_list_section {
+      width: 85%;
+      margin: 450px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cocktail_card {
+      position: relative;
+      width: 30%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      background: #000;
+      transform-style: preserve-3d;
+    }
+
+    .cocktail_card a.card_link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      color: inherit;
+      text-decoration: none;
+      position: relative;
+      z-index: 10;
+    }
+
+    .cocktail_card img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+    }
+
+    .cocktail_card p {
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cocktail_card small {
+      font-weight: 400;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .disintegration_piece {
+      position: absolute;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+    }
+
+    footer {
+      background: #c6a27d;
+      color: #fff;
+      text-align: center;
+      padding: 40px 0;
+      font-size: 0.9rem;
+      margin-top: 200px;
+      height: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero_section">COCKTAIL&nbsp;RECIPES</section>
+
+  <section class="cocktail_list_section">
+    <!-- 🍸 카드 샘플 -->
+    <div class="cocktail_card">
+      <a href="https://flowyullab.com" class="card_link" target="_blank">
+        <img src="./main/img/new_bag_front.png" alt="">
+        <p>Matheson’s Sour<br><small>KI ONE EAGLE</small></p>
+      </a>
+    </div>
+    <div class="cocktail_card">
+      <a href="https://flowyullab.com" class="card_link" target="_blank">
+        <img src="./main/img/new_bag_front.png" alt="">
+        <p>Matheson’s Sour<br><small>KI ONE EAGLE</small></p>
+      </a>
+    </div>
+    <div class="cocktail_card">
+      <a href="https://flowyullab.com" class="card_link" target="_blank">
+        <img src="./main/img/new_bag_front.png" alt="">
+        <p>Matheson’s Sour<br><small>KI ONE EAGLE</small></p>
+      </a>
+    </div>
+    <div class="cocktail_card">
+      <a href="https://flowyullab.com" class="card_link" target="_blank">
+        <img src="./main/img/new_bag_front.png" alt="">
+        <p>Matheson’s Sour<br><small>KI ONE EAGLE</small></p>
+      </a>
+    </div>
+    <div class="cocktail_card">
+      <a href="https://flowyullab.com" class="card_link" target="_blank">
+        <img src="./main/img/new_bag_front.png" alt="">
+        <p>Matheson’s Sour<br><small>KI ONE EAGLE</small></p>
+      </a>
+    </div>
+    <div class="cocktail_card">
+      <a href="https://flowyullab.com" class="card_link" target="_blank">
+        <img src="./main/img/new_bag_front.png" alt="">
+        <p>Matheson’s Sour<br><small>KI ONE EAGLE</small></p>
+      </a>
+    </div>
+    <div class="cocktail_card">
+      <a href="https://flowyullab.com" class="card_link" target="_blank">
+        <img src="./main/img/new_bag_front.png" alt="">
+        <p>Matheson’s Sour<br><small>KI ONE EAGLE</small></p>
+      </a>
+    </div>
+    <div class="cocktail_card">
+      <a href="https://flowyullab.com" class="card_link" target="_blank">
+        <img src="./main/img/new_bag_front.png" alt="">
+        <p>Matheson’s Sour<br><small>KI ONE EAGLE</small></p>
+      </a>
+    </div>
+    <div class="cocktail_card">
+      <a href="https://flowyullab.com" class="card_link" target="_blank">
+        <img src="./main/img/new_bag_front.png" alt="">
+        <p>Matheson’s Sour<br><small>KI ONE EAGLE</small></p>
+      </a>
+    </div>
+  </section>
+
+  <footer>© KI ONE – ALL RIGHTS RESERVED</footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const COUNT = 30;
+    const REPEAT_COUNT = 4;
+
+    // 🎨 카드 → 조각 변환 (async/await)
+    async function create_disintegration(card_el) {
+      const canvas = await html2canvas(card_el, {
+        useCORS: true,
+        backgroundColor: null,
+        scale: 1.0,
+      });
+
+      const ctx = canvas.getContext("2d");
+      const { width, height } = canvas;
+      const img_data = ctx.getImageData(0, 0, width, height);
+      const data_list = Array.from({ length: COUNT }, () => ctx.createImageData(width, height));
+
+      for (let x = 0; x < width; x++) {
+        for (let y = 0; y < height; y++) {
+          for (let r = 0; r < REPEAT_COUNT; r++) {
+            const idx = (x + y * width) * 4;
+            const d_idx = Math.floor(Math.random() * COUNT);
+            for (let p = 0; p < 4; p++) {
+              data_list[d_idx].data[idx + p] = img_data.data[idx + p];
+            }
+          }
+        }
+      }
+
+      // ✅ 캡처 끝났으면 원본 카드 잠시 숨기기
+      card_el.style.opacity = "0";
+
+      const rect = card_el.getBoundingClientRect();
+      const parent = card_el.closest(".cocktail_list_section");
+      const container = document.createElement("div");
+      container.classList.add("disintegration_container");
+      container.style.pointerEvents = "none";
+      container.style.position = "absolute";
+      container.style.left = `${card_el.offsetLeft}px`;
+      container.style.top = `${card_el.offsetTop}px`;
+      container.style.width = `${rect.width}px`;
+      container.style.height = `${rect.height}px`;
+      parent.appendChild(container);
+
+      const pieces = [];
+      data_list.forEach((data) => {
+        const piece = document.createElement("canvas");
+        piece.width = width;
+        piece.height = height;
+        piece.className = "disintegration_piece";
+        piece.getContext("2d").putImageData(data, 0, 0);
+        container.appendChild(piece);
+        pieces.push(piece);
+      });
+
+      return { card_el, pieces };
+    }
+
+    const cards = document.querySelectorAll(".cocktail_card");
+
+    // 🎬 전체 실행 함수
+    async function init() {
+      await new Promise((resolve) => imagesLoaded(cards, { background: true }, resolve));
+      const allCards = await Promise.all([...cards].map((card) => create_disintegration(card)));
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".cocktail_list_section",
+          start: "top 20%",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      allCards.forEach(({ card_el, pieces }, i) => {
+        tl.to(card_el, { opacity: 0, duration: 0.3 }, i * 0.3);
+
+        // 💥 폭발 효과: 각 조각마다 랜덤 방향 + 거리 + 회전 추가
+        tl.to(pieces, {
+          x: () => gsap.utils.random(-400, 400), // 좌우로 넓게 흩어짐
+          y: () => gsap.utils.random(-600, 200), // 위로 더 많이 날림
+          z: () => gsap.utils.random(-200, 200), // 3D 깊이감
+          rotateX: () => gsap.utils.random(-180, 180),
+          rotateY: () => gsap.utils.random(-180, 180),
+          rotateZ: () => gsap.utils.random(-90, 90),
+          opacity: 0,
+          ease: "expo.out", // 자연스러운 폭발감
+          duration: 2,
+          stagger: {
+            amount: 0.4, // 전체 흩어짐 시간
+            from: "center" // 중앙에서 바깥쪽으로 터짐
+          }
+        }, i * 0.3);
+      });
+    }
+
+    init();
+  </script>
+</body>
+
+</html>
