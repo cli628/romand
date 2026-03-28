@@ -992,108 +992,11 @@ document.addEventListener("DOMContentLoaded",  () => {
     }
 
     function initializePinkOfficeDoorHover() {
-        const pinkSection = document.querySelector(".pink_office_section");
         const doorLink = document.querySelector(".pink_office_door_link");
         const hoverCircle = doorLink?.querySelector(".pink_office_hover_circle");
 
-        if (!pinkSection || !doorLink || !hoverCircle) {
+        if (!doorLink || !hoverCircle) {
             return;
-        }
-
-        const finePointerQuery =
-            typeof window.matchMedia === "function" ? window.matchMedia("(pointer: fine)") : null;
-        const enableMouseArrow = !finePointerQuery || finePointerQuery.matches;
-        const svgNamespace = "http://www.w3.org/2000/svg";
-        let arrowLayer = null;
-        let arrowPath = null;
-        let arrowHead = null;
-
-        if (enableMouseArrow) {
-            arrowLayer = document.createElementNS(svgNamespace, "svg");
-            arrowLayer.setAttribute("class", "pink_office_mouse_arrow");
-            arrowLayer.setAttribute("aria-hidden", "true");
-            arrowLayer.setAttribute("preserveAspectRatio", "none");
-
-            arrowPath = document.createElementNS(svgNamespace, "path");
-            arrowPath.setAttribute("class", "pink_office_mouse_arrow_path");
-
-            arrowHead = document.createElementNS(svgNamespace, "path");
-            arrowHead.setAttribute("class", "pink_office_mouse_arrow_head");
-
-            arrowLayer.appendChild(arrowPath);
-            arrowLayer.appendChild(arrowHead);
-            document.body.appendChild(arrowLayer);
-        }
-
-        function updateArrowViewBox() {
-            if (!arrowLayer) {
-                return;
-            }
-
-            arrowLayer.setAttribute("viewBox", `0 0 ${window.innerWidth} ${window.innerHeight}`);
-        }
-
-        function setArrowVisible(isVisible) {
-            if (!arrowLayer) {
-                return;
-            }
-
-            arrowLayer.classList.toggle("is_visible", Boolean(isVisible));
-        }
-
-        function updateArrow(clientX, clientY) {
-            if (!arrowLayer || !arrowPath || !arrowHead) {
-                return;
-            }
-
-            const rect = doorLink.getBoundingClientRect();
-            const insideDoor =
-                clientX >= rect.left &&
-                clientX <= rect.right &&
-                clientY >= rect.top &&
-                clientY <= rect.bottom;
-
-            if (insideDoor) {
-                setArrowVisible(false);
-                return;
-            }
-
-            const targetX = rect.left + rect.width * 0.5;
-            const targetY = rect.top + rect.height * 0.5;
-            const dx = targetX - clientX;
-            const dy = targetY - clientY;
-            const distance = Math.hypot(dx, dy);
-
-            if (!Number.isFinite(distance) || distance < 30) {
-                setArrowVisible(false);
-                return;
-            }
-
-            const normalX = dx / distance;
-            const normalY = dy / distance;
-            const bend = Math.min(96, distance * 0.22);
-            const controlX = clientX + dx * 0.46 - normalY * bend * 0.18;
-            const controlY = clientY + dy * 0.46 + normalX * bend * 0.18;
-
-            arrowPath.setAttribute(
-                "d",
-                `M ${clientX.toFixed(1)} ${clientY.toFixed(1)} Q ${controlX.toFixed(1)} ${controlY.toFixed(1)} ${targetX.toFixed(1)} ${targetY.toFixed(1)}`
-            );
-
-            const angle = Math.atan2(targetY - controlY, targetX - controlX);
-            const headSize = 12;
-            const spread = Math.PI / 7;
-            const leftX = targetX - Math.cos(angle - spread) * headSize;
-            const leftY = targetY - Math.sin(angle - spread) * headSize;
-            const rightX = targetX - Math.cos(angle + spread) * headSize;
-            const rightY = targetY - Math.sin(angle + spread) * headSize;
-
-            arrowHead.setAttribute(
-                "d",
-                `M ${targetX.toFixed(1)} ${targetY.toFixed(1)} L ${leftX.toFixed(1)} ${leftY.toFixed(1)} L ${rightX.toFixed(1)} ${rightY.toFixed(1)} Z`
-            );
-
-            setArrowVisible(true);
         }
 
         function updateCirclePosition(clientX, clientY) {
@@ -1113,41 +1016,9 @@ document.addEventListener("DOMContentLoaded",  () => {
             updateCirclePosition(event.clientX, event.clientY);
         });
 
-        if (enableMouseArrow) {
-            updateArrowViewBox();
-
-            pinkSection.addEventListener("pointerenter", (event) => {
-                if (event.pointerType && event.pointerType !== "mouse") {
-                    return;
-                }
-                updateArrow(event.clientX, event.clientY);
-            });
-
-            pinkSection.addEventListener("pointermove", (event) => {
-                if (event.pointerType && event.pointerType !== "mouse") {
-                    return;
-                }
-                updateArrow(event.clientX, event.clientY);
-            });
-
-            pinkSection.addEventListener("pointerleave", () => {
-                setArrowVisible(false);
-            });
-
-            doorLink.addEventListener("pointerenter", () => {
-                setArrowVisible(false);
-            });
-
-            window.addEventListener("resize", () => {
-                updateArrowViewBox();
-                setArrowVisible(false);
-            });
-        }
-
         doorLink.addEventListener("focus", () => {
             hoverCircle.style.setProperty("--circle-x", "50%");
             hoverCircle.style.setProperty("--circle-y", "50%");
-            setArrowVisible(false);
         });
     }
 
@@ -1160,21 +1031,37 @@ document.addEventListener("DOMContentLoaded",  () => {
         /* CSS sticky媛 slow scroll ?대떦 ??JS pin 遺덊븘??
            嫄대Ъ ?대?吏: "top top" ??"bottom top" = ?뱀뀡(370vh) ?꾩쟾??吏?섏튌 ?뚭퉴吏 scrub */
         if (pinkVisual) {
-            gsap.set(pinkVisual, { willChange: "transform" });
-
-            gsap.fromTo(pinkVisual,
-                { y: 160 },
-                {
-                    y: -120,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: pinkSection,
-                        start: "top top",
-                        end: "bottom top",
-                        scrub: 3,
-                        invalidateOnRefresh: true
-                    }
+            gsap.set(pinkVisual, {
+                willChange: "transform",
+                transformOrigin: "center center"
+            });
+            const pinkScrollTrigger = {
+                trigger: pinkSection,
+                start: "top top",
+                end: "bottom top",
+                scrub: 3,
+                invalidateOnRefresh: true
+            };
+            const pinkTimeline = gsap.timeline({
+                scrollTrigger: {
+                    ...pinkScrollTrigger
                 }
+            });
+
+            pinkTimeline.fromTo(
+                pinkVisual,
+                {
+                    x: 0,
+                    y: 160,
+                    scale: 1
+                },
+                {
+                    x: () => window.innerWidth * (window.innerWidth <= 768 ? 0.09 : 0.15),
+                    y: -120,
+                    scale: () => (window.innerWidth <= 768 ? 1.18 : 1.3),
+                    ease: "none"
+                },
+                0
             );
         }
     }

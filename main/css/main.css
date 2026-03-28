@@ -250,11 +250,12 @@ pattern.img1 {
 /* Outlet Custom */
 .outlet_section {
     width: 100%;
+    height: 1080px;
     position: relative;
     overflow: hidden;
-    background-color: #fbfbfb;
     min-height: 1360px;
-    padding: 220px 0 120px;
+    padding: 220px 0;
+    margin: 400px 0;
     box-sizing: border-box;
 }
 
@@ -487,9 +488,9 @@ pattern.img1 {
 
 .break_section_inner {
     width: 100%;
-    height: 300px;
+    height: 650px;
     display: grid;
-    padding:  50px 0;
+    padding:  200px 0;
 }
 
 .break_keyword_row {
@@ -631,9 +632,6 @@ pattern.img1 {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background:
-        radial-gradient(ellipse 58% 72% at var(--spotlight-x) var(--spotlight-y), rgba(255, 245, 248, 0.28) 0%, rgba(255, 255, 255, 0) 62%),
-        linear-gradient(90deg, rgba(229, 241, 252, 0.18) 0%, rgba(238, 236, 249, 0.12) 44%, rgba(249, 248, 245, 0.18) 100%);
     will-change: background;
 }
 
@@ -756,6 +754,8 @@ pattern.img1 {
     width: 100vw;
     transform: translateX(-50%);
     max-width: none;
+    transform-origin: center center;
+    will-change: transform;
 }
 
 .pink_office_visual img {
@@ -820,35 +820,6 @@ pattern.img1 {
 .pink_office_door_link:focus-visible .pink_office_hover_circle {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
-}
-
-.pink_office_mouse_arrow {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 40;
-    opacity: 0;
-    transition: opacity 0.16s ease;
-}
-
-.pink_office_mouse_arrow.is_visible {
-    opacity: 1;
-}
-
-.pink_office_mouse_arrow_path {
-    fill: none;
-    stroke: rgba(245, 118, 163, 0.95);
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-dasharray: 8 6;
-    filter: drop-shadow(0 3px 10px rgba(245, 118, 163, 0.32));
-}
-
-.pink_office_mouse_arrow_head {
-    fill: rgba(245, 118, 163, 0.95);
-    filter: drop-shadow(0 3px 10px rgba(245, 118, 163, 0.32));
 }
 
 .sns_section {
