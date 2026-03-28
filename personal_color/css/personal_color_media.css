@@ -137,7 +137,7 @@
         height: 44px;
     }
 
-    .personal_quiz_modal__close::before {
+    .personal_quiz_modal__close i {
         font-size: 34px;
     }
 
@@ -500,6 +500,9 @@
     .personal_quiz_modal__close {
         top: 10px;
         right: 14px;
+    }
+
+    .personal_quiz_modal__close i {
         font-size: 38px;
     }
 
