@@ -1623,10 +1623,15 @@ document.addEventListener("DOMContentLoaded",  () => {
 
         backdrop.addEventListener("click", closeQuickModal);
 
-        // Listen for a close request posted from quick.html.
+        // Listen for requests posted from quick.html.
         window.addEventListener("message", (event) => {
             if (event.data === "closeQuickModal") {
                 closeQuickModal();
+                return;
+            }
+
+            if (event.data?.type === "navigateQuickShop" && event.data.url) {
+                window.location.href = event.data.url;
             }
         });
 

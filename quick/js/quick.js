@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // iframe으로 임베딩된 경우 body에 클래스 추가 + 닫기 버튼 postMessage 연결
     const isEmbedded = new URLSearchParams(location.search).get('embedded') === '1';
-    const orderPageUrl = '../order/order.html';
+    const orderPageUrl = new URL('../order/order.html', window.location.href).href;
+    const detailPageUrl = new URL('../product_detail_lip/product_detail_lip.html', window.location.href).href;
     if (isEmbedded) {
         document.body.classList.add('is_embedded');
         const closeBtn = document.querySelector('.close_btn');
@@ -22,13 +23,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!buyNowBtn) return;
 
-        buyNowBtn.addEventListener('click', () => {
-            if (isEmbedded && window.parent) {
-                window.parent.location.href = orderPageUrl;
-                return;
+        buyNowBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            if (isEmbedded) {
+                try {
+                    if (window.top) {
+                        window.top.location.href = orderPageUrl;
+                        return;
+                    }
+                } catch (_error) {
+                    if (window.parent) {
+                        window.parent.postMessage({
+                            type: 'navigateQuickShop',
+                            url: orderPageUrl
+                        }, '*');
+                        return;
+                    }
+                }
             }
 
             window.location.href = orderPageUrl;
+        });
+    }
+
+    function initViewDetailsLink() {
+        const detailLink = document.querySelector('.view_details_link');
+
+        if (!detailLink) return;
+
+        detailLink.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            if (isEmbedded) {
+                try {
+                    if (window.top) {
+                        window.top.location.href = detailPageUrl;
+                        return;
+                    }
+                } catch (_error) {
+                    if (window.parent) {
+                        window.parent.postMessage({
+                            type: 'navigateQuickShop',
+                            url: detailPageUrl
+                        }, '*');
+                        return;
+                    }
+                }
+            }
+
+            window.location.href = detailPageUrl;
         });
     }
 
@@ -172,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initColorSelection();
     initBuyNowButton();
+    initViewDetailsLink();
     initQuantitySelector();
     initAccordion();
     initScrollButton();
