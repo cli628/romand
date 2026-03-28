@@ -371,6 +371,20 @@ document.addEventListener("DOMContentLoaded",  () => {
         });
     });
 
+    document.querySelectorAll(".product_card_shop_btn").forEach((link) => {
+        link.addEventListener("click", (event) => {
+            event.stopPropagation();
+
+            const href = link.getAttribute("href");
+            if (!href || href === "#") {
+                event.preventDefault();
+                return;
+            }
+
+            window.location.href = href;
+        });
+    });
+
     // 5. New Section Bag Animation (GSAP Scrub Timeline)
     const floatingItems = document.querySelectorAll(".floating_item");
     const floatingProducts = document.querySelector(".floating_products");
