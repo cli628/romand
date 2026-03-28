@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // iframe으로 임베딩된 경우 body에 클래스 추가 + 닫기 버튼 postMessage 연결
     const isEmbedded = new URLSearchParams(location.search).get('embedded') === '1';
+    const orderPageUrl = '../order/order.html';
     if (isEmbedded) {
         document.body.classList.add('is_embedded');
         const closeBtn = document.querySelector('.close_btn');
@@ -15,6 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+    function initBuyNowButton() {
+        const buyNowBtn = document.querySelector('.btn_buy_now');
+
+        if (!buyNowBtn) return;
+
+        buyNowBtn.addEventListener('click', () => {
+            if (isEmbedded && window.parent) {
+                window.parent.location.href = orderPageUrl;
+                return;
+            }
+
+            window.location.href = orderPageUrl;
+        });
+    }
 
     /**
      * Handle Color Swatch Selection
@@ -155,6 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initColorSelection();
+    initBuyNowButton();
     initQuantitySelector();
     initAccordion();
     initScrollButton();
