@@ -1019,6 +1019,10 @@
     padding-top: clamp(8px, 1.2vh, 18px);
 }
 
+.personal_quiz_modal.is-result-view .personal_quiz_modal__dialog {
+    background: #f4f4f4;
+}
+
 .personal_quiz_result {
     --quiz-result-highlight: #cfdf42;
     width: min(100%, 1240px);
@@ -1130,6 +1134,10 @@
     gap: 18px;
     min-height: 92px;
     scroll-snap-align: start;
+}
+
+.personal_quiz_result__product_info {
+    min-width: 0;
 }
 
 .personal_quiz_result__product_thumb {
