@@ -490,9 +490,9 @@
     padding: clamp(64px, 9vh, 110px) 24px;
     overflow: hidden;
     background:
-        radial-gradient(circle at 18% 26%, rgba(255, 193, 214, 0.18) 0%, rgba(255, 193, 214, 0) 28%),
-        radial-gradient(circle at 78% 18%, rgba(243, 214, 255, 0.18) 0%, rgba(243, 214, 255, 0) 26%),
-        linear-gradient(180deg, #f7f3ef 0%, #fffdfb 100%);
+        radial-gradient(circle at 76% 24%, rgba(255, 197, 222, 0.2) 0%, rgba(255, 197, 222, 0) 26%),
+        radial-gradient(circle at 28% 70%, rgba(244, 231, 236, 0.46) 0%, rgba(244, 231, 236, 0) 34%),
+        linear-gradient(180deg, #f8f6f3 0%, #fffefd 100%);
     color: #111216;
 }
 
@@ -511,7 +511,8 @@
 .test_start_intro_copy {
     position: relative;
     z-index: 1;
-    width: min(940px, 100%);
+    width: min(1120px, 100%);
+    padding-inline: clamp(12px, 3vw, 48px);
     text-align: center;
 }
 
@@ -557,14 +558,14 @@
 .test_start_flip_button {
     position: absolute;
     top: 50%;
-    right: clamp(10px, 4.5vw, 96px);
+    right: clamp(46px, 10vw, 180px);
     z-index: 3;
-    width: clamp(260px, 27vw, 372px);
+    width: clamp(248px, 24vw, 344px);
     aspect-ratio: 507 / 759;
     border: 0;
     padding: 0;
     background: transparent;
-    transform: translateY(-50%) rotate(6deg);
+    transform: translateY(-48%) rotate(4.5deg);
     perspective: 1800px;
     cursor: pointer;
     will-change: transform;
@@ -593,7 +594,7 @@
     border-radius: 28px;
     transform-style: preserve-3d;
     transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    box-shadow: 0 26px 70px rgba(59, 35, 51, 0.18);
+    box-shadow: 0 24px 56px rgba(59, 35, 51, 0.14);
 }
 
 .test_start_flip_button:hover .test_start_flip_inner,

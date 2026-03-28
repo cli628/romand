@@ -19,9 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
         : [];
     const testStartSection = document.querySelector(".test_start_intro_section");
     const testStartStage = document.querySelector(".test_start_intro_stage");
+    const testStartCopy = document.querySelector(".test_start_intro_copy");
     const testStartKicker = document.querySelector(".test_start_intro_kicker");
     const testStartTitleLines = document.querySelectorAll(".test_start_intro_title span");
     const testStartHint = document.querySelector(".test_start_intro_hint");
+    const testStartFlipButton = document.querySelector(".test_start_flip_button");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
@@ -331,37 +333,64 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (testStartSection && testStartStage) {
-        const testStartText = [testStartKicker, ...testStartTitleLines, testStartHint].filter(Boolean);
+        const testStartMetaText = [testStartKicker, testStartHint].filter(Boolean);
 
         gsap.set(testStartStage, {
-            yPercent: -104,
-            scale: 0.28,
+            yPercent: 4,
             transformOrigin: "center center"
         });
-        gsap.set(testStartText, {
-            opacity: 0.18,
-            y: 42
+        if (testStartCopy) {
+            gsap.set(testStartCopy, { autoAlpha: 1 });
+        }
+        gsap.set(testStartTitleLines, {
+            autoAlpha: 0,
+            y: 26
         });
+        gsap.set(testStartMetaText, {
+            autoAlpha: 0,
+            y: 18
+        });
+        if (testStartFlipButton) {
+            gsap.set(testStartFlipButton, {
+                autoAlpha: 0,
+                x: 54,
+                y: 18
+            });
+        }
 
-        gsap.timeline({
+        const testStartTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: testStartSection,
-                start: "top bottom",
-                end: "top 12%",
-                scrub: 1,
+                start: "top 92%",
+                end: "top 36%",
+                scrub: 1.1,
                 invalidateOnRefresh: true
             }
         })
             .to(testStartStage, {
                 yPercent: 0,
-                scale: 1,
                 ease: "none"
             }, 0)
-            .to(testStartText, {
-                opacity: 1,
+            .to(testStartMetaText, {
+                autoAlpha: 1,
                 y: 0,
-                stagger: 0.05,
+                stagger: 0.12,
+                ease: "none"
+            }, 0.04)
+            .to(testStartTitleLines, {
+                autoAlpha: 1,
+                y: 0,
+                stagger: 0.06,
+                ease: "none"
+            }, 0.08);
+
+        if (testStartFlipButton) {
+            testStartTimeline.to(testStartFlipButton, {
+                autoAlpha: 1,
+                x: 0,
+                y: 0,
                 ease: "none"
             }, 0.12);
+        }
     }
 });
