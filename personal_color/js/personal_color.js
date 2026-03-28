@@ -96,6 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const quizResultNextButton = resultModal ? resultModal.querySelector("[data-result-next]") : null;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const quizOpenGuard = {
+        lastWheelAt: 0,
+        lastScrollAt: 0
+    };
 
     // ==================================================
     // Personal quiz edit area
@@ -279,18 +283,21 @@ document.addEventListener("DOMContentLoaded", () => {
         quizChoices.innerHTML = "";
         quizNextButton.textContent = index === personalQuizContent.questions.length - 1 ? "Finish" : "Next";
 
-        question.choices.forEach((choice) => {
+        question.choices.forEach((choice, choiceIndex) => {
             const button = document.createElement("button");
             const media = document.createElement("span");
             const label = document.createElement("span");
+            const choiceSide = choice.side || (choiceIndex === 0 ? "left" : "right");
 
             button.type = "button";
-            button.className = "personal_quiz_choice";
+            button.className = `personal_quiz_choice personal_quiz_choice--${choiceSide} personal_quiz_choice--question-${index + 1} personal_quiz_choice--choice-${choiceIndex + 1}`;
             button.setAttribute("aria-label", choice.label);
+            button.dataset.choiceSide = choiceSide;
+            button.dataset.questionIndex = String(index + 1);
+            button.dataset.choiceIndex = String(choiceIndex + 1);
 
-            media.className = "personal_quiz_choice__media";
+            media.className = `personal_quiz_choice__media personal_quiz_choice__media--${choiceSide} personal_quiz_choice__media--question-${index + 1} personal_quiz_choice__media--choice-${choiceIndex + 1}`;
             media.style.backgroundImage = `url("${choice.image}")`;
-            media.style.backgroundPosition = choice.imagePosition || "center";
 
             label.className = "personal_quiz_choice__label";
             label.textContent = choice.label;
@@ -365,6 +372,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.remove("is-personal-quiz-open");
     }
 
+    window.addEventListener("wheel", () => {
+        quizOpenGuard.lastWheelAt = performance.now();
+    }, { passive: true });
+
+    window.addEventListener("scroll", () => {
+        quizOpenGuard.lastScrollAt = performance.now();
+    }, { passive: true });
+
     if (quizOpenButtons.length && quizModal) {
         quizModal.hidden = true;
         if (resultModal) {
@@ -386,7 +401,36 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         quizOpenButtons.forEach((button) => {
+            let pointerDownX = 0;
+            let pointerDownY = 0;
+            let pointerMoved = false;
+
+            button.addEventListener("pointerdown", (event) => {
+                pointerDownX = event.clientX;
+                pointerDownY = event.clientY;
+                pointerMoved = false;
+            });
+
+            button.addEventListener("pointermove", (event) => {
+                if (Math.abs(event.clientX - pointerDownX) > 8 || Math.abs(event.clientY - pointerDownY) > 8) {
+                    pointerMoved = true;
+                }
+            });
+
+            button.addEventListener("pointercancel", () => {
+                pointerMoved = false;
+            });
+
             button.addEventListener("click", (event) => {
+                const now = performance.now();
+                const recentWheel = now - quizOpenGuard.lastWheelAt < 260;
+                const recentScroll = now - quizOpenGuard.lastScrollAt < 180;
+
+                if ((recentWheel || recentScroll || pointerMoved) && event.detail !== 0) {
+                    event.preventDefault();
+                    return;
+                }
+
                 event.preventDefault();
                 openQuiz();
             });
