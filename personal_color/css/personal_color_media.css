@@ -6,7 +6,7 @@
     }
 
     .personal_quiz_modal__content {
-        gap: 20px;
+        gap: 24px;
         padding-top: 16px;
     }
 
@@ -58,21 +58,21 @@
 
     .personal_quiz_result_modal .personal_quiz_modal__dialog {
         max-height: calc(100svh - 24px);
-        padding: 24px 36px 26px;
+        padding: 22px 30px 24px;
     }
 
     .personal_quiz_result_modal .personal_quiz_modal__content {
-        gap: 20px;
-        padding-top: 16px;
+        gap: 26px;
+        padding-top: 14px;
     }
 
     .personal_quiz_result {
         --quiz-result-portrait-width: 288px;
-        gap: 20px;
+        gap: 30px;
     }
 
     .personal_quiz_result__hero {
-        gap: 24px;
+        gap: 30px;
     }
 
     .personal_quiz_result__portrait {
@@ -80,44 +80,44 @@
     }
 
     .personal_quiz_result__lead {
-        font-size: clamp(21px, 3.3svh, 31px);
+        font-size: clamp(22px, 3.3svh, 30px);
     }
 
     .personal_quiz_result__title {
-        font-size: clamp(30px, 4.8svh, 44px);
+        font-size: clamp(32px, 4.8svh, 42px);
     }
 
     .personal_quiz_result__summary {
-        margin-top: 14px;
-        font-size: clamp(15px, 2.1svh, 18px);
+        margin-top: 22px;
+        font-size: clamp(16px, 2.1svh, 18px);
     }
 
     .personal_quiz_result__desc {
-        margin-top: 10px;
+        margin-top: 14px;
         font-size: 14px;
         line-height: 1.45;
     }
 
     .personal_quiz_result__recommend {
-        gap: 12px;
+        gap: 18px;
     }
 
     .personal_quiz_result__recommend_title {
-        font-size: clamp(17px, 2.4svh, 22px);
+        font-size: clamp(20px, 2.4svh, 24px);
     }
 
     .personal_quiz_result__product {
-        flex-basis: 210px;
+        flex-basis: 224px;
         min-height: 68px;
         gap: 12px;
     }
 
     .personal_quiz_result__product_thumb {
-        width: 52px;
+        width: 58px;
     }
 
     .personal_quiz_result__product_name {
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .personal_quiz_result__product_shade {
@@ -147,7 +147,7 @@
     }
 
     .personal_quiz_modal__content {
-        gap: 16px;
+        gap: 20px;
         padding-top: 13px;
     }
 
@@ -189,7 +189,7 @@
     }
 
     .personal_quiz_result_modal .personal_quiz_modal__dialog {
-        padding: 19px 26px 21px;
+        padding: 18px 22px 20px;
     }
 
     .personal_quiz_result__hero {
@@ -201,16 +201,16 @@
     }
 
     .personal_quiz_result__lead {
-        font-size: clamp(18px, 2.9svh, 25px);
+        font-size: clamp(18px, 2.9svh, 24px);
     }
 
     .personal_quiz_result__title {
         margin-top: 8px;
-        font-size: clamp(25px, 4.2svh, 36px);
+        font-size: clamp(27px, 4.2svh, 34px);
     }
 
     .personal_quiz_result__summary {
-        margin-top: 10px;
+        margin-top: 14px;
         font-size: clamp(14px, 1.9svh, 16px);
     }
 
@@ -220,12 +220,12 @@
     }
 
     .personal_quiz_result__product {
-        flex-basis: 190px;
+        flex-basis: 200px;
         min-height: 62px;
     }
 
     .personal_quiz_result__product_thumb {
-        width: 46px;
+        width: 50px;
     }
 
     .personal_quiz_result__product_name {
@@ -347,30 +347,30 @@
     .personal_quiz_result_modal .personal_quiz_modal__dialog {
         width: min(1100px, calc(100svw - 32px));
         max-height: calc(100svh - 28px);
-        padding: 24px 32px 28px;
+        padding: 24px 28px 26px;
     }
 
     .personal_quiz_result_modal .personal_quiz_modal__content {
-        gap: 20px;
-        padding-top: 18px;
+        gap: 24px;
+        padding-top: 14px;
     }
 
     .personal_quiz_result__hero {
         grid-template-columns: 300px minmax(0, 1fr);
-        gap: 28px;
+        gap: 24px;
     }
 
     .personal_quiz_result__lead {
-        font-size: clamp(20px, 2.6vw, 34px);
+        font-size: clamp(22px, 2.5vw, 30px);
     }
 
     .personal_quiz_result__title {
-        font-size: clamp(30px, 3vw, 44px);
+        font-size: clamp(34px, 3vw, 42px);
     }
 
     .personal_quiz_result__summary {
-        margin-top: 18px;
-        font-size: 16px;
+        margin-top: 24px;
+        font-size: 17px;
     }
 
     .personal_quiz_result__desc {
@@ -378,7 +378,7 @@
     }
 
     .personal_quiz_result__product {
-        flex-basis: 220px;
+        flex-basis: 228px;
     }
 
     .season_spotlight_section,
@@ -389,7 +389,7 @@
     .personal_hero,
     .pink_office_section {
         min-height: min(100vh, 920px);
-        padding: 132px 48px 64px;
+        padding: 124px 40px 58px;
     }
 
     .personal_hero_overlay {
@@ -400,11 +400,7 @@
     }
 
     .personal_hero_inner {
-        width: min(680px, 100%);
-    }
-
-    .personal_hero_desc br {
-        display: none;
+        width: min(900px, 100%);
     }
 
     .pink_office_title {
@@ -524,7 +520,7 @@
     }
 
     .personal_quiz_modal__content {
-        gap: 24px;
+        gap: 28px;
         padding-top: 16px;
     }
 
@@ -534,10 +530,12 @@
 
     .personal_quiz_stage {
         display: grid;
+        grid-template-columns: 1fr;
         gap: 14px;
     }
 
     .personal_quiz_choices {
+        grid-column: 1 / -1;
         grid-template-columns: 1fr;
         gap: 16px;
     }
@@ -581,7 +579,7 @@
     .personal_quiz_result {
         --quiz-result-portrait-width: 300px;
         width: 100%;
-        gap: 22px;
+        gap: 24px;
         padding: 0;
     }
 
@@ -609,11 +607,11 @@
 
     .personal_quiz_result__summary {
         margin-top: 14px;
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .personal_quiz_result__recommend {
-        gap: 14px;
+        gap: 16px;
     }
 
     .personal_quiz_result__recommend_stage {
@@ -621,13 +619,13 @@
     }
 
     .personal_quiz_result__product {
-        flex-basis: min(220px, calc(100vw - 88px));
+        flex-basis: min(228px, calc(100vw - 88px));
         min-height: 72px;
         gap: 12px;
     }
 
     .personal_quiz_result__product_thumb {
-        width: 54px;
+        width: 58px;
     }
 
     .personal_quiz_result__carousel_nav {
@@ -670,15 +668,15 @@
     }
 
     .personal_hero_title {
-        margin-top: 18px;
-        font-size: clamp(40px, 11vw, 58px);
-        line-height: 1.04;
+        margin-top: 0;
+        font-size: clamp(42px, 10.5vw, 62px);
+        line-height: 1.06;
     }
 
     .personal_hero_desc {
-        margin-top: 20px;
-        font-size: 16px;
-        line-height: 1.55;
+        margin-top: 24px;
+        font-size: 15px;
+        line-height: 1.6;
     }
 
     .pink_office_section {
@@ -694,6 +692,11 @@
         line-height: 1;
     }
 
+    .pink_office_line:nth-child(1) {
+        flex-wrap: wrap;
+        white-space: normal;
+    }
+
     .pink_office_line {
         gap: 10px 12px;
     }
@@ -705,11 +708,13 @@
     .pink_office_chip--portrait {
         width: 130px;
         height: 58px;
+        margin-inline: 6px 2px;
     }
 
     .pink_office_chip--diagnosis {
         width: 150px;
         height: 58px;
+        margin-right: 8px;
     }
 
     .pink_office_highlight {
@@ -781,6 +786,11 @@
     .test_start_intro_copy {
         width: calc(100% - 36px);
         padding-right: 0;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 0 auto;
     }
 
     .season_test_cut_kicker,
@@ -919,6 +929,12 @@
 
     .pink_office_title {
         font-size: 32px;
+    }
+
+    .pink_office_line:nth-child(1),
+    .pink_office_line:nth-child(2),
+    .pink_office_line:nth-child(3) {
+        margin-left: 0;
     }
 
     .pink_office_chip--portrait {

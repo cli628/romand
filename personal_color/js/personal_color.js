@@ -1,4 +1,51 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Season intro timing controls:
+    // - Lower `seasonIntroExitStart` to make the center copy start moving away earlier.
+    // - Increase `seasonIntroExitYPercent` to make it travel farther downward/upward relative to its own box.
+    // - Adjust the mask percentages if you want the text to fade sooner or later while it moves.
+    // - `seasonIntroFadeStart` is the point where the intro copy starts softly fading out.
+    const seasonIntroMotion = {
+        seasonIntroExitStart: 0.56,
+        seasonIntroExitYPercent: -24,
+        seasonIntroExitScale: 0.92,
+        seasonIntroMaskStart: "10%",
+        seasonIntroMaskEnd: "70%",
+        seasonIntroFadeStart: 0.9,
+        seasonIntroFadeDuration: 0.08
+    };
+    // Final cut stage timing controls:
+    // - Lower `stageRevealStart` to begin the test cut stage earlier.
+    // - Increase the gap between start values to make the reveal feel more scrubbed and gradual.
+    const seasonTestCutMotion = {
+        stageRevealStart: 0.84,
+        stageMaskRevealStart: 0.84,
+        stageRevealDuration: 0.08,
+        stageTextRevealStart: 0.89,
+        stageTextRevealDuration: 0.08,
+        stageButtonRevealStart: 0.9,
+        stageButtonRevealDuration: 0.09
+    };
+    // Season section hold controls:
+    // - Increase `sectionHoldScreens` to keep this pinned section on screen longer.
+    // - Increase `triggerDistanceMultiplier` to slow the overall progress of the section.
+    // - Increase `minimumTriggerScreens` to guarantee more scroll distance even on short layouts.
+    const seasonScrollMotion = {
+        sectionHoldScreens: 1.25,
+        triggerDistanceMultiplier: 2.0,
+        minimumTriggerScreens: 7.5
+    };
+    // Hero -> Pink Office pinned section controls:
+    // - Increase each `panelHoldScreens*` value to keep this transition on screen longer.
+    // - Increase `panelScrub` to make the change feel less abrupt.
+    // - Adjust `pinkOfficeActiveThreshold` if the header color swap should happen earlier/later.
+    const personalPanelScrollMotion = {
+        panelHoldScreensDesktop: 3.4,
+        panelHoldScreensTablet: 2.8,
+        panelHoldScreensMobile: 2.2,
+        panelScrub: 1.35,
+        pinkOfficeActiveThreshold: 0.52
+    };
+
     const hero = document.querySelector(".personal_hero");
     const heroMedia = document.querySelector(".personal_hero_media img");
     const heroOverlay = document.querySelector(".personal_hero_overlay");
@@ -7,8 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const pinkPanel = document.querySelector(".pink_office_section");
     const pinkHoverArea = document.querySelector(".pink_office_hover_area");
     const pinkLink = document.querySelector(".pink_office_link");
-    const pinkMedia = document.querySelectorAll(".pink_office_chip img");
-    const pinkRevealItems = document.querySelectorAll(".pink_office_reveal");
+    const pinkMedia = pinkPanel ? pinkPanel.querySelectorAll(".pink_office_chip img") : [];
+    const pinkLineTextRevealTargets = pinkPanel ? Array.from(pinkPanel.querySelectorAll(".pink_office_line .pink_office_reveal:not(.pink_office_chip)")) : [];
+    const pinkLineChipRevealItems = pinkPanel ? Array.from(pinkPanel.querySelectorAll(".pink_office_line .pink_office_chip")) : [];
+    const pinkOtherRevealItems = pinkPanel ? Array.from(pinkPanel.querySelectorAll(".pink_office_reveal")).filter((item) => !item.closest(".pink_office_line")) : [];
     const pinkCursorPreview = document.querySelector(".pink_office_cursor_preview");
     const seasonSection = document.querySelector(".season_spotlight_section");
     const seasonViewport = document.querySelector(".season_spotlight_viewport");
@@ -77,8 +126,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: "Soft Neutral",
                 summary: "Balanced tones and softly muted colors look especially natural on you",
                 desc: "Your answers stayed balanced between cool and warm cues, so you can usually wear both families well when the color is not too sharp. Soft beige, rose taupe, muted coral, and gentle brown accents are likely to feel the most harmonious.",
-                image: "img/modal_q3_pure_media.png",
-                imagePosition: "center",
+                image: "img/personal_intro_01.jpg",
+                imagePosition: "50% 24%",
                 highlight: "#cfdf42",
                 recommendations: personalQuizRecommendProducts
             },
@@ -87,8 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: "Cool Summer",
                 summary: "Cool tones with a clean softness brighten your complexion the most",
                 desc: "Your picks leaned toward crisp white, rosy MLBB shades, and clearer cool accents. Dusty rose, mauve, berry, and silver details are likely to make your skin look clearer and more refined without feeling too heavy.",
-                image: "img/modal_q2_pure_media.png",
-                imagePosition: "center",
+                image: "img/personal_intro_12.jpg",
+                imagePosition: "60% center",
                 highlight: "#cfdf42",
                 recommendations: personalQuizRecommendProducts
             },
@@ -97,8 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: "Light Spring",
                 summary: "Spring is a warm color that suits vivid hues very well",
                 desc: "With flowers and sprouts emerging and life just waking up and growing, it is overall fresh, vibrant, and full of life. This is the tone of spring, when the weather warms up and life comes alive in all things.",
-                image: "img/modal_q2_ivory_media.png",
-                imagePosition: "center",
+                image: "img/result_lightspring01.png",
+                imagePosition: "center top",
                 highlight: "#cfdf42",
                 recommendations: personalQuizRecommendProducts
             }
@@ -106,38 +155,42 @@ document.addEventListener("DOMContentLoaded", () => {
         questions: [
             {
                 step: "Question 1",
-                prompt: "If you are buying a basic bright-colored T-shirt, what color do you usually choose?",
-                tip: "Pure white typically complements cool undertones (Winter/Summer), whereas Ivory resonates with the warmth found in Spring and Autumn palettes. Notice if your skin looks clearer or if shadows under the eyes are minimized with one over the other.",
+                layout: "contrast",
+                prompt: "Which basic white tee brightens your complexion more?",
+                tip: "Focus on clarity around your skin and under-eye area. The tone that looks cleaner with less shadow is usually closer to your season.",
                 choices: [
-                    { label: "Pure White", image: "img/question1_01.png", imagePosition: "center 18%", result: "cool" },
-                    { label: "Ivory", image: "img/modal_q1_ivory_media.png", imagePosition: "center 14%", result: "warm" }
+                    { label: "Pure White", image: "img/Question1_01.png", imagePosition: "center", result: "cool" },
+                    { label: "Ivory", image: "img/Question1_02.png", imagePosition: "center", result: "warm" }
                 ]
             },
             {
                 step: "Question 2",
-                prompt: "Do you often feel that your complexion is dull?",
-                tip: "Balance your makeup with warm or cool tones. Find your personal color to enhance your complexion.",
+                layout: "binary",
+                prompt: "Does your complexion often look dull or tired?",
+                tip: "If your face loses brightness easily, you may need either cleaner contrast or a warmer lift near the skin.",
                 choices: [
-                    { label: "Pure White", image: "img/modal_q2_pure_media.png", imagePosition: "center", result: "cool" },
-                    { label: "Ivory", image: "img/modal_q2_ivory_media.png", imagePosition: "center", result: "warm" }
+                    { label: "Yes", image: "img/Question2_01.png", imagePosition: "center", result: "cool" },
+                    { label: "No", image: "img/Question2_02.png", imagePosition: "center", result: "warm" }
                 ]
             },
             {
                 step: "Question 3",
-                prompt: "How about wearing a toned-down lip color like MLBB?",
-                tip: "Wearing a toned-down lip color like MLBB (My Lips But Better) is a great way to achieve a natural and effortless look. It enhances your lips without overpowering your overall makeup, making it perfect for everyday wear. Choose a shade that closely matches your natural lip color to create a soft, balanced appearance.",
+                layout: "binary",
+                prompt: "Do MLBB lip shades usually make your face look more alive?",
+                tip: "When MLBB tones work well, the lips blend naturally with your skin. If they wash you out, you may need a clearer or brighter family of shades.",
                 choices: [
-                    { label: "Pure White", image: "img/modal_q3_pure_media.png", imagePosition: "center", result: "cool" },
-                    { label: "Ivory", image: "img/modal_q3_ivory_media.png", imagePosition: "center", result: "warm" }
+                    { label: "Yes", image: "img/Question3_01.png", imagePosition: "center", result: "cool" },
+                    { label: "No", image: "img/Question3_02.png", imagePosition: "center", result: "warm" }
                 ]
             },
             {
                 step: "Question 4",
-                prompt: "If you are buying a basic bright-colored T-shirt, what color do you usually choose?",
-                tip: "If your complexion often looks dull, try adding a touch of warmth and glow to your makeup. Soft peach or rosy tones on the lips and cheeks can instantly brighten your face. You can also use a subtle highlighter or a dewy base to bring back a healthy, radiant look.",
+                layout: "binary",
+                prompt: "Which lip finish tends to suit you better?",
+                tip: "A matte finish often reads cleaner and more structured, while a glossy finish can feel fresher and softer. Pick the finish that makes your features look more balanced.",
                 choices: [
-                    { label: "Pure White", image: "img/modal_q4_pure_media.png", imagePosition: "center", result: "cool" },
-                    { label: "Ivory", image: "img/modal_q4_ivory_media.png", imagePosition: "center", result: "warm" }
+                    { label: "Matte", image: "img/Question4_01.png", imagePosition: "center", result: "cool" },
+                    { label: "Glossy", image: "img/Question4_02.png", imagePosition: "center", result: "warm" }
                 ]
             }
         ]
@@ -218,6 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
         quizStep.textContent = question.step;
         quizPrompt.textContent = question.prompt;
         quizTipText.textContent = question.tip;
+        quizChoices.dataset.layout = question.layout || "default";
         quizProgressBar.style.width = `${((index + 1) / personalQuizContent.questions.length) * 100}%`;
         quizPrevButton.disabled = index === 0;
         quizNextButton.disabled = !selectedResult;
@@ -507,20 +561,82 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener("blur", hidePreview);
     }
 
+    const createPinkOfficeCharReveal = (targets) => {
+        return targets.flatMap((target) => {
+            const text = target.textContent.replace(/\s+/g, " ").trim();
+            if (!text) {
+                return [];
+            }
+
+            const words = text.split(" ");
+            const chars = [];
+            target.textContent = "";
+            target.setAttribute("aria-label", text);
+
+            words.forEach((word, wordIndex) => {
+                const wordElement = document.createElement("span");
+                wordElement.className = "pink_office_word";
+                wordElement.setAttribute("aria-hidden", "true");
+
+                Array.from(word).forEach((char) => {
+                    const charElement = document.createElement("span");
+                    charElement.className = "pink_office_char";
+                    charElement.setAttribute("aria-hidden", "true");
+                    charElement.textContent = char;
+                    wordElement.appendChild(charElement);
+                    chars.push(charElement);
+                });
+
+                target.appendChild(wordElement);
+
+                if (wordIndex < words.length - 1) {
+                    target.append(" ");
+                }
+            });
+
+            return chars;
+        });
+    };
+
     if (typeof ScrollTrigger === "undefined" || prefersReducedMotion) {
         return;
     }
 
+    const getPersonalPanelHoldScreens = () => {
+        if (window.innerWidth <= 768) {
+            return personalPanelScrollMotion.panelHoldScreensMobile;
+        }
+
+        if (window.innerWidth <= 1200) {
+            return personalPanelScrollMotion.panelHoldScreensTablet;
+        }
+
+        return personalPanelScrollMotion.panelHoldScreensDesktop;
+    };
+
     slider.classList.add("is-slider-ready");
+    const pinkLineChars = createPinkOfficeCharReveal(pinkLineTextRevealTargets);
 
     gsap.set(pinkPanel, {
         clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
         autoAlpha: 0
     });
-    gsap.set(pinkRevealItems, {
+    gsap.set(pinkLineChipRevealItems, {
         opacity: 0,
         y: 56
     });
+    gsap.set(pinkOtherRevealItems, {
+        opacity: 0,
+        y: 56
+    });
+    if (pinkLineChars.length) {
+        gsap.set(pinkLineChars, { opacity: 0.2 });
+    } else {
+        gsap.set(pinkLineTextRevealTargets, {
+            opacity: 0,
+            y: 56
+        });
+    }
     gsap.set(pinkMedia, {
         scale: 1.18,
         yPercent: 8
@@ -531,13 +647,16 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollTrigger: {
             trigger: slider,
             start: "top top",
-            end: "+=100%",
+            end: () => `+=${window.innerHeight * getPersonalPanelHoldScreens()}`,
             pin: true,
-            scrub: 1.15,
+            scrub: personalPanelScrollMotion.panelScrub,
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
-                document.body.classList.toggle("is-pink-office-active", self.progress >= 0.52);
+                document.body.classList.toggle(
+                    "is-pink-office-active",
+                    self.progress >= personalPanelScrollMotion.pinkOfficeActiveThreshold
+                );
             },
             onEnterBack: () => {
                 if (pinkPanel) {
@@ -577,16 +696,39 @@ document.addEventListener("DOMContentLoaded", () => {
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
             ease: "power4.inOut"
         }, 0)
+        .to(pinkLineChipRevealItems, {
+            opacity: 1,
+            y: 0,
+            stagger: 0.06,
+            duration: 0.36,
+            ease: "power3.out"
+        }, 0.14)
+        .to(pinkOtherRevealItems, {
+            opacity: 1,
+            y: 0,
+            stagger: 0.05,
+            duration: 0.36,
+            ease: "power3.out"
+        }, 0.16)
         .to(pinkMedia, {
             scale: 1,
             yPercent: 0,
             stagger: 0.08,
             ease: "power3.out"
         }, 0.12)
-        .to(pinkRevealItems, {
+        .to(pinkLineChars.length ? pinkLineChars : pinkLineTextRevealTargets, pinkLineChars.length ? {
+            opacity: 1,
+            stagger: {
+                each: 0.014,
+                from: "start"
+            },
+            duration: 0.4,
+            ease: "none"
+        } : {
             opacity: 1,
             y: 0,
             stagger: 0.04,
+            duration: 0.36,
             ease: "power3.out"
         }, 0.18);
 
@@ -608,9 +750,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const viewportHeight = seasonViewport.offsetHeight || window.innerHeight;
             const scrollDistance = Math.max(contentBottom - viewportHeight + window.innerHeight * 0.32, viewportHeight * 1.75);
-            const stageGap = window.innerHeight * 0.82;
+            const stageGap = window.innerHeight * seasonScrollMotion.sectionHoldScreens;
             const totalDistance = scrollDistance + stageGap;
-            const triggerDistance = Math.max(totalDistance * 1.8, window.innerHeight * 5.8);
+            const triggerDistance = Math.max(
+                totalDistance * seasonScrollMotion.triggerDistanceMultiplier,
+                window.innerHeight * seasonScrollMotion.minimumTriggerScreens
+            );
 
             return { contentBottom, viewportHeight, scrollDistance, stageGap, totalDistance, triggerDistance };
         };
@@ -623,7 +768,8 @@ document.addEventListener("DOMContentLoaded", () => {
         applySeasonSectionHeight();
         gsap.set(seasonIntro, {
             "--season-intro-mask-start": "100%",
-            "--season-intro-mask-end": "120%"
+            "--season-intro-mask-end": "120%",
+            opacity: 1
         });
         gsap.set(seasonTrack, { y: () => window.innerHeight * 0.06 });
         gsap.set(seasonCards, {
@@ -693,45 +839,49 @@ document.addEventListener("DOMContentLoaded", () => {
                 ease: "power1.out"
             }, 0)
             .to(seasonIntro, {
-                "--season-intro-mask-start": "14%",
-                "--season-intro-mask-end": "78%",
-                yPercent: -18,
-                scale: 0.94,
+                "--season-intro-mask-start": seasonIntroMotion.seasonIntroMaskStart,
+                "--season-intro-mask-end": seasonIntroMotion.seasonIntroMaskEnd,
+                yPercent: seasonIntroMotion.seasonIntroExitYPercent,
+                scale: seasonIntroMotion.seasonIntroExitScale,
                 duration: 0.34,
                 ease: "none"
-            }, 0.64);
+            }, seasonIntroMotion.seasonIntroExitStart)
+            .to(seasonIntro, {
+                opacity: 0,
+                duration: seasonIntroMotion.seasonIntroFadeDuration,
+                ease: "power1.out"
+            }, seasonIntroMotion.seasonIntroFadeStart);
 
         if (seasonTestCutMask && seasonTestCutStage) {
-            // Final stage reveal: keep these start values near 1 so the blank gap lasts longer.
+            // Final stage reveal:
+            // Move these start values earlier to give this area more scroll distance and a clearer scrub feel.
             seasonTimeline
                 .to(seasonTestCutMask, {
                     opacity: 1,
-                    duration: 0.05,
+                    duration: seasonTestCutMotion.stageRevealDuration,
                     ease: "none"
-                }, 0.94)
+                }, seasonTestCutMotion.stageMaskRevealStart)
                 .to(seasonTestCutStage, {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.06,
+                    duration: seasonTestCutMotion.stageRevealDuration,
                     ease: "none"
-                }, 0.95)
-                // Raise 0.96 if the stage copy should wait longer after the empty gap.
+                }, seasonTestCutMotion.stageRevealStart)
                 .to(seasonTestCutTextTargets, {
                     opacity: 1,
                     y: 0,
                     stagger: 0.04,
-                    duration: 0.05,
+                    duration: seasonTestCutMotion.stageTextRevealDuration,
                     ease: "none"
-                }, 0.96);
+                }, seasonTestCutMotion.stageTextRevealStart);
 
             if (seasonTestCutButton) {
-                // Move this with the stage reveal if the right card should appear later or sooner.
                 seasonTimeline.to(seasonTestCutButton, {
                     scale: 1,
                     yPercent: 0,
-                    duration: 0.07,
+                    duration: seasonTestCutMotion.stageButtonRevealDuration,
                     ease: "none"
-                }, 0.955);
+                }, seasonTestCutMotion.stageButtonRevealStart);
             }
         }
 

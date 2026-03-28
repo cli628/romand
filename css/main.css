@@ -20,6 +20,10 @@
       font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
     }
 
+    body.intro_page .common_header {
+      display: none;
+    }
+
     .intro {
       position: relative;
       width: min(100%, 1200px);
