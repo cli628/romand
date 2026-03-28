@@ -35,18 +35,97 @@
         font-size: clamp(52px, 7vw, 84px);
     }
 
-    .test_start_intro_title span {
-        font-size: clamp(62px, 7.2vw, 90px);
+    .season_test_cut_button {
+        width: min(300px, 27vw);
     }
 
+    .season_test_cut_title span,
+    .test_start_intro_title span {
+        font-size: clamp(60px, 6.8vw, 88px);
+    }
+
+    .season_test_cut_button,
     .test_start_flip_button {
         right: clamp(0px, 2vw, 36px);
         width: clamp(240px, 25vw, 320px);
     }
+
+    .icolor_banner_link {
+        grid-template-columns: minmax(220px, 300px) minmax(300px, 1fr) auto;
+        min-height: 280px;
+        column-gap: 40px;
+    }
+
+    .icolor_banner_title {
+        font-size: clamp(50px, 4.6vw, 60px);
+    }
+
+    .icolor_banner_desc,
+    .icolor_banner_cta {
+        font-size: clamp(15px, 1.18vw, 17px);
+    }
 }
 
 @media screen and (max-width: 1024px) {
-    .season_spotlight_section {
+    .personal_quiz_modal {
+        padding: 16px;
+    }
+
+    .personal_quiz_modal__dialog {
+        max-height: calc(100svh - 32px);
+        padding: 22px 20px 24px;
+        border-radius: 24px;
+    }
+
+    .personal_quiz_progress {
+        width: min(360px, calc(100% - 96px));
+    }
+
+    .personal_quiz_step {
+        font-size: clamp(30px, 5vw, 40px);
+    }
+
+    .personal_quiz_prompt {
+        font-size: 18px;
+    }
+
+    .personal_quiz_stage {
+        width: 100%;
+    }
+
+    .personal_quiz_nav {
+        padding: 10px 8px;
+        font-size: 15px;
+    }
+
+    .personal_quiz_choice__media {
+        min-height: min(22svh, 280px);
+    }
+
+    .personal_quiz_tip__text,
+    .personal_quiz_result__desc {
+        font-size: 15px;
+    }
+
+    .personal_quiz_result__hero {
+        grid-template-columns: minmax(200px, 228px) minmax(0, 1fr);
+        gap: 32px;
+    }
+
+    .personal_quiz_result__lead {
+        font-size: clamp(24px, 3vw, 40px);
+    }
+
+    .personal_quiz_result__recommend_stage {
+        padding: 0 26px;
+    }
+
+    .personal_quiz_result__product {
+        flex-basis: 240px;
+    }
+
+    .season_spotlight_section,
+    .season_spotlight_viewport {
         min-height: 840px;
     }
 
@@ -114,31 +193,199 @@
         font-size: 12px;
     }
 
-    .test_start_intro_stage {
-        min-height: calc(100vh - 180px);
-    }
-
+    .season_test_cut_copy,
     .test_start_intro_copy {
-        width: min(760px, 100%);
+        width: min(760px, calc(100% - 64px));
+        padding-right: 0;
     }
 
+    .season_test_cut_title span,
     .test_start_intro_title span {
         font-size: clamp(52px, 8vw, 78px);
     }
 
+    .season_test_cut_hint,
     .test_start_intro_hint {
         font-size: 16px;
     }
 
+    .season_test_cut_button,
     .test_start_flip_button {
-        right: 18px;
-        width: 274px;
+        width: min(268px, 30vw);
+        right: 0;
         transform: translateY(-50%) rotate(5deg);
+    }
+
+    .season_test_cut_stage,
+    .test_start_intro_stage {
+        min-height: calc(100vh - 180px);
+    }
+
+    .icolor_banner_section {
+        padding-right: 24px;
+        padding-left: 24px;
+        padding-bottom: 72px;
+    }
+
+    .icolor_banner_link {
+        grid-template-columns: 1fr auto;
+        gap: 24px 32px;
+    }
+
+    .icolor_banner_heading,
+    .icolor_banner_copy {
+        grid-column: 1 / 2;
+    }
+
+    .icolor_banner_badge {
+        grid-column: 2 / 3;
+        grid-row: 1 / span 2;
+        align-self: center;
     }
 }
 
 @media screen and (max-width: 768px) {
-    .season_spotlight_section {
+    .personal_quiz_modal {
+        padding: 12px;
+    }
+
+    .personal_quiz_modal__dialog {
+        max-height: calc(100svh - 24px);
+        padding: 18px 16px 18px;
+        border-radius: 22px;
+    }
+
+    .personal_quiz_modal__close {
+        top: 10px;
+        right: 14px;
+        font-size: 38px;
+    }
+
+    .personal_quiz_progress {
+        width: calc(100% - 84px);
+        margin-top: 10px;
+    }
+
+    .personal_quiz_modal__content {
+        gap: 24px;
+        padding-top: 16px;
+    }
+
+    .personal_quiz_prompt {
+        font-size: 17px;
+    }
+
+    .personal_quiz_stage {
+        display: grid;
+        gap: 14px;
+    }
+
+    .personal_quiz_choices {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .personal_quiz_nav {
+        position: static;
+        transform: none;
+        justify-self: center;
+        padding: 0;
+    }
+
+    .personal_quiz_nav--prev {
+        justify-self: start;
+    }
+
+    .personal_quiz_nav--next {
+        justify-self: end;
+    }
+
+    .personal_quiz_choice {
+        grid-template-rows: minmax(180px, 1fr) auto;
+    }
+
+    .personal_quiz_choice__media {
+        min-height: min(20svh, 220px);
+    }
+
+    .personal_quiz_choice__label {
+        min-height: 52px;
+        padding: 16px 18px 18px;
+        font-size: 18px;
+    }
+
+    .personal_quiz_tip {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 18px 18px 20px;
+    }
+
+    .personal_quiz_result {
+        width: 100%;
+        gap: 28px;
+        padding: 0;
+    }
+
+    .personal_quiz_result__hero {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .personal_quiz_result__portrait {
+        width: min(240px, 100%);
+        justify-self: center;
+    }
+
+    .personal_quiz_result__copy {
+        text-align: left;
+    }
+
+    .personal_quiz_result__lead {
+        font-size: clamp(24px, 8vw, 34px);
+    }
+
+    .personal_quiz_result__title {
+        font-size: clamp(32px, 10vw, 48px);
+    }
+
+    .personal_quiz_result__summary {
+        margin-top: 18px;
+        font-size: 18px;
+    }
+
+    .personal_quiz_result__recommend {
+        gap: 18px;
+    }
+
+    .personal_quiz_result__recommend_stage {
+        padding: 0 22px;
+    }
+
+    .personal_quiz_result__product {
+        flex-basis: min(250px, calc(100vw - 100px));
+        min-height: 82px;
+        gap: 14px;
+    }
+
+    .personal_quiz_result__product_thumb {
+        width: 62px;
+    }
+
+    .personal_quiz_result__carousel_nav {
+        font-size: 24px;
+    }
+
+    .personal_quiz_result__actions {
+        margin-top: 0;
+    }
+
+    .personal_quiz_result__button {
+        width: min(100%, 268px);
+        min-width: 0;
+    }
+
+    .season_spotlight_section,
+    .season_spotlight_viewport {
         min-height: 100svh;
     }
 
@@ -271,35 +518,49 @@
         font-size: 10px;
     }
 
+    .season_test_cut_copy,
+    .test_start_intro_copy {
+        width: calc(100% - 36px);
+        padding-right: 0;
+    }
+
+    .season_test_cut_kicker,
+    .test_start_intro_kicker {
+        font-size: 12px;
+    }
+
+    .season_test_cut_title span,
+    .test_start_intro_title span {
+        font-size: clamp(42px, 11.5vw, 58px);
+        line-height: 0.96;
+    }
+
+    .season_test_cut_hint,
+    .test_start_intro_hint {
+        margin-top: 18px;
+        font-size: 15px;
+        line-height: 1.45;
+    }
+
+    .season_test_cut_button,
+    .test_start_flip_button {
+        width: min(58vw, 260px);
+        transform: translateY(-50%) rotate(5deg);
+    }
+
     .test_start_intro_section {
         min-height: 100svh;
         padding: 108px 24px 54px;
     }
 
+    .season_test_cut_stage,
     .test_start_intro_stage {
         min-height: auto;
         display: grid;
         gap: 36px;
     }
 
-    .test_start_intro_copy {
-        width: 100%;
-    }
-
-    .test_start_intro_kicker {
-        font-size: 12px;
-    }
-
-    .test_start_intro_title span {
-        font-size: clamp(42px, 11.5vw, 58px);
-        line-height: 0.96;
-    }
-
-    .test_start_intro_hint {
-        margin-top: 18px;
-        font-size: 15px;
-    }
-
+    .season_test_cut_button,
     .test_start_flip_button {
         position: relative;
         top: auto;
@@ -308,9 +569,79 @@
         width: min(72vw, 320px);
         transform: rotate(5deg);
     }
+
+    .icolor_banner_section {
+        padding: 0 24px 56px;
+    }
+
+    .icolor_banner_link {
+        min-height: auto;
+        padding: 32px 24px;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .icolor_banner_heading,
+    .icolor_banner_copy,
+    .icolor_banner_badge {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .icolor_banner_title {
+        font-size: clamp(38px, 10vw, 48px);
+    }
+
+    .icolor_banner_desc,
+    .icolor_banner_cta {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .icolor_banner_cta {
+        margin-top: 18px;
+    }
+
+    .icolor_banner_badge {
+        width: 112px;
+    }
 }
 
 @media screen and (max-width: 400px) {
+    .personal_quiz_modal__dialog {
+        padding: 22px 14px 20px;
+        border-radius: 20px;
+    }
+
+    .personal_quiz_progress {
+        width: calc(100% - 66px);
+        height: 8px;
+    }
+
+    .personal_quiz_step {
+        font-size: 28px;
+    }
+
+    .personal_quiz_prompt {
+        margin-top: 10px;
+        font-size: 15px;
+    }
+
+    .personal_quiz_tip__title {
+        font-size: 15px;
+    }
+
+    .personal_quiz_tip__text,
+    .personal_quiz_result__desc {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .personal_quiz_result__button {
+        min-height: 48px;
+        font-size: 14px;
+    }
+
     .personal_hero,
     .pink_office_section {
         padding-right: 18px;
@@ -393,9 +724,55 @@
         font-size: 9px;
     }
 
+    .season_test_cut_copy,
+    .test_start_intro_copy {
+        width: calc(100% - 24px);
+        padding-right: 0;
+    }
+
+    .season_test_cut_title,
+    .test_start_intro_title {
+        margin-top: 14px;
+    }
+
+    .season_test_cut_title span,
+    .test_start_intro_title span {
+        font-size: 34px;
+    }
+
+    .season_test_cut_hint,
+    .test_start_intro_hint {
+        margin-top: 14px;
+        font-size: 14px;
+    }
+
+    .season_test_cut_button,
+    .test_start_flip_button {
+        width: min(64vw, 220px);
+    }
+
     .test_start_intro_section {
         padding-right: 18px;
         padding-left: 18px;
+    }
+
+    .icolor_banner_section {
+        padding-right: 18px;
+        padding-left: 18px;
+        padding-bottom: 44px;
+    }
+
+    .icolor_banner_link {
+        padding: 26px 20px;
+    }
+
+    .icolor_banner_title {
+        font-size: 34px;
+    }
+
+    .icolor_banner_desc,
+    .icolor_banner_cta {
+        font-size: 14px;
     }
 
     .test_start_intro_title span {
