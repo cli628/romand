@@ -83,11 +83,10 @@ main,
     gap: 1.25em;
     padding: var(--common-header-padding-y) var(--common-shell-padding-x);
     background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%);
-    box-shadow: 0 10px 28px rgba(26, 28, 34, 0.12);
+        rgba(0, 0, 0, 0);
     backdrop-filter: saturate(120%) blur(12px);
     -webkit-backdrop-filter: saturate(120%) blur(12px);
-    color: var(--g-color8);
+    color: var(--white);
     z-index: 60;
     font-family: var(--font-poppins);
 }
@@ -97,7 +96,6 @@ main,
     align-items: center;
     font-size: 20px;
     font-weight: 300;
-    color: var(--g-color8);
     letter-spacing: -0.04em;
 }
 
@@ -109,9 +107,9 @@ main,
     font-family: var(--font-poppins);
     font-size: 13px;
     font-weight: 500;
-    color: var(--g-color8);
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    color: var(--white);
 }
 
 /* =========================================
@@ -123,7 +121,6 @@ main,
     left: 0;
     width: 100%;
     padding: var(--common-overlay-padding-y) var(--common-shell-padding-x);
-    background: linear-gradient(0deg, rgba(185, 185, 185, 0.35) -0.29%, rgba(255, 255, 255, 0.35) 99.71%);
     box-shadow: none;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -156,13 +153,13 @@ main,
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1em;
-    color: var(--g-color8);
+    color: var(--white);
 }
 
 .overlay_logo a {
     font-size: 20px;
     font-weight: 300;
-    color: var(--g-color8);
+    color: var(--white);
     letter-spacing: -0.04em;
 }
 
@@ -174,7 +171,7 @@ main,
     font-family: var(--font-poppins);
     font-size: 14px;
     font-weight: 400;
-    color: var(--g-color8);
+    color: var(--white);
     letter-spacing: 0.02em;
 }
 
@@ -207,7 +204,7 @@ main,
     display: flex;
     justify-content: space-between;
     padding: 0.75em 0 0;
-    color: var(--g-color7);
+    color: var(--white);
     font-size: 13px;
 }
 
@@ -232,7 +229,7 @@ main,
     display: inline-block;
     font-size: 40px;
     font-weight: 300;
-    color: var(--g-color8);
+    color: var(--white);
     line-height: 1;
 }
 
@@ -243,8 +240,9 @@ main,
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--g-color8);
+    background: var(--p-color5);
     transition: width 0.3s ease;
+    
 }
 
 .overlay_link:hover::after {
@@ -261,7 +259,9 @@ main,
 .overlay_depth_title {
     font-size: 14px;
     font-weight: 500;
-    color: var(--g-color7);
+    color: var(--white);
+    cursor: pointer;
+    padding: 10px 0 5px;
 }
 
 .overlay_depth_row {
@@ -273,12 +273,12 @@ main,
 .overlay_depth_row a {
     font-size: 13px;
     font-weight: 400;
-    color: var(--g-color6);
+    color: var(--white);
     transition: color 0.2s ease;
 }
 
 .overlay_depth_row a:hover {
-    color: var(--g-color8);
+    color: var(--p-color5);
 }
 
 .overlay_depth_row .is_highlight,
@@ -296,7 +296,7 @@ main,
 .overlay_divider {
     width: 0%;
     height: 1px;
-    background: rgba(16, 16, 16, 0.22);
+    background: var(--white);
     margin: 1em 0;
 }
 
@@ -310,7 +310,7 @@ main,
 
 .overlay_slogan {
     font-size: 12px;
-    color: var(--g-color6);
+    color: var(--white);
     letter-spacing: 0.03em;
 }
 
@@ -321,12 +321,12 @@ main,
 
 .overlay_socials a {
     font-size: 12px;
-    color: var(--g-color6);
+    color: var(--white);
     transition: color 0.2s ease;
 }
 
 .overlay_socials a:hover {
-    color: var(--g-color8);
+    color: var(--p-color5);
 }
 
 /* =========================================
