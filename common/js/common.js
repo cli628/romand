@@ -206,8 +206,46 @@ function initMenuOverlay() {
         "<0.1"
     );
 
-    openBtn.addEventListener("click", () => tl.play(0));
-    closeBtn.addEventListener("click", () => tl.reverse());
+    function openMenu() {
+        tl.play(0);
+    }
+
+    function closeMenu() {
+        if (!overlay.classList.contains("is_open")) {
+            return;
+        }
+
+        tl.reverse();
+    }
+
+    openBtn.addEventListener("click", openMenu);
+    closeBtn.addEventListener("click", closeMenu);
+    document.addEventListener("click", (event) => {
+        if (!overlay.classList.contains("is_open")) {
+            return;
+        }
+
+        if (event.target.closest(".ham_btn")) {
+            return;
+        }
+
+        if (event.target.closest(".overlay_footer")) {
+            closeMenu();
+            return;
+        }
+
+        if (overlay.contains(event.target)) {
+            return;
+        }
+
+        closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            closeMenu();
+        }
+    });
 }
 
 function initNewsletterForm() {

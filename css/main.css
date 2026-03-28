@@ -1,15 +1,80 @@
 @charset "utf-8";
 
-body {
-    width: 1920px;
-    height: 100vh;
-    padding: 150px 0;
-    display: flex;
-    flex-direction: column;
+.intro_page {
+    width: 100%;
+    background:
+        radial-gradient(circle at top left, rgba(249, 197, 213, 0.78), transparent 34%),
+        radial-gradient(circle at 82% 24%, rgba(109, 184, 255, 0.28), transparent 22%),
+        linear-gradient(180deg, #fff8fb 0%, #fff4f8 54%, #fffdfd 100%);
+    color: var(--g-color8);
 }
 
-body a{
-    display: block;
-    width: 100%;
-    height: 100%;
-}   
+.intro_main {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(132px, 18vh, 184px) 24px clamp(72px, 10vh, 120px);
+}
+
+.intro_panel {
+    width: min(640px, 100%);
+    padding: clamp(36px, 5vw, 56px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 32px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 24px 70px rgba(98, 77, 86, 0.14);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    text-align: center;
+}
+
+.intro_eyebrow {
+    margin-bottom: 16px;
+    font-family: var(--font-poppins);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--g-color5);
+}
+
+.intro_panel h1 {
+    font-family: var(--font-dm-serif-display);
+    font-size: clamp(42px, 8vw, 72px);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+}
+
+.intro_copy {
+    width: min(440px, 100%);
+    margin: 22px auto 0;
+    font-family: var(--font-poppins);
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.7;
+    color: var(--g-color5);
+}
+
+.intro_btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 214px;
+    margin-top: 34px;
+    padding: 18px 32px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--p-color5), var(--p-color4));
+    color: var(--white);
+    font-family: var(--font-poppins);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    box-shadow: 0 16px 36px rgba(239, 116, 155, 0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.intro_btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 40px rgba(239, 116, 155, 0.34);
+    filter: saturate(1.05);
+}
