@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await ensureCommonLayout();
     normalizeCommonAssetPaths();
     initMenuOverlay();
+    initOverlaySubmenus();
     initNewsletterForm();
 });
 
@@ -245,6 +246,43 @@ function initMenuOverlay() {
         if (event.key === "Escape") {
             closeMenu();
         }
+    });
+}
+
+function initOverlaySubmenus() {
+    const submenuToggles = document.querySelectorAll(".overlay_submenu_toggle");
+
+    if (!submenuToggles.length) {
+        return;
+    }
+
+    submenuToggles.forEach((toggle) => {
+        const submenuId = toggle.getAttribute("aria-controls");
+        const submenu = submenuId ? document.getElementById(submenuId) : null;
+
+        if (!submenu) {
+            return;
+        }
+
+        toggle.addEventListener("click", () => {
+            const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+
+            submenuToggles.forEach((otherToggle) => {
+                const otherSubmenuId = otherToggle.getAttribute("aria-controls");
+                const otherSubmenu = otherSubmenuId ? document.getElementById(otherSubmenuId) : null;
+
+                otherToggle.setAttribute("aria-expanded", "false");
+
+                if (otherSubmenu) {
+                    otherSubmenu.classList.remove("is_open");
+                }
+            });
+
+            if (!isExpanded) {
+                toggle.setAttribute("aria-expanded", "true");
+                submenu.classList.add("is_open");
+            }
+        });
     });
 }
 

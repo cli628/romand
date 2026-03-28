@@ -134,7 +134,7 @@ main,
     display: flex;
     flex-direction: column;
     font-family: var(--font-quicksand);
-    background: rgba(190, 190, 190, 0.25);
+    background: var(--white);
 
 }
 
@@ -156,7 +156,7 @@ main,
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1em;
-    color: var(--white);
+    color: var(--g-color8);
     text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
 
 }
@@ -164,7 +164,7 @@ main,
 .overlay_logo a {
     font-size: 20px;
     font-weight: 300;
-    color: var(--white);
+    color: var(--g-color8);
     letter-spacing: -0.04em;
     text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
 
@@ -177,7 +177,7 @@ main,
     background: none;
     font-size: 14px;
     font-weight: 500;
-    color: var(--white);
+    color: var(--g-color8);
     letter-spacing: 0.02em;
     text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
 
@@ -214,7 +214,7 @@ main,
     display: flex;
     justify-content: space-between;
     padding: 0.75em 0 0;
-    color: var(--white);
+    color: var(--g-color8);
     font-size: 13px;
     text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
 
@@ -241,7 +241,7 @@ main,
     display: inline-block;
     font-size: 40px;
     font-weight: 400;
-    color: var(--white);
+    color: var(--g-color8);
     text-transform: capitalize;
     line-height: 1;
     text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
@@ -272,7 +272,7 @@ main,
 .overlay_depth_title {
     font-size: 14px;
     font-weight: 500;
-    color: var(--white);
+    color: var(--g-color8);
     cursor: pointer;
     padding: 10px 0 5px;
     text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
@@ -285,10 +285,58 @@ main,
     gap: 0.7em 1.2em;
 }
 
+.overlay_depth_row_primary {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.2em 1.6em;
+}
+
+.overlay_submenu_item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55em;
+}
+
+.overlay_submenu_toggle {
+    display: inline-block;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 13px;
+    font-weight: 400;line-height: 20px;
+    color: var(--g-color8);
+    cursor: pointer;
+    transition: color 0.2s ease;
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+}
+
+.overlay_submenu_toggle:hover,
+.overlay_submenu_toggle[aria-expanded="true"] {
+    color: var(--p-color4);
+}
+
+.overlay_submenu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: max-content;
+    gap: 0.5em 1em;
+    padding-left: 0;
+    z-index: 2;
+}
+
+.overlay_submenu.is_open {
+    display: flex;
+}
+
 .overlay_depth_row a {
     font-size: 13px;
     font-weight: 400;
-    color: var(--white);
+    color: var(--g-color8);
     transition: color 0.2s ease;
     text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
 
@@ -315,9 +363,8 @@ main,
 .overlay_divider {
     width: 0%;
     height: 1px;
-    background: var(--white);
+    background: var(--g-color8);
     text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
-
     margin: 1em 0;
 }
 
@@ -331,7 +378,7 @@ main,
 
 .overlay_slogan {
     font-size: 12px;
-    color: var(--white);
+    color: var(--g-color8);
     letter-spacing: 0.03em;
     text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
 
@@ -344,7 +391,7 @@ main,
 
 .overlay_socials a {
     font-size: 12px;
-    color: var(--white);
+    color: var(--g-color8);
     transition: color 0.2s ease;
     text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
 
