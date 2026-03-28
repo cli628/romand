@@ -1,18 +1,422 @@
 @charset "utf-8";
 
-/* 웹 */
-@media screen and (max-width:1920px) {}
+@media screen and (max-width: 1440px) {
+    .personal_hero,
+    .pink_office_section {
+        padding-left: clamp(28px, 6vw, 108px);
+        padding-right: clamp(28px, 6vw, 108px);
+    }
+}
 
-@media screen and (max-width:1440px) {}
+@media screen and (max-width: 1200px) {
+    .personal_hero,
+    .pink_office_section {
+        padding-top: 140px;
+    }
 
-@media screen and (max-width:1200px) {}
+    .personal_hero {
+        padding-bottom: 112px;
+    }
 
-/* 태블릿 */
-@media screen and (max-width:1024px) {}
+    .pink_office_section {
+        padding-bottom: 72px;
+    }
 
-@media screen and (max-width:768px) {}
+    .personal_hero_title {
+        font-size: clamp(48px, 6.8vw, 74px);
+    }
 
-/* 모바일 */
-@media screen and (max-width:400px) {}
+    .personal_hero_desc {
+        max-width: 680px;
+        font-size: clamp(16px, 1.9vw, 22px);
+    }
 
-@media screen and (max-width:375px) {}
+    .pink_office_title {
+        font-size: clamp(52px, 7vw, 84px);
+    }
+
+    .test_start_intro_title span {
+        font-size: clamp(62px, 7.2vw, 90px);
+    }
+
+    .test_start_flip_button {
+        right: clamp(0px, 2vw, 36px);
+        width: clamp(240px, 25vw, 320px);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .season_spotlight_section {
+        min-height: 840px;
+    }
+
+    .personal_hero,
+    .pink_office_section {
+        min-height: min(100vh, 920px);
+        padding: 132px 48px 64px;
+    }
+
+    .personal_hero_overlay {
+        background:
+            radial-gradient(circle at 24% 80%, rgba(32, 11, 32, 0.62) 0%, rgba(32, 11, 32, 0) 38%),
+            linear-gradient(180deg, rgba(36, 12, 34, 0.14) 0%, rgba(36, 12, 34, 0.32) 100%),
+            linear-gradient(90deg, rgba(23, 9, 30, 0.56) 0%, rgba(23, 9, 30, 0.18) 54%, rgba(23, 9, 30, 0.42) 100%);
+    }
+
+    .personal_hero_inner {
+        width: min(680px, 100%);
+    }
+
+    .personal_hero_desc br {
+        display: none;
+    }
+
+    .pink_office_title {
+        font-size: clamp(48px, 7.6vw, 72px);
+    }
+
+    .pink_office_desc {
+        max-width: 640px;
+    }
+
+    .season_spotlight_title {
+        font-size: clamp(44px, 7vw, 70px);
+    }
+
+    .season_spotlight_desc {
+        font-size: clamp(18px, 2vw, 24px);
+    }
+
+    .season_spotlight_track {
+        width: min(1180px, calc(100vw - 64px));
+        height: 216vh;
+    }
+
+    .season_photo_card {
+        width: 280px;
+    }
+
+    .season_photo_media {
+        width: 280px;
+        height: 372px;
+    }
+
+    .season_photo_tag {
+        max-width: 248px;
+        padding: 11px 16px 12px;
+    }
+
+    .season_photo_tag strong {
+        font-size: 14px;
+    }
+
+    .season_photo_tag span {
+        font-size: 12px;
+    }
+
+    .test_start_intro_stage {
+        min-height: calc(100vh - 180px);
+    }
+
+    .test_start_intro_copy {
+        width: min(760px, 100%);
+    }
+
+    .test_start_intro_title span {
+        font-size: clamp(52px, 8vw, 78px);
+    }
+
+    .test_start_intro_hint {
+        font-size: 16px;
+    }
+
+    .test_start_flip_button {
+        right: 0;
+        width: 274px;
+        transform: translateY(-50%) rotate(5deg);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .season_spotlight_section {
+        min-height: 100svh;
+    }
+
+    .personal_hero,
+    .pink_office_section {
+        min-height: 100svh;
+        padding: 118px 24px 50px;
+    }
+
+    .personal_hero {
+        align-items: flex-end;
+    }
+
+    .personal_hero_media img {
+        object-position: 56% center;
+    }
+
+    .personal_hero_eyebrow {
+        min-height: 38px;
+        padding: 0 14px;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+    }
+
+    .personal_hero_title {
+        margin-top: 18px;
+        font-size: clamp(40px, 11vw, 58px);
+        line-height: 1.04;
+    }
+
+    .personal_hero_desc {
+        margin-top: 20px;
+        font-size: 16px;
+        line-height: 1.55;
+    }
+
+    .pink_office_section {
+        align-items: center;
+    }
+
+    .pink_office_eyebrow {
+        font-size: 12px;
+    }
+
+    .pink_office_title {
+        font-size: clamp(34px, 9.5vw, 54px);
+        line-height: 1;
+    }
+
+    .pink_office_line {
+        gap: 10px 12px;
+    }
+
+    .pink_office_line + .pink_office_line {
+        margin-top: 8px;
+    }
+
+    .pink_office_chip--portrait {
+        width: 130px;
+        height: 58px;
+    }
+
+    .pink_office_chip--diagnosis {
+        width: 150px;
+        height: 58px;
+    }
+
+    .pink_office_highlight {
+        padding: 0.06em 0.12em 0.12em;
+    }
+
+    .pink_office_desc {
+        margin-top: 24px;
+        font-size: 15px;
+        line-height: 1.55;
+    }
+
+    .pink_office_cursor_preview {
+        display: none;
+    }
+
+    .season_spotlight_intro {
+        width: calc(100% - 36px);
+        transform: translate(-50%, -46%);
+    }
+
+    .season_spotlight_title {
+        font-size: clamp(44px, 11vw, 64px);
+        line-height: 0.94;
+    }
+
+    .season_spotlight_desc {
+        margin-top: 20px;
+        font-size: 17px;
+        line-height: 1.45;
+    }
+
+    .season_spotlight_desc br {
+        display: none;
+    }
+
+    .season_spotlight_track {
+        width: calc(100vw - 32px);
+        height: 205vh;
+    }
+
+    .season_photo_card,
+    .season_photo_card--sm,
+    .season_photo_card--md,
+    .season_photo_card--lg {
+        width: 208px;
+    }
+
+    .season_photo_media {
+        width: 208px;
+        height: 276px;
+    }
+
+    .season_photo_tag {
+        max-width: 190px;
+        padding: 9px 12px 10px;
+        border-radius: 8px;
+    }
+
+    .season_photo_tag strong {
+        font-size: 12px;
+    }
+
+    .season_photo_tag span {
+        font-size: 10px;
+    }
+
+    .test_start_intro_section {
+        min-height: 100svh;
+        padding: 108px 24px 54px;
+    }
+
+    .test_start_intro_stage {
+        min-height: auto;
+        display: grid;
+        gap: 36px;
+    }
+
+    .test_start_intro_copy {
+        width: 100%;
+    }
+
+    .test_start_intro_kicker {
+        font-size: 12px;
+    }
+
+    .test_start_intro_title span {
+        font-size: clamp(42px, 11.5vw, 58px);
+        line-height: 0.96;
+    }
+
+    .test_start_intro_hint {
+        margin-top: 18px;
+        font-size: 15px;
+    }
+
+    .test_start_flip_button {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 0 auto;
+        width: min(72vw, 320px);
+        transform: rotate(5deg);
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .personal_hero,
+    .pink_office_section {
+        padding-right: 18px;
+        padding-left: 18px;
+        padding-bottom: 42px;
+    }
+
+    .personal_hero_title {
+        font-size: 38px;
+    }
+
+    .personal_hero_desc,
+    .pink_office_desc {
+        font-size: 15px;
+    }
+
+    .pink_office_title {
+        font-size: 32px;
+    }
+
+    .pink_office_chip--portrait {
+        width: 118px;
+        height: 52px;
+    }
+
+    .pink_office_chip--diagnosis {
+        width: 136px;
+        height: 52px;
+    }
+
+    .season_spotlight_intro {
+        width: calc(100% - 24px);
+        top: 88px;
+        transform: translateX(-50%);
+    }
+
+    .season_spotlight_eyebrow {
+        font-size: 11px;
+    }
+
+    .season_spotlight_title {
+        margin-top: 14px;
+        font-size: 34px;
+    }
+
+    .season_spotlight_desc {
+        margin-top: 16px;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .season_spotlight_track {
+        width: calc(100vw - 24px);
+        height: 198vh;
+    }
+
+    .season_photo_card,
+    .season_photo_card--sm,
+    .season_photo_card--md,
+    .season_photo_card--lg {
+        width: 160px;
+    }
+
+    .season_photo_media {
+        width: 160px;
+        height: 212px;
+    }
+
+    .season_photo_tag {
+        max-width: 152px;
+        padding: 8px 10px 9px;
+        border-radius: 7px;
+    }
+
+    .season_photo_tag strong {
+        font-size: 10px;
+    }
+
+    .season_photo_tag span {
+        font-size: 9px;
+    }
+
+    .test_start_intro_section {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    .test_start_intro_title span {
+        font-size: 36px;
+    }
+
+    .test_start_intro_hint {
+        font-size: 14px;
+    }
+
+    .test_start_flip_button {
+        width: min(78vw, 286px);
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .personal_hero_title {
+        font-size: 36px;
+    }
+
+    .pink_office_title {
+        font-size: 30px;
+    }
+}
