@@ -157,23 +157,23 @@
                     </article>
                 </div>
 
-                <div class="season_test_cut_transition">
-                    <div class="season_test_cut_mask">
-                        <div class="season_test_cut_stage">
-                            <div class="season_test_cut_copy" aria-hidden="true">
-                                <h2 class="season_test_cut_title">
+                <div class="stcut">
+                    <div class="mask">
+                        <div class="stage">
+                            <div class="copy" aria-hidden="true">
+                                <h2>
                                     <span>PERSONAL COLOR</span>
                                     <span>DIAGNOSIS TEST</span>
                                 </h2>
                             </div>
 
-                            <button class="season_test_cut_button" type="button" data-quiz-open aria-label="Start the personal color diagnosis test">
-                                <span class="season_test_cut_tilt">
-                                    <span class="season_test_cut_inner">
-                                        <span class="season_test_cut_face season_test_cut_face--front" aria-hidden="true">
+                            <button class="btn" type="button" data-quiz-open aria-label="Start the personal color diagnosis test">
+                                <span class="tilt">
+                                    <span class="card">
+                                        <span class="face front" aria-hidden="true">
                                             <img src="img/test_card_front_start.png" alt="">
                                         </span>
-                                        <span class="season_test_cut_face season_test_cut_face--back" aria-hidden="true">
+                                        <span class="face back" aria-hidden="true">
                                             <img src="img/test_card_back_start.png" alt="">
                                         </span>
                                     </span>
@@ -211,7 +211,7 @@
     <div class="personal_quiz_modal" hidden>
         <div class="personal_quiz_modal__backdrop" data-quiz-close aria-hidden="true"></div>
         <section class="personal_quiz_modal__dialog" role="dialog" aria-modal="true" aria-labelledby="personal-quiz-step">
-            <button class="personal_quiz_modal__close" type="button" data-quiz-close aria-label="Close personal color diagnosis">×</button>
+            <button class="personal_quiz_modal__close" type="button" data-quiz-close aria-label="Close personal color diagnosis"><i class="fa-solid fa-xmark"></i></button>
 
             <div class="personal_quiz_progress" aria-hidden="true">
                 <span class="personal_quiz_progress__bar"></span>
@@ -239,6 +239,61 @@
                     </div>
                 </div>
 
+                <div class="personal_quiz_tip_source" hidden aria-hidden="true">
+                    <p data-quiz-tip-for="1">Pure white typically complements cool undertones (Winter/Summer), whereas Ivory resonates with the warmth found in Spring and Autumn palettes. Notice if your skin looks clearer or if shadows under the eyes are minimized with one over the other.</p>
+                    <p data-quiz-tip-for="2">Balance your makeup with warm or cool tones. Find your personal color to enhance your complexion.</p>
+                    <p data-quiz-tip-for="3">Wearing a toned-down lip color like MLBB (My Lips But Better) is a great way to achieve a natural and effortless look. It enhances your lips without overpowering your overall makeup, making it perfect for everyday wear. Choose a shade that closely matches your natural lip color to create a soft, balanced appearance.</p>
+                    <p data-quiz-tip-for="4">If your complexion often looks dull, try adding a touch of warmth and glow to your makeup. Soft peach or rosy tones on the lips and cheeks can instantly brighten your face. You can also use a subtle highlighter or a dewy base to bring back a healthy, radiant look.</p>
+                </div>
+
+                <!-- Quiz choice image controls:
+                     Edit only this HTML block.
+                     - Change `src` to swap the image
+                     - Change `object-position` to move the crop
+                     - Change `scale()` to zoom in or out -->
+                <div class="personal_quiz_choice_template_source" hidden aria-hidden="true">
+                    <template data-quiz-choice-template="1-1">
+                        <span class="personal_quiz_choice__media personal_quiz_choice__media--q1-1">
+                            <img src="img/Question1_01.png" alt="" aria-hidden="true">
+                        </span>
+                    </template>
+                    <template data-quiz-choice-template="1-2">
+                        <span class="personal_quiz_choice__media personal_quiz_choice__media--q1-2">
+                            <img src="img/Question1_02.png" alt="" aria-hidden="true">
+                        </span>
+                    </template>
+                    <template data-quiz-choice-template="2-1">
+                        <span class="personal_quiz_choice__media personal_quiz_choice__media--q2-1">
+                            <img src="img/Question2_01.png" alt="" aria-hidden="true">
+                        </span>
+                    </template>
+                    <template data-quiz-choice-template="2-2">
+                        <span class="personal_quiz_choice__media personal_quiz_choice__media--q2-2">
+                            <img src="img/Question2_02.png" alt="" aria-hidden="true">
+                        </span>
+                    </template>
+                    <template data-quiz-choice-template="3-1">
+                        <span class="personal_quiz_choice__media personal_quiz_choice__media--q3-1">
+                            <img src="img/Question3_01.png" alt="" aria-hidden="true">
+                        </span>
+                    </template>
+                    <template data-quiz-choice-template="3-2">
+                        <span class="personal_quiz_choice__media personal_quiz_choice__media--q3-2">
+                            <img src="img/Question3_02.png" alt="" aria-hidden="true">
+                        </span>
+                    </template>
+                    <template data-quiz-choice-template="4-1">
+                        <span class="personal_quiz_choice__media personal_quiz_choice__media--q4-1">
+                            <img src="img/Question4_01.png" alt="" aria-hidden="true">
+                        </span>
+                    </template>
+                    <template data-quiz-choice-template="4-2">
+                        <span class="personal_quiz_choice__media personal_quiz_choice__media--q4-2">
+                            <img src="img/Question4_02.png" alt="" aria-hidden="true">
+                        </span>
+                    </template>
+                </div>
+
             </div>
         </section>
     </div>
@@ -246,12 +301,14 @@
     <div class="personal_quiz_result_modal personal_quiz_modal" hidden>
         <div class="personal_quiz_modal__backdrop" data-result-close aria-hidden="true"></div>
         <section class="personal_quiz_modal__dialog" role="dialog" aria-modal="true" aria-labelledby="personal-quiz-result-title">
-            <button class="personal_quiz_modal__close" type="button" data-result-close aria-label="Close personal color result">횞</button>
+            <button class="personal_quiz_modal__close" type="button" data-result-close aria-label="Close personal color result"><i class="fa-solid fa-xmark"></i></button>
 
             <div class="personal_quiz_modal__content">
                 <div class="personal_quiz_result">
                     <div class="personal_quiz_result__hero">
-                        <div class="personal_quiz_result__portrait" aria-hidden="true"></div>
+                        <div class="personal_quiz_result__portrait" aria-hidden="true">
+                            <img class="personal_quiz_result__portrait_media" src="" alt="">
+                        </div>
                         <div class="personal_quiz_result__copy">
                             <p class="personal_quiz_result__lead">Your personal color is</p>
                             <h3 class="personal_quiz_result__title" id="personal-quiz-result-title"></h3>
@@ -263,7 +320,9 @@
                     <div class="personal_quiz_result__recommend">
                         <h4 class="personal_quiz_result__recommend_title">Recommend</h4>
                         <div class="personal_quiz_result__recommend_stage">
+                            <button class="personal_quiz_result__carousel_nav personal_quiz_result__carousel_nav--prev" type="button" data-result-prev aria-label="Scroll recommended products left" hidden disabled>&lsaquo;</button>
                             <div class="personal_quiz_result__products" aria-label="Recommended products"></div>
+                            <button class="personal_quiz_result__carousel_nav personal_quiz_result__carousel_nav--next" type="button" data-result-next aria-label="Scroll recommended products right" hidden disabled>&rsaquo;</button>
                         </div>
                     </div>
                 </div>

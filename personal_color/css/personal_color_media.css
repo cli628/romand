@@ -272,15 +272,15 @@
         font-size: clamp(52px, 7vw, 84px);
     }
 
-    .season_test_cut_button {
+    .stcut .btn {
         width: min(300px, 27vw);
     }
 
-    .season_test_cut_title span {
+    .stcut h2 span {
         font-size: clamp(60px, 6.8vw, 88px);
     }
 
-    .season_test_cut_button {
+    .stcut .btn {
         right: clamp(0px, 2vw, 36px);
         width: clamp(240px, 25vw, 320px);
     }
@@ -444,26 +444,22 @@
         font-size: 12px;
     }
 
-    .season_test_cut_copy {
+    .stcut .copy {
         width: min(760px, calc(100% - 64px));
         padding-right: 0;
     }
 
-    .season_test_cut_title span {
+    .stcut h2 span {
         font-size: clamp(52px, 8vw, 78px);
     }
 
-    .season_test_cut_hint {
-        font-size: 16px;
-    }
-
-    .season_test_cut_button {
+    .stcut .btn {
         width: min(268px, 30vw);
         right: 0;
         --season-test-cut-tilt: 5deg;
     }
 
-    .season_test_cut_stage {
+    .stcut .stage {
         min-height: calc(100vh - 180px);
     }
 
@@ -608,7 +604,8 @@
     }
 
     .personal_quiz_result__recommend_stage {
-        padding: 0;
+        --quiz-result-carousel-side-gap: 26px;
+        padding-inline: var(--quiz-result-carousel-side-gap);
     }
 
     .personal_quiz_result__product {
@@ -775,7 +772,7 @@
         font-size: 10px;
     }
 
-    .season_test_cut_copy {
+    .stcut .copy {
         width: calc(100% - 36px);
         padding-right: 0;
         position: relative;
@@ -785,33 +782,23 @@
         margin: 0 auto;
     }
 
-    .season_test_cut_kicker {
-        font-size: 12px;
-    }
-
-    .season_test_cut_title span {
+    .stcut h2 span {
         font-size: clamp(42px, 11.5vw, 58px);
         line-height: 0.96;
     }
 
-    .season_test_cut_hint {
-        margin-top: 18px;
-        font-size: 15px;
-        line-height: 1.45;
-    }
-
-    .season_test_cut_button {
+    .stcut .btn {
         width: min(58vw, 260px);
         --season-test-cut-tilt: 5deg;
     }
 
-    .season_test_cut_stage {
+    .stcut .stage {
         min-height: auto;
         display: grid;
         gap: 36px;
     }
 
-    .season_test_cut_button {
+    .stcut .btn {
         position: relative;
         top: auto;
         right: auto;
@@ -981,25 +968,20 @@
         font-size: 9px;
     }
 
-    .season_test_cut_copy {
+    .stcut .copy {
         width: calc(100% - 24px);
         padding-right: 0;
     }
 
-    .season_test_cut_title {
+    .stcut h2 {
         margin-top: 14px;
     }
 
-    .season_test_cut_title span {
+    .stcut h2 span {
         font-size: 34px;
     }
 
-    .season_test_cut_hint {
-        margin-top: 14px;
-        font-size: 14px;
-    }
-
-    .season_test_cut_button {
+    .stcut .btn {
         width: min(64vw, 220px);
     }
 

@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Final cut stage timing controls:
     // - Lower `stageRevealStart` to begin the test cut stage earlier.
     // - Increase the gap between start values to make the reveal feel more scrubbed and gradual.
+    // - Increase `stageHoldDuration` to keep the start card on screen longer after it has fully appeared.
     const seasonTestCutMotion = {
         stageRevealStart: 0.84,
         stageMaskRevealStart: 0.84,
@@ -23,7 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
         stageTextRevealStart: 0.89,
         stageTextRevealDuration: 0.08,
         stageButtonRevealStart: 0.9,
-        stageButtonRevealDuration: 0.09
+        stageButtonRevealDuration: 0.09,
+        stageHoldDuration: 0.24
     };
     // Season section hold controls:
     // - Increase `sectionHoldScreens` to keep this pinned section on screen longer.
@@ -64,10 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const seasonTrack = document.querySelector(".season_spotlight_track");
     const seasonIntro = document.querySelector(".season_spotlight_intro");
     const seasonCards = gsap.utils.toArray(".season_photo_card");
-    const seasonTestCutMask = document.querySelector(".season_test_cut_mask");
-    const seasonTestCutStage = document.querySelector(".season_test_cut_stage");
-    const seasonTestCutButton = document.querySelector(".season_test_cut_button");
-    const seasonTestCutTextTargets = document.querySelectorAll(".season_test_cut_kicker, .season_test_cut_title span, .season_test_cut_hint");
+    const seasonTestCut = document.querySelector(".stcut");
+    const seasonTestCutMask = seasonTestCut ? seasonTestCut.querySelector(".mask") : null;
+    const seasonTestCutStage = seasonTestCut ? seasonTestCut.querySelector(".stage") : null;
+    const seasonTestCutButton = seasonTestCut ? seasonTestCut.querySelector(".btn") : null;
+    const seasonTestCutTextTargets = seasonTestCut ? seasonTestCut.querySelectorAll(".copy h2 span") : [];
     const quizOpenButtons = document.querySelectorAll("[data-quiz-open]");
     const quizModal = document.querySelector(".personal_quiz_modal:not(.personal_quiz_result_modal)");
     const resultModal = document.querySelector(".personal_quiz_result_modal");
@@ -80,8 +83,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const quizChoices = quizModal ? quizModal.querySelector(".personal_quiz_choices") : null;
     const quizTip = quizModal ? quizModal.querySelector(".personal_quiz_tip") : null;
     const quizTipText = quizModal ? quizModal.querySelector(".personal_quiz_tip__text") : null;
+    const quizTipSource = quizModal ? quizModal.querySelector(".personal_quiz_tip_source") : null;
+    const quizChoiceTemplateSource = quizModal ? quizModal.querySelector(".personal_quiz_choice_template_source") : null;
     const quizResult = resultModal ? resultModal.querySelector(".personal_quiz_result") : null;
     const quizResultPortrait = resultModal ? resultModal.querySelector(".personal_quiz_result__portrait") : null;
+    const quizResultPortraitMedia = resultModal ? resultModal.querySelector(".personal_quiz_result__portrait_media") : null;
     const quizResultLead = resultModal ? resultModal.querySelector(".personal_quiz_result__lead") : null;
     const quizResultTitle = resultModal ? resultModal.querySelector(".personal_quiz_result__title") : null;
     const quizResultSummary = resultModal ? resultModal.querySelector(".personal_quiz_result__summary") : null;
@@ -130,8 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: "Soft Neutral",
                 summary: "Balanced tones and softly muted colors look especially natural on you",
                 desc: "Your answers stayed balanced between cool and warm cues, so you can usually wear both families well when the color is not too sharp. Soft beige, rose taupe, muted coral, and gentle brown accents are likely to feel the most harmonious.",
-                image: "img/personal_intro_01.jpg",
-                imagePosition: "50% 24%",
+                image: "img/result_lightspring01.png",
+                imagePosition: "center top",
                 highlight: "#cfdf42",
                 recommendations: personalQuizRecommendProducts
             },
@@ -140,8 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: "Cool Summer",
                 summary: "Cool tones with a clean softness brighten your complexion the most",
                 desc: "Your picks leaned toward crisp white, rosy MLBB shades, and clearer cool accents. Dusty rose, mauve, berry, and silver details are likely to make your skin look clearer and more refined without feeling too heavy.",
-                image: "img/personal_intro_12.jpg",
-                imagePosition: "60% center",
+                image: "img/result_lightspring01.png",
+                imagePosition: "center top",
                 highlight: "#cfdf42",
                 recommendations: personalQuizRecommendProducts
             },
@@ -163,8 +169,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 prompt: "Which basic white tee brightens your complexion more?",
                 tip: "Focus on clarity around your skin and under-eye area. The tone that looks cleaner with less shadow is usually closer to your season.",
                 choices: [
-                    { label: "Pure White", image: "img/Question1_01.png", imagePosition: "center", result: "cool" },
-                    { label: "Ivory", image: "img/Question1_02.png", imagePosition: "center", result: "warm" }
+                    { label: "Pure White", image: "img/Question1_01.png", imagePosition: "left center", result: "cool" },
+                    { label: "Ivory", image: "img/Question1_02.png", imagePosition: "right center", result: "warm" }
                 ]
             },
             {
@@ -274,7 +280,8 @@ document.addEventListener("DOMContentLoaded", () => {
         quizPrevButton.textContent = "Back";
         quizStep.textContent = question.step;
         quizPrompt.textContent = question.prompt;
-        quizTipText.textContent = question.tip;
+        const tipSourceItem = quizTipSource ? quizTipSource.querySelector(`[data-quiz-tip-for="${index + 1}"]`) : null;
+        quizTipText.textContent = tipSourceItem ? tipSourceItem.textContent.trim() : question.tip;
         quizChoices.dataset.layout = question.layout || "default";
         quizProgressBar.style.width = `${((index + 1) / personalQuizContent.questions.length) * 100}%`;
         quizPrevButton.disabled = index === 0;
@@ -285,19 +292,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
         question.choices.forEach((choice, choiceIndex) => {
             const button = document.createElement("button");
-            const media = document.createElement("span");
+            const choiceTemplate = quizChoiceTemplateSource ? quizChoiceTemplateSource.querySelector(`[data-quiz-choice-template="${index + 1}-${choiceIndex + 1}"]`) : null;
+            const media = choiceTemplate && choiceTemplate.content.firstElementChild
+                ? choiceTemplate.content.firstElementChild.cloneNode(true)
+                : document.createElement("span");
             const label = document.createElement("span");
-            const choiceSide = choice.side || (choiceIndex === 0 ? "left" : "right");
 
             button.type = "button";
-            button.className = `personal_quiz_choice personal_quiz_choice--${choiceSide} personal_quiz_choice--question-${index + 1} personal_quiz_choice--choice-${choiceIndex + 1}`;
+            button.className = "personal_quiz_choice";
             button.setAttribute("aria-label", choice.label);
-            button.dataset.choiceSide = choiceSide;
-            button.dataset.questionIndex = String(index + 1);
-            button.dataset.choiceIndex = String(choiceIndex + 1);
 
-            media.className = `personal_quiz_choice__media personal_quiz_choice__media--${choiceSide} personal_quiz_choice__media--question-${index + 1} personal_quiz_choice__media--choice-${choiceIndex + 1}`;
-            media.style.backgroundImage = `url("${choice.image}")`;
+            if (!media.classList.contains("personal_quiz_choice__media")) {
+                media.className = "personal_quiz_choice__media";
+            }
+
+            if (!media.querySelector("img")) {
+                const mediaImage = document.createElement("img");
+                mediaImage.src = choice.image;
+                mediaImage.alt = "";
+                mediaImage.setAttribute("aria-hidden", "true");
+                media.appendChild(mediaImage);
+            }
 
             label.className = "personal_quiz_choice__label";
             label.textContent = choice.label;
@@ -318,7 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderQuizResult() {
-        if (!quizModal || !resultModal || !quizResult || !quizResultPortrait || !quizResultLead || !quizResultTitle || !quizResultSummary || !quizResultDesc) {
+        if (!quizModal || !resultModal || !quizResult || !quizResultPortrait || !quizResultPortraitMedia || !quizResultLead || !quizResultTitle || !quizResultSummary || !quizResultDesc) {
             return;
         }
 
@@ -337,8 +352,8 @@ document.addEventListener("DOMContentLoaded", () => {
         quizResultTitle.textContent = resultCopy.title;
         quizResultSummary.textContent = resultCopy.summary || "";
         quizResultDesc.textContent = resultCopy.desc;
-        quizResultPortrait.style.backgroundImage = `url("${resultCopy.image}")`;
-        quizResultPortrait.style.backgroundPosition = resultCopy.imagePosition || "center";
+        quizResultPortraitMedia.src = resultCopy.image;
+        quizResultPortraitMedia.style.objectPosition = resultCopy.imagePosition || "center";
         renderQuizProducts(resultCopy.recommendations);
         closeQuiz();
         resultModal.hidden = false;
@@ -899,6 +914,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (seasonTestCutMask && seasonTestCutStage) {
             // Final stage reveal:
             // Move these start values earlier to give this area more scroll distance and a clearer scrub feel.
+            const stageHoldStart = Math.max(
+                seasonTestCutMotion.stageRevealStart + seasonTestCutMotion.stageRevealDuration,
+                seasonTestCutMotion.stageTextRevealStart + seasonTestCutMotion.stageTextRevealDuration,
+                seasonTestCutButton ? seasonTestCutMotion.stageButtonRevealStart + seasonTestCutMotion.stageButtonRevealDuration : 0
+            );
+            const seasonTestCutHoldState = { progress: 0 };
+
             seasonTimeline
                 .to(seasonTestCutMask, {
                     opacity: 1,
@@ -927,6 +949,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     ease: "none"
                 }, seasonTestCutMotion.stageButtonRevealStart);
             }
+
+            seasonTimeline.to(seasonTestCutHoldState, {
+                progress: 1,
+                duration: seasonTestCutMotion.stageHoldDuration,
+                ease: "none"
+            }, stageHoldStart);
         }
 
         seasonCards.forEach((card) => {
