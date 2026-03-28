@@ -1,5 +1,46 @@
 @charset "utf-8";
 
+@media screen and (min-width: 1025px) {
+  .contents_img_wrap {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: visible;
+  }
+
+  .contents_img_set.tab_active {
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .contents_main_img {
+    width: fit-content;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .contents_main_img img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .contents_sub_img {
+    bottom: 32px;
+    gap: 18px;
+  }
+
+  .sub_img_placeholder {
+    width: 108px;
+    height: 108px;
+    border-radius: 18px;
+    background-color: rgba(255, 255, 255, 0.16);
+  }
+}
+
 /* 웹 */
 @media screen and (max-width: 1920px) {
   .contents_right {
@@ -31,12 +72,12 @@
   }
 
   .contents_right {
-    padding: 72px 48px;
+    padding: 48px 44px 12px;
   }
 
   .contents_wish {
-    top: 72px;
-    right: 48px;
+    top: 48px;
+    right: 44px;
   }
 
   .product_name,
@@ -44,9 +85,42 @@
     font-size: 28px;
   }
 
+  .product_name {
+    margin-bottom: 14px;
+  }
+
   .product_desc,
   .badge_item {
     font-size: 18px;
+  }
+
+  .product_desc,
+  .product_rating,
+  .product_price,
+  .product_badge,
+  .product_color,
+  .product_option,
+  .product_quantity,
+  .product_buttons {
+    margin-bottom: 12px;
+  }
+
+  .product_badge {
+    gap: 20px;
+  }
+
+  .product_color {
+    gap: 12px;
+  }
+
+  .product_option,
+  .product_quantity,
+  .accordion_header {
+    height: 56px;
+  }
+
+  .quantity_control {
+    gap: 24px;
   }
 
   .personal {
@@ -173,8 +247,13 @@
 
 @media screen and (max-width: 1200px) {
   .contents_img_wrap {
-    min-height: 680px;
-    height: calc(100vh - 72px);
+    height: auto;
+  }
+
+  .contents_main_img img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
 
   .contents_sub_img {
@@ -368,18 +447,26 @@
 
   .contents_img_wrap {
     width: 100%;
-    min-height: 0;
     height: auto;
   }
 
   .contents_main_img {
+    width: 100%;
     height: auto;
-    aspect-ratio: 1 / 1.08;
+    aspect-ratio: auto;
   }
 
-  .contents_main_img img,
+  .contents_main_img img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
   .main_img_placeholder {
-    height: 100%;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1.08;
   }
 
   .contents_sub_img {
@@ -542,7 +629,7 @@
 
 @media screen and (max-width: 768px) {
   .contents_main_img {
-    aspect-ratio: 1 / 1.15;
+    aspect-ratio: auto;
   }
 
   .contents_sub_img {

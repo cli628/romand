@@ -124,9 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
     subImgPlaceholders.forEach((placeholder, idx) => {
       if (imgPaths[idx]) {
         placeholder.innerHTML = `<img src="${imgPaths[idx]}" alt="Sub Image ${idx + 1}" style="width:100%; height:100%; object-fit:cover;">`;
+        placeholder.classList.toggle('sub_img_active', idx === 0);
 
         // 서브 이미지 클릭 시 메인 이미지 변경
         placeholder.onclick = () => {
+          subImgPlaceholders.forEach(item => item.classList.remove('sub_img_active'));
+          placeholder.classList.add('sub_img_active');
           mainImgContainer.innerHTML = `<img src="${imgPaths[idx]}" alt="Main Image Activated">`;
         };
       }
