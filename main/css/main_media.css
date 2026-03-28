@@ -137,6 +137,7 @@
     }
 
     .sns_section {
+        --sns-footer-overlap: 132px;
         padding: 96px 0 0;
     }
 
@@ -376,6 +377,7 @@
     }
 
     .sns_section {
+        --sns-footer-overlap: 88px;
         padding: 72px 0 0;
     }
 

@@ -62,9 +62,8 @@ document.addEventListener("DOMContentLoaded",  () => {
                 52 * primaryWave +
                 22 * secondaryWave +
                 23 * tertiaryWave +
-                /* ?⑥씠釉??믪씠 */
+                /* Detail Waves */
                 32 * detailWaveA +
-                /* ?뚮룞 ?섍쾶?좎? ?먯뒯?섍쾶?좎? */
                 46 * detailWaveB +
 
                 14 * detailWaveC
@@ -176,14 +175,14 @@ document.addEventListener("DOMContentLoaded",  () => {
         });
     });
 
-    // 1-1. personal_color_section - ?ㅽ겕濡??⑤윺?숈뒪 諛곌꼍 + ?뚮줈??肄섑뀗痢?
+    // 1-1. personal_color_section - parallax background + content reveal
     const personalColorSection = document.querySelector(".personal_color_section");
     if (personalColorSection && typeof ScrollTrigger !== "undefined") {
         const personalColorBg      = personalColorSection.querySelector(".personal_color_bg");
         const personalColorContent = personalColorSection.querySelector(".personal_color_content");
 
-        /* 諛곌꼍 ?⑤윺?숈뒪: ?뱀뀡??酉고룷?몃? ?듦낵?섎뒗 ?숈븞 bg瑜??먮━寃??대룞
-           ??諛곌꼍??怨좎젙??寃껋쿂??蹂댁씠怨??꾩븘???뱀뀡???욎뿉 ?덈뒗 ?먮굦 */
+        /* Move the background while the section crosses the viewport.
+           Adjust the two y values below to make the parallax weaker or stronger. */
         if (personalColorBg) {
             gsap.fromTo(personalColorBg,
                 { y: "-20%" },
@@ -201,38 +200,96 @@ document.addEventListener("DOMContentLoaded",  () => {
             );
         }
 
-        /* 肄섑뀗痢? ?섏쐞 3媛?h2, p, a)???쒕젅???ㅽ깭嫄??곸슜
-           IntersectionObserver ?ъ슜 ??pin spacer ?꾩튂 ?ㅼ궛 諛⑹? */
+        /* Reveal the text block items (h2, p, a) without using ScrollTrigger.
+           IntersectionObserver avoids pin-spacer offset issues from other sections. */
         if (personalColorContent) {
-            const contentItems = Array.from(personalColorContent.children);
-            gsap.set(contentItems, { y: 3, opacity: 0 });
+            const heading = personalColorContent.querySelector("h2");
+            const bodyText = personalColorContent.querySelector("p");
+            const ctaButton = personalColorContent.querySelector(".personal_color_btn");
+            const textItems = [heading, bodyText].filter(Boolean);
+
+            function hidePersonalColorContent() {
+                gsap.killTweensOf([heading, bodyText, ctaButton].filter(Boolean));
+
+                if (textItems.length) {
+                    gsap.set(textItems, {
+                        y: (_index, target) => (target === heading ? 34 : 26),
+                        autoAlpha: 0,
+                        filter: "blur(10px)"
+                    });
+                }
+
+                if (ctaButton) {
+                    gsap.set(ctaButton, {
+                        y: 10,
+                        autoAlpha: 0
+                    });
+                }
+            }
+
+            function showPersonalColorContent() {
+                const revealTimeline = gsap.timeline({
+                    defaults: {
+                        overwrite: true
+                    }
+                });
+
+                if (heading) {
+                    revealTimeline.to(heading, {
+                        y: 0,
+                        autoAlpha: 1,
+                        filter: "blur(0px)",
+                        duration: 0.58,
+                        ease: "power3.out"
+                    }, 0);
+                }
+
+                if (bodyText) {
+                    revealTimeline.to(bodyText, {
+                        y: 0,
+                        autoAlpha: 1,
+                        filter: "blur(0px)",
+                        duration: 0.54,
+                        ease: "power3.out"
+                    }, 0.08);
+                }
+
+                if (ctaButton) {
+                    revealTimeline.to(ctaButton, {
+                        y: 0,
+                        autoAlpha: 1,
+                        duration: 0.34,
+                        ease: "power2.out"
+                    }, 0.1);
+                }
+            }
+
+            hidePersonalColorContent();
 
             const contentObserver = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        gsap.to(contentItems, {
-                            y: 0,
-                            opacity: 1,
-                            duration: 0.3,
-                            ease: "power2.out",
-                            stagger: 0.04
-                        });
+                        showPersonalColorContent();
                     } else {
-                        gsap.set(contentItems, { y: 3, opacity: 0 });
+                        hidePersonalColorContent();
                     }
                 });
-            }, { threshold: 0.1 });
-            contentObserver.observe(personalColorSection);
+            }, {
+                threshold: 0.04,
+                rootMargin: "0px 0px 14% 0px"
+            });
+            contentObserver.observe(personalColorContent);
         }
     }
 
-    // 1-2. pink_office_intro - ?ㅽ깭嫄?吏꾩엯 ?곗텧
+    // 1-2. pink_office_intro - staggered entrance reveal
     const pinkOfficeIntroEl = document.querySelector(".pink_office_intro");
     if (pinkOfficeIntroEl) {
         const pinkIntroItems = Array.from(pinkOfficeIntroEl.children);
         const PINK_Y = 30;
 
-        /* ?뱀뀡???붾㈃ ?꾨옒 ?덉쓣 ?뚮쭔 珥덇린 ?④? ???대? 蹂댁씠???곹깭硫?洹몃?濡?*/
+        /* Hide the intro only when the section starts below the fold.
+           If it is already visible on load, keep the current state. */
         const pinkSectionEl = document.querySelector(".pink_office_section");
         if (!pinkSectionEl || pinkSectionEl.getBoundingClientRect().top > window.innerHeight) {
             gsap.set(pinkIntroItems, { y: PINK_Y, opacity: 0 });
@@ -249,7 +306,7 @@ document.addEventListener("DOMContentLoaded",  () => {
                         stagger: 0.18
                     });
                 } else {
-                    /* ?댄깉 ??珥덇린? ?숈씪??y媛믪쑝濡?由ъ뀑 ??遺덉씪移?諛⑹? */
+                    /* Reset to the same hidden state so the next reveal starts consistently. */
                     gsap.set(pinkIntroItems, { y: PINK_Y, opacity: 0 });
                 }
             });
@@ -294,7 +351,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             const currentFloatingItem = btn.closest(".floating_item");
             const isOpen = card.classList.toggle("is-open");
             btn.setAttribute("aria-expanded", String(isOpen));
-            // ?ㅻⅨ 移대뱶 ?リ린
+            // Close any other expanded cards first.
             document.querySelectorAll(".product_card.is-open").forEach((other) => {
                 if (other !== card) {
                     other.classList.remove("is-open");
@@ -321,40 +378,40 @@ document.addEventListener("DOMContentLoaded",  () => {
     const shoppingBagBack  = document.querySelector(".shopping_bag_container .bag_back");
     const newSectionHeader = document.querySelector(".new_section .section_header");
     const NEW_SECTION_BAG_CONFIG = {
-        /* ?ㅽ겕濡?湲몄씠 諛곗쑉 */
+        /* Total pinned scroll length for this section. Increase for a longer sequence. */
         scrollLengthMultiplier: 6.3,
-        /* ?ㅽ겕濡?湲몄씠 諛곗쑉 */
+        /* Scroll smoothing amount. Increase to make the animation trail the wheel more. */
         scrub: 5,
-        /*  ?쒗뭹?ㅼ씠 ?꾨줈 ?좎삤瑜대뒗 嫄곕━ (?ㅽ겕濡ㅼ뿉 ?곕씪 y媛믪씠 ?뚯닔濡??대룞) */
+        /* Downward drift for the floating product cluster before the bag rises. */
         floatingProductsShiftY: 80,
-        /* 遊됲닾媛 以묒븰?쇰줈 ?щ씪?ㅻ뒗 ?쒓컙 */
+        /* Duration for moving the floating product group into place. */
         floatingProductsDuration: 12,
-        /* 遊됲닾媛 以묒븰?쇰줈 ?щ씪?ㅻ뒗 ?쒓컙 */
+        /* Duration for lifting the bag group toward the visual center. */
         bagRiseDuration: 4,
-        /* ?ㅻ뜑 ?섏씠???꾩썐 ?쒖옉 ?쒓컙 */
+        /* Timeline position where the section header starts fading out. */
         headerFadeStartAt: 5.2,
-        /* ?ㅻ뜑 ?섏씠???꾩썐 吏???쒓컙 */
+        /* Duration of the section header fade-out. */
         headerFadeDuration: 1.4,
 
-        /* 紐⑥씠湲??쒖옉 ?쒓컙 */
+        /* Timeline position where products begin gathering. */
         gatherStartAt: 3,
 
-        /* ?쒗뭹 媛?媛꾧꺽 */
+        /* Delay between each product starting the gather motion. */
         gatherStagger: 1,
 
-        /* 媛??④퀎 ?띾룄 */
+        /* Duration of each gather step. */
         gatherDuration: 1.2,
 
-        /* 遊됲닾濡??ㅼ뼱媛???쒖옉 ?쒓컙 */
+        /* Timeline position where products begin dropping into the bag. */
         dropStartAt: 6,
 
-        /* 遊됲닾濡??ㅼ뼱媛??媛꾧꺽 */
+        /* Delay between each product drop. */
         dropStagger: 1,
 
-        /* 媛??④퀎 ?띾룄 */
+        /* Duration of each drop motion. */
         dropDuration: 5,
 
-        /* ?쒗뭹?ㅼ씠 以묎컙??紐⑥씠???꾩튂 */
+        /* Midpoint positions where the products gather before the drop. */
         gatherTargets: [
             { top: "0%", left: "41%", scale: 1, ease: "power1.inOut"},
             { top: "0%", left: "46%", scale: 1, ease: "power1.inOut"},
@@ -362,9 +419,9 @@ document.addEventListener("DOMContentLoaded",  () => {
             { top: "0%", left: "54%", scale: 1, ease: "power1.inOut"},
             { top: "0%", left: "58%", scale: 1, ease: "power1.inOut"}
         ],
-        /* 遊됲닾濡??ㅼ뼱媛??理쒖쥌 ?꾩튂 ??opacity 0?쇰줈 遊됲닾 ?덉쑝濡??щ씪吏?*/
+        /* Final target inside the bag. Lower top pushes the drop deeper into the bag. */
         dropTarget: { top: "100%", left: "50%", scale: 1, opacity: 1, ease: "power2.in" },
-        /* 遊됲닾 ?꾩껜媛 蹂댁씤 ???ㅼ쓬 ?뱀뀡?쇰줈 ?섏뼱媛湲????좎? ?쒓컙 */
+        /* Extra hold after the bag reaches center before the next section takes over. */
         endHoldDuration: 4
     };
     if (floatingItems.length > 0) {
@@ -374,7 +431,7 @@ document.addEventListener("DOMContentLoaded",  () => {
                 pin: true,
                 start: "top 15%",
                 end: () => `+=${Math.round(window.innerHeight * NEW_SECTION_BAG_CONFIG.scrollLengthMultiplier)}`,
-                /* ???섎뒗留뚰겮 ?대룞 */
+                /* Higher scrub values make the timeline follow the scroll more slowly. */
                 scrub: NEW_SECTION_BAG_CONFIG.scrub,
                 anticipatePin: 1
             }
@@ -388,7 +445,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             }, 0);
         }
 
-        // 遊됲닾 ?욌뮘 ?붿냼 紐⑥쓬 ???섏쭛 ?④퀎?먯꽌???섎떒 怨좎젙 (?좊땲硫붿씠???놁쓬)
+        // Keep the bag front and back locked together so they rise as one unit.
         const bagElements = [shoppingBagFront, shoppingBagBack].filter(Boolean);
 
         if (newSectionHeader) {
@@ -433,18 +490,18 @@ document.addEventListener("DOMContentLoaded",  () => {
     }, dropAt);
 });
 
-        // 留덉?留??쒗뭹 ?숉븯 ?꾨즺 ?쒖젏 怨꾩궛 (dropStartAt + stagger * (items-1) + dropDuration)
+        // Time when the final product finishes dropping into the bag.
         const lastDropEnd = NEW_SECTION_BAG_CONFIG.dropStartAt
             + (floatingItems.length - 1) * NEW_SECTION_BAG_CONFIG.dropStagger
             + NEW_SECTION_BAG_CONFIG.dropDuration;
 
-        // ?쒗뭹?????ㅼ뼱媛???遊됲닾瑜??붾㈃ ??以묒븰?쇰줈 ?щ┝
+        // After all products drop, lift the full bag group toward the visible center.
         if (bagElements.length > 0) {
-            // pin start(12%)瑜??쒖쇅???ㅼ젣 蹂댁씠???믪씠
+            // Visible viewport height after excluding the 12% top pin offset.
             const visibleH = window.innerHeight * (1 - 0.12);
             const bagH     = bagElements[0].offsetHeight;
             const bagCSSTop = parseInt(getComputedStyle(bagElements[0]).top, 10) || 0;
-            // 遊됲닾 以묒븰??媛?쒖쁺??以묒븰???ㅻ룄濡?y ?대룞??怨꾩궛
+            // Convert the current CSS top into a y-shift that lands the bag near center.
             const centerTop = Math.max(0, (visibleH - bagH) / 2);
             const riseY     = -(bagCSSTop - centerTop);
             tl.to(bagElements, {
@@ -454,11 +511,11 @@ document.addEventListener("DOMContentLoaded",  () => {
             }, lastDropEnd);
         }
 
-        // 遊됲닾 ?꾩껜媛 蹂댁씤 ???ㅽ겕濡?議곌툑 ???대━硫??ㅼ쓬 ?뱀뀡?쇰줈
+        // Hold the final bag pose briefly before releasing to the next section.
         tl.to({}, { duration: NEW_SECTION_BAG_CONFIG.endHoldDuration });
     }
 
-/* ?덉씪 ?꾩쓽 遊됲닾?吏곸엫??留욎텛??媛?*/
+/* Sync the rail items to the shared bag path over the best-section video. */
     function initializeBestSectionVideoScrub() {
         const bestSection = document.querySelector(".best_section");
         const bestVideo = bestSection?.querySelector(".best_bg video");
@@ -466,58 +523,56 @@ document.addEventListener("DOMContentLoaded",  () => {
         const railTrack = bestSection?.querySelector(".rail_track");
         const railItems = bestSection ? Array.from(bestSection.querySelectorAll(".rail_item")) : [];
         const BEST_SECTION_CONFIG = {
-            scrubViewportMultiplier: 14,  /* ?ㅽ겕??酉고룷??諛곗쑉 */
+            scrubViewportMultiplier: 14,  /* Legacy viewport multiplier kept for quick tuning. */
             scrubWheelStepCount: 15,
             scrubWheelDeltaPerStep: 480,
-            videoDurationRatio: 0.58,     /* 鍮꾨뵒???ъ깮 援ш컙 鍮꾩쑉 (5s 횞 0.58 = 2.9s) */
+            videoDurationRatio: 0.58,     /* Portion of the video duration used for the scrub segment. */
             videoEndPadding: 0.1,
-            videoProgressEnd: 0.82,       /* ???ㅽ겕濡?吏꾪뻾瑜좎뿉??videoProgress = 1 */
-            exitStartProgress: 0.8,       /* ?ㅻ뜑/?덉씪 ?섏씠?쒖븘???쒖옉 */
+            videoProgressEnd: 0.82,       /* Scroll progress point where the video should be fully scrubbed. */
+            exitStartProgress: 0.8,       /* Progress point where the header and rail start exiting. */
             exitDistanceY: 0,
             headerExitDistanceY: 90,
-            railSinkStart: 0.82,          /* pathProgress ??媛??댄썑遺??紐⑤떖 異뺤냼/?щ씪吏?*/
+            railSinkStart: 0.82,          /* Path progress where the modals start shrinking and sinking out. */
 
-            /* ?? Method A: ?⑥씪 怨듯넻 寃쎈줈 ??????????????????????????????
-               而⑤쿋?댁뼱 踰⑦듃 怨≪꽑???섎굹??寃쎈줈濡??뺤쓽.
-               遊됲닾 3媛쒕뒗 媛숈? 寃쎈줈瑜??대룞?섎ŉ, bagInitialOffsets 濡??쒖옉 ?꾩튂瑜??ㅻⅤ寃??ㅼ젙.
-               鍮꾨뵒??醫뚰몴怨? x/y ??video ?붿냼 ?덈퉬/?믪씠 湲곗? 鍮꾩쑉.
-               x < 0 ? video ?쇱そ 諛붽묑, y > 1 ? video ?꾨옒履?諛붽묑. */
+            /* Shared path for all bag items.
+               Adjust these x/y points to reshape the travel path over the video.
+               x and y are ratios of the video frame: x < 0 exits left, y > 1 exits below. */
             // singleBagPath: [
-            //     { x: -0.75, y: 0.5 },   /* 吏꾩엯 (遊됲닾3 ?곷떒) */
-            //     { x: -0.4, y: 0.45 },   /* 遊됲닾3 ?쒖옉 ?꾩튂 */
+            //     { x: -0.75, y: 0.5 },   /* Entry point near the upper bag area. */
+            //     { x: -0.4, y: 0.45 },   /* Bag 3 starting point. */
             //     { x: -0.08, y: 0.35 },
-            //     { x: 0.23, y: 0.40 },   /* 遊됲닾2 ?쒖옉 ?꾩튂 */
+            //     { x: 0.23, y: 0.40 },   /* Bag 2 starting point. */
             //     { x: 0.18, y: 0.52 },
-            //     { x: 0.04, y: 0.54 },   /* 遊됲닾1 ?쒖옉 ?꾩튂 */
+            //     { x: 0.04, y: 0.54 },   /* Bag 1 starting point. */
             //     { x: -0.14, y: 0.66 },
-            //     { x: -0.28, y: 0.76 },  /* ?붾㈃ ?댄깉 */
-            //     { x: -0.60, y: 0.86 }   /* ?꾩쟾 ?댄깉 */
+            //     { x: -0.28, y: 0.76 },  /* Leaving the frame. */
+            //     { x: -0.60, y: 0.86 }   /* Fully off-screen. */
             // ],
 
             singleBagPath: [
-                { x: 0.1, y: 0.10 },   /* 吏꾩엯 (遊됲닾3 ?곷떒) */
-                { x: 0.1, y: 0.235 },   /* 遊됲닾3 ?쒖옉 ?꾩튂 */
+                { x: 0.1, y: 0.10 },    /* Entry point near the upper bag area. */
+                { x: 0.1, y: 0.235 },   /* Bag 3 starting point. */
                 { x: 0.21, y: 0.35 },
-                { x: 0.23, y: 0.40 },   /* 遊됲닾2 ?쒖옉 ?꾩튂 */
+                { x: 0.23, y: 0.40 },   /* Bag 2 starting point. */
                 { x: 0.18, y: 0.52 },
-                { x: 0.04, y: 0.54 },   /* 遊됲닾1 ?쒖옉 ?꾩튂 */
+                { x: 0.04, y: 0.54 },   /* Bag 1 starting point. */
                 { x: -0.18, y: 0.66 },
-                { x: -0.5, y: 0.76 },  /* ?붾㈃ ?댄깉 */
-                { x: -0.8, y: 0.86 }   /* ?꾩쟾 ?댄깉 */
+                { x: -0.5, y: 0.76 },   /* Leaving the frame. */
+                { x: -0.8, y: 0.86 }    /* Fully off-screen. */
             ],
-            /* videoProgress=0 ?쒖젏?먯꽌 媛?遊됲닾媛 寃쎈줈 ?곸뿉 ?덈뒗 ?꾩튂 (0~1)
-               index 0 = 媛???욎꽑 遊됲닾(?붾㈃ ?섎떒-醫?, index 2 = 媛????? 遊됲닾(?붾㈃ ?곷떒) */
+            /* Each bag's starting point on the shared path at videoProgress = 0.
+               index 0 is the front-most lower bag, index 2 is the back-most upper bag. */
             bagInitialOffsets: [0.62, 0.37, 0.08],
 
-            /* videoProgress 1 利앷? ??寃쎈줈瑜??쇰쭏???대룞?섎뒗吏 */
+            /* How far each bag advances along the path as videoProgress moves from 0 to 1. */
             bagTravelRate: 0.5,
 
-            /* 媛?遊됲닾 紐⑤떖 ?섏씠?쒖씤 ?쒖옉 ?쒖젏 (videoProgress 湲곗?) */
+            /* Progress points where each bag modal starts fading in. */
             bagFadeStarts: [0.0, 0.0, 0.06],
-            bagFadeDuration: 0.12,        /* ?섏씠?쒖씤 吏???쒓컙 */
+            bagFadeDuration: 0.12,        /* Duration of each modal fade-in. */
 
             itemAnchorOffset: { x: 210, y: -36 },
-            /* 媛?遊됲닾 紐⑤떖??誘몄꽭 ?꾩튂 蹂댁젙 ??誘몃━ ?뺤씤 ??議곗젙 */
+            /* Per-item x/y correction on top of the shared anchor offset. */
             itemOffsets: [
                 { x: 0, y: 0 },
                 { x: 0, y: 0 },
@@ -526,7 +581,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         };
 
         if (!bestSection || !bestVideo || !bestHeader || !railTrack || typeof ScrollTrigger === "undefined" || typeof gsap === "undefined") {
-            /* best_section ?놁쑝硫?諛붾줈 workflow 珥덇린??*/
+            /* If the best section is missing, initialize the workflow section immediately. */
             initializeWorkflowSteps();
             return;
         }
@@ -628,14 +683,14 @@ document.addEventListener("DOMContentLoaded",  () => {
                 });
 
                 railItems.forEach((item, index) => {
-                    /* ??遊됲닾??寃쎈줈 吏꾪뻾瑜?(0=?쒖옉吏?? 1=?꾩쟾?댄깉) */
+                    /* Current travel amount for this bag along the shared path. */
                     const bagPathProgress = gsap.utils.clamp(
                         0,
                         1,
                         BEST_SECTION_CONFIG.bagInitialOffsets[index] + videoProgress * BEST_SECTION_CONFIG.bagTravelRate
                     );
 
-                    /* ?섏씠?쒖씤 吏꾪뻾瑜???bagFadeStarts 濡?遊됲닾蹂??깆옣 ?쒖젏 ?쒖뼱 */
+                    /* Fade-in progress, staggered by bagFadeStarts for each item. */
                     const fadeStart = BEST_SECTION_CONFIG.bagFadeStarts[index];
                     const appearProgress = gsap.utils.clamp(
                         0,
@@ -643,7 +698,7 @@ document.addEventListener("DOMContentLoaded",  () => {
                         (videoProgress - fadeStart) / BEST_SECTION_CONFIG.bagFadeDuration
                     );
 
-                    /* railSinkStart ?댄썑 pathProgress 湲곗??쇰줈 紐⑤떖 異뺤냼/?щ씪吏?*/
+                    /* Start shrinking and sinking once the bag passes railSinkStart. */
                     const sinkProgress = gsap.utils.clamp(
                         0,
                         1,
@@ -654,11 +709,11 @@ document.addEventListener("DOMContentLoaded",  () => {
                     const modal = item.querySelector(".product_modal");
                     const line = item.querySelector(".connect_line");
 
-                    /* sinkProgress ?쒖옉 ??item蹂꾨줈 ?꾨옒濡??ш툑?ш툑 ?대룞 (item2, 3 ??留롮씠) */
+                    /* Extra downward drop per item after sink starts. Later items fall farther. */
                     const sinkDropAmounts = [0, 650, 950];  /*  */
                     const sinkDropY = sinkProgress * (sinkDropAmounts[index] || 0);
 
-                    /* ?꾩씠?쒕퀎 opacity ?섏씠???쒖옉 吏????item2?????대룞 ???щ씪吏? item3? ?ㅻ옒 癒몃춣 */
+                    /* Delay the opacity drop so item 2 and 3 disappear later than item 1. */
                     const sinkOpacityDelays = [0, 0.60, 0.82];
                     const sinkOpacityDelay = sinkOpacityDelays[index] || 0;
                     const sinkOpacityProgress = gsap.utils.clamp(
@@ -729,8 +784,8 @@ document.addEventListener("DOMContentLoaded",  () => {
 
             updateBestSectionFrame(0);
 
-            /* best_section pin spacer ?앹꽦 ????refresh ??workflow_steps trigger 珥덇린??
-               ???쒖꽌?ъ빞 trigger ?꾩튂媛 7200px spacer瑜??ы븿?댁꽌 ?뺥솗??怨꾩궛??*/
+            /* Refresh after the best-section pin spacer is created.
+               Then initialize workflow so its trigger math includes the spacer correctly. */
             ScrollTrigger.refresh();
             initializeWorkflowSteps();
         }
@@ -752,7 +807,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         const outletHeader = outletSection.querySelector(".outlet_header");
         const revealTargets = [visualPhoto, putPhoto, outletHeader].filter(Boolean);
 
-        /* ?뱀뀡???붾㈃ ?꾨옒???덉쓣 ?뚮쭔 珥덇린 ?④? */
+        /* Hide these elements only when the section starts below the fold. */
         if (outletSection.getBoundingClientRect().top > window.innerHeight) {
             gsap.set(revealTargets, { y: 50, opacity: 0 });
         }
@@ -772,7 +827,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             gsap.set(revealTargets, { y: 50, opacity: 0 });
         }
 
-        /* ScrollTrigger ???IntersectionObserver ?ъ슜 ??pin spacer ?꾩튂 ?ㅼ궛 臾몄젣 ?뚰뵾 */
+        /* Use IntersectionObserver here to avoid pin-spacer offset issues from other sections. */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) { playReveal(); } else { hideReveal(); }
@@ -887,7 +942,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         /* Title reveal ratio in the pinned workflow section */
         const TITLE_PHASE_END = 0.12;
 
-        /* 吏꾩엯 ????댄? ?④? */
+        /* Hide the counter before the workflow section becomes active. */
         if (workflowCounter) {
             gsap.set(workflowCounter, { opacity: 0, y: 18 });
         }
@@ -897,7 +952,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             return firstCount ? firstCount.getBoundingClientRect().height : 120;
         }
 
-        /* ??댄? ?섏씠?쒖씤 (progress 0 ??TITLE_PHASE_END) */
+        /* Title reveal phase from progress 0 to TITLE_PHASE_END. */
         function updateTitle(progress) {
             if (!workflowCounter) return;
             const t = gsap.utils.clamp(0, 1, progress / TITLE_PHASE_END);
@@ -921,7 +976,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             const cardGap = cardWidth * (isMobile ? 1.1 : 1.35);
             const baseOffsetY = isMobile ? 12 : 0;
 
-            /* cardProgress=0 ??移대뱶 ?ㅻⅨ履??湲?/ cardProgress=1 ??留덉?留?移대뱶 以묒븰 */
+            /* entryOffset controls how far the first card starts from the right before centering. */
             const entryOffset = 1.5;
             const activeCardProgress = -entryOffset + cardProgress * (totalCards - 1 + entryOffset);
 
@@ -987,7 +1042,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             updateCounter(currentProgress);
         });
 
-        /* workflow pin spacer ?앹꽦 ?꾨즺 ???꾨옒 ?뱀뀡 珥덇린??*/
+        /* Run Pink Office setup after the workflow pin spacer exists. */
         initializePinkOfficeScroll();
     }
 
@@ -1028,13 +1083,14 @@ document.addEventListener("DOMContentLoaded",  () => {
 
         const pinkVisual = pinkSection.querySelector(".pink_office_visual");
 
-        /* CSS sticky媛 slow scroll ?대떦 ??JS pin 遺덊븘??
-           嫄대Ъ ?대?吏: "top top" ??"bottom top" = ?뱀뀡(370vh) ?꾩쟾??吏?섏튌 ?뚭퉴吏 scrub */
+        /* Animate the whole Pink Office visual while the sticky section is active.
+           Tune x, y, and scale below to move the image and the box overlay together. */
         if (pinkVisual) {
             gsap.set(pinkVisual, {
                 willChange: "transform",
-                transformOrigin: "center center"
+                transformOrigin: "left center"
             });
+            const getLeftFlushOffset = () => Math.ceil(Math.max(0, (pinkVisual.offsetWidth - window.innerWidth) / 2)) + 1;
             const pinkScrollTrigger = {
                 trigger: pinkSection,
                 start: "top top",
@@ -1052,13 +1108,13 @@ document.addEventListener("DOMContentLoaded",  () => {
                 pinkVisual,
                 {
                     x: 0,
-                    y: 160,
+                    y: 160,   /* Starting vertical offset before the sticky scroll begins. */
                     scale: 1
                 },
                 {
-                    x: () => window.innerWidth * (window.innerWidth <= 768 ? 0.09 : 0.15),
-                    y: -120,
-                    scale: () => (window.innerWidth <= 768 ? 1.18 : 1.3),
+                    x: getLeftFlushOffset, /* Shift only enough to keep the left edge visually flush. */
+                    y: -120,  /* Upward drift while scrolling through the section. */
+                    scale: () => (window.innerWidth <= 768 ? 1.1 : 1.15), /* Overall zoom amount for the whole visual. */
                     ease: "none"
                 },
                 0
@@ -1567,7 +1623,7 @@ document.addEventListener("DOMContentLoaded",  () => {
 
         backdrop.addEventListener("click", closeQuickModal);
 
-        // quick.html ?대? ?リ린 踰꾪듉?먯꽌 postMessage濡??リ린 ?붿껌 ?섏떊
+        // Listen for a close request posted from quick.html.
         window.addEventListener("message", (event) => {
             if (event.data === "closeQuickModal") {
                 closeQuickModal();
@@ -1587,7 +1643,7 @@ document.addEventListener("DOMContentLoaded",  () => {
 
         const overlay  = section.querySelector(".personal_color_overlay");
 
-        /* 湲곕낯 spotlight ?꾩튂 (?ㅻⅨ履?以묒븰 ??肄섑뀗痢좉? ?ㅻⅨ履쎌뿉 ?덉쑝誘濡? */
+        /* Default spotlight position near the right-center, where the content block sits. */
         const DEFAULT_X = 60;
         const DEFAULT_Y = 50;
 
@@ -1602,7 +1658,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             currentX = lerp(currentX, targetX, 0.055);
             currentY = lerp(currentY, targetY, 0.055);
 
-            /* spotlight ?꾩튂留??낅뜲?댄듃 ??bg/肄섑뀗痢좊뒗 ?ㅽ겕濡??⑤윺?숈뒪/?뚮줈?낆씠 ?대떦 */
+            /* Only update the spotlight position here. Background/content motion is handled above. */
             if (overlay) {
                 overlay.style.setProperty("--spotlight-x", `${currentX.toFixed(2)}%`);
                 overlay.style.setProperty("--spotlight-y", `${currentY.toFixed(2)}%`);
@@ -1636,7 +1692,7 @@ document.addEventListener("DOMContentLoaded",  () => {
     initializeOutletSwipe();
     initializePersonalColorBanner();
     initializePinkOfficeDoorHover();
-    initializeBestSectionVideoScrub(); /* ?대??먯꽌 setupBestVideoScrub ?꾨즺 ??initializeWorkflowSteps() ?몄텧 */
+    initializeBestSectionVideoScrub(); /* initializeWorkflowSteps() runs after best-section setup is ready. */
     initializeSnsProductBars();
     initializeSnsSwipe();
     initializeSnsQuickModal();
