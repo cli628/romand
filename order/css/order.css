@@ -294,13 +294,16 @@
 }
 
 .paper_logo {
-  font-family: var(--font-montserrat);
-  font-size: 32px;
-  font-weight: 600;
-  color: var(--g-color8);
+  color: #FEE3EC;
+  font-family: "Poppins", sans-serif;
+  font-size: 90px;
+  font-style: normal;
+  font-weight: 275;
+  line-height: 73%;
   letter-spacing: 0.05em;
   margin: 0;
   border: 2px solid var(--g-color8);
+  background-color: var(--g-color5);
   padding: 12px 24px;
 }
 
