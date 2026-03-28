@@ -233,9 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (personalSection) {
     const cards = gsap.utils.toArray('.personal_card');
     const hashtags = gsap.utils.toArray('.hashtag');
+    const cardInners = cards.map(card => card.querySelector('.card_inner'));
 
-    // 1. 해시태그 독립 팝업 복구 (랜덤 순서)
-    gsap.fromTo(hashtags,
+    const createHashtagAnimation = () => gsap.fromTo(hashtags,
       { opacity: 0, y: 30, scale: 0.5 },
       {
         opacity: 1, y: 0, scale: 1,
@@ -250,55 +250,89 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
 
-    // 2. 섹션 고정 (Pinning)
-    ScrollTrigger.create({
-      trigger: '.personal',
-      start: 'top top',
-      end: `+=${window.innerHeight * 4}px`,
-      pin: true,
-      pinSpacing: true,
+    const personal_match_media = gsap.matchMedia();
+
+    personal_match_media.add("(max-width: 400px)", () => {
+      createHashtagAnimation();
+
+      gsap.set(cards, { opacity: 0, y: 64, x: 0, scale: 0.94 });
+      gsap.set(cardInners, { rotationY: 0 });
+
+      const mobile_cards_timeline = gsap.timeline({ paused: true });
+
+      mobile_cards_timeline.to(cards, {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        scale: 1,
+        duration: 0.65,
+        stagger: 0.12,
+        ease: "power2.out"
+      });
+
+      ScrollTrigger.create({
+        trigger: ".personal_title",
+        start: "top 88%",
+        once: true,
+        onEnter: () => {
+          gsap.delayedCall(1.1, () => mobile_cards_timeline.play());
+        }
+      });
     });
 
-    // 3. 매뉴얼 스크롤 보간 (onUpdate)
-    ScrollTrigger.create({
-      trigger: '.personal',
-      start: 'top top',
-      end: `+=${window.innerHeight * 4}`,
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress;
+    personal_match_media.add("(min-width: 401px)", () => {
+      createHashtagAnimation();
 
-        // [Step 2] 카드 애니메이션 (상승 -> 펼침 -> 뒤집기)
-        cards.forEach((card, index) => {
-          const delay = index * 0.1;
-          const cardProgress = gsap.utils.clamp(0, 1, (progress - delay) / 0.7);
+      // 2. 섹션 고정 (Pinning)
+      ScrollTrigger.create({
+        trigger: '.personal',
+        start: 'top top',
+        end: `+=${window.innerHeight * 4}px`,
+        pin: true,
+        pinSpacing: true,
+      });
 
-          const innerCard = card.querySelector('.card_inner');
+      // 3. 매뉴얼 스크롤 보간 (onUpdate)
+      ScrollTrigger.create({
+        trigger: '.personal',
+        start: 'top top',
+        end: `+=${window.innerHeight * 4}`,
+        scrub: 1,
+        onUpdate: (self) => {
+          const progress = self.progress;
 
-          // 1단계: 상승 (Y & Scale)
-          const riseP = gsap.utils.clamp(0, 1, cardProgress / 0.5);
-          const y = gsap.utils.interpolate('700px', '0px', smoothStep(riseP));
-          const scale = gsap.utils.interpolate(0.3, 1, smoothStep(riseP));
-          const opacity = smoothStep(Math.min(1, riseP * 2));
+          // [Step 2] 카드 애니메이션 (상승 -> 펼침 -> 뒤집기)
+          cards.forEach((card, index) => {
+            const delay = index * 0.1;
+            const cardProgress = gsap.utils.clamp(0, 1, (progress - delay) / 0.7);
 
-          // 2단계: 가로 펼침 & 3D Flip (Back -> Front)
-          const actionP = gsap.utils.clamp(0, 1, (cardProgress - 0.4) / 0.6);
-          const startX = (1.5 - index) * 315;
+            const innerCard = card.querySelector('.card_inner');
 
-          const x = gsap.utils.interpolate(startX, 0, smoothStep(actionP));
-          const rotationY = gsap.utils.interpolate(180, 0, smoothStep(actionP));
+            // 1단계: 상승 (Y & Scale)
+            const riseP = gsap.utils.clamp(0, 1, cardProgress / 0.5);
+            const y = gsap.utils.interpolate('700px', '0px', smoothStep(riseP));
+            const scale = gsap.utils.interpolate(0.3, 1, smoothStep(riseP));
+            const opacity = smoothStep(Math.min(1, riseP * 2));
 
-          gsap.set(card, { y, x, scale, opacity });
-          gsap.set(innerCard, { rotationY });
-        });
+            // 2단계: 가로 펼침 & 3D Flip (Back -> Front)
+            const actionP = gsap.utils.clamp(0, 1, (cardProgress - 0.4) / 0.6);
+            const startX = (1.5 - index) * 315;
 
-        // [Step 3] 하단 버튼 등장
-        const footerP = gsap.utils.clamp(0, 1, (progress - 0.9) / 0.1);
-        gsap.set('.personal_footer', {
-          opacity: smoothStep(footerP),
-          y: gsap.utils.interpolate('50px', '0px', smoothStep(footerP))
-        });
-      }
+            const x = gsap.utils.interpolate(startX, 0, smoothStep(actionP));
+            const rotationY = gsap.utils.interpolate(180, 0, smoothStep(actionP));
+
+            gsap.set(card, { y, x, scale, opacity });
+            gsap.set(innerCard, { rotationY });
+          });
+
+          // [Step 3] 하단 버튼 등장
+          const footerP = gsap.utils.clamp(0, 1, (progress - 0.9) / 0.1);
+          gsap.set('.personal_footer', {
+            opacity: smoothStep(footerP),
+            y: gsap.utils.interpolate('50px', '0px', smoothStep(footerP))
+          });
+        }
+      });
     });
 
     // 4. 호버 시 뒷면으로 돌아가는 기능 복구
