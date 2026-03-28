@@ -82,8 +82,7 @@ main,
     align-items: center;
     gap: 1.25em;
     padding: var(--common-header-padding-y) var(--common-shell-padding-x);
-    background:
-        rgba(0, 0, 0, 0);
+    background: rgba(200, 200, 200, .4);
     backdrop-filter: saturate(120%) blur(12px);
     -webkit-backdrop-filter: saturate(120%) blur(12px);
     color: var(--white);
@@ -97,6 +96,7 @@ main,
     font-size: 20px;
     font-weight: 300;
     letter-spacing: -0.04em;
+    text-shadow: 0px 0px 20px var(--g-color5);
 }
 
 .ham_btn {
@@ -110,6 +110,7 @@ main,
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--white);
+    text-shadow: 0px 0px 20px var(--g-color5);
 }
 
 /* =========================================
@@ -122,17 +123,19 @@ main,
     width: 100%;
     padding: var(--common-overlay-padding-y) var(--common-shell-padding-x);
     box-shadow: none;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
     border-radius: 0;
     overflow-x: hidden;
     overflow-y: auto;
     pointer-events: none;
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     z-index: 1000;
-    font-family: var(--font-poppins);
     display: flex;
     flex-direction: column;
+    font-family: var(--font-quicksand);
+    background: rgba(190, 190, 190, 0.25);
+
 }
 
 .menu_overlay.is_open {
@@ -154,6 +157,8 @@ main,
     align-items: center;
     margin-bottom: 1em;
     color: var(--white);
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+
 }
 
 .overlay_logo a {
@@ -161,6 +166,8 @@ main,
     font-weight: 300;
     color: var(--white);
     letter-spacing: -0.04em;
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+
 }
 
 .overlay_close_btn {
@@ -168,11 +175,12 @@ main,
     padding: 0;
     border: none;
     background: none;
-    font-family: var(--font-poppins);
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--white);
     letter-spacing: 0.02em;
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+
 }
 
 .overlay_cols {
@@ -197,6 +205,8 @@ main,
         radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.55), transparent 35%),
         linear-gradient(135deg, rgba(243, 133, 168, 0.95), rgba(249, 197, 213, 0.95) 55%, rgba(254, 227, 236, 0.95));
     overflow: hidden;
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+
 }
 
 .overlay_video_details {
@@ -206,6 +216,8 @@ main,
     padding: 0.75em 0 0;
     color: var(--white);
     font-size: 13px;
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+
 }
 
 .overlay_col_links {
@@ -228,9 +240,11 @@ main,
 .overlay_link a {
     display: inline-block;
     font-size: 40px;
-    font-weight: 300;
+    font-weight: 400;
     color: var(--white);
+    text-transform: capitalize;
     line-height: 1;
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
 }
 
 .overlay_link::after {
@@ -240,9 +254,8 @@ main,
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--p-color5);
+    background: var(--p-color4);
     transition: width 0.3s ease;
-    
 }
 
 .overlay_link:hover::after {
@@ -262,6 +275,8 @@ main,
     color: var(--white);
     cursor: pointer;
     padding: 10px 0 5px;
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+
 }
 
 .overlay_depth_row {
@@ -275,10 +290,12 @@ main,
     font-weight: 400;
     color: var(--white);
     transition: color 0.2s ease;
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+
 }
 
 .overlay_depth_row a:hover {
-    color: var(--p-color5);
+    color: var(--p-color4);
 }
 
 .overlay_depth_row .is_highlight,
@@ -291,12 +308,16 @@ main,
     flex-direction: column;
     color: var(--g-color8);
     margin-top: 0.75em;
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+
 }
 
 .overlay_divider {
     width: 0%;
     height: 1px;
     background: var(--white);
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+
     margin: 1em 0;
 }
 
@@ -312,6 +333,8 @@ main,
     font-size: 12px;
     color: var(--white);
     letter-spacing: 0.03em;
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+
 }
 
 .overlay_socials {
@@ -323,10 +346,12 @@ main,
     font-size: 12px;
     color: var(--white);
     transition: color 0.2s ease;
+    text-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+
 }
 
 .overlay_socials a:hover {
-    color: var(--p-color5);
+    color: var(--p-color4);
 }
 
 /* =========================================
