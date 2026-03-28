@@ -1,5 +1,242 @@
 @charset "utf-8";
 
+@media screen and (max-height: 900px) {
+    .personal_quiz_modal__dialog {
+        padding: 20px 24px 22px;
+    }
+
+    .personal_quiz_modal__content {
+        gap: 20px;
+        padding-top: 16px;
+    }
+
+    .personal_quiz_progress {
+        margin-top: 4px;
+    }
+
+    .personal_quiz_step {
+        font-size: clamp(28px, 4.2svh, 40px);
+    }
+
+    .personal_quiz_prompt {
+        margin-top: 6px;
+        font-size: clamp(16px, 2.3svh, 22px);
+    }
+
+    .personal_quiz_choices {
+        gap: 20px;
+    }
+
+    .personal_quiz_choice {
+        --quiz-choice-media-height: minmax(242px, 31svh);
+        --quiz-choice-label-min-height: 52px;
+    }
+
+    .personal_quiz_choice__media {
+        min-height: clamp(224px, 30svh, 276px);
+    }
+
+    .personal_quiz_choice__label {
+        padding: 14px 18px 16px;
+        font-size: clamp(18px, 2.5svh, 23px);
+    }
+
+    .personal_quiz_tip {
+        gap: 12px;
+        padding: 14px 18px 16px;
+    }
+
+    .personal_quiz_tip__title {
+        font-size: 15px;
+    }
+
+    .personal_quiz_tip__text {
+        margin-top: 6px;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .personal_quiz_result_modal .personal_quiz_modal__dialog {
+        max-height: calc(100svh - 24px);
+        padding: 24px 36px 26px;
+    }
+
+    .personal_quiz_result_modal .personal_quiz_modal__content {
+        gap: 20px;
+        padding-top: 16px;
+    }
+
+    .personal_quiz_result {
+        --quiz-result-portrait-width: 288px;
+        gap: 20px;
+    }
+
+    .personal_quiz_result__hero {
+        gap: 24px;
+    }
+
+    .personal_quiz_result__portrait {
+        height: auto;
+    }
+
+    .personal_quiz_result__lead {
+        font-size: clamp(21px, 3.3svh, 31px);
+    }
+
+    .personal_quiz_result__title {
+        font-size: clamp(30px, 4.8svh, 44px);
+    }
+
+    .personal_quiz_result__summary {
+        margin-top: 14px;
+        font-size: clamp(15px, 2.1svh, 18px);
+    }
+
+    .personal_quiz_result__desc {
+        margin-top: 10px;
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+    .personal_quiz_result__recommend {
+        gap: 12px;
+    }
+
+    .personal_quiz_result__recommend_title {
+        font-size: clamp(17px, 2.4svh, 22px);
+    }
+
+    .personal_quiz_result__product {
+        flex-basis: 210px;
+        min-height: 68px;
+        gap: 12px;
+    }
+
+    .personal_quiz_result__product_thumb {
+        width: 52px;
+    }
+
+    .personal_quiz_result__product_name {
+        font-size: 13px;
+    }
+
+    .personal_quiz_result__product_shade {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-height: 760px) {
+    .personal_quiz_modal__dialog {
+        padding: 17px 19px 19px;
+    }
+
+    .personal_quiz_modal__close {
+        top: 8px;
+        right: 12px;
+        width: 44px;
+        height: 44px;
+    }
+
+    .personal_quiz_modal__close::before {
+        font-size: 34px;
+    }
+
+    .personal_quiz_progress {
+        height: 6px;
+        width: min(320px, calc(100% - 88px));
+    }
+
+    .personal_quiz_modal__content {
+        gap: 16px;
+        padding-top: 13px;
+    }
+
+    .personal_quiz_step {
+        font-size: clamp(24px, 4svh, 32px);
+    }
+
+    .personal_quiz_prompt {
+        font-size: clamp(14px, 2.1svh, 18px);
+    }
+
+    .personal_quiz_choices {
+        gap: 16px;
+    }
+
+    .personal_quiz_choice {
+        --quiz-choice-media-height: minmax(198px, 27svh);
+        --quiz-choice-label-min-height: 44px;
+        border-radius: 18px;
+    }
+
+    .personal_quiz_choice__media {
+        min-height: clamp(186px, 25svh, 248px);
+    }
+
+    .personal_quiz_choice__label {
+        padding: 12px 16px 14px;
+        font-size: clamp(16px, 2.3svh, 20px);
+    }
+
+    .personal_quiz_tip {
+        padding: 12px 16px 14px;
+        border-radius: 18px;
+    }
+
+    .personal_quiz_tip__text {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .personal_quiz_result_modal .personal_quiz_modal__dialog {
+        padding: 19px 26px 21px;
+    }
+
+    .personal_quiz_result__hero {
+        gap: 18px;
+    }
+
+    .personal_quiz_result {
+        --quiz-result-portrait-width: 248px;
+    }
+
+    .personal_quiz_result__lead {
+        font-size: clamp(18px, 2.9svh, 25px);
+    }
+
+    .personal_quiz_result__title {
+        margin-top: 8px;
+        font-size: clamp(25px, 4.2svh, 36px);
+    }
+
+    .personal_quiz_result__summary {
+        margin-top: 10px;
+        font-size: clamp(14px, 1.9svh, 16px);
+    }
+
+    .personal_quiz_result__desc {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .personal_quiz_result__product {
+        flex-basis: 190px;
+        min-height: 62px;
+    }
+
+    .personal_quiz_result__product_thumb {
+        width: 46px;
+    }
+
+    .personal_quiz_result__product_name {
+        font-size: 12px;
+    }
+
+    .personal_quiz_result__product_shade {
+        font-size: 11px;
+    }
+}
+
 @media screen and (max-width: 1440px) {
     .personal_hero,
     .pink_office_section {
@@ -99,7 +336,7 @@
     }
 
     .personal_quiz_choice__media {
-        min-height: min(22svh, 280px);
+        min-height: auto;
     }
 
     .personal_quiz_tip__text,
@@ -107,21 +344,41 @@
         font-size: 15px;
     }
 
+    .personal_quiz_result_modal .personal_quiz_modal__dialog {
+        width: min(1100px, calc(100svw - 32px));
+        max-height: calc(100svh - 28px);
+        padding: 24px 32px 28px;
+    }
+
+    .personal_quiz_result_modal .personal_quiz_modal__content {
+        gap: 20px;
+        padding-top: 18px;
+    }
+
     .personal_quiz_result__hero {
-        grid-template-columns: minmax(200px, 228px) minmax(0, 1fr);
-        gap: 32px;
+        grid-template-columns: 300px minmax(0, 1fr);
+        gap: 28px;
     }
 
     .personal_quiz_result__lead {
-        font-size: clamp(24px, 3vw, 40px);
+        font-size: clamp(20px, 2.6vw, 34px);
     }
 
-    .personal_quiz_result__recommend_stage {
-        padding: 0 26px;
+    .personal_quiz_result__title {
+        font-size: clamp(30px, 3vw, 44px);
+    }
+
+    .personal_quiz_result__summary {
+        margin-top: 18px;
+        font-size: 16px;
+    }
+
+    .personal_quiz_result__desc {
+        font-size: 14px;
     }
 
     .personal_quiz_result__product {
-        flex-basis: 240px;
+        flex-basis: 220px;
     }
 
     .season_spotlight_section,
@@ -301,11 +558,12 @@
     }
 
     .personal_quiz_choice {
-        grid-template-rows: minmax(180px, 1fr) auto;
+        --quiz-choice-label-min-height: 52px;
+        grid-template-rows: auto auto;
     }
 
     .personal_quiz_choice__media {
-        min-height: min(20svh, 220px);
+        min-height: auto;
     }
 
     .personal_quiz_choice__label {
@@ -321,8 +579,9 @@
     }
 
     .personal_quiz_result {
+        --quiz-result-portrait-width: 300px;
         width: 100%;
-        gap: 28px;
+        gap: 22px;
         padding: 0;
     }
 
@@ -332,7 +591,7 @@
     }
 
     .personal_quiz_result__portrait {
-        width: min(240px, 100%);
+        height: auto;
         justify-self: center;
     }
 
@@ -341,34 +600,34 @@
     }
 
     .personal_quiz_result__lead {
-        font-size: clamp(24px, 8vw, 34px);
+        font-size: clamp(20px, 7vw, 30px);
     }
 
     .personal_quiz_result__title {
-        font-size: clamp(32px, 10vw, 48px);
+        font-size: clamp(28px, 9vw, 40px);
     }
 
     .personal_quiz_result__summary {
-        margin-top: 18px;
-        font-size: 18px;
+        margin-top: 14px;
+        font-size: 15px;
     }
 
     .personal_quiz_result__recommend {
-        gap: 18px;
-    }
-
-    .personal_quiz_result__recommend_stage {
-        padding: 0 22px;
-    }
-
-    .personal_quiz_result__product {
-        flex-basis: min(250px, calc(100vw - 100px));
-        min-height: 82px;
         gap: 14px;
     }
 
+    .personal_quiz_result__recommend_stage {
+        padding: 0;
+    }
+
+    .personal_quiz_result__product {
+        flex-basis: min(220px, calc(100vw - 88px));
+        min-height: 72px;
+        gap: 12px;
+    }
+
     .personal_quiz_result__product_thumb {
-        width: 62px;
+        width: 54px;
     }
 
     .personal_quiz_result__carousel_nav {

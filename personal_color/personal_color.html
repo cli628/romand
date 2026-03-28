@@ -243,12 +243,22 @@
                     </div>
                 </div>
 
-                <div class="personal_quiz_result" hidden>
+            </div>
+        </section>
+    </div>
+
+    <div class="personal_quiz_result_modal personal_quiz_modal" hidden>
+        <div class="personal_quiz_modal__backdrop" data-result-close aria-hidden="true"></div>
+        <section class="personal_quiz_modal__dialog" role="dialog" aria-modal="true" aria-labelledby="personal-quiz-result-title">
+            <button class="personal_quiz_modal__close" type="button" data-result-close aria-label="Close personal color result">횞</button>
+
+            <div class="personal_quiz_modal__content">
+                <div class="personal_quiz_result">
                     <div class="personal_quiz_result__hero">
                         <div class="personal_quiz_result__portrait" aria-hidden="true"></div>
                         <div class="personal_quiz_result__copy">
                             <p class="personal_quiz_result__lead">Your personal color is</p>
-                            <h3 class="personal_quiz_result__title"></h3>
+                            <h3 class="personal_quiz_result__title" id="personal-quiz-result-title"></h3>
                             <p class="personal_quiz_result__summary"></p>
                             <p class="personal_quiz_result__desc"></p>
                         </div>
@@ -257,14 +267,8 @@
                     <div class="personal_quiz_result__recommend">
                         <h4 class="personal_quiz_result__recommend_title">Recommend</h4>
                         <div class="personal_quiz_result__recommend_stage">
-                            <button class="personal_quiz_result__carousel_nav personal_quiz_result__carousel_nav--prev" type="button" data-result-prev aria-label="Show previous recommendations">&lt;</button>
                             <div class="personal_quiz_result__products" aria-label="Recommended products"></div>
-                            <button class="personal_quiz_result__carousel_nav personal_quiz_result__carousel_nav--next" type="button" data-result-next aria-label="Show next recommendations">&gt;</button>
                         </div>
-                    </div>
-
-                    <div class="personal_quiz_result__actions">
-                        <a class="personal_quiz_result__button personal_quiz_result__button--solid" data-quiz-result-link href="https://www.icolor.kr/#intro">View All Types</a>
                     </div>
                 </div>
             </div>

@@ -20,29 +20,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const seasonTestCutButton = document.querySelector(".season_test_cut_button");
     const seasonTestCutTextTargets = document.querySelectorAll(".season_test_cut_kicker, .season_test_cut_title span, .season_test_cut_hint");
     const quizOpenButtons = document.querySelectorAll("[data-quiz-open]");
-    const quizModal = document.querySelector(".personal_quiz_modal");
-    const quizProgress = document.querySelector(".personal_quiz_progress");
-    const quizProgressBar = document.querySelector(".personal_quiz_progress__bar");
-    const quizHeader = document.querySelector(".personal_quiz_modal__header");
-    const quizStep = document.querySelector(".personal_quiz_step");
-    const quizPrompt = document.querySelector(".personal_quiz_prompt");
-    const quizStage = document.querySelector(".personal_quiz_stage");
-    const quizChoices = document.querySelector(".personal_quiz_choices");
-    const quizTip = document.querySelector(".personal_quiz_tip");
-    const quizTipText = document.querySelector(".personal_quiz_tip__text");
-    const quizResult = document.querySelector(".personal_quiz_result");
-    const quizResultPortrait = document.querySelector(".personal_quiz_result__portrait");
-    const quizResultLead = document.querySelector(".personal_quiz_result__lead");
-    const quizResultTitle = document.querySelector(".personal_quiz_result__title");
-    const quizResultSummary = document.querySelector(".personal_quiz_result__summary");
-    const quizResultDesc = document.querySelector(".personal_quiz_result__desc");
-    const quizResultProducts = document.querySelector(".personal_quiz_result__products");
-    const quizCloseButtons = document.querySelectorAll("[data-quiz-close]");
-    const quizResultLink = document.querySelector("[data-quiz-result-link]");
-    const quizPrevButton = document.querySelector("[data-quiz-prev]");
-    const quizNextButton = document.querySelector("[data-quiz-next]");
-    const quizResultPrevButton = document.querySelector("[data-result-prev]");
-    const quizResultNextButton = document.querySelector("[data-result-next]");
+    const quizModal = document.querySelector(".personal_quiz_modal:not(.personal_quiz_result_modal)");
+    const resultModal = document.querySelector(".personal_quiz_result_modal");
+    const quizProgress = quizModal ? quizModal.querySelector(".personal_quiz_progress") : null;
+    const quizProgressBar = quizModal ? quizModal.querySelector(".personal_quiz_progress__bar") : null;
+    const quizHeader = quizModal ? quizModal.querySelector(".personal_quiz_modal__header") : null;
+    const quizStep = quizModal ? quizModal.querySelector(".personal_quiz_step") : null;
+    const quizPrompt = quizModal ? quizModal.querySelector(".personal_quiz_prompt") : null;
+    const quizStage = quizModal ? quizModal.querySelector(".personal_quiz_stage") : null;
+    const quizChoices = quizModal ? quizModal.querySelector(".personal_quiz_choices") : null;
+    const quizTip = quizModal ? quizModal.querySelector(".personal_quiz_tip") : null;
+    const quizTipText = quizModal ? quizModal.querySelector(".personal_quiz_tip__text") : null;
+    const quizResult = resultModal ? resultModal.querySelector(".personal_quiz_result") : null;
+    const quizResultPortrait = resultModal ? resultModal.querySelector(".personal_quiz_result__portrait") : null;
+    const quizResultLead = resultModal ? resultModal.querySelector(".personal_quiz_result__lead") : null;
+    const quizResultTitle = resultModal ? resultModal.querySelector(".personal_quiz_result__title") : null;
+    const quizResultSummary = resultModal ? resultModal.querySelector(".personal_quiz_result__summary") : null;
+    const quizResultDesc = resultModal ? resultModal.querySelector(".personal_quiz_result__desc") : null;
+    const quizResultProducts = resultModal ? resultModal.querySelector(".personal_quiz_result__products") : null;
+    const quizCloseButtons = quizModal ? quizModal.querySelectorAll("[data-quiz-close]") : [];
+    const resultCloseButtons = resultModal ? resultModal.querySelectorAll("[data-result-close]") : [];
+    const quizResultLink = resultModal ? resultModal.querySelector("[data-quiz-result-link]") : null;
+    const quizPrevButton = quizModal ? quizModal.querySelector("[data-quiz-prev]") : null;
+    const quizNextButton = quizModal ? quizModal.querySelector("[data-quiz-next]") : null;
+    const quizResultPrevButton = resultModal ? resultModal.querySelector("[data-result-prev]") : null;
+    const quizResultNextButton = resultModal ? resultModal.querySelector("[data-result-next]") : null;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
@@ -201,15 +203,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const question = personalQuizContent.questions[index];
         const selectedResult = personalQuizState.answers[index];
 
-        if (!question || !quizModal || !quizProgress || !quizProgressBar || !quizHeader || !quizStep || !quizPrompt || !quizStage || !quizChoices || !quizTipText || !quizTip || !quizResult || !quizPrevButton || !quizNextButton) {
+        if (!question || !quizModal || !quizProgress || !quizProgressBar || !quizHeader || !quizStep || !quizPrompt || !quizStage || !quizChoices || !quizTipText || !quizTip || !quizPrevButton || !quizNextButton) {
             return;
         }
 
-        quizModal.classList.remove("is-result-view");
         quizProgress.hidden = false;
         quizHeader.hidden = false;
         quizStage.hidden = false;
-        quizResult.hidden = true;
         quizChoices.hidden = false;
         quizTip.hidden = false;
         quizPrevButton.hidden = false;
@@ -257,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderQuizResult() {
-        if (!quizModal || !quizProgress || !quizProgressBar || !quizHeader || !quizStage || !quizTip || !quizResult || !quizResultPortrait || !quizResultLead || !quizResultTitle || !quizResultSummary || !quizResultDesc) {
+        if (!quizModal || !resultModal || !quizResult || !quizResultPortrait || !quizResultLead || !quizResultTitle || !quizResultSummary || !quizResultDesc) {
             return;
         }
 
@@ -271,13 +271,6 @@ document.addEventListener("DOMContentLoaded", () => {
             resultCopy = personalQuizContent.results.warm;
         }
 
-        quizModal.classList.add("is-result-view");
-        quizProgress.hidden = true;
-        quizHeader.hidden = true;
-        quizStage.hidden = true;
-        quizTip.hidden = true;
-        quizResult.hidden = false;
-        quizProgressBar.style.width = "100%";
         quizResult.style.setProperty("--quiz-result-highlight", resultCopy.highlight || "#cfdf42");
         quizResultLead.textContent = resultCopy.lead || "Your personal color is";
         quizResultTitle.textContent = resultCopy.title;
@@ -286,6 +279,9 @@ document.addEventListener("DOMContentLoaded", () => {
         quizResultPortrait.style.backgroundImage = `url("${resultCopy.image}")`;
         quizResultPortrait.style.backgroundPosition = resultCopy.imagePosition || "center";
         renderQuizProducts(resultCopy.recommendations);
+        closeQuiz();
+        resultModal.hidden = false;
+        document.body.classList.add("is-personal-quiz-open");
     }
 
     function openQuiz() {
@@ -296,7 +292,9 @@ document.addEventListener("DOMContentLoaded", () => {
         personalQuizState.currentIndex = 0;
         personalQuizState.answers = [];
         quizModal.hidden = false;
-        quizModal.classList.remove("is-result-view");
+        if (resultModal) {
+            resultModal.hidden = true;
+        }
         document.body.classList.add("is-personal-quiz-open");
         renderQuizQuestion(0);
     }
@@ -307,13 +305,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         quizModal.hidden = true;
-        quizModal.classList.remove("is-result-view");
+        if (resultModal) {
+            resultModal.hidden = true;
+        }
         document.body.classList.remove("is-personal-quiz-open");
     }
 
     if (quizOpenButtons.length && quizModal) {
         quizModal.hidden = true;
-        quizModal.classList.remove("is-result-view");
+        if (resultModal) {
+            resultModal.hidden = true;
+        }
         document.body.classList.remove("is-personal-quiz-open");
 
         if (quizResultLink) {
@@ -343,7 +345,20 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        if (resultModal) {
+            resultModal.addEventListener("click", (event) => {
+                if (event.target.closest("[data-result-close]")) {
+                    event.preventDefault();
+                    closeQuiz();
+                }
+            });
+        }
+
         quizCloseButtons.forEach((button) => {
+            button.addEventListener("click", closeQuiz);
+        });
+
+        resultCloseButtons.forEach((button) => {
             button.addEventListener("click", closeQuiz);
         });
 
