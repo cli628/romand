@@ -972,6 +972,15 @@ pattern.img1 {
     transform-origin: center top;
 }
 
+.sns_card_clone {
+    pointer-events: none;
+}
+
+.sns_card_clone button,
+.sns_card_clone a {
+    pointer-events: none;
+}
+
 .sns_card.is_active {
     /* transform: scale(1); */
     opacity: 1;
@@ -1051,7 +1060,7 @@ pattern.img1 {
     justify-content: center;
     max-height: 72px;
     overflow: hidden;
-    transition: opacity 0.22s ease;
+    transition: opacity 0.12s ease, max-height 0.12s ease;
 }
 
 .sns_product_thumb img {
@@ -1068,7 +1077,7 @@ pattern.img1 {
     justify-content: center;
     max-height: 72px;
     overflow: hidden;
-    transition: opacity 0.22s ease;
+    transition: opacity 0.12s ease, max-height 0.12s ease;
 }
 
 .sns_product_info h3 {
@@ -1328,6 +1337,8 @@ pattern.img1 {
     max-height: 0;
     overflow: hidden;
     pointer-events: none;
+    /* collapse 시 이 transition이 적용됨: 패널이 먼저 줄어든 뒤(0.28s 후) thumb/info 등장 */
+    transition: opacity 0.18s ease 0.28s, max-height 0.18s ease 0.28s;
 }
 
 .sns_product_bar.on .sns_product_list_panel {
@@ -1687,6 +1698,19 @@ body.sns_quick_locked {
     width: 135px;
     height: 166px;
 } */
+.shopping_bag_container .new_gra_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse 45% 45% at 50% 42%,
+        rgba(216, 227, 132, 0.62) 0%,
+        rgba(216, 227, 132, 0.28) 40%,
+        transparent 70%
+    );
+    z-index: 0;
+}
 .shopping_bag_container .bag_back { z-index: 1; }
 .shopping_bag_container .bag_front { z-index: 3; }
 
@@ -1722,6 +1746,21 @@ body.sns_quick_locked {
     position: absolute;
     bottom: 0;
     left: 0px;
+}
+
+.best_section .best_gra_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse 45% 45% at 72% 58%,
+        rgba(109, 184, 255, 0.23) 0%,
+        rgba(109, 184, 255, 0.1) 40%,
+        transparent 70%
+    );
+    z-index: 2;
+    pointer-events: none;
 }
 
 .best_section .section_header.right_align {

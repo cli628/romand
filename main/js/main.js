@@ -853,7 +853,6 @@ document.addEventListener("DOMContentLoaded",  () => {
     function initializeOutletSwipe() {
         const outletSwipe = document.querySelector(".outlet_product_swipe");
         const leftArrow = document.querySelector(".outlet_swipe_arrow_left");
-        const rightArrow = document.querySelector(".outlet_swipe_arrow_right");
 
         if (!outletSwipe) {
             return;
@@ -863,14 +862,22 @@ document.addEventListener("DOMContentLoaded",  () => {
         let startPointerX = 0;
         let startScrollLeft = 0;
 
-        function updateSwipeArrows() {
-            if (!leftArrow || !rightArrow) {
-                return;
-            }
+        const scrollStep = () => Math.round(outletSwipe.clientWidth * 0.72);
 
-            const maxScrollLeft = Math.max(0, outletSwipe.scrollWidth - outletSwipe.clientWidth);
-            leftArrow.classList.toggle("is_disabled", outletSwipe.scrollLeft <= 4);
-            rightArrow.classList.toggle("is_disabled", outletSwipe.scrollLeft >= maxScrollLeft - 4);
+        function getMaxScrollLeft() {
+            return Math.max(0, outletSwipe.scrollWidth - outletSwipe.clientWidth);
+        }
+
+        function scrollLoopLeft() {
+            const step = scrollStep();
+            if (outletSwipe.scrollLeft >= getMaxScrollLeft() - 4) {
+                outletSwipe.scrollLeft = 0;
+                requestAnimationFrame(() => {
+                    outletSwipe.scrollBy({ left: step, behavior: "smooth" });
+                });
+            } else {
+                outletSwipe.scrollBy({ left: step, behavior: "smooth" });
+            }
         }
 
         outletSwipe.addEventListener("pointerdown", (event) => {
@@ -885,20 +892,16 @@ document.addEventListener("DOMContentLoaded",  () => {
             if (!isPointerDown) {
                 return;
             }
-
             const dragDistance = event.clientX - startPointerX;
             outletSwipe.scrollLeft = startScrollLeft - dragDistance;
-            updateSwipeArrows();
         });
 
         function releaseSwipe(event) {
             if (!isPointerDown) {
                 return;
             }
-
             isPointerDown = false;
             outletSwipe.classList.remove("is_dragging");
-
             if (event.pointerId !== undefined && outletSwipe.hasPointerCapture(event.pointerId)) {
                 outletSwipe.releasePointerCapture(event.pointerId);
             }
@@ -908,37 +911,10 @@ document.addEventListener("DOMContentLoaded",  () => {
         outletSwipe.addEventListener("pointercancel", releaseSwipe);
         outletSwipe.addEventListener("pointerleave", releaseSwipe);
 
-        outletSwipe.addEventListener("wheel", (event) => {
-            if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) {
-                return;
-            }
 
-            event.preventDefault();
-            outletSwipe.scrollLeft += event.deltaY;
-            updateSwipeArrows();
-        }, { passive: false });
-
-        if (leftArrow && rightArrow) {
-            const scrollStep = () => Math.round(outletSwipe.clientWidth * 0.72);
-
-            leftArrow.addEventListener("click", () => {
-                outletSwipe.scrollBy({
-                    left: -scrollStep(),
-                    behavior: "smooth"
-                });
-            });
-
-            rightArrow.addEventListener("click", () => {
-                outletSwipe.scrollBy({
-                    left: scrollStep(),
-                    behavior: "smooth"
-                });
-            });
+        if (leftArrow) {
+            leftArrow.addEventListener("click", scrollLoopLeft);
         }
-
-        outletSwipe.addEventListener("scroll", updateSwipeArrows);
-        window.addEventListener("resize", updateSwipeArrows);
-        updateSwipeArrows();
     }
 
     function initializeWorkflowSteps() {
@@ -1373,11 +1349,63 @@ document.addEventListener("DOMContentLoaded",  () => {
         const snsSwipe = document.querySelector(".sns_swipe");
         const leftArrow = document.querySelector(".sns_swipe_arrow_left");
         const rightArrow = document.querySelector(".sns_swipe_arrow_right");
-        const snsCards = Array.from(document.querySelectorAll(".sns_card"));
+        const snsTrack = snsSwipe ? snsSwipe.querySelector(".sns_track") : null;
+        const originalCards = snsTrack
+            ? Array.from(snsTrack.children).filter((element) => element.classList.contains("sns_card"))
+            : [];
 
-        if (!snsSwipe || !snsCards.length) {
+        if (!snsSwipe || !snsTrack || !originalCards.length) {
             return;
         }
+
+        function createLoopClone(card, cardIndex, clonePosition) {
+            const clone = card.cloneNode(true);
+            const video = clone.querySelector("video");
+            const focusableElements = clone.querySelectorAll("a, button, input, textarea, select, iframe, [tabindex]");
+
+            clone.setAttribute("aria-hidden", "true");
+            clone.classList.add("sns_card_clone");
+            clone.dataset.snsIndex = cardIndex;
+            clone.dataset.snsClonePosition = clonePosition;
+
+            if ("inert" in clone) {
+                clone.inert = true;
+            }
+
+            focusableElements.forEach((element) => {
+                element.setAttribute("tabindex", "-1");
+            });
+
+            if (video) {
+                video.removeAttribute("autoplay");
+            }
+
+            return clone;
+        }
+
+        originalCards.forEach((card, i) => {
+            card.dataset.snsIndex = i;
+        });
+
+        const leadingClones = [];
+        const trailingClones = [];
+        const leadingCloneFragment = document.createDocumentFragment();
+        const trailingCloneFragment = document.createDocumentFragment();
+
+        originalCards.forEach((card, index) => {
+            const leadingClone = createLoopClone(card, index, "leading");
+            const trailingClone = createLoopClone(card, index, "trailing");
+
+            leadingClones.push(leadingClone);
+            trailingClones.push(trailingClone);
+            leadingCloneFragment.appendChild(leadingClone);
+            trailingCloneFragment.appendChild(trailingClone);
+        });
+
+        snsTrack.prepend(leadingCloneFragment);
+        snsTrack.append(trailingCloneFragment);
+
+        const allCards = Array.from(snsTrack.querySelectorAll(".sns_card"));
 
         let isPointerDown = false;
         let startPointerX = 0;
@@ -1386,25 +1414,80 @@ document.addEventListener("DOMContentLoaded",  () => {
         let activeFrame = 0;
         let scrollEndTimer = 0;
         let dragMoved = false;
+        let isJumping = false;
 
-        function updateSnsArrows() {
-            if (!leftArrow || !rightArrow) {
+        function getCenteredScrollLeft(card) {
+            return card.offsetLeft - (snsSwipe.clientWidth - card.offsetWidth) / 2;
+        }
+
+        function getLoopMetrics() {
+            const firstOriginalCard = originalCards[0];
+            const lastOriginalCard = originalCards[originalCards.length - 1];
+            const firstLeadingClone = leadingClones[0];
+
+            if (!firstOriginalCard || !lastOriginalCard || !firstLeadingClone) {
+                return null;
+            }
+
+            const loopSpan = firstOriginalCard.offsetLeft - firstLeadingClone.offsetLeft;
+            const cardStride = originalCards.length > 1
+                ? originalCards[1].offsetLeft - firstOriginalCard.offsetLeft
+                : loopSpan;
+
+            if (!Number.isFinite(loopSpan) || loopSpan <= 0) {
+                return null;
+            }
+
+            return {
+                loopSpan,
+                minScrollLeft: getCenteredScrollLeft(firstOriginalCard),
+                maxScrollLeft: getCenteredScrollLeft(lastOriginalCard),
+                loopBuffer: Math.max(48, Math.min(180, Math.abs(cardStride) * 0.45))
+            };
+        }
+
+        function checkInfiniteLoop() {
+            if (isJumping) {
                 return;
             }
 
-            const maxScrollLeft = Math.max(0, snsSwipe.scrollWidth - snsSwipe.clientWidth);
-            leftArrow.classList.toggle("is_disabled", snsSwipe.scrollLeft <= 4);
-            rightArrow.classList.toggle("is_disabled", snsSwipe.scrollLeft >= maxScrollLeft - 4);
+            const metrics = getLoopMetrics();
+
+            if (!metrics) {
+                return;
+            }
+
+            const { loopSpan, minScrollLeft, maxScrollLeft, loopBuffer } = metrics;
+            const minThreshold = minScrollLeft - loopBuffer;
+            const maxThreshold = maxScrollLeft + loopBuffer;
+            let adjustment = 0;
+
+            if (snsSwipe.scrollLeft < minThreshold) {
+                const loopsToAdd = Math.ceil((minThreshold - snsSwipe.scrollLeft) / loopSpan);
+                adjustment = loopSpan * loopsToAdd;
+            } else if (snsSwipe.scrollLeft > maxThreshold) {
+                const loopsToSubtract = Math.ceil((snsSwipe.scrollLeft - maxThreshold) / loopSpan);
+                adjustment = loopSpan * loopsToSubtract * -1;
+            }
+
+            if (!adjustment) {
+                return;
+            }
+
+            isJumping = true;
+            snsSwipe.scrollLeft += adjustment;
+            startScrollLeft += adjustment;
+
+            window.requestAnimationFrame(() => {
+                isJumping = false;
+                requestActiveCardUpdate();
+            });
         }
 
         function playActiveVideo(nextActiveCard) {
-            snsCards.forEach((card) => {
+            originalCards.forEach((card) => {
                 const video = card.querySelector("video");
-
-                if (!video) {
-                    return;
-                }
-
+                if (!video) return;
                 if (card === nextActiveCard) {
                     video.play().catch(() => {});
                 } else {
@@ -1417,61 +1500,44 @@ document.addEventListener("DOMContentLoaded",  () => {
         function getClosestCardToCenter() {
             const swipeRect = snsSwipe.getBoundingClientRect();
             const swipeCenter = swipeRect.left + swipeRect.width / 2;
-            let closestCard = snsCards[0];
+            let closestCard = allCards[0];
             let closestDistance = Number.POSITIVE_INFINITY;
 
-            snsCards.forEach((card) => {
+            allCards.forEach((card) => {
                 const cardRect = card.getBoundingClientRect();
                 const cardCenter = cardRect.left + cardRect.width / 2;
                 const distance = Math.abs(cardCenter - swipeCenter);
-
                 if (distance < closestDistance) {
                     closestDistance = distance;
                     closestCard = card;
                 }
             });
 
-            return closestCard;
+            // Map clone back to its original card
+            const index = parseInt(closestCard.dataset.snsIndex, 10);
+            return isNaN(index) ? originalCards[0] : (originalCards[index] || originalCards[0]);
         }
 
         function centerCard(card, behavior = "auto") {
-            if (!card) {
-                return;
-            }
-
-            const cardOffsetLeft = card.offsetLeft;
-            const targetScrollLeft = cardOffsetLeft - (snsSwipe.clientWidth - card.offsetWidth) / 2;
-            const maxScrollLeft = Math.max(0, snsSwipe.scrollWidth - snsSwipe.clientWidth);
-            const nextScrollLeft = gsap.utils.clamp(0, maxScrollLeft, targetScrollLeft);
-
+            if (!card) return;
+            const targetScrollLeft = getCenteredScrollLeft(card);
             if (behavior === "smooth") {
-                snsSwipe.scrollTo({
-                    left: nextScrollLeft,
-                    behavior: "smooth"
-                });
+                snsSwipe.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
                 return;
             }
-
-            snsSwipe.scrollLeft = nextScrollLeft;
+            snsSwipe.scrollLeft = targetScrollLeft;
         }
 
         function setActiveCard(nextActiveCard) {
-            if (!nextActiveCard || nextActiveCard === activeCard) {
-                return;
-            }
-
+            if (!nextActiveCard || nextActiveCard === activeCard) return;
             activeCard = nextActiveCard;
-            snsCards.forEach((card) => {
+            originalCards.forEach((card) => {
                 card.classList.toggle("is_active", card === nextActiveCard);
                 if (card !== nextActiveCard) {
                     const productBar = card.querySelector(".sns_product_bar");
-                    if (productBar) {
-                        productBar.classList.remove("on");
-                    }
+                    if (productBar) productBar.classList.remove("on");
                     const expandButton = card.querySelector(".sns_expand_btn");
-                    if (expandButton) {
-                        expandButton.setAttribute("aria-expanded", "false");
-                    }
+                    if (expandButton) expandButton.setAttribute("aria-expanded", "false");
                 }
             });
             playActiveVideo(nextActiveCard);
@@ -1482,10 +1548,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         }
 
         function requestActiveCardUpdate() {
-            if (activeFrame) {
-                return;
-            }
-
+            if (activeFrame) return;
             activeFrame = window.requestAnimationFrame(() => {
                 updateActiveCard();
                 activeFrame = 0;
@@ -1500,18 +1563,8 @@ document.addEventListener("DOMContentLoaded",  () => {
         }
 
         snsSwipe.addEventListener("pointerdown", (event) => {
-            if (event.button !== undefined && event.button !== 0) {
-                return;
-            }
-
-            if (
-                event.target.closest(
-                    ".sns_quick_btn, .sns_expand_btn, .sns_product_list_panel, .sns_product_list_item, button, a, input, textarea, select"
-                )
-            ) {
-                return;
-            }
-
+            if (event.button !== undefined && event.button !== 0) return;
+            if (event.target.closest(".sns_quick_btn, .sns_expand_btn, .sns_product_list_panel, .sns_product_list_item, button, a, input, textarea, select")) return;
             isPointerDown = true;
             dragMoved = false;
             startPointerX = event.clientX;
@@ -1521,27 +1574,17 @@ document.addEventListener("DOMContentLoaded",  () => {
         });
 
         snsSwipe.addEventListener("pointermove", (event) => {
-            if (!isPointerDown) {
-                return;
-            }
-
+            if (!isPointerDown) return;
             const dragDistance = event.clientX - startPointerX;
-            if (Math.abs(dragDistance) > 5) {
-                dragMoved = true;
-            }
+            if (Math.abs(dragDistance) > 5) dragMoved = true;
             snsSwipe.scrollLeft = startScrollLeft - dragDistance;
-            updateSnsArrows();
             requestActiveCardUpdate();
         });
 
         function releaseSnsSwipe(event) {
-            if (!isPointerDown) {
-                return;
-            }
-
+            if (!isPointerDown) return;
             isPointerDown = false;
             snsSwipe.classList.remove("is_dragging");
-
             if (event.pointerId !== undefined && snsSwipe.hasPointerCapture(event.pointerId)) {
                 snsSwipe.releasePointerCapture(event.pointerId);
             }
@@ -1551,34 +1594,29 @@ document.addEventListener("DOMContentLoaded",  () => {
         snsSwipe.addEventListener("pointercancel", releaseSnsSwipe);
         snsSwipe.addEventListener("pointerleave", releaseSnsSwipe);
 
-        if (leftArrow && rightArrow) {
+        if (leftArrow) {
             leftArrow.addEventListener("click", () => {
-                snsSwipe.scrollBy({
-                    left: -Math.round(snsSwipe.clientWidth * 0.82),
-                    behavior: "smooth"
-                });
+                snsSwipe.scrollBy({ left: -Math.round(snsSwipe.clientWidth * 0.82), behavior: "smooth" });
             });
+        }
 
+        if (rightArrow) {
             rightArrow.addEventListener("click", () => {
-                snsSwipe.scrollBy({
-                    left: Math.round(snsSwipe.clientWidth * 0.82),
-                    behavior: "smooth"
-                });
+                snsSwipe.scrollBy({ left: Math.round(snsSwipe.clientWidth * 0.82), behavior: "smooth" });
             });
         }
 
         snsSwipe.addEventListener("scroll", () => {
-            updateSnsArrows();
+            checkInfiniteLoop();
             requestActiveCardUpdate();
             scheduleFinalActiveUpdate();
         });
 
         window.addEventListener("resize", () => {
-            updateSnsArrows();
             updateActiveCard();
         });
 
-        snsCards.forEach((card) => {
+        originalCards.forEach((card) => {
             const video = card.querySelector("video");
             if (video) {
                 video.pause();
@@ -1591,11 +1629,11 @@ document.addEventListener("DOMContentLoaded",  () => {
             });
         });
 
-        const middleCard = snsCards[Math.floor(snsCards.length / 2)];
-        centerCard(middleCard);
-        const initialCard = getClosestCardToCenter();
-        setActiveCard(initialCard);
-        updateSnsArrows();
+        // Initialize: scroll to first real card, centered
+        requestAnimationFrame(() => {
+            centerCard(originalCards[0]);
+            updateActiveCard();
+        });
     }
 
     function initializeSnsQuickModal() {
