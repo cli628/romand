@@ -10,6 +10,90 @@
 /* 태블릿 */
 @media screen and (max-width:1024px) {
 
+  /* Personal Section Responsive */
+  .personal_title {
+    font-size: 96px !important;
+  }
+
+  .personal_desc {
+    font-size: 20px !important;
+  }
+
+  .personal_btn {
+    font-size: 20px !important;
+    padding: 15px 40px !important;
+  }
+
+  .personal_img {
+    width: 60px !important;
+  }
+
+  /* Mixing Section Responsive */
+  .mixing {
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .mixing_container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+  }
+
+  .mixing_marquee_wrap {
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* 개별 스크롤 스냅 활성화 */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* 스크롤바 숨김 */
+  }
+
+  .mixing_marquee_wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mixing_marquee_inner {
+    display: flex;
+    width: max-content;
+    animation: none !important;
+    /* 애니메이션 중지 */
+    gap: 0;
+  }
+
+  .mixing_marquee_inner img {
+    width: 100vw;
+    /* 화면 너비에 맞춤 */
+    flex: 0 0 100vw;
+    height: 60vh;
+    object-fit: cover;
+    scroll-snap-align: start;
+  }
+
+  .mixing_text_wrap {
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .mixing_title {
+    font-size: 64px;
+    margin-bottom: 80px;
+  }
+
   /* COHA Community Section Responsive */
   .cohacomu {
     height: auto;
