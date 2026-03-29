@@ -35,12 +35,23 @@ document.addEventListener("DOMContentLoaded", () => {
         desktop: {
             sectionHoldScreens: 1.0,
             triggerDistanceMultiplier: 1.8,
-            minimumTriggerScreens: 6.8
+            minimumTriggerScreens: 6.8,
+            scrub: 1,
+            cardParallaxYPercent: 18
         },
-        tablet: {
+        tablet1024: {
+            sectionHoldScreens: 0.78,
+            triggerDistanceMultiplier: 1.18,
+            minimumTriggerScreens: 4.8,
+            scrub: 1.7,
+            cardParallaxYPercent: 9
+        },
+        tabletCompact: {
             sectionHoldScreens: 0.34,
             triggerDistanceMultiplier: 0.64,
-            minimumTriggerScreens: 2.4
+            minimumTriggerScreens: 2.4,
+            scrub: 1,
+            cardParallaxYPercent: 12
         }
     };
     // Hero -> Pink Office pinned section controls:
@@ -79,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const seasonTestCutButton = seasonTestCut ? seasonTestCut.querySelector(".btn") : null;
     const seasonTestCutCard = seasonTestCutButton ? seasonTestCutButton.querySelector(".card") : null;
     const seasonTestCutTextTargets = seasonTestCut ? seasonTestCut.querySelectorAll(".copy h2 span") : [];
+    const seasonTestCutDesktopViewport = window.matchMedia("(min-width: 1025px)");
     const quizOpenButtons = document.querySelectorAll("[data-quiz-open]");
     const quizModal = document.querySelector(".personal_quiz_modal:not(.personal_quiz_result_modal)");
     const resultModal = document.querySelector(".personal_quiz_result_modal");
@@ -111,8 +123,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const quizResultPrevButton = resultModal ? resultModal.querySelector("[data-result-prev]") : null;
     const quizResultNextButton = resultModal ? resultModal.querySelector("[data-result-next]") : null;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const isSeasonTestCutCompact = window.matchMedia("(max-width: 1024px) and (min-width: 769px)").matches;
+    const pinkHoverViewport = window.matchMedia("(min-width: 1024px)");
+    const seasonTestCutHoverViewport = window.matchMedia("(min-width: 769px) and (hover: hover) and (pointer: fine)");
+    const seasonTestCutCompactViewport = window.matchMedia("(max-width: 1024px) and (min-width: 769px)");
+    const isSeasonTestCutCompact = seasonTestCutCompactViewport.matches;
     const quizOpenGuard = {
         lastWheelAt: 0,
         lastScrollAt: 0
@@ -128,6 +142,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const getCssCustomPropertyNumber = (element, propertyName, fallback = 0) => {
         const value = Number.parseFloat(getCssCustomProperty(element, propertyName, ""));
         return Number.isFinite(value) ? value : fallback;
+    };
+    const canUseSeasonTestCutHoverFlip = () => seasonTestCutHoverViewport.matches;
+    const setSeasonTestCutDesktopFlipped = (isFlipped, useAnimation = true) => {
+        if (!seasonTestCutButton || !seasonTestCutCard || !canUseSeasonTestCutHoverFlip()) {
+            return;
+        }
+
+        seasonTestCutButton.classList.toggle("is-flipped", isFlipped);
+        seasonTestCutButton.dataset.cardFace = isFlipped ? "back" : "front";
+
+        const flipRotation = isFlipped ? 180 : 0;
+        const flipScale = isFlipped ? 1.02 : 1;
+
+        if (useAnimation && typeof gsap !== "undefined" && !prefersReducedMotion) {
+            gsap.to(seasonTestCutCard, {
+                rotationY: flipRotation,
+                scale: flipScale,
+                duration: 0.58,
+                ease: "power2.out",
+                overwrite: "auto",
+                transformOrigin: "center center"
+            });
+            return;
+        }
+
+        if (typeof gsap !== "undefined") {
+            gsap.set(seasonTestCutCard, {
+                rotationY: flipRotation,
+                scale: flipScale,
+                transformOrigin: "center center"
+            });
+            return;
+        }
+
+        seasonTestCutCard.style.transform = `rotateY(${flipRotation}deg) scale(${flipScale})`;
     };
     const pinkMotionRoot = pinkHoverArea || pinkPanel;
     const pinkPanelClipStart = getCssCustomProperty(
@@ -465,6 +514,63 @@ document.addEventListener("DOMContentLoaded", () => {
         quizOpenGuard.lastScrollAt = performance.now();
     }, { passive: true });
 
+    let detachSeasonTestCutDesktopFlip = null;
+
+    const syncSeasonTestCutDesktopFlip = () => {
+        if (detachSeasonTestCutDesktopFlip) {
+            detachSeasonTestCutDesktopFlip();
+            detachSeasonTestCutDesktopFlip = null;
+        }
+
+        if (!seasonTestCutButton || !seasonTestCutCard) {
+            return;
+        }
+
+        seasonTestCutButton.classList.remove("is-flipped");
+        seasonTestCutButton.dataset.cardFace = "front";
+
+        if (!canUseSeasonTestCutHoverFlip()) {
+            return;
+        }
+
+        const handleMouseEnter = () => {
+            setSeasonTestCutDesktopFlipped(true);
+        };
+        const handleMouseLeave = () => {
+            setSeasonTestCutDesktopFlipped(false);
+        };
+        const handleFocus = () => {
+            setSeasonTestCutDesktopFlipped(true);
+        };
+        const handleBlur = () => {
+            setSeasonTestCutDesktopFlipped(false);
+        };
+
+        seasonTestCutButton.addEventListener("mouseenter", handleMouseEnter);
+        seasonTestCutButton.addEventListener("mouseleave", handleMouseLeave);
+        seasonTestCutButton.addEventListener("focus", handleFocus);
+        seasonTestCutButton.addEventListener("blur", handleBlur);
+
+        detachSeasonTestCutDesktopFlip = () => {
+            seasonTestCutButton.removeEventListener("mouseenter", handleMouseEnter);
+            seasonTestCutButton.removeEventListener("mouseleave", handleMouseLeave);
+            seasonTestCutButton.removeEventListener("focus", handleFocus);
+            seasonTestCutButton.removeEventListener("blur", handleBlur);
+        };
+    };
+
+    syncSeasonTestCutDesktopFlip();
+
+    if (typeof seasonTestCutDesktopViewport.addEventListener === "function") {
+        seasonTestCutDesktopViewport.addEventListener("change", syncSeasonTestCutDesktopFlip);
+        seasonTestCutHoverViewport.addEventListener("change", syncSeasonTestCutDesktopFlip);
+        seasonTestCutCompactViewport.addEventListener("change", syncSeasonTestCutDesktopFlip);
+    } else {
+        seasonTestCutDesktopViewport.addListener(syncSeasonTestCutDesktopFlip);
+        seasonTestCutHoverViewport.addListener(syncSeasonTestCutDesktopFlip);
+        seasonTestCutCompactViewport.addListener(syncSeasonTestCutDesktopFlip);
+    }
+
     if (quizOpenButtons.length && quizModal) {
         quizModal.hidden = true;
         if (resultModal) {
@@ -513,6 +619,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if ((recentWheel || recentScroll || pointerMoved) && event.detail !== 0) {
                     event.preventDefault();
+                    return;
+                }
+
+                if (
+                    button === seasonTestCutButton &&
+                    seasonTestCutDesktopViewport.matches &&
+                    !seasonTestCutCompactViewport.matches &&
+                    button.dataset.cardFace !== "back"
+                ) {
+                    event.preventDefault();
+                    setSeasonTestCutDesktopFlipped(true);
                     return;
                 }
 
@@ -660,7 +777,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    if (pinkHoverArea && pinkLink && pinkCursorPreview && hasFinePointer) {
+    if (pinkHoverArea && pinkLink && pinkCursorPreview) {
         function updatePreviewPosition(clientX, clientY) {
             const rect = pinkHoverArea.getBoundingClientRect();
             const x = ((clientX - rect.left) / rect.width) * 100;
@@ -674,25 +791,67 @@ document.addEventListener("DOMContentLoaded", () => {
             pinkHoverArea.classList.remove("is-hover-preview");
         }
 
-        pinkLink.addEventListener("pointerenter", (event) => {
-            updatePreviewPosition(event.clientX, event.clientY);
+        function showPreview(clientX, clientY) {
+            updatePreviewPosition(clientX, clientY);
             pinkHoverArea.classList.add("is-hover-preview");
-        });
+        }
 
-        pinkLink.addEventListener("pointermove", (event) => {
-            updatePreviewPosition(event.clientX, event.clientY);
-            pinkHoverArea.classList.add("is-hover-preview");
-        });
-
-        pinkLink.addEventListener("pointerleave", hidePreview);
-        pinkLink.addEventListener("pointerdown", hidePreview);
-        pinkLink.addEventListener("focus", () => {
+        function showCenteredPreview() {
             pinkHoverArea.style.setProperty("--preview-x", "50%");
             pinkHoverArea.style.setProperty("--preview-y", "46%");
             pinkHoverArea.classList.add("is-hover-preview");
-        });
-        pinkLink.addEventListener("blur", hidePreview);
-        window.addEventListener("blur", hidePreview);
+        }
+
+        let detachPinkHoverPreview = null;
+
+        const syncPinkHoverPreview = () => {
+            if (detachPinkHoverPreview) {
+                detachPinkHoverPreview();
+                detachPinkHoverPreview = null;
+            }
+
+            if (!pinkHoverViewport.matches) {
+                hidePreview();
+                return;
+            }
+
+            const handleMouseEnter = (event) => {
+                showPreview(event.clientX, event.clientY);
+            };
+            const handleMouseMove = (event) => {
+                showPreview(event.clientX, event.clientY);
+            };
+            const handleFocus = () => {
+                showCenteredPreview();
+            };
+
+            pinkLink.addEventListener("mouseenter", handleMouseEnter);
+            pinkLink.addEventListener("mousemove", handleMouseMove);
+            pinkLink.addEventListener("mouseleave", hidePreview);
+            pinkLink.addEventListener("mousedown", hidePreview);
+            pinkLink.addEventListener("focus", handleFocus);
+            pinkLink.addEventListener("blur", hidePreview);
+            window.addEventListener("blur", hidePreview);
+
+            detachPinkHoverPreview = () => {
+                pinkLink.removeEventListener("mouseenter", handleMouseEnter);
+                pinkLink.removeEventListener("mousemove", handleMouseMove);
+                pinkLink.removeEventListener("mouseleave", hidePreview);
+                pinkLink.removeEventListener("mousedown", hidePreview);
+                pinkLink.removeEventListener("focus", handleFocus);
+                pinkLink.removeEventListener("blur", hidePreview);
+                window.removeEventListener("blur", hidePreview);
+                hidePreview();
+            };
+        };
+
+        syncPinkHoverPreview();
+
+        if (typeof pinkHoverViewport.addEventListener === "function") {
+            pinkHoverViewport.addEventListener("change", syncPinkHoverPreview);
+        } else if (typeof pinkHoverViewport.addListener === "function") {
+            pinkHoverViewport.addListener(syncPinkHoverPreview);
+        }
     }
 
     const createPinkOfficeCharReveal = (targets) => {
@@ -868,9 +1027,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (seasonSection && seasonViewport && seasonTrack && seasonIntro && seasonCards.length) {
         const isSeasonStaticMobile = window.matchMedia("(max-width: 400px)").matches;
-        const isSeasonTablet = window.matchMedia("(max-width: 1024px) and (min-width: 401px)").matches;
+        const isSeasonTablet1024 = window.matchMedia("(max-width: 1024px) and (min-width: 769px)").matches;
+        const isSeasonTabletCompact = window.matchMedia("(max-width: 768px) and (min-width: 401px)").matches;
         const isSeasonStaticViewport = isSeasonStaticMobile;
-        const activeSeasonScrollMotion = isSeasonTablet ? seasonScrollMotion.tablet : seasonScrollMotion.desktop;
+        const activeSeasonScrollMotion = isSeasonTablet1024
+            ? seasonScrollMotion.tablet1024
+            : isSeasonTabletCompact
+                ? seasonScrollMotion.tabletCompact
+                : seasonScrollMotion.desktop;
 
         seasonViewport.classList.toggle("season_spotlight_viewport--static", isSeasonStaticViewport);
         seasonSection.classList.toggle("season_spotlight_section--static", isSeasonStaticViewport);
@@ -935,6 +1099,8 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         if (isSeasonStaticViewport) {
+            const seasonStaticMobileTrigger = seasonTrack.closest(".season_spotlight_visual") || seasonViewport;
+
             seasonSection.style.removeProperty("height");
             gsap.set(seasonIntro, {
                 "--season-intro-mask-start": "100%",
@@ -988,6 +1154,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
+            if (isSeasonStaticMobile && seasonStaticMobileTrigger) {
+                ScrollTrigger.create({
+                    trigger: seasonStaticMobileTrigger,
+                    start: "top top",
+                    end: "bottom bottom",
+                    invalidateOnRefresh: true,
+                    onUpdate: ({ progress }) => {
+                        const fadeProgress = prefersReducedMotion
+                            ? (progress >= 0.5 ? 1 : 0)
+                            : Math.min(Math.max((progress - 0.5) / 0.18, 0), 1);
+
+                        gsap.set(seasonIntro, {
+                            opacity: 1 - fadeProgress
+                        });
+                    }
+                });
+            }
+
             if (isSeasonStaticMobile && seasonTestCut) {
                 resetSeasonTestCutStaticMobileFlip();
 
@@ -999,116 +1183,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     onLeaveBack: resetSeasonTestCutStaticMobileFlip
                 });
             }
-
-            return;
-        }
-
-        if (isSeasonStaticMobile) {
-            seasonSection.style.removeProperty("height");
-            gsap.set(seasonIntro, {
-                "--season-intro-mask-start": "100%",
-                "--season-intro-mask-end": "120%",
-                opacity: 1,
-                yPercent: 0,
-                scale: 1
-            });
-            gsap.set(seasonTrack, { y: 0 });
-            gsap.set(seasonCards, {
-                opacity: 1,
-                scale: 1
-            });
-
-            const hideSeasonTestCutStaticMobile = () => {
-                if (seasonTestCutMask) {
-                    gsap.set(seasonTestCutMask, { opacity: 0 });
-                }
-
-                if (seasonTestCutStage) {
-                    gsap.set(seasonTestCutStage, {
-                        y: 44,
-                        scale: 1,
-                        opacity: 0,
-                        transformOrigin: "center center"
-                    });
-                }
-
-                if (seasonTestCutTextTargets.length) {
-                    gsap.set(seasonTestCutTextTargets, {
-                        opacity: 0,
-                        y: 28
-                    });
-                }
-
-                if (seasonTestCutButton) {
-                    gsap.set(seasonTestCutButton, {
-                        scale: 1,
-                        yPercent: 8,
-                        x: 0,
-                        opacity: 0,
-                        pointerEvents: "none",
-                        transformOrigin: "center center"
-                    });
-                }
-
-                if (seasonTestCutCard) {
-                    gsap.set(seasonTestCutCard, {
-                        rotationY: isSeasonTestCutCompact ? 180 : 0,
-                        scale: isSeasonTestCutCompact ? 1.02 : 1,
-                        transformOrigin: "center center"
-                    });
-                }
-            };
-
-            const revealSeasonTestCutStaticMobile = () => {
-                const revealDuration = prefersReducedMotion ? 0 : 0.28;
-                const revealTimeline = gsap.timeline({
-                    defaults: {
-                        duration: revealDuration,
-                        ease: "power2.out",
-                        overwrite: "auto"
-                    }
-                });
-
-                if (seasonTestCutMask) {
-                    revealTimeline.to(seasonTestCutMask, { opacity: 1, duration: prefersReducedMotion ? 0 : 0.18 }, 0);
-                }
-
-                if (seasonTestCutStage) {
-                    revealTimeline.to(seasonTestCutStage, {
-                        opacity: 1,
-                        y: 0
-                    }, 0);
-                }
-
-                if (seasonTestCutTextTargets.length) {
-                    revealTimeline.to(seasonTestCutTextTargets, {
-                        opacity: 1,
-                        y: 0,
-                        stagger: prefersReducedMotion ? 0 : 0.03,
-                        duration: prefersReducedMotion ? 0 : 0.22
-                    }, 0.03);
-                }
-
-                if (seasonTestCutButton) {
-                    revealTimeline.to(seasonTestCutButton, {
-                        opacity: 1,
-                        yPercent: 0,
-                        onStart: () => {
-                            gsap.set(seasonTestCutButton, { pointerEvents: "auto" });
-                        }
-                    }, 0.05);
-                }
-            };
-
-            hideSeasonTestCutStaticMobile();
-
-            ScrollTrigger.create({
-                trigger: seasonSection,
-                start: "bottom bottom",
-                onEnter: revealSeasonTestCutStaticMobile,
-                onEnterBack: revealSeasonTestCutStaticMobile,
-                onLeaveBack: hideSeasonTestCutStaticMobile
-            });
 
             return;
         }
@@ -1162,7 +1236,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const { triggerDistance } = getSeasonTrackMetrics();
                     return `+=${triggerDistance}`;
                 },
-                scrub: 1,
+                scrub: activeSeasonScrollMotion.scrub,
                 invalidateOnRefresh: true,
                 onRefreshInit: () => {
                     applySeasonSectionHeight();
@@ -1268,7 +1342,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, stageHoldStart);
             }
 
-            if (isSeasonTestCutCompact && seasonTestCutCard) {
+            if (isSeasonTestCutCompact && seasonTestCutCard && !canUseSeasonTestCutHoverFlip()) {
                 seasonTimeline.to(seasonTestCutCard, {
                     rotationY: 180,
                     scale: 1.02,
@@ -1288,7 +1362,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const depth = Number(card.dataset.depth || 1);
 
             seasonTimeline.to(card, {
-                yPercent: -depth * 18,
+                yPercent: -depth * (activeSeasonScrollMotion.cardParallaxYPercent || 18),
                 ease: "none"
             }, 0);
         });

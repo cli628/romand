@@ -252,7 +252,7 @@ pattern.img1 {
     width: 100%;
     height: 1080px;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     min-height: 1360px;
     padding: 220px 0;
     margin: 400px 0;
@@ -268,6 +268,8 @@ pattern.img1 {
     width: 100%;
     max-width: 1920px;
     min-height: 100%;
+    margin: 0 auto;
+    overflow: visible;
     box-sizing: border-box;
 }
 
@@ -275,13 +277,17 @@ pattern.img1 {
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .outlet_visual_glow {
     position: absolute;
+    left: 50%;
     width: 814px;
     height: 1080px;
     filter: blur(28px);
+    transform: translateX(-50%);
     z-index: 1;
 }
 
@@ -316,17 +322,17 @@ pattern.img1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     min-height: 1080px;
     padding: 136px 0;
 }
 
 .outlet_header {
     width: min(100%, 720px);
-    
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .outlet_header .badge {
@@ -353,7 +359,7 @@ pattern.img1 {
 }
 
 .outlet_title_point {
-    text-align: right;
+    text-align: center;
     color: #6ab1ff;
     font-weight: 400;
 }
@@ -364,7 +370,7 @@ pattern.img1 {
     font-size: clamp(19px, 1.2vw, 24px);
     line-height: 1.4;
     color: var(--g-color6);
-    text-align: right;
+    text-align: center;
     font-weight: 300;
 }
 
@@ -377,11 +383,14 @@ pattern.img1 {
 
 .outlet_product_carousel {
     position: relative;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
     align-items: center;
     gap: 18px;
-    width: 100%;
-    padding-left: 12px;
+    width: min(100%, 720px);
+    margin: 0 auto;
+    overflow: hidden;
+    padding-left: 0;
     min-width: 0;
 }
 
@@ -408,9 +417,8 @@ pattern.img1 {
 .outlet_product_swipe {
     position: relative;
     display: block;
-    flex: 1 1 auto;
     min-width: 0;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: hidden;
     width: 100%;
     min-height: 240px;
