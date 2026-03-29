@@ -1,93 +1,384 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const hamButton = document.querySelector('.ham');
-  const hamModal = document.querySelector('.ham_modal');
-  hamButton.addEventListener('click', () => {
-    hamModal.style.display = hamModal.style.display === 'block' ? 'none' : 'block';
-  });
-
-  // ✅ ScrollTrigger 및 ScrollToPlugin 등록
+  // ✅ GSAP 및 ScrollTrigger, ScrollToPlugin 등록
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-  initSectionAnimation();
+  // ✅ 브라우저 스크롤 노멀라이즈 (뚝뚝 끊김 및 지진 방지 핵심)
+  ScrollTrigger.normalizeScroll(true);
+  ScrollTrigger.config({ ignoreMobileResize: true });
 
-  function initSectionAnimation() {
+  let isAnimating = false;
+  let snapTrigger; // 전역 스냅 트리거
+
+  // 각 섹션 애니메이션 초기화
+  initGreenchemiAnimations();
+  initOnlyAccordion();
+  initCohacomuAnimations();
+  initPersonalAnimations();
+  initSideNav();
+  // ✅ 하단 'Scroll up' 인디케이터 제어 로직
+  const scrollIndicator = document.querySelector('.scroll_up_indicator');
+
+  const updateScrollIndicator = () => {
+    const scrollPos = window.pageYOffset;
+    const maxScroll = ScrollTrigger.maxScroll(window);
+
+    // 페이지 최하단(오차 10px 이내)에 도달하면 보이기
+    if (scrollIndicator && scrollPos >= maxScroll - 10) {
+      scrollIndicator.classList.add('show');
+    } else if (scrollIndicator) {
+      scrollIndicator.classList.remove('show');
+    }
+  };
+
+  // 스크롤 시 체크
+  window.addEventListener('scroll', updateScrollIndicator);
+
+  // 휠을 위로 돌리는 순간 즉시 사라지게 함 (사용성 향상)
+  window.addEventListener('wheel', (e) => {
+    if (scrollIndicator && e.deltaY < 0) {
+      scrollIndicator.classList.remove('show');
+    }
+  }, { passive: true });
+
+  initScrollSnapping();
+
+  // 이미지가 로딩되고 레이아웃이 확정된 후 실행
+  window.addEventListener('load', () => {
+    initMixingMarquee();
+    scrollToEndSection();
+  });
+
+  /**
+   * 커스텀 저속 스냅 (Slow Section Snapping)
+   * - 핵심: 1/N 비율 방식은 섹션 높이가 미세하게 다를 경우 오차가 발생합니다.
+   * - 해결: 실제 offsetTop을 기반으로 계산하여 1px의 오차도 없이 스냅되도록 합니다.
+   */
+  function initScrollSnapping() {
     const sections = gsap.utils.toArray('section');
-    const wrap = document.querySelector('.wrap');
+    if (sections.length === 0) return;
 
-    // 타임라인 생성 및 고정(Pin) 설정
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: wrap,
-        start: "top top",
-        end: "+=900%", // 섹션 개수에 비례한 스크롤 길이 (사용자 조정값 유지)
-        scrub: 0.5, // 반응 속도 향상
-        pin: true,
-        anticipatePin: 1,
-        snap: {
-          snapTo: 1 / (sections.length - 1),
-          duration: { min: 0.1, max: 0.3 },
-          delay: 0, // 즉각 스냅
-          ease: "power1.inOut"
+    // 각 섹션의 하단 위치를 고려한 정밀한 스냅 포인트 계산
+    const getSnapPoints = () => {
+      const maxScroll = ScrollTrigger.maxScroll(window);
+      if (maxScroll === 0) return [0];
+      return sections.map(sec => sec.offsetTop / maxScroll);
+    };
+
+    snapTrigger = ScrollTrigger.create({
+      trigger: "body",
+      start: "top top",
+      end: "bottom bottom",
+      snap: {
+        snapTo: (value, self) => {
+          if (isAnimating) return value; // 애니메이션 중이면 스냅 엔진 정지
+          
+          const points = getSnapPoints();
+          const closest = gsap.utils.snap(points, value);
+          const currentIndex = points.indexOf(closest);
+
+          // ✅ 델타값 체크: 아주 작은 움직임(레이아웃 변화 등)에 의한 의도치 않은 점프 방지
+          // value와 closest의 차이가 극히 적으면 제자리로 스냅함
+          const threshold = 0.01; // 전체 스크롤의 1% 이상 움직였을 때만 방향성 부여
+          const delta = value - closest;
+
+          if (Math.abs(delta) > threshold) {
+            if (self.direction > 0 && currentIndex < points.length - 1) return points[currentIndex + 1];
+            if (self.direction < 0 && currentIndex > 0) return points[currentIndex - 1];
+          }
+          
+          return closest;
         },
-        onUpdate: (self) => {
-          // 활성 섹션 감지 (현재 진행도에 따라)
-          const progress = self.progress;
-          const index = Math.round(progress * (sections.length - 1));
-        }
-      },
-      defaults: { ease: "none" } // **중요**: 가감속을 제거하여 휠 스크롤과 1:1 동기화
+        duration: 0.8, // 너무 빠르지 않게
+        delay: 0.15, // 지진 방지 임계값 (0.02는 원리적으로 지진을 피할 수 없습니다)
+        ease: "power2.out"
+      }
     });
 
-    // 섹션별 슬라이드 정의 (밀어내기 효과) - 현재 역순 배치 (Personal -> Pink Office)
-
-    // 1 -> 2: 아래에서 위로 밀기 (Personal -> Mixing)
-    tl.to(".personal_color", { yPercent: -100 }, "step1")
-      .from(".color_mixing", { yPercent: 100 }, "step1");
-
-    // 2 -> 3: 아래에서 위로 밀기 (Mixing -> Community)
-    tl.to(".color_mixing", { yPercent: -100 }, "step2")
-      .from(".coha_community", { yPercent: 100 }, "step2");
-
-    // 3 -> 4: 아래에서 위로 밀기 (Community -> Coha)
-    tl.to(".coha_community", { yPercent: -100 }, "step3")
-      .from(".coha", { yPercent: 100 }, "step3");
-
-    // 4 -> 5: 아래에서 위로 밀기 (Coha -> Only Pink)
-    tl.to(".coha", { yPercent: -100 }, "step4")
-      .from(".only_pink_office", { yPercent: 100 }, "step4");
-
-    // 5 -> 6: 아래에서 위로 밀기 (Only Pink -> Green)
-    tl.to(".only_pink_office", { yPercent: -100 }, "step5")
-      .from(".green_chemi", { yPercent: 100 }, "step5");
-
-    // 6 -> 7: 아래에서 위로 밀기 (Green -> Pink Office)
-    tl.to(".green_chemi", { yPercent: -100 }, "step6")
-      .from(".pink_office", { yPercent: 100 }, "step6");
-
-    // ✅ 클릭 시 해당 스크롤 위치로 이동하는 기능 보조
-    window.moveToSection = (targetId) => {
-      const index = sections.findIndex(s => s.id === targetId);
-      if (index !== -1) {
-        const st = tl.scrollTrigger;
-        const targetPos = st.start + (st.end - st.start) * (index / (sections.length - 1));
-
-        gsap.to(window, {
-          scrollTo: { y: targetPos },
-          duration: 0.8,
-          ease: "power2.inOut"
-        });
-      }
-    };
+    // 리사이즈 시 오프셋 재계산
+    window.addEventListener('resize', () => {
+      ScrollTrigger.refresh();
+    });
   }
 
-  // ✅ 페이지 로드 시 마지막 섹션으로 빠르게 이동 (사용자 요청 반영)
-  window.addEventListener('load', () => {
-    // ScrollTrigger 새로고침 후 바닥으로 이동
-    ScrollTrigger.refresh();
+  /**
+   * 최하단 섹션(Greenchemi)으로 자동 스크롤
+   */
+  function scrollToEndSection() {
+    const target = document.querySelector('#greenchemi');
+    if (!target) return;
+
+    if (snapTrigger) snapTrigger.disable();
+    isAnimating = true; // 이동 중 휠 간섭 방지
+
     gsap.to(window, {
-      scrollTo: { y: "max" },
-      duration: 1.2, // 신속하게 이동 (약 1.2초)
-      ease: "power2.inOut"
+      scrollTo: target,
+      duration: 3,
+      ease: "power2.inOut",
+      onComplete: () => {
+        if (snapTrigger) snapTrigger.enable();
+        isAnimating = false;
+        ScrollTrigger.refresh();
+      }
     });
-  });
+  }
+
+  /**
+   * 사이드 네비게이션 로직
+   */
+  function initSideNav() {
+    const sideNav = document.querySelector('.side_nav');
+    const toggleBtn = document.querySelector('.side_nav_toggle');
+    const navLinks = document.querySelectorAll('.side_nav_link');
+
+    if (!sideNav || !toggleBtn) return;
+
+    toggleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation(); 
+      
+      isAnimating = true; // 모든 스크롤 및 스냅 차단
+      sideNav.classList.toggle('is_open');
+      
+      if (snapTrigger) snapTrigger.disable();
+      
+      setTimeout(() => {
+        if (snapTrigger) snapTrigger.enable();
+        isAnimating = false;
+      }, 600); 
+    });
+
+    document.addEventListener('click', (e) => {
+      if (sideNav.classList.contains('is_open') && !sideNav.contains(e.target)) {
+        sideNav.classList.remove('is_open');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+
+        if (targetSection) {
+          sideNav.classList.remove('is_open');
+
+          if (snapTrigger) snapTrigger.disable();
+          isAnimating = true;
+
+          gsap.to(window, {
+            scrollTo: targetSection,
+            duration: 1.5, // 속도 상향 (2.5 -> 1.5)
+            ease: "power2.inOut",
+            onComplete: () => {
+              if (snapTrigger) snapTrigger.enable();
+              isAnimating = false;
+            }
+          });
+        }
+      });
+    });
+
+    // ✅ 현재 감상 중인 섹션 하이라이트 (ScrollTrigger 연동)
+    const sections = gsap.utils.toArray('section');
+    sections.forEach(section => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top center",
+        end: "bottom center",
+        onToggle: self => {
+          if (self.isActive) {
+            const activeId = section.getAttribute('id');
+            navLinks.forEach(link => {
+              if (link.getAttribute('href') === `#${activeId}`) {
+                link.classList.add('is_active');
+              } else {
+                link.classList.remove('is_active');
+              }
+            });
+          }
+        }
+      });
+    });
+  }
+
+  /**
+   * Greenchemi 섹션 애니메이션
+   */
+  function initGreenchemiAnimations() {
+    const section = document.querySelector('#greenchemi');
+    if (!section) return;
+
+    gsap.from('.greenchemi_qr, .greenchemi_tagline, .greenchemi_title, .greenchemi_desc p', {
+      scrollTrigger: {
+        trigger: section,
+        start: "top 70%",
+        toggleActions: "play none none play"
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.2,
+      ease: "power3.out"
+    });
+
+    gsap.from('.greenchemi_box_wrap', {
+      scrollTrigger: {
+        trigger: section,
+        start: "top 70%",
+        toggleActions: "play none none play"
+      },
+      x: 100,
+      opacity: 0,
+      duration: 1.5,
+      ease: "power2.out"
+    });
+
+    const tints = document.querySelectorAll('.greenchemi_tint');
+    tints.forEach((tint, index) => {
+      gsap.to(tint, {
+        y: -15,
+        rotation: "+=5",
+        duration: 2 + index * 0.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: index * 0.2
+      });
+    });
+  }
+
+  /**
+   * Only 섹션 아코디언
+   */
+  function initOnlyAccordion() {
+    const accordionItems = document.querySelectorAll('.only_item');
+
+    accordionItems.forEach(item => {
+      const imgContainer = item.querySelector('.only_item_imgs');
+      const imgs = item.querySelectorAll('.only_item_imgs img');
+
+      item.addEventListener('mouseenter', () => {
+        gsap.set(imgContainer, { visibility: "visible" });
+        gsap.fromTo(imgs,
+          { x: 50, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: "back.out(1.7)", overwrite: true }
+        );
+      });
+
+      item.addEventListener('mouseleave', () => {
+        gsap.to(imgs, {
+          opacity: 0,
+          x: 30,
+          duration: 0.3,
+          ease: "power2.in",
+          overwrite: true,
+          onComplete: () => {
+            gsap.set(imgContainer, { visibility: "hidden" });
+          }
+        });
+      });
+    });
+  }
+
+  /**
+   * Mixing 섹션 마키
+   */
+  function initMixingMarquee() {
+    const marqueeInner = document.querySelector('.mixing_marquee_inner');
+    if (!marqueeInner) return;
+
+    const totalWidth = marqueeInner.scrollWidth / 2;
+    const tl = gsap.timeline({
+      repeat: -1,
+      defaults: { ease: "none" }
+    });
+
+    tl.fromTo(marqueeInner,
+      { x: -totalWidth },
+      { x: 0, duration: 30 }
+    );
+  }
+
+  /**
+   * Cohacommunity 섹션 애니메이션
+   */
+  function initCohacomuAnimations() {
+    const section = document.querySelector('#cohacommunity');
+    if (!section) return;
+
+    gsap.from('.cohacomu_bg_text', {
+      scrollTrigger: {
+        trigger: section,
+        start: "top 80%",
+        toggleActions: "none none play none"
+      },
+      x: -200,
+      opacity: 0,
+      duration: 2,
+      ease: "power2.out"
+    });
+
+    gsap.from('.cohacomu_left .phone_mockup', {
+      scrollTrigger: {
+        trigger: section,
+        start: "top 70%",
+        toggleActions: "none none play none"
+      },
+      y: 100,
+      opacity: 0,
+      duration: 1.2,
+      ease: "power3.out"
+    });
+
+    gsap.from('.cohacomu_right > *', {
+      scrollTrigger: {
+        trigger: section,
+        start: "top 70%",
+        toggleActions: "none none play none"
+      },
+      x: 50,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.2,
+      ease: "power3.out"
+    });
+  }
+
+  /**
+   * Personal 섹션 애니메이션
+   */
+  function initPersonalAnimations() {
+    const section = document.querySelector('#personal');
+    if (!section) return;
+
+    gsap.set('.personal_white_bg', { clipPath: "circle(100% at 50% 50%)" });
+    gsap.set('.personal_img', {
+      yPercent: -150,
+      xPercent: -50,
+      rotation: 5,
+      opacity: 1
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top center",
+        toggleActions: "none none play none"
+      }
+    });
+
+    tl.to('.personal_white_bg', {
+      clipPath: "circle(600px at 50% 50%)",
+      duration: 1.5,
+      ease: "power4.inOut"
+    })
+      .to('.personal_img', {
+        y: -55,
+        yPercent: 0,
+        rotation: 5,
+        duration: 1.2,
+        ease: "bounce.out"
+      }, "-=0.3");
+  }
+
 }); //여기 밖으로 넘어가면 안돼용
