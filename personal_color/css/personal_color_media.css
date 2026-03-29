@@ -56,30 +56,30 @@
     --media-pink-office-chip-diagnosis-width-1024: 138px;
     --media-pink-office-chip-diagnosis-height-1024: 54px;
 
-    --media-season-min-height-1024: 840px;
-    --media-season-intro-width-1024: min(640px, calc(100% - 72px));
+    --media-season-min-height-1024: 880px;
+    --media-season-intro-width-1024: min(700px, calc(100% - 56px));
     --media-season-eyebrow-size-1024: 11px;
     --media-season-eyebrow-weight-1024: 600;
     --media-season-title-max-width-1024: 11ch;
-    --media-season-title-size-1024: clamp(31px, 4.3vw, 44px);
+    --media-season-title-size-1024: clamp(36px, 4.8vw, 50px);
     --media-season-title-weight-1024: 500;
     --media-season-title-line-height-1024: 1.06;
     --media-season-desc-margin-top-1024: 18px;
-    --media-season-desc-size-1024: clamp(13px, 1.2vw, 15px);
+    --media-season-desc-size-1024: clamp(14px, 1.35vw, 16px);
     --media-season-desc-weight-1024: 300;
     --media-season-desc-line-height-1024: 1.55;
     --media-season-track-top-1024: 50%;
-    --media-season-track-width-1024: min(1120px, calc(100vw - 72px));
-    --media-season-track-height-1024: 208vh;
-    --media-season-track-transform-1024: translate(calc(-50% - 52px), -50%) scale(0.38);
+    --media-season-track-width-1024: min(1200px, calc(100vw - 48px));
+    --media-season-track-height-1024: 216vh;
+    --media-season-track-transform-1024: translate(-50%, -50%) scale(0.64);
     --media-season-track-origin-1024: center center;
-    --media-season-card-width-1024: 248px;
-    --media-season-media-width-1024: 248px;
-    --media-season-media-height-1024: 330px;
-    --media-season-tag-max-width-1024: 220px;
-    --media-season-tag-padding-1024: 10px 14px 11px;
-    --media-season-tag-strong-size-1024: 13px;
-    --media-season-tag-span-size-1024: 11px;
+    --media-season-card-width-1024: 266px;
+    --media-season-media-width-1024: 266px;
+    --media-season-media-height-1024: 354px;
+    --media-season-tag-max-width-1024: 236px;
+    --media-season-tag-padding-1024: 11px 15px 12px;
+    --media-season-tag-strong-size-1024: 14px;
+    --media-season-tag-span-size-1024: 12px;
 
     --media-stcut-copy-width-1024: min(760px, calc(100% - 64px));
     --media-stcut-heading-size-1024: clamp(52px, 8vw, 78px);
@@ -131,10 +131,10 @@
     --media-pink-office-chip-diagnosis-height-400: 46px;
     --media-pink-office-chip-diagnosis-margin-end-400: 4px;
 
-    --media-season-min-height-400: 1160px;
-    --media-season-viewport-height-400: 1160px;
+    --media-season-min-height-400: 2140px;
+    --media-season-viewport-height-400: 2140px;
     --media-season-intro-width-400: calc(100% - 24px);
-    --media-season-intro-bottom-400: 210px;
+    --media-season-intro-top-400: 50svh;
     --media-season-eyebrow-size-400: 9px;
     --media-season-eyebrow-weight-400: 600;
     --media-season-title-margin-top-400: 14px;
@@ -145,19 +145,19 @@
     --media-season-desc-size-400: 11px;
     --media-season-desc-weight-400: 300;
     --media-season-desc-line-height-400: 1.55;
-    --media-season-track-top-400: 8px;
-    --media-season-track-width-400: calc(100vw - 18px);
-    --media-season-track-height-400: 152vh;
-    --media-season-track-transform-400: translateX(calc(-50% - 10px)) scale(0.8);
+    --media-season-track-top-400: 180px;
+    --media-season-track-width-400: calc(100vw - 24px);
+    --media-season-track-height-400: min(178vh, 1360px);
+    --media-season-track-transform-400: scale(0.72);
     --media-season-track-origin-400: center top;
-    --media-season-card-width-400: 142px;
-    --media-season-media-width-400: 142px;
-    --media-season-media-height-400: 188px;
-    --media-season-tag-max-width-400: 132px;
-    --media-season-tag-padding-400: 7px 9px 8px;
+    --media-season-card-width-400: 160px;
+    --media-season-media-width-400: 160px;
+    --media-season-media-height-400: 212px;
+    --media-season-tag-max-width-400: 152px;
+    --media-season-tag-padding-400: 8px 10px 9px;
     --media-season-tag-radius-400: 7px;
-    --media-season-tag-strong-size-400: 9px;
-    --media-season-tag-span-size-400: 8px;
+    --media-season-tag-strong-size-400: 10px;
+    --media-season-tag-span-size-400: 9px;
 
     --media-stcut-padding-bottom-400: 10px;
     --media-stcut-section-height-400: 448px;
@@ -696,6 +696,11 @@
         min-height: var(--media-panel-min-height-1024);
     }
 
+    .season_spotlight_visual {
+        width: 100%;
+        margin: 0 auto;
+    }
+
     .personal_hero,
     .pink_office_section {
         min-height: var(--media-panel-min-height-1024);
@@ -727,6 +732,9 @@
 
     .season_spotlight_intro {
         width: var(--media-season-intro-width-1024);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         text-align: center;
     }
 
@@ -746,9 +754,12 @@
 
     .season_spotlight_desc {
         margin-top: var(--media-season-desc-margin-top-1024);
+        max-width: 620px;
+        margin-inline: auto;
         font-size: var(--media-season-desc-size-1024);
         font-weight: var(--media-season-desc-weight-1024);
         line-height: var(--media-season-desc-line-height-1024);
+        text-align: center;
     }
 
     .season_spotlight_track {
@@ -1430,12 +1441,43 @@
 
     .personal_hero,
     .pink_office_section {
+        min-height: 100svh;
+    }
 
+    .personal_hero {
+        padding: 72px 18px 42px;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .personal_hero_overlay {
+        background:
+            radial-gradient(circle at 24% 76%, rgba(32, 11, 32, 0.68) 0%, rgba(32, 11, 32, 0) 36%),
+            linear-gradient(180deg, rgba(36, 12, 34, 0.2) 0%, rgba(36, 12, 34, 0.38) 100%),
+            linear-gradient(90deg, rgba(23, 9, 30, 0.72) 0%, rgba(23, 9, 30, 0.3) 50%, rgba(23, 9, 30, 0.42) 100%);
+    }
+
+    .personal_hero_inner {
+        position: absolute;
+        top: 58%;
+        left: 28px;
+        right: auto;
+        bottom: auto;
+        width: calc(100% - 56px);
+        margin-top: 0;
+        z-index: 3;
     }
 
     .personal_hero_title {
-        font-size: 30px;
+        margin: 0;
+        max-width: none;
+        font-size: 28px;
         line-height: 1.05;
+        white-space: nowrap;
+        color: var(--white);
+        opacity: 1;
+        transform: none;
+        text-shadow: 0 14px 28px rgba(19, 8, 22, 0.18);
     }
 
     .pink_office_title {
@@ -1456,6 +1498,15 @@
     .pink_office_desc {
         font-size: 12px;
         line-height: 1.2;
+    }
+
+    .personal_hero_desc {
+        margin-top: 16px;
+        max-width: none;
+        color: rgba(255, 255, 255, 0.88);
+        opacity: 1;
+        transform: none;
+        text-shadow: 0 8px 18px rgba(19, 8, 22, 0.12);
     }
 
     .pink_office_line:nth-child(1),
@@ -1530,14 +1581,20 @@
 
     .season_spotlight_viewport--static .season_spotlight_visual {
         min-height: var(--media-season-viewport-height-400);
-        overflow: hidden;
+        overflow: visible;
+        padding-bottom: 360px;
     }
 
     .season_spotlight_intro {
+        position: sticky;
         width: var(--media-season-intro-width-400);
-        top: auto;
-        bottom: var(--media-season-intro-bottom-400);
-        transform: translateX(-50%);
+        top: var(--media-season-intro-top-400);
+        left: 0;
+        right: 0;
+        bottom: auto;
+        margin-inline: auto;
+        transform: translateY(-50%);
+        text-align: center;
     }
 
     .season_spotlight_eyebrow {
@@ -1554,6 +1611,10 @@
         letter-spacing: .01rem;
     }
 
+    .season_spotlight_title::first-line {
+        font-weight: 700;
+    }
+
     .season_spotlight_desc {
         margin-top: var(--media-season-desc-margin-top-400);
         font-size: 12px;
@@ -1562,11 +1623,15 @@
     }
 
     .season_spotlight_track {
-        top: var(--media-season-track-top-400);
+        position: relative;
+        top: auto;
+        left: auto;
         width: var(--media-season-track-width-400);
         height: var(--media-season-track-height-400);
+        margin: var(--media-season-track-top-400) auto 0;
         transform: var(--media-season-track-transform-400);
         transform-origin: var(--media-season-track-origin-400);
+        overflow: visible;
         opacity: 1;
     }
 

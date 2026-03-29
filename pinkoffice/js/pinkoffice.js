@@ -252,12 +252,43 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function initOnlyAccordion() {
     const accordionItems = document.querySelectorAll('.only_item');
+    const mobileQuery = window.matchMedia('(max-width: 400px)');
+
+    const closeAllMobileItems = () => {
+      accordionItems.forEach(item => {
+        item.classList.remove('is_open');
+      });
+    };
+
+    const setupMobileAccordion = () => {
+      if (!mobileQuery.matches) {
+        closeAllMobileItems();
+        return;
+      }
+
+      accordionItems.forEach((item, index) => {
+        item.classList.toggle('is_open', index === 1);
+      });
+    };
 
     accordionItems.forEach(item => {
       const imgContainer = item.querySelector('.only_item_imgs');
       const imgs = item.querySelectorAll('.only_item_imgs img');
 
+      item.addEventListener('click', () => {
+        if (!mobileQuery.matches) return;
+
+        const willOpen = !item.classList.contains('is_open');
+        closeAllMobileItems();
+
+        if (willOpen) {
+          item.classList.add('is_open');
+        }
+      });
+
       item.addEventListener('mouseenter', () => {
+        if (mobileQuery.matches) return;
+
         gsap.set(imgContainer, { visibility: "visible" });
         gsap.fromTo(imgs,
           { x: 50, opacity: 0 },
@@ -266,6 +297,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       item.addEventListener('mouseleave', () => {
+        if (mobileQuery.matches) return;
+
         gsap.to(imgs, {
           opacity: 0,
           x: 30,
@@ -278,6 +311,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
+
+    setupMobileAccordion();
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', setupMobileAccordion);
+    } else {
+      mobileQuery.addListener(setupMobileAccordion);
+    }
   }
 
   /**
@@ -350,6 +391,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function initPersonalAnimations() {
     const section = document.querySelector('#personal');
     if (!section) return;
+    const isMobile = window.matchMedia('(max-width: 400px)').matches;
+    const personalCircleSize = isMobile ? '280px' : '600px';
+    const personalImageDrop = isMobile ? -38 : -55;
 
     gsap.set('.personal_white_bg', { clipPath: "circle(100% at 50% 50%)" });
     gsap.set('.personal_img', {
@@ -368,12 +412,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     tl.to('.personal_white_bg', {
-      clipPath: "circle(600px at 50% 50%)",
+      clipPath: `circle(${personalCircleSize} at 50% 50%)`,
       duration: 1.5,
       ease: "power4.inOut"
     })
       .to('.personal_img', {
-        y: -55,
+        y: personalImageDrop,
         yPercent: 0,
         rotation: 5,
         duration: 1.2,

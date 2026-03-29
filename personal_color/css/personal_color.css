@@ -705,6 +705,11 @@
     background: #ea6d9a;
 }
 
+.stcut .btn:hover .card,
+.stcut .btn:focus-visible .card {
+    transform: rotateY(180deg) scale(1.02);
+}
+
 .season_spotlight_viewport--static {
     position: relative;
     top: auto;
@@ -1526,7 +1531,7 @@
     object-fit: cover;
 }
 
-@media (hover: hover) and (pointer: fine) {
+@media screen and (min-width: 1024px) {
     .pink_office_link {
         cursor: none;
     }
