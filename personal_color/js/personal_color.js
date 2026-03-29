@@ -32,9 +32,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // - Increase `triggerDistanceMultiplier` to slow the overall progress of the section.
     // - Increase `minimumTriggerScreens` to guarantee more scroll distance even on short layouts.
     const seasonScrollMotion = {
-        sectionHoldScreens: 1.25,
-        triggerDistanceMultiplier: 2.0,
-        minimumTriggerScreens: 7.5
+        desktop: {
+            sectionHoldScreens: 1.0,
+            triggerDistanceMultiplier: 1.8,
+            minimumTriggerScreens: 6.8
+        },
+        tablet: {
+            sectionHoldScreens: 0.34,
+            triggerDistanceMultiplier: 0.64,
+            minimumTriggerScreens: 2.4
+        }
     };
     // Hero -> Pink Office pinned section controls:
     // - Increase each `panelHoldScreens*` value to keep this transition on screen longer.
@@ -93,7 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const quizResultTitle = resultModal ? resultModal.querySelector(".personal_quiz_result__title") : null;
     const quizResultSummary = resultModal ? resultModal.querySelector(".personal_quiz_result__summary") : null;
     const quizResultDesc = resultModal ? resultModal.querySelector(".personal_quiz_result__desc") : null;
+    const quizResultContent = resultModal ? resultModal.querySelector(".personal_quiz_modal__content") : null;
     const quizResultProducts = resultModal ? resultModal.querySelector(".personal_quiz_result__products") : null;
+    const quizResultScrollHint = resultModal ? resultModal.querySelector(".personal_quiz_result__scroll_hint") : null;
     const quizCloseButtons = quizModal ? quizModal.querySelectorAll("[data-quiz-close]") : [];
     const resultCloseButtons = resultModal ? resultModal.querySelectorAll("[data-result-close]") : [];
     const quizResultLink = resultModal ? resultModal.querySelector("[data-quiz-result-link]") : null;
@@ -108,6 +117,43 @@ document.addEventListener("DOMContentLoaded", () => {
         lastWheelAt: 0,
         lastScrollAt: 0
     };
+    const getCssCustomProperty = (element, propertyName, fallback = "") => {
+        if (!element) {
+            return fallback;
+        }
+
+        const value = getComputedStyle(element).getPropertyValue(propertyName).trim();
+        return value || fallback;
+    };
+    const getCssCustomPropertyNumber = (element, propertyName, fallback = 0) => {
+        const value = Number.parseFloat(getCssCustomProperty(element, propertyName, ""));
+        return Number.isFinite(value) ? value : fallback;
+    };
+    const pinkMotionRoot = pinkHoverArea || pinkPanel;
+    const pinkPanelClipStart = getCssCustomProperty(
+        pinkMotionRoot,
+        "--pink-office-panel-clip-start",
+        "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)"
+    );
+    const pinkPanelClipEnd = getCssCustomProperty(
+        pinkMotionRoot,
+        "--pink-office-panel-clip-end",
+        "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+    );
+    const pinkRevealOffsetY = getCssCustomProperty(pinkMotionRoot, "--pink-office-reveal-offset-y", "56px");
+    const pinkOtherRevealStagger = getCssCustomPropertyNumber(pinkMotionRoot, "--pink-office-other-reveal-stagger", 0.05);
+    const pinkOtherRevealDuration = getCssCustomPropertyNumber(pinkMotionRoot, "--pink-office-other-reveal-duration", 0.36);
+    const pinkChipRevealStagger = getCssCustomPropertyNumber(pinkMotionRoot, "--pink-office-chip-reveal-stagger", 0.06);
+    const pinkChipRevealDuration = getCssCustomPropertyNumber(pinkMotionRoot, "--pink-office-chip-reveal-duration", 0.36);
+    const pinkTextRevealStagger = getCssCustomPropertyNumber(pinkMotionRoot, "--pink-office-text-reveal-stagger", 0.04);
+    const pinkTextRevealDuration = getCssCustomPropertyNumber(pinkMotionRoot, "--pink-office-text-reveal-duration", 0.36);
+    const pinkCharStartOpacity = getCssCustomPropertyNumber(pinkMotionRoot, "--pink-office-char-start-opacity", 0.2);
+    const pinkCharRevealStagger = getCssCustomPropertyNumber(pinkMotionRoot, "--pink-office-char-reveal-stagger", 0.014);
+    const pinkCharRevealDuration = getCssCustomPropertyNumber(pinkMotionRoot, "--pink-office-char-reveal-duration", 0.4);
+    const pinkMediaRevealStagger = getCssCustomPropertyNumber(pinkMotionRoot, "--pink-office-media-reveal-stagger", 0.08);
+    const getPinkChipRevealOffsetY = (chip) => getCssCustomProperty(chip, "--pink-office-chip-reveal-offset-y", pinkRevealOffsetY);
+    const getPinkChipMediaStartScale = (media) => getCssCustomPropertyNumber(media.closest(".pink_office_chip"), "--pink-office-chip-media-start-scale", 1.18);
+    const getPinkChipMediaStartYPercent = (media) => getCssCustomPropertyNumber(media.closest(".pink_office_chip"), "--pink-office-chip-media-start-y-percent", 8);
 
     // ==================================================
     // Personal quiz edit area
@@ -226,6 +272,18 @@ document.addEventListener("DOMContentLoaded", () => {
         quizResultNextButton.disabled = !hasOverflow || quizResultProducts.scrollLeft >= maxScroll - 4;
     }
 
+    function updateResultScrollHintState() {
+        if (!quizResultContent || !quizResultScrollHint) {
+            return;
+        }
+
+        const maxScrollTop = Math.max(quizResultContent.scrollHeight - quizResultContent.clientHeight, 0);
+        const hasVerticalOverflow = maxScrollTop > 12;
+        const isAtBottom = quizResultContent.scrollTop >= maxScrollTop - 8;
+
+        quizResultScrollHint.classList.toggle("is-hidden", !hasVerticalOverflow || isAtBottom);
+    }
+
     function renderQuizProducts(products) {
         if (!quizResultProducts) {
             return;
@@ -284,7 +342,13 @@ document.addEventListener("DOMContentLoaded", () => {
         quizPrompt.textContent = question.prompt;
         const tipSourceItem = quizTipSource ? quizTipSource.querySelector(`[data-quiz-tip-for="${index + 1}"]`) : null;
         quizTipText.textContent = tipSourceItem ? tipSourceItem.textContent.trim() : question.tip;
-        quizChoices.dataset.layout = question.layout || "default";
+        quizChoices.classList.remove(
+            "personal_quiz_choices--contrast",
+            "personal_quiz_choices--binary"
+        );
+        if (question.layout === "contrast" || question.layout === "binary") {
+            quizChoices.classList.add(`personal_quiz_choices--${question.layout}`);
+        }
         quizProgressBar.style.width = `${((index + 1) / personalQuizContent.questions.length) * 100}%`;
         quizPrevButton.disabled = index === 0;
         quizNextButton.disabled = !selectedResult;
@@ -360,6 +424,10 @@ document.addEventListener("DOMContentLoaded", () => {
         closeQuiz();
         resultModal.hidden = false;
         document.body.classList.add("is-personal-quiz-open");
+        if (quizResultContent) {
+            quizResultContent.scrollTop = 0;
+        }
+        requestAnimationFrame(updateResultScrollHintState);
     }
 
     function openQuiz() {
@@ -507,6 +575,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (quizResultProducts) {
             quizResultProducts.addEventListener("scroll", updateResultCarouselState);
             window.addEventListener("resize", updateResultCarouselState);
+        }
+
+        if (quizResultContent) {
+            quizResultContent.addEventListener("scroll", updateResultScrollHintState, { passive: true });
+            window.addEventListener("resize", updateResultScrollHintState);
         }
 
         if (quizResultPrevButton) {
@@ -679,28 +752,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const pinkLineChars = createPinkOfficeCharReveal(pinkLineTextRevealTargets);
 
     gsap.set(pinkPanel, {
-        clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+        clipPath: pinkPanelClipStart,
         autoAlpha: 0
     });
     gsap.set(pinkLineChipRevealItems, {
         opacity: 0,
-        y: 56
+        y: (index, target) => getPinkChipRevealOffsetY(target)
     });
     gsap.set(pinkOtherRevealItems, {
         opacity: 0,
-        y: 56
+        y: pinkRevealOffsetY
     });
     if (pinkLineChars.length) {
-        gsap.set(pinkLineChars, { opacity: 0.2 });
+        gsap.set(pinkLineChars, { opacity: pinkCharStartOpacity });
     } else {
         gsap.set(pinkLineTextRevealTargets, {
             opacity: 0,
-            y: 56
+            y: pinkRevealOffsetY
         });
     }
     gsap.set(pinkMedia, {
-        scale: 1.18,
-        yPercent: 8
+        scale: (index, target) => getPinkChipMediaStartScale(target),
+        yPercent: (index, target) => getPinkChipMediaStartYPercent(target)
     });
 
     // Adapted from portfolio_gsap/29: clip-path screen reveal with synced meta tracks.
@@ -754,47 +827,54 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 0)
         .to(pinkPanel, {
             autoAlpha: 1,
-            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+            clipPath: pinkPanelClipEnd,
             ease: "power4.inOut"
         }, 0)
         .to(pinkLineChipRevealItems, {
             opacity: 1,
             y: 0,
-            stagger: 0.06,
-            duration: 0.36,
+            stagger: pinkChipRevealStagger,
+            duration: pinkChipRevealDuration,
             ease: "power3.out"
         }, 0.14)
         .to(pinkOtherRevealItems, {
             opacity: 1,
             y: 0,
-            stagger: 0.05,
-            duration: 0.36,
+            stagger: pinkOtherRevealStagger,
+            duration: pinkOtherRevealDuration,
             ease: "power3.out"
         }, 0.16)
         .to(pinkMedia, {
             scale: 1,
             yPercent: 0,
-            stagger: 0.08,
+            stagger: pinkMediaRevealStagger,
             ease: "power3.out"
         }, 0.12)
         .to(pinkLineChars.length ? pinkLineChars : pinkLineTextRevealTargets, pinkLineChars.length ? {
             opacity: 1,
             stagger: {
-                each: 0.014,
+                each: pinkCharRevealStagger,
                 from: "start"
             },
-            duration: 0.4,
+            duration: pinkCharRevealDuration,
             ease: "none"
         } : {
             opacity: 1,
             y: 0,
-            stagger: 0.04,
-            duration: 0.36,
+            stagger: pinkTextRevealStagger,
+            duration: pinkTextRevealDuration,
             ease: "power3.out"
         }, 0.18);
 
     if (seasonSection && seasonViewport && seasonTrack && seasonIntro && seasonCards.length) {
         const isSeasonStaticMobile = window.matchMedia("(max-width: 400px)").matches;
+        const isSeasonTablet = window.matchMedia("(max-width: 1024px) and (min-width: 401px)").matches;
+        const isSeasonStaticViewport = isSeasonStaticMobile;
+        const activeSeasonScrollMotion = isSeasonTablet ? seasonScrollMotion.tablet : seasonScrollMotion.desktop;
+
+        seasonViewport.classList.toggle("season_spotlight_viewport--static", isSeasonStaticViewport);
+        seasonSection.classList.toggle("season_spotlight_section--static", isSeasonStaticViewport);
+
         const getSeasonTrackMetrics = () => {
             let contentBottom = 0;
 
@@ -812,11 +892,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const viewportHeight = seasonViewport.offsetHeight || window.innerHeight;
             const scrollDistance = Math.max(contentBottom - viewportHeight + window.innerHeight * 0.32, viewportHeight * 1.75);
-            const stageGap = window.innerHeight * seasonScrollMotion.sectionHoldScreens;
+            const stageGap = window.innerHeight * activeSeasonScrollMotion.sectionHoldScreens;
             const totalDistance = scrollDistance + stageGap;
             const triggerDistance = Math.max(
-                totalDistance * seasonScrollMotion.triggerDistanceMultiplier,
-                window.innerHeight * seasonScrollMotion.minimumTriggerScreens
+                totalDistance * activeSeasonScrollMotion.triggerDistanceMultiplier,
+                window.innerHeight * activeSeasonScrollMotion.minimumTriggerScreens
             );
 
             return { contentBottom, viewportHeight, scrollDistance, stageGap, totalDistance, triggerDistance };
@@ -826,6 +906,102 @@ document.addEventListener("DOMContentLoaded", () => {
             const { viewportHeight, triggerDistance } = getSeasonTrackMetrics();
             seasonSection.style.height = `${Math.ceil(viewportHeight + triggerDistance)}px`;
         };
+
+        const resetSeasonTestCutStaticMobileFlip = () => {
+            if (!seasonTestCutCard) {
+                return;
+            }
+
+            gsap.set(seasonTestCutCard, {
+                rotationY: 0,
+                scale: 1,
+                transformOrigin: "center center"
+            });
+        };
+
+        const playSeasonTestCutStaticMobileFlip = () => {
+            if (!seasonTestCutCard) {
+                return;
+            }
+
+            gsap.to(seasonTestCutCard, {
+                rotationY: 180,
+                scale: 1.02,
+                duration: prefersReducedMotion ? 0 : 0.68,
+                ease: "power2.out",
+                overwrite: "auto",
+                transformOrigin: "center center"
+            });
+        };
+
+        if (isSeasonStaticViewport) {
+            seasonSection.style.removeProperty("height");
+            gsap.set(seasonIntro, {
+                "--season-intro-mask-start": "100%",
+                "--season-intro-mask-end": "120%",
+                opacity: 1,
+                yPercent: 0,
+                scale: 1
+            });
+            gsap.set(seasonTrack, { y: 0 });
+            gsap.set(seasonCards, {
+                opacity: 1,
+                scale: 1
+            });
+
+            if (seasonTestCutMask) {
+                gsap.set(seasonTestCutMask, { opacity: 1 });
+            }
+
+            if (seasonTestCutStage) {
+                gsap.set(seasonTestCutStage, {
+                    y: 0,
+                    scale: 1,
+                    opacity: 1,
+                    transformOrigin: "center center"
+                });
+            }
+
+            if (seasonTestCutTextTargets.length) {
+                gsap.set(seasonTestCutTextTargets, {
+                    opacity: 1,
+                    y: 0
+                });
+            }
+
+            if (seasonTestCutButton) {
+                gsap.set(seasonTestCutButton, {
+                    scale: 1,
+                    yPercent: 0,
+                    x: 0,
+                    opacity: 1,
+                    pointerEvents: "auto",
+                    transformOrigin: "center center"
+                });
+            }
+
+            if (seasonTestCutCard) {
+                gsap.set(seasonTestCutCard, {
+                    rotationY: isSeasonTestCutCompact ? 180 : 0,
+                    scale: isSeasonTestCutCompact ? 1.02 : 1,
+                    transformOrigin: "center center"
+                });
+            }
+
+            if (isSeasonStaticMobile && seasonTestCut) {
+                resetSeasonTestCutStaticMobileFlip();
+
+                ScrollTrigger.create({
+                    trigger: seasonTestCutButton || seasonTestCut,
+                    start: "top bottom",
+                    onEnter: playSeasonTestCutStaticMobileFlip,
+                    onEnterBack: playSeasonTestCutStaticMobileFlip,
+                    onLeaveBack: resetSeasonTestCutStaticMobileFlip
+                });
+            }
+
+            return;
+        }
 
         if (isSeasonStaticMobile) {
             seasonSection.style.removeProperty("height");
