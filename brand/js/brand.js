@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hScrollWrap = document.querySelector('.h_scroll_wrap');
 
   if (hScrollContainer && hScrollWrap) {
-    if (window.matchMedia('(max-width: 1024px)').matches) {
+    if (window.innerWidth <= 1024) {
       hScrollWrap.style.transform = 'none';
       const hSlides = Array.from(hScrollWrap.querySelectorAll('.h_slide'));
       const hSlideTabGroups = Array.from(hScrollContainer.querySelectorAll('.h_slide_tabs'));

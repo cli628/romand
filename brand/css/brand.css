@@ -708,8 +708,9 @@ header {
 	color: var(--white);
 }
 
-footer {
+footer.common_footer {
 	width: 100%;
-	height: 200px;
+	height: auto;
+	min-height: 200px;
 	background-color: var(--g-color1);
 }

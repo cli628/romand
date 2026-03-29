@@ -551,9 +551,9 @@
   }
 
   .h_slide_tab {
-    height: clamp(30px, 3.5vw, 36px);
-    padding: 0 clamp(10px, 1.6vw, 14px);
-    font-size: clamp(13px, 1.5vw, 17px);
+    height: clamp(20px, 3vw, 30px);
+    padding: 0 clamp(6px, 1vw, 10px);
+    font-size: clamp(10px, 1.5vw, 14px);
   }
 
   .h_slide_logo_coha {
@@ -794,9 +794,9 @@
   }
 
   .h_slide_tab {
-    height: clamp(24px, 4.2vw, 28px);
-    padding: 0 clamp(8px, 1.8vw, 11px);
-    font-size: clamp(10px, 1.7vw, 12px);
+    height: clamp(20px, 3.8vw, 24px);
+    padding: 0 clamp(5px, 1.4vw, 8px);
+    font-size: clamp(8px, 1.45vw, 10px);
   }
 
   .h_slide_logo_coha {
@@ -999,9 +999,7 @@
   }
 
   .product_main_portal {
-    height: auto;
-    display: flex;
-    justify-content: center;
+    display: none;
   }
 
   .main_banner_wrap {
@@ -1070,19 +1068,21 @@
 
   .h_slide_tabs {
     top: 72px;
-    padding: 0 8px;
-    box-sizing: border-box;
-    justify-content: center;
-    gap: 4px;
+    width: auto;
+    max-width: calc(100vw - 12px);
+    padding: 0 4px;
+    gap: 2px;
   }
 
-  .h_slide_tab {
-    flex: 1;
-    min-width: 0;
-    height: clamp(18px, 4.8vw, 21px);
-    padding: 0 clamp(1px, 1vw, 3px);
-    font-size: clamp(7px, 2vw, 8.4px);
-    letter-spacing: 0;
+  .h_slide_tabs .h_slide_tab {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: unset !important;
+    max-width: none !important;
+    height: 16px !important;
+    padding: 0 6px !important;
+    font-size: 6px !important;
+    line-height: 1 !important;
   }
 
   .h_slide_content {
@@ -1285,14 +1285,21 @@
 
   .h_slide_tabs {
     top: 70px;
-    padding: 0 6px;
-    gap: 1px;
+    width: auto;
+    max-width: calc(100vw - 10px);
+    padding: 0 3px;
+    gap: 2px;
   }
 
-  .h_slide_tab {
-    height: 17px;
-    padding: 0 1px;
-    font-size: clamp(6.4px, 1.9vw, 7.6px);
+  .h_slide_tabs .h_slide_tab {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: unset !important;
+    max-width: none !important;
+    height: 14px !important;
+    padding: 0 5px !important;
+    font-size: 5px !important;
+    line-height: 1 !important;
   }
 
   .h_slide_logo_coha {
