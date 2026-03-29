@@ -49,7 +49,7 @@
     }
 
     .footer_overlay img {
-        height: 600px;
+        height: 380px;
         /* 원하는 높이로 조절 */
         width: 100%;
         /* object-fit, object-position 삭제 */
@@ -332,5 +332,15 @@
 
     .footer_social {
         gap: 10px;
+    }
+
+    .footer_overlay img {
+        width: 200%;
+        height: 500px;
+        object-fit: cover;
+    }
+
+    .footer_bg_video {
+        display: none;
     }
 }
