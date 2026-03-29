@@ -606,8 +606,8 @@
     }
 
     .pink_office_chip--diagnosis {
-        width: var(--media-pink-office-chip-diagnosis-width-1024);
-        height: var(--media-pink-office-chip-diagnosis-height-1024);
+        width: var(--media-pink-office-chip-portrait-width-1024);
+        height: var(--media-pink-office-chip-portrait-height-1024);
         margin-right: 8px;
     }
 
@@ -636,6 +636,13 @@
     .personal_quiz_tip__text,
     .personal_quiz_result__desc {
         font-size: 15px;
+    }
+
+    .personal_quiz_tip {
+        min-height: 148px;
+        max-height: 148px;
+        height: 148px;
+        box-sizing: border-box;
     }
 
     .personal_quiz_result_modal .personal_quiz_modal__dialog {
@@ -703,7 +710,11 @@
     }
 
     .personal_hero_inner {
-        width: min(900px, 100%);
+        top: auto;
+        left: var(--media-panel-padding-inline-1024);
+        right: var(--media-panel-padding-inline-1024);
+        width: auto;
+        max-width: none;
         position: absolute;
         bottom: 15%;
     }
@@ -912,6 +923,10 @@
     }
 
     .personal_quiz_tip {
+        min-height: 156px;
+        max-height: 156px;
+        height: 156px;
+        box-sizing: border-box;
         grid-template-columns: 1fr;
         gap: 10px;
         padding: 18px 18px 20px;
@@ -994,6 +1009,15 @@
         padding: 118px 24px 50px;
     }
 
+    .personal_hero_inner {
+        top: auto;
+        left: 24px;
+        right: 24px;
+        width: auto;
+        max-width: none;
+        bottom: 18%;
+    }
+
     .personal_hero {
         align-items: flex-end;
     }
@@ -1033,7 +1057,7 @@
     }
 
     .pink_office_chip--diagnosis {
-        width: 150px;
+        width: 130px;
         height: 58px;
         margin-right: 8px;
     }
@@ -1279,9 +1303,15 @@
     }
 
     .personal_quiz_tip {
+        min-height: 207px;
+        max-height: 207px;
+        height: 207px;
+        box-sizing: border-box;
+        align-items: start;
         gap: 8px;
-        padding: 14px 14px 16px;
+        padding: 20px;
         border-radius: 16px;
+        flex: 1;
     }
 
     .personal_quiz_tip__icon {
@@ -1297,7 +1327,9 @@
     .personal_quiz_tip__text,
     .personal_quiz_result__desc {
         font-size: 12px;
-        line-height: 1.6;
+        line-height: 1.4;
+        display: flex;
+        height: 100%;
     }
 
     .personal_quiz_tip__text {
@@ -1334,12 +1366,13 @@
 
     .personal_quiz_result__recommend_stage {
         padding-inline: 0;
+        overflow: hidden;
     }
 
     .personal_quiz_result__carousel_nav {
         top: 50%;
-        width: 42px;
-        height: 42px;
+        width: 52px;
+        height: 52px;
         border-radius: 0;
         background: transparent;
         box-shadow: none;
@@ -1349,10 +1382,13 @@
 
     .personal_quiz_result__carousel_nav--prev {
         left: 4px;
+        font-size: 20px;
     }
 
     .personal_quiz_result__carousel_nav--next {
         right: 4px;
+        font-size: 20px;
+
     }
 
     .personal_quiz_result__scroll_hint {
@@ -1378,14 +1414,14 @@
     }
 
     .personal_quiz_result__products {
-        gap: 18px;
+        width: 70%;
         overflow-x: auto;
         overflow-y: hidden;
         scroll-snap-type: x proximity;
         -webkit-overflow-scrolling: touch;
         touch-action: pan-x;
         overscroll-behavior-x: contain;
-        padding: 0 2px 8px;
+        margin: 0 auto;
     }
 
     .personal_quiz_result__product {
@@ -1394,9 +1430,7 @@
 
     .personal_hero,
     .pink_office_section {
-        padding-right: var(--media-pink-office-padding-inline-400);
-        padding-left: var(--media-pink-office-padding-inline-400);
-        padding-bottom: var(--media-pink-office-padding-bottom-400);
+
     }
 
     .personal_hero_title {
@@ -1460,7 +1494,7 @@
     }
 
     .pink_office_highlight.pink_office_link {
-        font-size: var(--media-pink-office-link-size-400);
+        font-size: 28px;
         letter-spacing: var(--media-pink-office-link-spacing-400);
     }
 
@@ -1471,8 +1505,8 @@
     }
 
     .pink_office_chip--diagnosis {
-        width: var(--media-pink-office-chip-diagnosis-width-400);
-        height: var(--media-pink-office-chip-diagnosis-height-400);
+        width: var(--media-pink-office-chip-portrait-width-400);
+        height: var(--media-pink-office-chip-portrait-height-400);
         margin-right: var(--media-pink-office-chip-diagnosis-margin-end-400);
     }
 
@@ -1521,9 +1555,9 @@
 
     .season_spotlight_desc {
         margin-top: var(--media-season-desc-margin-top-400);
-        font-size: var(--media-season-desc-size-400);
+        font-size: 12px;
         font-weight: var(--media-season-desc-weight-400);
-        line-height: var(--media-season-desc-line-height-400);
+        line-height: 1.4;
     }
 
     .season_spotlight_track {

@@ -54,7 +54,6 @@
     position: relative;
     display: flex;
     align-items: flex-end;
-    padding: clamp(138px, 15vh, 188px) clamp(34px, 8vw, 198px) clamp(84px, 12vh, 126px);
     overflow: hidden;
     isolation: isolate;
 }
@@ -98,9 +97,13 @@
 }
 
 .personal_hero_inner {
-    position: relative;
+    position: absolute;
+    top: auto;
+    left: clamp(28px, 8vw, 170px);
+    right: clamp(28px, 8vw, 170px);
+    bottom: clamp(88px, 14vh, 148px);
     z-index: 3;
-    width: min(1180px, 100%);
+    width: auto;
     max-width: 1180px;
 }
 
@@ -264,10 +267,10 @@
 }
 
 .pink_office_chip--diagnosis {
-    width: clamp(180px, 15vw, 228px);
-    height: clamp(72px, 6vw, 92px);
+    width: clamp(162px, 14vw, 210px);
+    height: clamp(72px, 6.2vw, 100px);
     margin-right: clamp(12px, 1vw, 18px);
-    transform: translateY(0.04em);
+    transform: translateY(0.06em);
 }
 
 .pink_office_highlight {
@@ -920,7 +923,9 @@
 }
 
 .personal_quiz_choices--contrast {
-    width: min(100%, 920px);
+    width: min(100%, 860px);
+    justify-self: center;
+    gap: 22px;
 }
 
 .personal_quiz_choices--binary {
@@ -1082,12 +1087,18 @@
 
 .personal_quiz_tip {
     width: min(100%, 1040px);
+    height: 132px;
+    min-height: 132px;
+    max-height: 132px;
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: auto 1fr;
+    align-content: start;
     gap: 16px;
     padding: clamp(16px, 2vh, 24px) clamp(18px, 2.2vw, 28px);
     border-radius: 24px;
     background: #fffde8;
+    overflow: hidden;
 }
 
 .personal_quiz_tip__icon {
@@ -1108,8 +1119,12 @@
     color: #444146;
 }
 
+.personal_quiz_tip__body {
+    min-width: 0;
+}
+
 .personal_quiz_tip__text {
-    margin-top: 8px;
+    padding: 8px 0;
     font-family: var(--font-poppins);
     font-size: 14px;
     font-weight: 400;

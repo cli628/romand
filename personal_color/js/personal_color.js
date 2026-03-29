@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // - Increase `panelScrub` to make the change feel less abrupt.
     // - Adjust `pinkOfficeActiveThreshold` if the header color swap should happen earlier/later.
     const personalPanelScrollMotion = {
-        panelHoldScreensDesktop: 3.4,
-        panelHoldScreensTablet: 2.8,
-        panelHoldScreensMobile: 2.2,
+        panelHoldScreensDesktop: 4.1,
+        panelHoldScreensTablet: 3.3,
+        panelHoldScreensMobile: 2.6,
         panelScrub: 1.35,
         pinkOfficeActiveThreshold: 0.52
     };
