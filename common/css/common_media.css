@@ -2,6 +2,37 @@
 
 /* pc */
 @media screen and (max-width: 1920px) {
+    :root {
+        --common-shell-padding-x: clamp(20px, 2vw, 32px);
+        --common-header-padding-y: clamp(14px, 1.5vw, 22px);
+        --common-overlay-padding-y: clamp(18px, 1.8vw, 28px);
+        --common-menu-button-size: 42px;
+        --common-menu-icon-width: 22px;
+        --common-menu-icon-height: 16px;
+    }
+
+    .common_header {
+        height: 68px;
+        gap: 1rem;
+    }
+
+    .header_logo img {
+        width: clamp(90px, 8vw, 118px);
+    }
+
+    .ham_btn {
+        font-size: 12px;
+        letter-spacing: 0.1em;
+    }
+
+    .overlay_logo a {
+        font-size: 19px;
+    }
+
+    .overlay_close_btn {
+        font-size: 13px;
+    }
+
     .common_footer {
         --footer-shape-height: clamp(290px, 40vh, 360px);
         min-height: clamp(520px, 60vh, 700px);
@@ -21,10 +52,6 @@
 @media screen and (max-width: 1440px) {}
 
 @media screen and (max-width: 1200px) {
-    .menu_overlay {
-        padding-top: 1.3em;
-    }
-
     .overlay_cols {
         gap: 2.4em;
     }
@@ -37,6 +64,45 @@
 
 /* tablet */
 @media screen and (max-width: 1024px) {
+    :root {
+        --common-shell-padding-x: 22px;
+        --common-header-padding-y: 16px;
+        --common-overlay-padding-y: 18px;
+        --common-menu-button-size: 40px;
+        --common-menu-icon-width: 21px;
+        --common-menu-icon-height: 15px;
+    }
+
+    .common_header {
+        height: 64px;
+        gap: 0.9rem;
+    }
+
+    .header_logo img {
+        width: 96px;
+    }
+
+    .ham_btn {
+        font-size: 12px;
+        letter-spacing: 0.09em;
+    }
+
+    .menu_overlay {
+        padding: var(--common-overlay-padding-y) var(--common-shell-padding-x);
+    }
+
+    .overlay_nav {
+        margin-bottom: 0.85em;
+    }
+
+    .overlay_logo a {
+        font-size: 18px;
+    }
+
+    .overlay_close_btn {
+        font-size: 12px;
+    }
+
     .overlay_cols {
         flex-direction: column;
         gap: 1.6em;
@@ -112,18 +178,6 @@
 }
 
 @media screen and (max-width: 768px) {
-    .common_header {
-        padding: 1.2em 1em;
-    }
-
-    .menu_overlay {
-        padding: 1.1em 1em;
-    }
-
-    .overlay_link a {
-        font-size: clamp(26px, 9vw, 34px);
-    }
-
     .overlay_depth_row {
         gap: 0.5em 0.85em;
     }
@@ -132,6 +186,53 @@
 
 /* mobile */
 @media screen and (max-width: 400px) {
+    :root {
+        --common-shell-padding-x: 14px;
+        --common-header-padding-y: 12px;
+        --common-overlay-padding-y: 14px;
+        --common-menu-button-size: 36px;
+        --common-menu-icon-width: 19px;
+        --common-menu-icon-height: 13px;
+    }
+
+    .common_header {
+        height: 56px;
+        gap: 0.7rem;
+    }
+
+    .header_logo img {
+        width: 84px;
+    }
+
+    .ham_btn {
+        font-size: 11px;
+        letter-spacing: 0.08em;
+    }
+
+    .menu_overlay {
+        padding: var(--common-overlay-padding-y) var(--common-shell-padding-x);
+    }
+
+    .overlay_nav {
+        margin-bottom: 0.75em;
+    }
+
+    .overlay_logo a {
+        font-size: 17px;
+    }
+
+    .overlay_close_btn {
+        font-size: 11px;
+    }
+
+    .overlay_cols {
+        gap: 1.2em;
+    }
+
+    .overlay_col {
+        padding: 0.35em 0;
+    }
+
     .overlay_link a {
         font-size: 24px;
     }
@@ -211,15 +312,4 @@
     .footer_social a {
         font-size: 18px;
     }
-}
-
-@media screen and (max-width: 375px) {
-    .common_header {
-        padding: 1em 0.85em;
-    }
-
-    .menu_overlay {
-        padding: 0.95em 0.85em;
-    }
-
 }

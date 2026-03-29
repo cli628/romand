@@ -146,15 +146,19 @@ function initMenuOverlay() {
     gsap.set(footerCopy, { opacity: 0, y: 24 });
     gsap.set(divider, { width: "0%" });
 
+    setMenuButtonState(false);
+
     const tl = gsap.timeline({
         paused: true,
         onStart: () => {
             overlay.classList.add("is_open");
             overlay.setAttribute("aria-hidden", "false");
+            setMenuButtonState(true);
         },
         onReverseComplete: () => {
             overlay.classList.remove("is_open");
             overlay.setAttribute("aria-hidden", "true");
+            setMenuButtonState(false);
         }
     });
 
@@ -217,6 +221,12 @@ function initMenuOverlay() {
         }
 
         tl.reverse();
+    }
+
+    function setMenuButtonState(isOpen) {
+        openBtn.classList.toggle("open", isOpen);
+        closeBtn.classList.toggle("open", isOpen);
+        openBtn.setAttribute("aria-expanded", String(isOpen));
     }
 
     openBtn.addEventListener("click", openMenu);
