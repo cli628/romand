@@ -3,6 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger);
   }
 
+  const productCardImages = document.querySelectorAll('.product_list .product_item img[alt]');
+  productCardImages.forEach((img) => {
+    const card = img.closest('.product_item');
+    if (!card) return;
+    card.dataset.alt = img.getAttribute('alt') || '';
+  });
+
   /* =========================
      1. Value Section Sequential Scroll
      - value 섹션 요소들을 순차적으로 등장시키는 애니메이션
@@ -84,6 +91,36 @@ document.addEventListener('DOMContentLoaded', () => {
       duration: 0.8,
       stagger: 0.15
     });
+
+    const syncVisionExpandedState = () => {
+      visionItems.forEach((item) => {
+        item.setAttribute('aria-expanded', item.classList.contains('is_open') ? 'true' : 'false');
+      });
+    };
+
+    const closeAllVisionItems = () => {
+      visionItems.forEach((item) => item.classList.remove('is_open'));
+    };
+
+    visionItems.forEach((item) => {
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+
+      item.addEventListener('click', () => {
+        const shouldOpen = !item.classList.contains('is_open');
+        closeAllVisionItems();
+        if (shouldOpen) item.classList.add('is_open');
+        syncVisionExpandedState();
+      });
+
+      item.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        item.click();
+      });
+    });
+
+    syncVisionExpandedState();
 
     /* 2-2. 마우스 따라다니는 이미지 (LERP 적용) */
     visionItems.forEach((item) => {
@@ -169,72 +206,100 @@ document.addEventListener('DOMContentLoaded', () => {
      - 배너 → 카드 위치로 morph (스크롤 연동)
   ========================= */
   const productSection = document.querySelector('.product');
+  const isTinyMobile = window.matchMedia('(max-width: 400px)').matches;
 
-  if (productSection && !window.matchMedia('(max-width: 1024px)').matches) {
+  if (productSection) {
     const mainBannerWrap = document.querySelector('.main_banner_wrap');
     const mainSlot = document.querySelector('.main_slot_placeholder');
     const productItems = document.querySelectorAll('.product_item:not(.main_slot_placeholder)');
     const productTitle = document.querySelector('.product_title');
 
-    /* 3-1. 초기 등장 애니메이션 */
-    const entranceTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.product',
-        start: 'top 70%',
+    if (mainBannerWrap) {
+      if (isTinyMobile) {
+        gsap.set(mainBannerWrap, { transformOrigin: "50% 0%" });
+
+        gsap.to(mainBannerWrap, {
+          scale: 0.82,
+          y: 18,
+          borderRadius: 12,
+          ease: "none",
+          scrollTrigger: {
+            trigger: '.product',
+            start: 'top 72%',
+            end: 'top 25%',
+            scrub: 1
+          }
+        });
+      } else if (mainSlot) {
+        const getSlotRadius = () => window.getComputedStyle(mainSlot).borderRadius || "20px";
+        gsap.set(mainBannerWrap, { transformOrigin: "0 0" });
+
+        /* 3-1. 초기 등장 애니메이션 */
+        const entranceTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '.product',
+            start: 'top 70%',
+          }
+        });
+
+        entranceTl.from(productTitle, {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out"
+        });
+
+        entranceTl.from(mainBannerWrap, {
+          opacity: 0,
+          duration: 0.85,
+          ease: "power3.out"
+        }, "<0.15");
+
+        /* 3-2. 배너 → 슬롯 위치로 이동 (morph) */
+        const morphTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '.product',
+            start: 'top 50%',
+            endTrigger: '.main_slot_placeholder',
+            end: 'center center',
+            scrub: 1.2,
+          }
+        });
+
+        // 배너와 슬롯의 위치/크기 차이 계산
+        const getSlotBounds = () => {
+          const bannerRect = mainBannerWrap.getBoundingClientRect();
+          const slotRect = mainSlot.getBoundingClientRect();
+
+          return {
+            x: slotRect.left - bannerRect.left,
+            y: slotRect.top - bannerRect.top,
+            width: slotRect.width,
+            height: slotRect.height
+          };
+        };
+
+        // 배너 이동 및 크기 변경
+        morphTl.to(mainBannerWrap, {
+          x: () => getSlotBounds().x,
+          y: () => getSlotBounds().y,
+          width: () => getSlotBounds().width,
+          height: () => getSlotBounds().height,
+          borderRadius: () => getSlotRadius(),
+          ease: "none"
+        }, "morph");
+
+        // 다른 상품 카드들 등장
+        morphTl.from(productItems, {
+          opacity: 0,
+          scale: 0.95,
+          y: 20,
+          duration: 0.3,
+          stagger: 0.03,
+          ease: "power2.out"
+        }, "morph-=0.4");
       }
-    });
-
-    entranceTl.from([productTitle, mainBannerWrap], {
-      y: 50,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: "power3.out"
-    });
-
-    /* 3-2. 배너 → 슬롯 위치로 이동 (morph) */
-    const morphTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.product',
-        start: 'top 50%',
-        endTrigger: '.main_slot_placeholder',
-        end: 'center center',
-        scrub: 1.2,
-      }
-    });
-
-    // 배너와 슬롯의 위치/크기 차이 계산
-    const getSlotBounds = () => {
-      const bannerRect = mainBannerWrap.getBoundingClientRect();
-      const slotRect = mainSlot.getBoundingClientRect();
-
-      return {
-        x: slotRect.left - bannerRect.left,
-        y: slotRect.top - bannerRect.top,
-        width: slotRect.width,
-        height: slotRect.height
-      };
-    };
-
-    // 배너 이동 및 크기 변경
-    morphTl.to(mainBannerWrap, {
-      x: () => getSlotBounds().x,
-      y: () => getSlotBounds().y,
-      width: () => getSlotBounds().width,
-      height: () => getSlotBounds().height,
-      borderRadius: "20px",
-      ease: "none"
-    }, "morph");
-
-    // 다른 상품 카드들 등장
-    morphTl.from(productItems, {
-      opacity: 0,
-      scale: 0.95,
-      y: 20,
-      duration: 0.3,
-      stagger: 0.03,
-      ease: "power2.out"
-    }, "morph-=0.4");
+    }
 
   }
 
@@ -248,24 +313,93 @@ document.addEventListener('DOMContentLoaded', () => {
   if (hScrollContainer && hScrollWrap) {
     if (window.matchMedia('(max-width: 1024px)').matches) {
       hScrollWrap.style.transform = 'none';
+      const hSlides = Array.from(hScrollWrap.querySelectorAll('.h_slide'));
+      const hSlideTabGroups = Array.from(hScrollContainer.querySelectorAll('.h_slide_tabs'));
+      const primaryTabGroup = hSlideTabGroups[0] || null;
+      hSlideTabGroups.slice(1).forEach((group) => group.remove());
+      const activeTabGroups = primaryTabGroup ? [primaryTabGroup] : [];
+      const hSlideTabs = primaryTabGroup ? Array.from(primaryTabGroup.querySelectorAll('.h_slide_tab')) : [];
+      const maxIndex = Math.max(hSlides.length - 1, 0);
+
+      const normalizeIndex = (index) => Math.min(Math.max(index, 0), maxIndex);
+
+      const resolveTabIndex = (tabEl) => {
+        if (tabEl.classList.contains('h_slide_tab_coha')) return 1;
+        if (tabEl.classList.contains('h_slide_tab_green')) return 2;
+        return 0;
+      };
+
+      const setActiveTab = (activeIndex) => {
+        activeTabGroups.forEach((group) => {
+          const tabsInGroup = Array.from(group.querySelectorAll('.h_slide_tab'));
+          tabsInGroup.forEach((tab, idx) => {
+            tab.classList.toggle('is_active', idx === activeIndex);
+          });
+        });
+      };
+
+      const scrollToSlide = (targetIndex) => {
+        const containerWidth = hScrollContainer.clientWidth || window.innerWidth;
+        hScrollContainer.scrollTo({
+          left: containerWidth * normalizeIndex(targetIndex),
+          behavior: 'smooth'
+        });
+      };
+
+      const updateActiveTabByScroll = () => {
+        const containerWidth = hScrollContainer.clientWidth || window.innerWidth;
+        if (!containerWidth) return;
+        const activeIndex = normalizeIndex(Math.round(hScrollContainer.scrollLeft / containerWidth));
+        setActiveTab(activeIndex);
+      };
+
+      let isScrollTicking = false;
+      hScrollContainer.addEventListener('scroll', () => {
+        if (isScrollTicking) return;
+        isScrollTicking = true;
+        requestAnimationFrame(() => {
+          updateActiveTabByScroll();
+          isScrollTicking = false;
+        });
+      }, { passive: true });
+
+      hSlideTabs.forEach((tab) => {
+        tab.addEventListener('click', (event) => {
+          event.preventDefault();
+          const targetIndex = resolveTabIndex(tab);
+          setActiveTab(targetIndex);
+          scrollToSlide(targetIndex);
+        });
+      });
+
+      window.addEventListener('resize', updateActiveTabByScroll);
+      updateActiveTabByScroll();
       return;
     }
 
-    const hSlides = gsap.utils.toArray('.h_slide');
-    const hSlideTabGroups = gsap.utils.toArray('.h_slide_tabs');
-    const hSlideTabs = gsap.utils.toArray('.h_slide_tab');
+    const hSlides = Array.from(hScrollWrap.querySelectorAll('.h_slide'));
+    const hSlideTabGroups = Array.from(hScrollContainer.querySelectorAll('.h_slide_tabs'));
+    const primaryTabGroup = hSlideTabGroups[0] || null;
+    hSlideTabGroups.slice(1).forEach((group) => group.remove());
+    const activeTabGroups = primaryTabGroup ? [primaryTabGroup] : [];
+    const hSlideTabs = primaryTabGroup ? Array.from(primaryTabGroup.querySelectorAll('.h_slide_tab')) : [];
     const slideCount = hSlides.length;
     const slideSpan = Math.max(slideCount - 1, 1);
     let hTween = null;
 
     const setActiveTab = (activeIndex) => {
-      hSlideTabGroups.forEach((group) => {
+      activeTabGroups.forEach((group) => {
         const tabsInGroup = Array.from(group.querySelectorAll('.h_slide_tab'));
         tabsInGroup.forEach((tab, idx) => {
           tab.classList.toggle('is_active', idx === activeIndex);
         });
       });
     };
+
+    if (primaryTabGroup) {
+      primaryTabGroup.style.left = '';
+      primaryTabGroup.style.width = '';
+    }
 
     if (slideCount > 1) {
       hTween = gsap.to(hScrollWrap, {

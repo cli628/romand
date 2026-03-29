@@ -103,8 +103,8 @@
   }
 
   .h_slide_btn {
-    padding: 10px 46px;
-    font-size: 24px;
+    padding: 9px 40px;
+    font-size: 18px;
   }
 
   .why {
@@ -268,8 +268,8 @@
   }
 
   .h_slide_btn {
-    padding: 10px 36px;
-    font-size: 20px;
+    padding: 9px 32px;
+    font-size: 18px;
   }
 }
 
@@ -322,11 +322,39 @@
   .vision_subtitle {
     font-size: 22px;
     margin-bottom: 0;
+    cursor: pointer;
   }
 
-  .vision_desc,
   .vision_img_reveal {
     display: none;
+  }
+
+  .vision_item {
+    overflow: hidden;
+    transition: height 0.35s ease;
+  }
+
+  .vision_desc {
+    display: block;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(14px);
+    margin-top: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.35s ease, margin-top 0.25s ease;
+  }
+
+  .vision_item.is_open {
+    height: 176px;
+  }
+
+  .vision_item.is_open .vision_desc {
+    max-height: 96px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 10px;
   }
 
   .value {
@@ -476,32 +504,56 @@
 
   .h_scroll_container {
     height: auto;
-    overflow: visible;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
     background: #fff;
   }
 
+  .h_scroll_container::-webkit-scrollbar {
+    display: none;
+  }
+
   .h_scroll_wrap {
-    display: block;
-    width: 100%;
+    display: flex;
+    width: 300vw;
+    min-width: 300vw;
     height: auto;
     transform: none !important;
   }
 
   .h_slide {
-    width: 100%;
-    min-width: 0;
+    flex: 0 0 100vw;
+    width: 100vw;
+    min-width: 100vw;
     height: 520px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .h_slide_tabs {
-    top: 28px;
-    gap: 10px;
+    position: sticky;
+    top: 86px;
+    left: 0;
+    width: 100vw;
+    padding: 0 4px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    transform: none;
+    z-index: 1205;
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .h_slide_tab {
-    height: 42px;
-    padding: 0 20px;
-    font-size: 22px;
+    height: clamp(30px, 3.5vw, 36px);
+    padding: 0 clamp(10px, 1.6vw, 14px);
+    font-size: clamp(13px, 1.5vw, 17px);
   }
 
   .h_slide_logo_coha {
@@ -509,24 +561,42 @@
   }
 
   .h_slide_kicker {
-    font-size: 28px;
+    font-size: clamp(16px, 2.1vw, 24px);
   }
 
   .h_slide_title,
   .h_slide_content_greenchemi .h_slide_title {
-    font-size: 54px;
+    font-size: clamp(30px, 4.4vw, 46px);
+    line-height: 1.08;
   }
 
   .h_slide_desc,
   .h_slide_content_coha .h_slide_desc,
   .h_slide_content_greenchemi .h_slide_desc {
-    font-size: 21px;
-    margin-bottom: 36px;
+    max-width: min(86vw, 760px);
+    font-size: clamp(12px, 1.7vw, 18px);
+    line-height: 1.45;
+    margin-bottom: clamp(16px, 2.4vw, 28px);
   }
 
   .h_slide_btn {
-    padding: 11px 42px;
-    font-size: 24px;
+    padding: 8px 28px;
+    font-size: 16px;
+  }
+
+  .main_slot_placeholder {
+    background: transparent;
+    display: block;
+  }
+
+  .main_slot_placeholder::before {
+    content: none;
+  }
+
+  .main_slot_placeholder > img,
+  .main_slot_placeholder > picture,
+  .main_slot_placeholder > video {
+    display: none;
   }
 }
 
@@ -569,6 +639,35 @@
 
   .vision_subtitle {
     font-size: 16px;
+    cursor: pointer;
+  }
+
+  .vision_item {
+    overflow: hidden;
+    transition: height 0.35s ease;
+  }
+
+  .vision_desc {
+    display: block;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(12px);
+    margin-top: 0;
+    font-size: 12px;
+    line-height: 1.45;
+    transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.35s ease, margin-top 0.25s ease;
+  }
+
+  .vision_item.is_open {
+    height: 138px;
+  }
+
+  .vision_item.is_open .vision_desc {
+    max-height: 78px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 8px;
   }
 
   .value {
@@ -682,13 +781,6 @@
 
   .h_scroll_container {
     height: auto;
-    overflow: visible;
-  }
-
-  .h_scroll_wrap {
-    display: block;
-    width: 100%;
-    transform: none !important;
   }
 
   .h_slide {
@@ -696,14 +788,15 @@
   }
 
   .h_slide_tabs {
-    top: 20px;
-    gap: 8px;
+    top: 82px;
+    justify-content: center;
+    gap: 6px;
   }
 
   .h_slide_tab {
-    height: 32px;
-    padding: 0 12px;
-    font-size: 14px;
+    height: clamp(24px, 4.2vw, 28px);
+    padding: 0 clamp(8px, 1.8vw, 11px);
+    font-size: clamp(10px, 1.7vw, 12px);
   }
 
   .h_slide_logo_coha {
@@ -712,27 +805,30 @@
   }
 
   .h_slide_kicker {
-    font-size: 20px;
+    font-size: clamp(12px, 2.1vw, 16px);
     letter-spacing: -0.3px;
   }
 
   .h_slide_title,
   .h_slide_content_greenchemi .h_slide_title {
-    font-size: 36px;
+    font-size: clamp(20px, 3.8vw, 30px);
     letter-spacing: -0.6px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
+    line-height: 1.08;
   }
 
   .h_slide_desc,
   .h_slide_content_coha .h_slide_desc,
   .h_slide_content_greenchemi .h_slide_desc {
-    font-size: 14px;
-    margin-bottom: 22px;
+    max-width: min(88vw, 560px);
+    font-size: clamp(9px, 1.6vw, 12px);
+    line-height: 1.45;
+    margin-bottom: clamp(12px, 2vw, 18px);
   }
 
   .h_slide_btn {
-    padding: 8px 28px;
-    font-size: 18px;
+    padding: 6px 18px;
+    font-size: 14px;
   }
 }
 
@@ -776,6 +872,31 @@
 
   .vision_subtitle {
     font-size: 11px;
+    cursor: pointer;
+  }
+
+  .vision_desc {
+    display: block;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(10px);
+    margin-top: 0;
+    font-size: 10px;
+    line-height: 1.4;
+    transition: max-height 0.3s ease, opacity 0.25s ease, transform 0.3s ease, margin-top 0.25s ease;
+  }
+
+  .vision_item.is_open {
+    height: auto;
+    min-height: 98px;
+  }
+
+  .vision_item.is_open .vision_desc {
+    max-height: 72px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 6px;
   }
 
   .value {
@@ -861,18 +982,18 @@
 
   .product {
     padding: 64px 0 66px;
-    background: #ececec;
+    background: transparent;
   }
 
   .product_inner {
-    padding: 0 16px;
-    gap: 24px;
+    padding: 0 14px;
+    gap: 22px;
   }
 
   .product_title {
     color: #5d5d5d;
     text-align: center;
-    font-size: 24px;
+    font-size: 23px;
     font-weight: 500;
     line-height: 1.25;
   }
@@ -899,12 +1020,19 @@
     max-width: 344px;
     margin: 0 auto;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
+    gap: 10px;
   }
 
   .product_item {
     display: none;
     border-radius: 14px;
+  }
+
+  .product_item[data-alt]::after {
+    left: 8px;
+    bottom: 8px;
+    font-size: 11px;
+    line-height: 1.2;
   }
 
   .p_item_2,
@@ -927,6 +1055,7 @@
   }
 
   .main_slot_placeholder::before {
+    content: "rom&nd";
     color: #fff;
     font-family: Montserrat;
     font-size: 24px;
@@ -940,10 +1069,9 @@
   }
 
   .h_slide_tabs {
-    top: 12px;
-    left: 50%;
-    width: calc(100% - 16px);
-    transform: translateX(-50%);
+    top: 72px;
+    padding: 0 8px;
+    box-sizing: border-box;
     justify-content: center;
     gap: 4px;
   }
@@ -951,46 +1079,68 @@
   .h_slide_tab {
     flex: 1;
     min-width: 0;
-    height: 26px;
-    padding: 0 4px;
-    font-size: 11px;
+    height: clamp(18px, 4.8vw, 21px);
+    padding: 0 clamp(1px, 1vw, 3px);
+    font-size: clamp(7px, 2vw, 8.4px);
     letter-spacing: 0;
   }
 
   .h_slide_content {
-    padding: 0 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 88px 14px 16px;
+    gap: 7px;
+    box-sizing: border-box;
+  }
+
+  .h_slide_content_coha {
+    padding-top: 86px;
+  }
+
+  .h_slide_content > * {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .h_slide_logo_coha {
     width: 56px;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
   }
 
   .h_slide_kicker {
-    font-size: 13px;
+    font-size: clamp(11px, 3.3vw, 13px);
     letter-spacing: -0.2px;
-    margin-bottom: 6px;
+    margin-bottom: 0;
   }
 
   .h_slide_title,
   .h_slide_content_greenchemi .h_slide_title {
-    font-size: 24px;
+    font-size: clamp(20px, 6.2vw, 24px);
     letter-spacing: -0.4px;
-    margin-bottom: 8px;
+    margin-bottom: 0;
+    line-height: 1.1;
+    text-align: center;
+    width: 100%;
   }
 
   .h_slide_desc,
   .h_slide_content_coha .h_slide_desc,
   .h_slide_content_greenchemi .h_slide_desc {
-    max-width: 320px;
-    font-size: 10px;
-    margin-bottom: 12px;
+    max-width: min(92vw, 286px);
+    width: 100%;
+    font-size: clamp(9px, 2.6vw, 11px);
+    line-height: 1.4;
+    text-align: center;
+    margin-bottom: 0;
   }
 
   .h_slide_btn {
-    padding: 6px 16px;
-    gap: 6px;
-    font-size: 12px;
+    padding: 4px 11px;
+    gap: 4px;
+    font-size: 10px;
+    margin-top: 4px;
+    min-height: 22px;
+    align-self: center;
   }
 }
 
@@ -1028,8 +1178,18 @@
     height: 48px;
   }
 
+  .vision_item.is_open {
+    height: auto;
+    min-height: 90px;
+  }
+
   .vision_subtitle {
     font-size: 10px;
+  }
+
+  .vision_desc {
+    font-size: 9px;
+    line-height: 1.35;
   }
 
   .value {
@@ -1087,12 +1247,12 @@
   }
 
   .product_inner {
-    padding: 0 14px;
-    gap: 20px;
+    padding: 0 12px;
+    gap: 18px;
   }
 
   .product_title {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .main_banner_wrap {
@@ -1101,12 +1261,18 @@
   }
 
   .product_list {
-    max-width: 320px;
-    gap: 10px;
+    max-width: 304px;
+    gap: 8px;
   }
 
   .product_item {
     border-radius: 12px;
+  }
+
+  .product_item[data-alt]::after {
+    left: 7px;
+    bottom: 7px;
+    font-size: 9.5px;
   }
 
   .main_slot_placeholder::before {
@@ -1118,37 +1284,66 @@
   }
 
   .h_slide_tabs {
-    top: 10px;
-    gap: 3px;
+    top: 70px;
+    padding: 0 6px;
+    gap: 1px;
   }
 
   .h_slide_tab {
-    height: 24px;
-    font-size: 10px;
+    height: 17px;
+    padding: 0 1px;
+    font-size: clamp(6.4px, 1.9vw, 7.6px);
   }
 
   .h_slide_logo_coha {
-    width: 50px;
+    width: 44px;
   }
 
   .h_slide_kicker {
-    font-size: 12px;
+    font-size: clamp(10px, 3.1vw, 12px);
   }
 
   .h_slide_title,
   .h_slide_content_greenchemi .h_slide_title {
-    font-size: 22px;
+    font-size: clamp(18px, 6.1vw, 22px);
+  }
+
+  .h_slide_content {
+    justify-content: center;
+    align-items: center;
+    padding: 84px 10px 12px;
+    gap: 5px;
+  }
+
+  .h_slide_content_coha {
+    padding-top: 82px;
+  }
+
+  .h_slide_logo_coha {
+    margin-bottom: 1px;
+  }
+
+  .h_slide_content > * {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .h_slide_desc,
   .h_slide_content_coha .h_slide_desc,
   .h_slide_content_greenchemi .h_slide_desc {
-    font-size: 9px;
-    margin-bottom: 10px;
+    max-width: min(90vw, 264px);
+    width: 100%;
+    font-size: clamp(8px, 2.4vw, 9.5px);
+    line-height: 1.35;
+    text-align: center;
+    margin-bottom: 0;
   }
 
   .h_slide_btn {
-    padding: 5px 14px;
-    font-size: 11px;
+    padding: 3px 9px;
+    font-size: 9px;
+    margin-top: 3px;
+    min-height: 20px;
+    align-self: center;
   }
 }

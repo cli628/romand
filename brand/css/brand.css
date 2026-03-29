@@ -114,7 +114,7 @@ header {
 	font-size: 60px;
 	font-weight: 500;
 	color: var(--black);
-	margin-bottom: 20px;
+	margin-bottom: 0;
 	position: relative;
 }
 
@@ -124,6 +124,20 @@ header {
 	color: var(--black);
 	line-height: 1.4;
 	font-weight: 300;
+	display: block;
+	max-height: 0;
+	opacity: 0;
+	overflow: hidden;
+	transform: translateY(18px);
+	margin-top: 0;
+	transition: max-height 0.45s ease, opacity 0.35s ease, transform 0.45s ease, margin-top 0.35s ease;
+}
+
+.vision_item.is_open .vision_desc {
+	max-height: 180px;
+	opacity: 1;
+	transform: translateY(0);
+	margin-top: 12px;
 }
 
 /* 커서를 따라다니는 이미지 */
@@ -369,7 +383,7 @@ header {
 .product {
 	width: 100%;
 	padding: 150px 0 400px;
-	background: #fff;
+	background: transparent;
 }
 
 .product_inner {
@@ -423,12 +437,58 @@ header {
 	border-radius: 20px;
 	overflow: hidden;
 	background: #eee;
+	transition: scale 0.25s ease, box-shadow 0.25s ease;
 }
 
 .product_item img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	transition: transform 0.25s ease;
+}
+
+.product_item[data-alt]::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: rgba(53, 53, 53, 0.3);
+	z-index: 1;
+	transition: opacity 0.25s ease;
+	pointer-events: none;
+}
+
+.product_item[data-alt]::after {
+	content: attr(data-alt);
+	position: absolute;
+	left: 12px;
+	bottom: 12px;
+	color: #fff;
+	font-family: var(--font-poppins);
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 1.2;
+	z-index: 2;
+	transition: opacity 0.25s ease;
+	pointer-events: none;
+}
+
+.product_item[data-alt]:hover::before,
+.product_item[data-alt]:hover::after,
+.product_item[data-alt]:focus-within::before,
+.product_item[data-alt]:focus-within::after {
+	opacity: 0;
+}
+
+.product_item[data-alt]:hover,
+.product_item[data-alt]:focus-within {
+	scale: 1.04;
+	z-index: 3;
+	box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+.product_item[data-alt]:hover img,
+.product_item[data-alt]:focus-within img {
+	transform: scale(1.03);
 }
 
 /* 플레이스홀더 */
@@ -628,7 +688,7 @@ header {
 
 .h_slide_btn {
 	display: flex;
-	padding: 12px 60px;
+	padding: 10px 44px;
 	justify-content: center;
 	align-items: center;
 	gap: 10px;
@@ -636,7 +696,7 @@ header {
 	background: #e9e9e9;
 	color: #f2789f;
 	font-family: var(--font-poppins);
-	font-size: clamp(26px, 2vw, 46px);
+	font-size: 18px;
 	font-weight: 500;
 	line-height: 1;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
