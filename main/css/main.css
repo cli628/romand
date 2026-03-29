@@ -1,4 +1,4 @@
-@import url('../../common/css/common.css');
+﻿@import url('../../common/css/common.css');
 
 body {
     font-family: var(--font-poppins);
@@ -247,6 +247,7 @@ pattern.img1 {
     margin-right: 8px;
 }
 
+/* Outlet Custom */
 /* Outlet Custom */
 .outlet_section {
     width: 100%;
@@ -518,7 +519,7 @@ pattern.img1 {
     animation-direction: reverse;
     animation-duration: 42s;
 }
-/* break keyword 배경 */
+/* break keyword 諛곌꼍 */
 .break_keyword_pill {
     display: inline-flex;
     align-items: center;
@@ -532,7 +533,7 @@ pattern.img1 {
     letter-spacing: -0.04em;
     line-height: 1;
 }
-/* break keyword 글씨색 */
+/* break keyword 湲?⑥깋 */
 .break_keyword_pill_lime {
     background-color: #d9ec36;
     color: #17181c;
@@ -696,8 +697,8 @@ pattern.img1 {
 /* Pink Office */
 .pink_office_section {
     position: relative;
-    height: 370vh;      /* 섹션을 길게 — sticky inner가 이 구간 동안 고정됨 */
-    overflow: clip;     /* clip은 sticky를 방해하지 않으면서 넘침 차단 */
+    height: 370vh;      /* ?뱀뀡??湲멸쾶 ??sticky inner媛 ??援ш컙 ?숈븞 怨좎젙??*/
+    overflow: clip;     /* clip? sticky瑜?諛⑺빐?섏? ?딆쑝硫댁꽌 ?섏묠 李⑤떒 */
 }
 
 .pink_office_inner {
@@ -842,7 +843,7 @@ pattern.img1 {
     position: relative;
     width: 100%;
     padding-top: 96px;
-    border-radius: 0 0 100px 100px;
+    border-radius: 0;
     background: var(--white);
 }
 
@@ -856,7 +857,7 @@ pattern.img1 {
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    box-shadow: inset 0 -60px 90px rgba(29, 33, 42, 0.04);
+    box-shadow: none;
     pointer-events: none;
 }
 
@@ -874,7 +875,7 @@ pattern.img1 {
     letter-spacing: -0.05em;
 }
 
-/* "Even the Same Color" — 첫 줄, 가벼운 무게 */
+/* "Even the Same Color" ??泥?以? 媛踰쇱슫 臾닿쾶 */
 .sns_section_header p {
     display: block;
     font-size: clamp(38px, 4vw, 68px);
@@ -883,14 +884,14 @@ pattern.img1 {
     margin-bottom: 4px;
 }
 
-/* "Expressed" — 두 번째 줄 앞부분, 검정 bold */
+/* "Expressed" ????踰덉㎏ 以??욌?遺? 寃??bold */
 .sns_section_header span {
     font-size: clamp(44px, 5.2vw, 82px);
     font-weight: 700;
     color: var(--black);
 }
 
-/* "Your Way" — 두 번째 줄 뒷부분, 파란색 bold */
+/* "Your Way" ????踰덉㎏ 以??룸?遺? ?뚮???bold */
 .sns_section_header strong {
     font-size: clamp(44px, 5.2vw, 82px);
     font-weight: 700;
@@ -1037,7 +1038,7 @@ pattern.img1 {
     z-index: 8;
     transform: translateX(-50%);
     transform-origin: center bottom;
-    /* flex → grid: panel을 위에 배치하여 위쪽으로 확장 */
+    /* flex ??grid: panel???꾩뿉 諛곗튂?섏뿬 ?꾩そ?쇰줈 ?뺤옣 */
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-areas:
@@ -1097,6 +1098,7 @@ pattern.img1 {
     line-height: 1.15;
     letter-spacing: -0.03em;
     text-transform: uppercase;
+    color: #353535;
 }
 
 .sns_product_info p {
@@ -1123,6 +1125,12 @@ pattern.img1 {
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1;
+    color: #353535;
+}
+
+.sns_card.is_active .sns_product_info h3,
+.sns_card.is_active .sns_price_current {
+    color: var(--white);
 }
 
 .sns_price_before {
@@ -1331,7 +1339,7 @@ pattern.img1 {
     border: 1px solid rgba(255, 255, 255, 0.36);
 }
 
-/* 확장 시 우측에 버튼 세로 배치 (상단 ↓, 하단 +) */
+/* ?뺤옣 ???곗륫??踰꾪듉 ?몃줈 諛곗튂 (?곷떒 ?? ?섎떒 +) */
 .sns_product_bar.on .sns_product_actions {
     top: 8px;
     bottom: 8px;
@@ -1345,7 +1353,7 @@ pattern.img1 {
     max-height: 0;
     overflow: hidden;
     pointer-events: none;
-    /* collapse 시 이 transition이 적용됨: 패널이 먼저 줄어든 뒤(0.28s 후) thumb/info 등장 */
+    /* collapse ????transition???곸슜?? ?⑤꼸??癒쇱? 以꾩뼱????0.28s ?? thumb/info ?깆옣 */
     transition: opacity 0.18s ease 0.28s, max-height 0.18s ease 0.28s;
 }
 
@@ -1360,12 +1368,12 @@ pattern.img1 {
 }
 
 
-/* 확장 시 expand 버튼은 아래 방향 chevron */
+/* ?뺤옣 ??expand 踰꾪듉? ?꾨옒 諛⑺뼢 chevron */
 .sns_product_bar.on .sns_expand_btn svg {
     transform: rotate(180deg);
 }
 
-/* 확장 시 버튼 스타일 — 기준 이미지에 맞는 핑크 원형 */
+/* ?뺤옣 ??踰꾪듉 ?ㅽ?????湲곗? ?대?吏??留욌뒗 ?묓겕 ?먰삎 */
 .sns_product_bar.on .sns_expand_btn,
 .sns_product_bar.on .sns_quick_btn {
     width: 30px;
@@ -1398,7 +1406,7 @@ pattern.img1 {
 }
 
 
-/* 모달 */
+/* 紐⑤떖 */
 .sns_quick_modal {
     position: fixed;
     inset: 0;
@@ -1459,7 +1467,7 @@ body.sns_quick_locked {
     padding-top: 200px;
 }
 
-/* 애니 스크롤 핀 지점때문에 마진 줌 */
+/* ?좊땲 ?ㅽ겕濡?? 吏?먮븣臾몄뿉 留덉쭊 以?*/
 .animation_area {
     position: relative;
     height: 1500px;
@@ -1653,7 +1661,7 @@ body.sns_quick_locked {
     object-fit: cover;
 }
 
-/* ===== 제품별 포지션 Floating Item Positions ===== */
+/* ===== ?쒗뭹蹂??ъ???Floating Item Positions ===== */
 
 .floating_item.item1 {
     top: 10%;
@@ -1749,11 +1757,18 @@ body.sns_quick_locked {
 }
 
 .best_section .best_bg video {
+    display: block;
     object-fit: cover;
     width: 80%;
     position: absolute;
     bottom: 0;
     left: 0px;
+    border: 0;
+    outline: 0;
+    box-shadow: none;
+    border-radius: 0;
+    background: transparent;
+    appearance: none;
 }
 
 .best_section .best_gra_bg {
@@ -1920,31 +1935,33 @@ body.sns_quick_locked {
 .workflow_steps_section {
     position: relative;
     width: 100%;
-    height: 100vh;
-    overflow: visible;
+    height: auto;
+    min-height: auto;
+    padding: 88px 0 142px;
+    overflow: hidden;
     background-color: var(--white);
     color: var(--g-color8);
     z-index: 1;
 }
 
 .workflow_steps_counter {
-    position: absolute;
-    top: 20vh;
-    left: 50%;
+    position: relative;
+    top: auto;
+    left: auto;
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    transform: translateX(-50%);
+    margin: 0 auto 40px;
+    transform: none;
 }
 
 .workflow_steps_counter_title,
 .workflow_steps_count_window {
     position: relative;
     width: min(92vw, 1120px);
-    height: 150px;
-    /* overflow: hidden; */
+    height: auto;
 }
 
 .workflow_steps_count_window {
@@ -1962,7 +1979,7 @@ body.sns_quick_locked {
     justify-content: center;
     align-items: center;
     gap: 18px;
-    height: 150px;
+    height: auto;
     font-family: var(--font-montserrat);
     font-size: clamp(56px, 9vw, 180px);
     font-weight: 800;
@@ -1980,32 +1997,53 @@ body.sns_quick_locked {
 }
 
 .workflow_steps_cards {
-    position: absolute;
-    inset: 0;
-    top: 30%;
-    left: 50%;
+    --workflow-side-pad: 40px;
+    position: relative;
+    inset: auto;
+    top: auto;
+    left: auto;
+    display: flex;
+    gap: 28px;
     width: 100%;
-    height: 64vh;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
+    height: auto;
+    padding: 18px var(--workflow-side-pad) 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    transform: none;
+    pointer-events: auto;
     z-index: 3;
+    cursor: grab;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    touch-action: auto;
 }
-
+.workflow_steps_cards.is_dragging {
+    cursor: grabbing;
+}
+.workflow_steps_cards::-webkit-scrollbar {
+    display: none;
+}
 .workflow_step_card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    position: relative;
+    top: auto;
+    left: auto;
+    flex: 0 0 min(20vw, 287px);
     width: min(20vw, 287px);
-    height: 361px;
+    height: auto;
     min-width: 180px;
     display: flex;
     flex-direction: column;
     gap: 0;
     perspective: 1200px;
-    transform-style: preserve-3d; /* GSAP transform 적용 시에도 자식의 3D flip 유지 */
+    transform-style: preserve-3d;
     pointer-events: auto;
     transform-origin: center center;
     will-change: transform, opacity;
+    scroll-snap-align: center;
+    transition: transform 0.24s ease, opacity 0.24s ease;
 }
 
 .workflow_step_card_inner {
@@ -2016,7 +2054,7 @@ body.sns_quick_locked {
     transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.workflow_step_card:hover .workflow_step_card_inner {
+.workflow_step_card.is_flipped .workflow_step_card_inner {
     transform: rotateY(180deg);
 }
 
@@ -2087,9 +2125,6 @@ body.sns_quick_locked {
 }
 
 .workflow_step_card_empty {
-    opacity: 0;
-}
-
-.workflow_step_card_empty .workflow_step_card_inner {
     display: none;
 }
+

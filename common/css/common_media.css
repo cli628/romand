@@ -180,8 +180,8 @@
     /* footer */
     .common_footer {
         position: relative;
-        --footer-shape-height: clamp(400px, 46vw, 470px);
-        min-height: clamp(440px, 50vw, 500px);
+        --footer-shape-height: clamp(278px, 29.5vw, 312px);
+        min-height: clamp(320px, 33vw, 348px);
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -205,7 +205,7 @@
         height: var(--footer-shape-height);
         margin: 0 auto;
         margin-top: auto;
-        padding: 18px 0 24px;
+        padding: 4px 0 10px;
         display: grid;
         grid-template-columns: minmax(240px, auto) minmax(240px, 320px) auto;
         align-items: start;
