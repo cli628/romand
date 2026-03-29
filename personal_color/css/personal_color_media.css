@@ -1,5 +1,148 @@
 @charset "utf-8";
 
+:root {
+    /* ==================================================
+       Responsive quick edit area
+       - 자주 바꾸는 숫자만 여기서 수정하세요.
+       - 규칙 본문은 아래에서 이 변수들을 읽도록 연결됩니다.
+       ================================================== */
+
+    /* 1920px */
+    --media-pink-office-title-size-1920: clamp(48px, 5vw, 88px);
+    --media-pink-office-line-size-1920: clamp(44px, 4.1vw, 72px);
+    --media-pink-office-char-size-1920: 0.98em;
+    --media-pink-office-char-weight-1920: 600;
+    --media-season-eyebrow-size-1920: 14px;
+    --media-season-eyebrow-weight-1920: 600;
+    --media-season-title-size-1920: clamp(68px, 4.8vw, 84px);
+    --media-season-title-weight-1920: 500;
+    --media-season-title-line-height-1920: 1.06;
+    --media-season-desc-size-1920: clamp(18px, 1.2vw, 19px);
+    --media-season-desc-weight-1920: 300;
+    --media-season-desc-line-height-1920: 1.45;
+
+    /* 1024px */
+    --media-pink-office-title-size-1024: clamp(34px, 4.6vw, 48px);
+    --media-pink-office-line-size-1024: clamp(30px, 4vw, 42px);
+    --media-pink-office-char-size-1024: 0.92em;
+    --media-pink-office-char-weight-1024: 500;
+    --media-pink-office-chip-portrait-width-1024: 120px;
+    --media-pink-office-chip-portrait-height-1024: 54px;
+    --media-pink-office-chip-diagnosis-width-1024: 138px;
+    --media-pink-office-chip-diagnosis-height-1024: 54px;
+
+    --media-season-min-height-1024: 840px;
+    --media-season-intro-width-1024: min(640px, calc(100% - 72px));
+    --media-season-eyebrow-size-1024: 11px;
+    --media-season-eyebrow-weight-1024: 600;
+    --media-season-title-max-width-1024: 11ch;
+    --media-season-title-size-1024: clamp(31px, 4.3vw, 44px);
+    --media-season-title-weight-1024: 500;
+    --media-season-title-line-height-1024: 1.06;
+    --media-season-desc-margin-top-1024: 18px;
+    --media-season-desc-size-1024: clamp(13px, 1.2vw, 15px);
+    --media-season-desc-weight-1024: 300;
+    --media-season-desc-line-height-1024: 1.55;
+    --media-season-track-top-1024: 50%;
+    --media-season-track-width-1024: min(1120px, calc(100vw - 72px));
+    --media-season-track-height-1024: 208vh;
+    --media-season-track-transform-1024: translate(calc(-50% - 52px), -50%) scale(0.38);
+    --media-season-track-origin-1024: center center;
+    --media-season-card-width-1024: 248px;
+    --media-season-media-width-1024: 248px;
+    --media-season-media-height-1024: 330px;
+    --media-season-tag-max-width-1024: 220px;
+    --media-season-tag-padding-1024: 10px 14px 11px;
+    --media-season-tag-strong-size-1024: 13px;
+    --media-season-tag-span-size-1024: 11px;
+
+    --media-stcut-copy-width-1024: min(760px, calc(100% - 64px));
+    --media-stcut-heading-size-1024: clamp(52px, 8vw, 78px);
+    --media-stcut-button-width-1024: min(268px, 30vw);
+    --media-stcut-button-right-1024: 0;
+    --media-stcut-button-tilt-1024: 5deg;
+    --media-stcut-stage-min-height-1024: calc(100vh - 180px);
+
+    --media-banner-padding-inline-1024: 24px;
+    --media-banner-padding-bottom-1024: 72px;
+    --media-banner-gap-1024: 24px 32px;
+    --media-banner-badge-width-1024: 108px;
+    --media-banner-badge-radius-1024: 14px;
+    --media-banner-title-size-1024: clamp(34px, 4vw, 44px);
+    --media-banner-title-weight-1024: 600;
+    --media-banner-title-line-height-1024: 1.12;
+    --media-banner-body-size-1024: 14px;
+    --media-banner-body-weight-1024: 400;
+    --media-banner-body-line-height-1024: 1.5;
+    --media-banner-cta-margin-top-1024: 18px;
+
+    /* 400px */
+    --media-pink-office-padding-inline-400: 18px;
+    --media-pink-office-padding-bottom-400: 42px;
+    --media-pink-office-title-size-400: 30px;
+    --media-pink-office-title-line-height-400: 1;
+    --media-pink-office-line-size-400: 28px;
+    --media-pink-office-char-size-400: 0.94em;
+    --media-pink-office-char-weight-400: 500;
+    --media-pink-office-link-size-400: 0.88em;
+    --media-pink-office-chip-portrait-width-400: 118px;
+    --media-pink-office-chip-portrait-height-400: 52px;
+    --media-pink-office-chip-diagnosis-width-400: 136px;
+    --media-pink-office-chip-diagnosis-height-400: 52px;
+
+    --media-season-min-height-400: 1160px;
+    --media-season-viewport-height-400: 1160px;
+    --media-season-intro-width-400: calc(100% - 24px);
+    --media-season-intro-bottom-400: 210px;
+    --media-season-eyebrow-size-400: 9px;
+    --media-season-eyebrow-weight-400: 600;
+    --media-season-title-margin-top-400: 14px;
+    --media-season-title-size-400: 22px;
+    --media-season-title-weight-400: 500;
+    --media-season-title-line-height-400: 1.08;
+    --media-season-desc-margin-top-400: 14px;
+    --media-season-desc-size-400: 11px;
+    --media-season-desc-weight-400: 300;
+    --media-season-desc-line-height-400: 1.55;
+    --media-season-track-top-400: 8px;
+    --media-season-track-width-400: calc(100vw - 18px);
+    --media-season-track-height-400: 152vh;
+    --media-season-track-transform-400: translateX(calc(-50% - 10px)) scale(0.8);
+    --media-season-track-origin-400: center top;
+    --media-season-card-width-400: 142px;
+    --media-season-media-width-400: 142px;
+    --media-season-media-height-400: 188px;
+    --media-season-tag-max-width-400: 132px;
+    --media-season-tag-padding-400: 7px 9px 8px;
+    --media-season-tag-radius-400: 7px;
+    --media-season-tag-strong-size-400: 9px;
+    --media-season-tag-span-size-400: 8px;
+
+    --media-stcut-padding-bottom-400: 10px;
+    --media-stcut-section-height-400: 320px;
+    --media-stcut-mask-padding-top-400: 72px;
+    --media-stcut-mask-background-400: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.92) 24%, #ffffff 100%);
+    --media-stcut-stage-gap-400: 28px;
+    --media-stcut-stage-min-height-400: 100%;
+    --media-stcut-copy-width-400: calc(100% - 24px);
+    --media-stcut-heading-margin-top-400: 14px;
+    --media-stcut-heading-size-400: 34px;
+    --media-stcut-button-width-400: min(56vw, 188px);
+
+    --media-banner-padding-inline-400: 18px;
+    --media-banner-margin-top-400: 28px;
+    --media-banner-padding-bottom-400: 44px;
+    --media-banner-link-padding-400: 24px 18px;
+    --media-banner-title-size-400: 28px;
+    --media-banner-title-weight-400: 600;
+    --media-banner-title-line-height-400: 1.12;
+    --media-banner-body-size-400: 12px;
+    --media-banner-body-weight-400: 400;
+    --media-banner-body-line-height-400: 1.5;
+    --media-banner-badge-width-400: 92px;
+    --media-banner-badge-radius-400: 14px;
+}
+
 @media screen and (max-height: 900px) {
     .personal_quiz_modal__dialog {
         padding: 20px 24px 22px;
@@ -237,6 +380,38 @@
     }
 }
 
+@media screen and (max-width: 1920px) {
+    .pink_office_title {
+        font-size: var(--media-pink-office-title-size-1920);
+    }
+
+    .pink_office_line {
+        font-size: var(--media-pink-office-line-size-1920);
+    }
+
+    .pink_office_char {
+        font-size: var(--media-pink-office-char-size-1920);
+        font-weight: var(--media-pink-office-char-weight-1920);
+    }
+
+    .season_spotlight_eyebrow {
+        font-size: var(--media-season-eyebrow-size-1920);
+        font-weight: var(--media-season-eyebrow-weight-1920);
+    }
+
+    .season_spotlight_title {
+        font-size: var(--media-season-title-size-1920);
+        font-weight: var(--media-season-title-weight-1920);
+        line-height: var(--media-season-title-line-height-1920);
+    }
+
+    .season_spotlight_desc {
+        font-size: var(--media-season-desc-size-1920);
+        font-weight: var(--media-season-desc-weight-1920);
+        line-height: var(--media-season-desc-line-height-1920);
+    }
+}
+
 @media screen and (max-width: 1440px) {
     .personal_hero,
     .pink_office_section {
@@ -268,10 +443,6 @@
         font-size: clamp(16px, 1.9vw, 22px);
     }
 
-    .pink_office_title {
-        font-size: clamp(52px, 7vw, 84px);
-    }
-
     .stcut .btn {
         width: min(300px, 27vw);
     }
@@ -286,18 +457,26 @@
     }
 
     .icolor_banner_link {
-        grid-template-columns: minmax(220px, 300px) minmax(300px, 1fr) auto;
-        min-height: 280px;
-        column-gap: 40px;
+        grid-template-columns: minmax(200px, 260px) minmax(280px, 1fr) auto;
+        min-height: 252px;
+        column-gap: 32px;
     }
 
     .icolor_banner_title {
-        font-size: clamp(50px, 4.6vw, 60px);
+        font-size: clamp(38px, 4vw, 48px);
+        font-weight: 600;
     }
 
     .icolor_banner_desc,
     .icolor_banner_cta {
-        font-size: clamp(15px, 1.18vw, 17px);
+        font-size: clamp(14px, 1.02vw, 15px);
+        font-weight: 400;
+        line-height: 1.5;
+    }
+
+    .icolor_banner_badge {
+        width: 120px;
+        border-radius: 16px;
     }
 }
 
@@ -310,6 +489,52 @@
         max-height: calc(100svh - 32px);
         padding: 22px 20px 24px;
         border-radius: 24px;
+    }
+
+    .personal_hero_media img {
+        object-position: 56% center;
+        transform: scale(1.08);
+    }
+
+    .personal_hero_title {
+        font-size: clamp(42px, 7vw, 62px);
+        line-height: 1.06;
+    }
+
+    .personal_hero_desc {
+        margin-top: 24px;
+        font-size: 18px;
+        max-width: 640px;
+        line-height: 1.55;
+    }
+
+    .personal_hero_desc br {
+        display: none;
+    }
+
+    .pink_office_title {
+        font-size: var(--media-pink-office-title-size-1024);
+    }
+
+    .pink_office_line {
+        font-size: var(--media-pink-office-line-size-1024);
+    }
+
+    .pink_office_char {
+        font-size: var(--media-pink-office-char-size-1024);
+        font-weight: var(--media-pink-office-char-weight-1024);
+    }
+
+    .pink_office_chip--portrait {
+        width: var(--media-pink-office-chip-portrait-width-1024);
+        height: var(--media-pink-office-chip-portrait-height-1024);
+        margin-inline: 8px 4px;
+    }
+
+    .pink_office_chip--diagnosis {
+        width: var(--media-pink-office-chip-diagnosis-width-1024);
+        height: var(--media-pink-office-chip-diagnosis-height-1024);
+        margin-right: 8px;
     }
 
     .personal_quiz_progress {
@@ -381,7 +606,7 @@
 
     .season_spotlight_section,
     .season_spotlight_viewport {
-        min-height: 840px;
+        min-height: var(--media-season-min-height-1024);
     }
 
     .personal_hero,
@@ -401,77 +626,94 @@
         width: min(900px, 100%);
     }
 
-    .pink_office_title {
-        font-size: clamp(48px, 7.6vw, 72px);
-    }
-
     .pink_office_desc {
         max-width: 640px;
     }
 
+    .season_spotlight_intro {
+        width: var(--media-season-intro-width-1024);
+        text-align: center;
+    }
+
+    .season_spotlight_eyebrow {
+        font-size: var(--media-season-eyebrow-size-1024);
+        font-weight: var(--media-season-eyebrow-weight-1024);
+    }
+
     .season_spotlight_title {
-        font-size: clamp(44px, 7vw, 70px);
+        margin-inline: auto;
+        max-width: var(--media-season-title-max-width-1024);
+        font-size: var(--media-season-title-size-1024);
+        font-weight: var(--media-season-title-weight-1024);
+        line-height: var(--media-season-title-line-height-1024);
+        text-align: center;
     }
 
     .season_spotlight_desc {
-        font-size: clamp(18px, 2vw, 24px);
+        margin-top: var(--media-season-desc-margin-top-1024);
+        font-size: var(--media-season-desc-size-1024);
+        font-weight: var(--media-season-desc-weight-1024);
+        line-height: var(--media-season-desc-line-height-1024);
     }
 
     .season_spotlight_track {
-        width: min(1180px, calc(100vw - 64px));
-        height: 216vh;
+        top: var(--media-season-track-top-1024);
+        width: var(--media-season-track-width-1024);
+        height: var(--media-season-track-height-1024);
+        transform: var(--media-season-track-transform-1024);
+        transform-origin: var(--media-season-track-origin-1024);
     }
 
     .season_photo_card {
-        width: 280px;
+        width: var(--media-season-card-width-1024);
     }
 
     .season_photo_media {
-        width: 280px;
-        height: 372px;
+        width: var(--media-season-media-width-1024);
+        height: var(--media-season-media-height-1024);
     }
 
     .season_photo_tag {
-        max-width: 248px;
-        padding: 11px 16px 12px;
+        max-width: var(--media-season-tag-max-width-1024);
+        padding: var(--media-season-tag-padding-1024);
     }
 
     .season_photo_tag strong {
-        font-size: 14px;
+        font-size: var(--media-season-tag-strong-size-1024);
     }
 
     .season_photo_tag span {
-        font-size: 12px;
+        font-size: var(--media-season-tag-span-size-1024);
     }
 
     .stcut .copy {
-        width: min(760px, calc(100% - 64px));
+        width: var(--media-stcut-copy-width-1024);
         padding-right: 0;
     }
 
     .stcut h2 span {
-        font-size: clamp(52px, 8vw, 78px);
+        font-size: var(--media-stcut-heading-size-1024);
     }
 
     .stcut .btn {
-        width: min(268px, 30vw);
-        right: 0;
-        --season-test-cut-tilt: 5deg;
+        width: var(--media-stcut-button-width-1024);
+        right: var(--media-stcut-button-right-1024);
+        --season-test-cut-tilt: var(--media-stcut-button-tilt-1024);
     }
 
     .stcut .stage {
-        min-height: calc(100vh - 180px);
+        min-height: var(--media-stcut-stage-min-height-1024);
     }
 
     .icolor_banner_section {
-        padding-right: 24px;
-        padding-left: 24px;
-        padding-bottom: 72px;
+        padding-right: var(--media-banner-padding-inline-1024);
+        padding-left: var(--media-banner-padding-inline-1024);
+        padding-bottom: var(--media-banner-padding-bottom-1024);
     }
 
     .icolor_banner_link {
         grid-template-columns: 1fr auto;
-        gap: 24px 32px;
+        gap: var(--media-banner-gap-1024);
     }
 
     .icolor_banner_heading,
@@ -483,6 +725,25 @@
         grid-column: 2 / 3;
         grid-row: 1 / span 2;
         align-self: center;
+        width: var(--media-banner-badge-width-1024);
+        border-radius: var(--media-banner-badge-radius-1024);
+    }
+
+    .icolor_banner_title {
+        font-size: var(--media-banner-title-size-1024);
+        font-weight: var(--media-banner-title-weight-1024);
+        line-height: var(--media-banner-title-line-height-1024);
+    }
+
+    .icolor_banner_desc,
+    .icolor_banner_cta {
+        font-size: var(--media-banner-body-size-1024);
+        font-weight: var(--media-banner-body-weight-1024);
+        line-height: var(--media-banner-body-line-height-1024);
+    }
+
+    .icolor_banner_cta {
+        margin-top: var(--media-banner-cta-margin-top-1024);
     }
 }
 
@@ -649,27 +910,11 @@
         align-items: flex-end;
     }
 
-    .personal_hero_media img {
-        object-position: 56% center;
-    }
-
     .personal_hero_eyebrow {
         min-height: 38px;
         padding: 0 14px;
         font-size: 11px;
         letter-spacing: 0.14em;
-    }
-
-    .personal_hero_title {
-        margin-top: 0;
-        font-size: clamp(42px, 10.5vw, 62px);
-        line-height: 1.06;
-    }
-
-    .personal_hero_desc {
-        margin-top: 24px;
-        font-size: 15px;
-        line-height: 1.6;
     }
 
     .pink_office_section {
@@ -678,11 +923,6 @@
 
     .pink_office_eyebrow {
         font-size: 12px;
-    }
-
-    .pink_office_title {
-        font-size: clamp(34px, 9.5vw, 54px);
-        line-height: 1;
     }
 
     .pink_office_line:nth-child(1) {
@@ -730,14 +970,16 @@
     }
 
     .season_spotlight_title {
-        font-size: clamp(44px, 11vw, 64px);
-        line-height: 0.94;
+        font-size: clamp(34px, 8.4vw, 46px);
+        font-weight: 500;
+        line-height: 1;
     }
 
     .season_spotlight_desc {
         margin-top: 20px;
-        font-size: 17px;
-        line-height: 1.45;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 1.55;
     }
 
     .season_spotlight_desc br {
@@ -745,8 +987,11 @@
     }
 
     .season_spotlight_track {
+        top: 50%;
         width: calc(100vw - 32px);
         height: 205vh;
+        transform: translate(calc(-50% - -80px), -50%) scale(0.75);
+        transform-origin: center center;
     }
 
     .season_photo_card,
@@ -854,6 +1099,19 @@
         border-radius: 20px;
     }
 
+    .personal_hero_media img {
+        object-position: 60% center;
+        transform: scale(1.12);
+    }
+
+    .personal_hero_overlay {
+        background:
+            radial-gradient(circle at 22% 78%, rgba(32, 11, 32, 0.68) 0%, rgba(32, 11, 32, 0) 40%),
+            linear-gradient(180deg, rgba(36, 12, 34, 0.18) 0%, rgba(36, 12, 34, 0.36) 100%),
+            linear-gradient(90deg, rgba(23, 9, 30, 0.62) 0%, rgba(23, 9, 30, 0.22) 52%, rgba(23, 9, 30, 0.44) 100%);
+    }
+
+
     .personal_quiz_progress {
         width: calc(100% - 66px);
         height: 8px;
@@ -885,22 +1143,34 @@
 
     .personal_hero,
     .pink_office_section {
-        padding-right: 18px;
-        padding-left: 18px;
-        padding-bottom: 42px;
+        padding-right: var(--media-pink-office-padding-inline-400);
+        padding-left: var(--media-pink-office-padding-inline-400);
+        padding-bottom: var(--media-pink-office-padding-bottom-400);
     }
 
     .personal_hero_title {
         font-size: 38px;
+        line-height: 1.05;
+    }
+
+    .pink_office_title {
+        font-size: var(--media-pink-office-title-size-400);
+        line-height: var(--media-pink-office-title-line-height-400);
+    }
+
+    .pink_office_line {
+        font-size: var(--media-pink-office-line-size-400);
+    }
+
+    .pink_office_char {
+        font-size: var(--media-pink-office-char-size-400);
+        font-weight: var(--media-pink-office-char-weight-400);
     }
 
     .personal_hero_desc,
     .pink_office_desc {
         font-size: 15px;
-    }
-
-    .pink_office_title {
-        font-size: 32px;
+        line-height: 1.55;
     }
 
     .pink_office_line:nth-child(1),
@@ -909,112 +1179,176 @@
         margin-left: 0;
     }
 
+    .pink_office_line:nth-child(1) .pink_office_reveal:last-child,
+    .pink_office_line:nth-child(2) .pink_office_reveal:last-child {
+        flex-basis: 100%;
+        margin-top: 4px;
+    }
+
+    .pink_office_highlight.pink_office_link {
+        font-size: var(--media-pink-office-link-size-400);
+    }
+
     .pink_office_chip--portrait {
-        width: 118px;
-        height: 52px;
+        width: var(--media-pink-office-chip-portrait-width-400);
+        height: var(--media-pink-office-chip-portrait-height-400);
     }
 
     .pink_office_chip--diagnosis {
-        width: 136px;
-        height: 52px;
+        width: var(--media-pink-office-chip-diagnosis-width-400);
+        height: var(--media-pink-office-chip-diagnosis-height-400);
+    }
+
+    .season_spotlight_section,
+    .season_spotlight_viewport {
+        min-height: var(--media-season-min-height-400);
+    }
+
+    .season_spotlight_viewport {
+        position: relative;
+        top: auto;
+        height: var(--media-season-viewport-height-400);
+        overflow: hidden;
     }
 
     .season_spotlight_intro {
-        width: calc(100% - 24px);
-        top: 88px;
+        width: var(--media-season-intro-width-400);
+        top: auto;
+        bottom: var(--media-season-intro-bottom-400);
         transform: translateX(-50%);
     }
 
     .season_spotlight_eyebrow {
-        font-size: 11px;
+        font-size: var(--media-season-eyebrow-size-400);
+        font-weight: var(--media-season-eyebrow-weight-400);
     }
 
     .season_spotlight_title {
-        margin-top: 14px;
-        font-size: 34px;
+        margin-top: var(--media-season-title-margin-top-400);
+        font-size: var(--media-season-title-size-400);
+        font-weight: var(--media-season-title-weight-400);
+        line-height: var(--media-season-title-line-height-400);
     }
 
     .season_spotlight_desc {
-        margin-top: 16px;
-        font-size: 14px;
-        line-height: 1.4;
+        margin-top: var(--media-season-desc-margin-top-400);
+        font-size: var(--media-season-desc-size-400);
+        font-weight: var(--media-season-desc-weight-400);
+        line-height: var(--media-season-desc-line-height-400);
     }
 
     .season_spotlight_track {
-        width: calc(100vw - 24px);
-        height: 198vh;
+        top: var(--media-season-track-top-400);
+        width: var(--media-season-track-width-400);
+        height: var(--media-season-track-height-400);
+        transform: var(--media-season-track-transform-400);
+        transform-origin: var(--media-season-track-origin-400);
+        opacity: 1;
     }
 
     .season_photo_card,
     .season_photo_card--sm,
     .season_photo_card--md,
     .season_photo_card--lg {
-        width: 160px;
+        width: var(--media-season-card-width-400);
+        opacity: 1;
     }
 
     .season_photo_media {
-        width: 160px;
-        height: 212px;
+        width: var(--media-season-media-width-400);
+        height: var(--media-season-media-height-400);
     }
 
     .season_photo_tag {
-        max-width: 152px;
-        padding: 8px 10px 9px;
-        border-radius: 7px;
+        max-width: var(--media-season-tag-max-width-400);
+        padding: var(--media-season-tag-padding-400);
+        border-radius: var(--media-season-tag-radius-400);
     }
 
     .season_photo_tag strong {
-        font-size: 10px;
+        font-size: var(--media-season-tag-strong-size-400);
     }
 
     .season_photo_tag span {
-        font-size: 9px;
+        font-size: var(--media-season-tag-span-size-400);
+    }
+
+    .stcut {
+        position: absolute;
+        inset: auto 0 0;
+        display: block;
+        height: var(--media-stcut-section-height-400);
+        padding-bottom: var(--media-stcut-padding-bottom-400);
+        overflow: visible;
+    }
+
+    .stcut .mask {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding-top: var(--media-stcut-mask-padding-top-400);
+        opacity: 1;
+        overflow: visible;
+        background: var(--media-stcut-mask-background-400);
+    }
+
+    .stcut .stage {
+        width: 100%;
+        min-height: var(--media-stcut-stage-min-height-400);
+        justify-items: center;
+        align-content: start;
+        gap: var(--media-stcut-stage-gap-400);
     }
 
     .stcut .copy {
-        width: calc(100% - 24px);
+        width: var(--media-stcut-copy-width-400);
         padding-right: 0;
     }
 
     .stcut h2 {
-        margin-top: 14px;
+        margin-top: var(--media-stcut-heading-margin-top-400);
     }
 
     .stcut h2 span {
-        font-size: 34px;
+        font-size: var(--media-stcut-heading-size-400);
     }
 
     .stcut .btn {
-        width: min(64vw, 220px);
+        width: var(--media-stcut-button-width-400);
     }
 
     .icolor_banner_section {
-        padding-right: 18px;
-        padding-left: 18px;
-        padding-bottom: 44px;
+        margin-top: var(--media-banner-margin-top-400);
+        padding-right: var(--media-banner-padding-inline-400);
+        padding-left: var(--media-banner-padding-inline-400);
+        padding-bottom: var(--media-banner-padding-bottom-400);
     }
 
     .icolor_banner_link {
-        padding: 26px 20px;
+        padding: var(--media-banner-link-padding-400);
     }
 
     .icolor_banner_title {
-        font-size: 34px;
+        font-size: var(--media-banner-title-size-400);
+        font-weight: var(--media-banner-title-weight-400);
+        line-height: var(--media-banner-title-line-height-400);
     }
 
     .icolor_banner_desc,
     .icolor_banner_cta {
-        font-size: 14px;
+        font-size: var(--media-banner-body-size-400);
+        font-weight: var(--media-banner-body-weight-400);
+        line-height: var(--media-banner-body-line-height-400);
+    }
+
+    .icolor_banner_badge {
+        width: var(--media-banner-badge-width-400);
+        border-radius: var(--media-banner-badge-radius-400);
     }
 
 }
 
 @media screen and (max-width: 375px) {
-    .personal_hero_title {
-        font-size: 36px;
-    }
-
-    .pink_office_title {
-        font-size: 30px;
-    }
 }

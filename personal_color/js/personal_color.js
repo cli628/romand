@@ -70,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const seasonTestCutMask = seasonTestCut ? seasonTestCut.querySelector(".mask") : null;
     const seasonTestCutStage = seasonTestCut ? seasonTestCut.querySelector(".stage") : null;
     const seasonTestCutButton = seasonTestCut ? seasonTestCut.querySelector(".btn") : null;
+    const seasonTestCutCard = seasonTestCutButton ? seasonTestCutButton.querySelector(".card") : null;
     const seasonTestCutTextTargets = seasonTestCut ? seasonTestCut.querySelectorAll(".copy h2 span") : [];
     const quizOpenButtons = document.querySelectorAll("[data-quiz-open]");
     const quizModal = document.querySelector(".personal_quiz_modal:not(.personal_quiz_result_modal)");
@@ -102,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const quizResultNextButton = resultModal ? resultModal.querySelector("[data-result-next]") : null;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const isSeasonTestCutCompact = window.matchMedia("(max-width: 1024px) and (min-width: 769px)").matches;
     const quizOpenGuard = {
         lastWheelAt: 0,
         lastScrollAt: 0
@@ -792,6 +794,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 0.18);
 
     if (seasonSection && seasonViewport && seasonTrack && seasonIntro && seasonCards.length) {
+        const isSeasonStaticMobile = window.matchMedia("(max-width: 400px)").matches;
         const getSeasonTrackMetrics = () => {
             let contentBottom = 0;
 
@@ -824,6 +827,116 @@ document.addEventListener("DOMContentLoaded", () => {
             seasonSection.style.height = `${Math.ceil(viewportHeight + triggerDistance)}px`;
         };
 
+        if (isSeasonStaticMobile) {
+            seasonSection.style.removeProperty("height");
+            gsap.set(seasonIntro, {
+                "--season-intro-mask-start": "100%",
+                "--season-intro-mask-end": "120%",
+                opacity: 1,
+                yPercent: 0,
+                scale: 1
+            });
+            gsap.set(seasonTrack, { y: 0 });
+            gsap.set(seasonCards, {
+                opacity: 1,
+                scale: 1
+            });
+
+            const hideSeasonTestCutStaticMobile = () => {
+                if (seasonTestCutMask) {
+                    gsap.set(seasonTestCutMask, { opacity: 0 });
+                }
+
+                if (seasonTestCutStage) {
+                    gsap.set(seasonTestCutStage, {
+                        y: 44,
+                        scale: 1,
+                        opacity: 0,
+                        transformOrigin: "center center"
+                    });
+                }
+
+                if (seasonTestCutTextTargets.length) {
+                    gsap.set(seasonTestCutTextTargets, {
+                        opacity: 0,
+                        y: 28
+                    });
+                }
+
+                if (seasonTestCutButton) {
+                    gsap.set(seasonTestCutButton, {
+                        scale: 1,
+                        yPercent: 8,
+                        x: 0,
+                        opacity: 0,
+                        pointerEvents: "none",
+                        transformOrigin: "center center"
+                    });
+                }
+
+                if (seasonTestCutCard) {
+                    gsap.set(seasonTestCutCard, {
+                        rotationY: isSeasonTestCutCompact ? 180 : 0,
+                        scale: isSeasonTestCutCompact ? 1.02 : 1,
+                        transformOrigin: "center center"
+                    });
+                }
+            };
+
+            const revealSeasonTestCutStaticMobile = () => {
+                const revealDuration = prefersReducedMotion ? 0 : 0.28;
+                const revealTimeline = gsap.timeline({
+                    defaults: {
+                        duration: revealDuration,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    }
+                });
+
+                if (seasonTestCutMask) {
+                    revealTimeline.to(seasonTestCutMask, { opacity: 1, duration: prefersReducedMotion ? 0 : 0.18 }, 0);
+                }
+
+                if (seasonTestCutStage) {
+                    revealTimeline.to(seasonTestCutStage, {
+                        opacity: 1,
+                        y: 0
+                    }, 0);
+                }
+
+                if (seasonTestCutTextTargets.length) {
+                    revealTimeline.to(seasonTestCutTextTargets, {
+                        opacity: 1,
+                        y: 0,
+                        stagger: prefersReducedMotion ? 0 : 0.03,
+                        duration: prefersReducedMotion ? 0 : 0.22
+                    }, 0.03);
+                }
+
+                if (seasonTestCutButton) {
+                    revealTimeline.to(seasonTestCutButton, {
+                        opacity: 1,
+                        yPercent: 0,
+                        onStart: () => {
+                            gsap.set(seasonTestCutButton, { pointerEvents: "auto" });
+                        }
+                    }, 0.05);
+                }
+            };
+
+            hideSeasonTestCutStaticMobile();
+
+            ScrollTrigger.create({
+                trigger: seasonSection,
+                start: "bottom bottom",
+                onEnter: revealSeasonTestCutStaticMobile,
+                onEnterBack: revealSeasonTestCutStaticMobile,
+                onLeaveBack: hideSeasonTestCutStaticMobile
+            });
+
+            return;
+        }
+
         applySeasonSectionHeight();
         gsap.set(seasonIntro, {
             "--season-intro-mask-start": "100%",
@@ -851,6 +964,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 gsap.set(seasonTestCutButton, {
                     scale: 0.92,
                     yPercent: 8,
+                    x: 0,
+                    transformOrigin: "center center"
+                });
+            }
+
+            if (seasonTestCutCard) {
+                gsap.set(seasonTestCutCard, {
+                    rotationY: 0,
+                    scale: 1,
                     transformOrigin: "center center"
                 });
             }
@@ -914,6 +1036,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (seasonTestCutMask && seasonTestCutStage) {
             // Final stage reveal:
             // Move these start values earlier to give this area more scroll distance and a clearer scrub feel.
+            const getSeasonTestCutCenterShift = () => {
+                if (!seasonTestCutButton || !seasonTestCutStage) {
+                    return 0;
+                }
+
+                const stageWidth = seasonTestCutStage.clientWidth || 0;
+                const buttonWidth = seasonTestCutButton.offsetWidth || 0;
+                const buttonLeft = seasonTestCutButton.offsetLeft || 0;
+
+                return stageWidth / 2 - (buttonLeft + buttonWidth / 2);
+            };
             const stageHoldStart = Math.max(
                 seasonTestCutMotion.stageRevealStart + seasonTestCutMotion.stageRevealDuration,
                 seasonTestCutMotion.stageTextRevealStart + seasonTestCutMotion.stageTextRevealDuration,
@@ -945,9 +1078,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 seasonTimeline.to(seasonTestCutButton, {
                     scale: 1,
                     yPercent: 0,
+                    x: 0,
                     duration: seasonTestCutMotion.stageButtonRevealDuration,
                     ease: "none"
                 }, seasonTestCutMotion.stageButtonRevealStart);
+            }
+
+            if (isSeasonTestCutCompact && seasonTestCutButton) {
+                seasonTimeline.to(seasonTestCutButton, {
+                    x: () => getSeasonTestCutCenterShift(),
+                    duration: seasonTestCutMotion.stageHoldDuration,
+                    ease: "none"
+                }, stageHoldStart);
+            }
+
+            if (isSeasonTestCutCompact && seasonTestCutCard) {
+                seasonTimeline.to(seasonTestCutCard, {
+                    rotationY: 180,
+                    scale: 1.02,
+                    duration: seasonTestCutMotion.stageHoldDuration,
+                    ease: "none"
+                }, stageHoldStart);
             }
 
             seasonTimeline.to(seasonTestCutHoldState, {

@@ -47,8 +47,8 @@
 </head>
 
 <body>
-  <header></header>
-  <div class="wrap">
+  <main class="product_detail_main">
+    <div class="wrap">
     <section class="contents">
       <div class="contents_inner">
         <!-- 왼쪽: 이미지 + 탭 메뉴 -->
@@ -57,7 +57,7 @@
             <!-- 탭별 이미지 세트: ORIGINAL (기본 활성) -->
             <div class="contents_img_set tab_active" data-tab="original">
               <div class="contents_main_img">
-                <video src="img/contents/original/상세_첫번째.mp4" aria-label="ORIGINAL 메인 비디오" autoplay muted loop
+                <video src="img/contents/original/original_video.mp4" aria-label="ORIGINAL video" autoplay muted loop
                   playsinline></video>
               </div>
               <div class="contents_sub_img">
@@ -70,6 +70,7 @@
             <!-- 탭별 이미지 세트: NEW BARE -->
             <div class="contents_img_set" data-tab="newbare">
               <div class="contents_main_img">
+                <video src="img/contents/newbare/newbare_video.mp4" aria-label="ORIGINAL video" autoplay muted loop playsinline></video>
                 <div class="main_img_placeholder"></div>
               </div>
               <div class="contents_sub_img">
@@ -573,10 +574,9 @@
         </div>
       </div>
     </section>
-    <footer></footer>
-  </div>
-  <!-- //.wrap -->
-  <footer></footer>
+    </div>
+    <!-- //.wrap -->
+  </main>
 </body>
 
 </html>

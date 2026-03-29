@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const commonVideoData = {
-    original: 'img/contents/original/상세_첫번째.mp4',
-    newbare: 'img/contents/newbare/뉴베어_첫번째영상.mp4',
-    dusty: 'img/contents/dusty/더스크_첫번째.mp4',
-    black: 'img/contents/black/블랙_첫번째.mp4'
+    original: 'img/contents/original/original_video.mp4',
+    newbare: 'img/contents/newbare/newbare_video.mp4',
+    dusty: 'img/contents/dusty/dusty_video.mp4',
+    black: 'img/contents/black/black_video.mp4'
   };
 
   const colorData = {
@@ -125,23 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function renderMainMedia(index) {
-      if (tabKey === 'original' && index === 0) {
-        mainImgContainer.innerHTML = `<video src="${commonVideoData.original}" aria-label="Original Main Video" autoplay muted loop playsinline></video>`;
-        return;
-      }
+      const commonVideo = commonVideoData[tabKey];
 
-      if (tabKey === 'newbare' && index === 0) {
-        mainImgContainer.innerHTML = `<video src="${commonVideoData.newbare}" aria-label="New Bare Main Video" autoplay muted loop playsinline></video>`;
-        return;
-      }
-
-      if (tabKey === 'dusty' && index === 0) {
-        mainImgContainer.innerHTML = `<video src="${commonVideoData.dusty}" aria-label="Dusty Main Video" autoplay muted loop playsinline></video>`;
-        return;
-      }
-
-      if (tabKey === 'black' && index === 0) {
-        mainImgContainer.innerHTML = `<video src="${commonVideoData.black}" aria-label="Black Main Video" autoplay muted loop playsinline></video>`;
+      if (index === 0 && commonVideo) {
+        mainImgContainer.innerHTML = `<video src="${commonVideo}" aria-label="${tabKey} Main Video" autoplay muted loop playsinline></video>`;
         return;
       }
 

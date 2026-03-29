@@ -148,11 +148,12 @@
     font-family: var(--font-poppins);
     font-size: clamp(16px, 1.3vw, 21px);
     font-weight: 100;
-    line-height: 1.58;
+    line-height: 1.5;
     letter-spacing: -0.032em;
-    color: rgba(255, 255, 255, 0.72);
+    color: var(--g-color1);
     text-wrap: pretty;
     text-shadow: 0 10px 20px rgba(28, 10, 28, 0.1);
+
 }
 
 .pink_office_section {
@@ -160,7 +161,7 @@
     display: flex;
     align-items: center;
     padding: clamp(150px, 17vh, 210px) clamp(28px, 8vw, 170px) clamp(72px, 10vh, 104px);
-    background: linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+    background: var(--white);
     color: #222228;
 }
 
@@ -440,19 +441,20 @@
     font-family: var(--font-poppins);
     font-size: 20px;
     font-weight: 300;
-    line-height: 1.55;
+    line-height: 1.0;
     letter-spacing: -0.03em;
     color: var(--g-color8);
 }
 
 .season_spotlight_track {
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 50%;
     z-index: 2;
     width: min(1568px, calc(100vw - 48px));
     height: 228vh;
-    transform: translateX(-50%);
+    transform: translate(calc(-50% - 18px), -50%) scale(0.86);
+    transform-origin: center center;
     will-change: transform;
     pointer-events: none;
 }
