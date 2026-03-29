@@ -1464,6 +1464,7 @@
         margin-left: 0;
     }
 
+    
     .pink_office_line:nth-child(1) {
         gap: var(--media-pink-office-line-gap-400-first);
         font-size: var(--media-pink-office-line-size-400-first);
