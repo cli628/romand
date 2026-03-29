@@ -236,60 +236,78 @@ document.addEventListener('DOMContentLoaded', () => {
       ease: "power2.out"
     }, "morph-=0.4");
 
-    /* 3-3. 슬롯 도달 후 섹션 고정 */
-    ScrollTrigger.create({
-      trigger: '.main_slot_placeholder',
-      start: 'center center',
-      end: '+=800',
-      pin: '.product_inner',
-    });
   }
 
   /* =========================
-     4. Horizontal Scroll (Pink, Coha, Green Chemi)
+     4. Horizontal Slide Scroll
+     - pink > coha > greenchemi 순서로 가로 이동
   ========================= */
   const hScrollContainer = document.querySelector('.h_scroll_container');
   const hScrollWrap = document.querySelector('.h_scroll_wrap');
-  
+
   if (hScrollContainer && hScrollWrap) {
-    const hSections = gsap.utils.toArray('.h_scroll_wrap > section');
-    
-    // 가로 스크롤 애니메이션
-    const hScrollTween = gsap.to(hSections, {
-      xPercent: -100 * (hSections.length - 1),
-      ease: "none",
-      scrollTrigger: {
-        trigger: hScrollContainer,
-        pin: true,
-        scrub: 1,
-        // end 값: 내부 wrap 너비에서 윈도우 너비를 뺀 총 이동 거리
-        end: () => "+=" + (hScrollWrap.offsetWidth - window.innerWidth)
-      }
-    });
+    const hSlides = gsap.utils.toArray('.h_slide');
+    const hSlideTabGroups = gsap.utils.toArray('.h_slide_tabs');
+    const hSlideTabs = gsap.utils.toArray('.h_slide_tab');
+    const slideCount = hSlides.length;
+    const slideSpan = Math.max(slideCount - 1, 1);
+    let hTween = null;
 
-    // 탭 클릭 시 해당 섹션으로 부드럽게 스크롤
-    const allTabs = document.querySelectorAll('.pink_tab_item');
-    allTabs.forEach(tab => {
-      tab.style.cursor = 'pointer'; // 클릭 가능 표시 시각화
-
-      tab.addEventListener('click', (e) => {
-        e.preventDefault();
-        
-        let targetIndex = 0;
-        if(tab.classList.contains('pink_tab_item_pink')) targetIndex = 0;
-        else if(tab.classList.contains('pink_tab_item_coha')) targetIndex = 1;
-        else if(tab.classList.contains('pink_tab_item_green')) targetIndex = 2;
-
-        // GSAP ScrollTrigger의 내부 계산 값(st.start, st.end)을 사용하여 정확한 스크롤 좌표 구함
-        const st = hScrollTween.scrollTrigger;
-        const targetScroll = st.start + (st.end - st.start) * (targetIndex / (hSections.length - 1));
-
-        // 네이티브 window.scrollTo로 부드러운 스크롤 이동
-        window.scrollTo({
-          top: targetScroll,
-          behavior: 'smooth'
+    const setActiveTab = (activeIndex) => {
+      hSlideTabGroups.forEach((group) => {
+        const tabsInGroup = Array.from(group.querySelectorAll('.h_slide_tab'));
+        tabsInGroup.forEach((tab, idx) => {
+          tab.classList.toggle('is_active', idx === activeIndex);
         });
       });
-    });
+    };
+
+    if (slideCount > 1) {
+      hTween = gsap.to(hScrollWrap, {
+        x: () => -(window.innerWidth * slideSpan),
+        ease: "none",
+        scrollTrigger: {
+          trigger: hScrollContainer,
+          start: "top top",
+          pin: true,
+          pinSpacing: true,
+          pinReparent: true,
+          scrub: 1,
+          end: () => "+=" + (window.innerWidth * slideSpan),
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const activeIndex = Math.round(self.progress * slideSpan);
+            setActiveTab(activeIndex);
+          }
+        }
+      });
+    }
+
+    if (hSlideTabs.length) {
+      setActiveTab(0);
+
+      hSlideTabs.forEach((tab, idx) => {
+        tab.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (!hTween || !hTween.scrollTrigger) return;
+
+          let targetIndex = 0;
+          if (tab.classList.contains('h_slide_tab_coha')) targetIndex = 1;
+          if (tab.classList.contains('h_slide_tab_green')) targetIndex = 2;
+
+          const progress = slideSpan === 0 ? 0 : targetIndex / slideSpan;
+          const st = hTween.scrollTrigger;
+          const targetY = st.start + (st.end - st.start) * progress;
+
+          setActiveTab(targetIndex);
+          window.scrollTo({
+            top: targetY,
+            behavior: 'smooth'
+          });
+        });
+      });
+    }
   }
+
 }); //여기 밖으로 넘어가면 안돼용

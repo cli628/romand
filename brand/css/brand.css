@@ -1,5 +1,14 @@
 @charset "utf-8";
 
+html,
+body {
+	overflow-x: hidden;
+}
+
+body {
+	display: block;
+}
+
 header {
 	height: 72px;
 	width: 100%;
@@ -46,7 +55,7 @@ header {
 	font-weight: 500;
 	color: var(--g-color6);
 	margin-bottom: 64px;
-	letter-spacing: -3%;
+	letter-spacing: -0.03em;
 }
 
 .essence_desc {
@@ -163,7 +172,7 @@ header {
 	font-size: 75px;
 	font-weight: 600;
 	color: #EE004C;
-	letter-spacing: -3%;
+	letter-spacing: -0.03em;
 	margin-bottom: 100px;
 	/* 핑크 포인트 컬러 */
 }
@@ -260,7 +269,7 @@ header {
 	font-weight: 500;
 	color: var(--g-color5);
 	text-align: right;
-	letter-spacing: -3%;
+	letter-spacing: -0.03em;
 }
 
 .why_grid {
@@ -359,9 +368,8 @@ header {
 /* Product 섹션 */
 .product {
 	width: 100%;
-	padding: 150px 0;
+	padding: 150px 0 400px;
 	background: #fff;
-	padding-bottom: 400px;
 }
 
 .product_inner {
@@ -429,228 +437,215 @@ header {
 	position: relative;
 }
 
-/* =========================================
-   가로 스크롤 섹션
-========================================= */
+/* Horizontal Image Slides */
 .h_scroll_container {
 	width: 100%;
+	height: calc(100vh - 72px);
+	position: relative;
 	overflow: hidden;
+	background: #0f1014;
 }
 
 .h_scroll_wrap {
 	display: flex;
 	width: 300vw;
-	height: 100vh;
+	height: 100%;
+	will-change: transform;
 }
 
-.h_scroll_wrap>section {
+.h_slide_tabs {
+	position: absolute;
+	top: 88px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 4;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.h_slide_tab {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 60px;
+	padding: 0 34px;
+	border-radius: 999px;
+	border: 1px solid rgba(255, 255, 255, 0.26);
+	font-family: var(--font-montserrat);
+	font-size: 34px;
+	font-weight: 900;
+	letter-spacing: 0.01em;
+	line-height: 1;
+	color: var(--white);
+	white-space: nowrap;
+	opacity: 0.75;
+	transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.h_slide_tab:hover {
+	opacity: 1;
+}
+
+.h_slide_tab.is_active {
+	opacity: 1;
+	transform: translateY(-1px);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24), 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.h_slide_tab_pink {
+	background: linear-gradient(90deg, #f69aba 0%, #b2708a 100%);
+}
+
+.h_slide_tab_coha {
+	background: linear-gradient(90deg, #d2456f 0%, #b2003f 100%);
+}
+
+.h_slide_tab_green {
+	background: linear-gradient(90deg, #a79861 0%, #cadb4a 100%);
+}
+
+.h_slide {
+	flex: 0 0 100vw;
 	width: 100vw;
-	flex-shrink: 0;
+	height: 100%;
+	min-width: 100vw;
+	position: relative;
+	background-color: #d3d3d3;
 }
 
-/* Pink 섹션 */
-.pink {
+.h_slide::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: #35353580;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.h_slide_img {
 	width: 100%;
-	height: 100vh;
-	padding: 150px 30px 100px;
-	background:
-		linear-gradient(color-mix(in srgb, var(--g-color6) 50%, transparent), color-mix(in srgb, var(--g-color6) 50%, transparent)),
-		url('../img/pinkoffice.png') no-repeat center/cover;
+	height: 100%;
+	display: block;
+	object-fit: cover;
+	user-select: none;
+	pointer-events: none;
+	position: relative;
+	z-index: 0;
 }
 
-.pink_inner {
+.h_slide_content {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 220px;
+	justify-content: center;
+	text-align: center;
+	padding: 0 24px;
+	color: var(--white);
 }
 
-.pink_tab_list {
-	width: 100%;
+.h_slide_logo {
+	display: block;
+	height: auto;
+	margin-bottom: 20px;
+}
+
+.h_slide_logo_coha {
+	width: clamp(96px, 8vw, 170px);
+}
+
+.h_slide_kicker {
+	color: var(--p_color01, #FEE3EC);
+	font-family: Montserrat;
+	font-size: 36px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 110%;
+	letter-spacing: -0.72px;
+	margin-bottom: 10px;
+}
+
+.h_slide_title {
+	color: var(--white, #FFF);
+	text-align: center;
+	font-family: Montserrat;
+	font-size: 70px;
+	font-style: normal;
+	font-weight: 900;
+	line-height: 110%;
+	letter-spacing: -1.4px;
+	margin-bottom: 28px;
+}
+
+.h_slide_content_greenchemi .h_slide_title {
+	color: var(--white, #FFF);
+	text-align: center;
+	font-family: "Dela Gothic One";
+	font-size: 70px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 110%;
+	letter-spacing: -1.4px;
+}
+
+.h_slide_desc {
+	max-width: 980px;
+	color: var(--white, #FFF);
+	font-family: Poppins;
+	font-size: 25px;
+	font-style: normal;
+	font-weight: 275;
+	line-height: normal;
+	margin-bottom: 56px;
+}
+
+.h_slide_content_coha .h_slide_desc {
+	color: #FFF;
+	text-align: center;
+	font-family: Poppins;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
+}
+
+.h_slide_content_greenchemi .h_slide_desc {
+	color: #FFF;
+	text-align: center;
+	font-family: Poppins;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
+}
+
+.h_slide_desc_em {
+	font-weight: 700;
+}
+
+.h_slide_btn {
 	display: flex;
+	padding: 12px 60px;
 	justify-content: center;
 	align-items: center;
-	gap: 30px;
-}
-
-.pink_tab_item {
-	padding: 12px 50px;
-	border: 1px solid rgba(255, 255, 255, 0.32);
+	gap: 10px;
 	border-radius: 999px;
-	backdrop-filter: blur(13.2px);
-	-webkit-backdrop-filter: blur(13.2px);
-	/* Safari 대응 */
-	font-family: var(--font-montserrat);
-	font-size: 26px;
-	font-weight: 900;
-	text-align: center;
-	color: var(--white);
-	transition: background 0.3s ease;
-}
-
-.pink_tab_item_pink {
-	background: #F999B7;
-}
-.pink_tab_item_pink:hover {
-	background: rgba(249, 153, 183, 1) !important;
-}
-
-.pink_tab_item_coha {
-	background: rgba(255, 10, 75, 0.40);
-}
-.pink_tab_item_coha:hover {
-	background: rgba(255, 10, 75, 1) !important;
-}
-
-.pink_tab_item_green {
-	background: rgba(202, 219, 74, 0.40);
-}
-.pink_tab_item_green:hover {
-	background: rgba(202, 219, 74, 1) !important;
-}
-
-.pink_content_box {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	color: var(--white);
-	font-family: var(--font-montserrat);
-}
-
-.pink_eyebrow {
-	margin-bottom: 6px;
-	font-size: 36px;
-	font-weight: 500;
-	line-height: 1.1;
-	letter-spacing: -2px;
-	color: var(--p-color1);
-}
-
-.pink_title {
-	margin-bottom: 25px;
-	font-size: 70px;
-	font-weight: 900;
-	line-height: 1.1;
-	letter-spacing: -2px;
-}
-
-.pink_desc {
+	background: #e9e9e9;
+	color: #f2789f;
 	font-family: var(--font-poppins);
-	font-size: 24px;
-	font-weight: 200;
-	margin-bottom: 70px;
-	line-height: 1.2;
-}
-
-.pink_view_more {
-	font-family: var(--font-poppins);
-	font-size: 26px;
+	font-size: clamp(26px, 2vw, 46px);
 	font-weight: 500;
-	color: #F2789F;
-	padding: 12px 60px;
-	background: #EDEDED;
-	border-radius: 999px;
-	line-height: 1.2;
-	border: 1px solid rgba(242, 120, 159, 0.41);
-	transition: all 0.3s ease;
+	line-height: 1;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-.pink_view_more:hover {
-	background: #F2789F;
-	color: #EDEDED;
-}
-
-/* =========================================
-   COHA 섹션
-========================================= */
-.coha {
-	width: 100%;
-	height: 100vh;
-	padding: 150px 30px 100px;
-	background:
-		linear-gradient(color-mix(in srgb, var(--g-color6) 50%, transparent), color-mix(in srgb, var(--g-color6) 50%, transparent)),
-		url('../img/coha.jpg') no-repeat center/cover;
-}
-
-.coha_inner {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 150px;
-}
-
-/* COHA 섹션에서의 탭 활성화 상태 변경 */
-.coha .pink_tab_item_coha {
-	backdrop-filter: none;
-	-webkit-backdrop-filter: none;
-	background: #FF004B;
-	/* 활성화된 COHA는 불투명 솔리드 컬러 */
-}
-
-.coha .pink_tab_item_pink {
-	background: rgba(249, 153, 183, 0.40);
-	/* PINK OFFICE는 비활성화 투명도 */
-}
-
-/* 눈썹글씨 대신 들어가는 로고 이미지 래퍼 */
-.coha_logo_wrap {
-	margin-bottom: 6px;
-}
-
-.coha_logo_wrap img {
-	height: 148px;
-	/* 로고 크기 적절히 조정 */
-	object-fit: contain;
-}
-
-/* 특정 텍스트 font-weight 변경 */
-.coha_desc span {
-	font-weight: 500;
-}
-
-/* =========================================
-   GREEN CHEMI 섹션
-========================================= */
-.greenchemi {
-	width: 100%;
-	height: 100vh;
-	padding: 150px 30px 100px;
-	background:
-		linear-gradient(color-mix(in srgb, var(--g-color6) 50%, transparent), color-mix(in srgb, var(--g-color6) 50%, transparent)),
-		url('../img/greenchemi.jpg') no-repeat center/cover;
-}
-
-.greenchemi_inner {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 170px;
-}
-
-/* GREEN CHEMI 섹션에서의 탭 활성화 상태 변경 */
-.greenchemi .pink_tab_item_green {
-	backdrop-filter: none;
-	-webkit-backdrop-filter: none;
-	background: #CADB4A;
-	/* 활성화된 GREEN CHEMI는 불투명 솔리드 컬러 */
-}
-
-.greenchemi .pink_tab_item_pink {
-	background: rgba(249, 153, 183, 0.40);
-	/* PINK OFFICE는 비활성화 투명도 */
-}
-
-.greenchemi .pink_tab_item_coha {
-	background: rgba(255, 10, 75, 0.40);
-	/* COHA 비활성화 투명도 */
-}
-
-/* GREEN CHEMI 타이틀 폰트 변경 */
-.greenchemi .pink_title {
-	font-family: var(--font-dela-gothic-one);
-	font-size: 70px;
-	font-weight: 400;
+.h_slide_btn:hover {
+	background: #f2789f;
+	color: var(--white);
 }
 
 footer {
@@ -658,4 +653,3 @@ footer {
 	height: 200px;
 	background-color: var(--g-color1);
 }
-
