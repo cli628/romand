@@ -343,6 +343,152 @@ document.addEventListener("DOMContentLoaded",  () => {
         });
     });
 
+    function initializeNewSectionMobileLoop() {
+        const mobileLoopQuery = window.matchMedia("(max-width: 400px)");
+        const newSection = document.querySelector(".new_section");
+        const animationArea = newSection?.querySelector(".animation_area");
+        const floatingProducts = newSection?.querySelector(".floating_products");
+
+        if (!mobileLoopQuery.matches || !newSection || !animationArea || !floatingProducts) {
+            return;
+        }
+
+        if (animationArea.dataset.loopReady === "true") {
+            return;
+        }
+
+        const originalItems = Array.from(floatingProducts.children).filter((child) =>
+            child.classList.contains("floating_item")
+        );
+
+        if (originalItems.length < 2) {
+            return;
+        }
+
+        animationArea.dataset.loopReady = "true";
+        newSection.classList.add("new_section_mobile_loop");
+
+        const beforeFragment = document.createDocumentFragment();
+        const afterFragment = document.createDocumentFragment();
+
+        originalItems.forEach((item) => {
+            const beforeClone = item.cloneNode(true);
+            const afterClone = item.cloneNode(true);
+
+            beforeClone.dataset.loopClone = "true";
+            afterClone.dataset.loopClone = "true";
+
+            beforeFragment.appendChild(beforeClone);
+            afterFragment.appendChild(afterClone);
+        });
+
+        floatingProducts.prepend(beforeFragment);
+        floatingProducts.append(afterFragment);
+
+        let isAdjustingScroll = false;
+        const gapValue = parseFloat(
+            getComputedStyle(floatingProducts).columnGap ||
+            getComputedStyle(floatingProducts).gap ||
+            "0"
+        ) || 0;
+
+        const singleSetWidth =
+            originalItems.reduce((totalWidth, item) => totalWidth + item.getBoundingClientRect().width, 0) +
+            gapValue * Math.max(0, originalItems.length - 1);
+
+        const cardAdvance = (originalItems[0]?.getBoundingClientRect().width || 0) + gapValue;
+
+        requestAnimationFrame(() => {
+            animationArea.scrollLeft = Math.round(singleSetWidth + cardAdvance * 2);
+        });
+
+        let isPointerDown = false;
+        let dragStartX = 0;
+        let dragStartScrollLeft = 0;
+        let hasDragged = false;
+
+        animationArea.addEventListener("scroll", () => {
+            if (isAdjustingScroll || singleSetWidth <= 0) {
+                return;
+            }
+
+            const leftThreshold = singleSetWidth * 0.65;
+            const rightThreshold = singleSetWidth * 2.1;
+
+            if (animationArea.scrollLeft < leftThreshold) {
+                isAdjustingScroll = true;
+                animationArea.scrollLeft += singleSetWidth;
+                requestAnimationFrame(() => {
+                    isAdjustingScroll = false;
+                });
+            } else if (animationArea.scrollLeft > rightThreshold) {
+                isAdjustingScroll = true;
+                animationArea.scrollLeft -= singleSetWidth;
+                requestAnimationFrame(() => {
+                    isAdjustingScroll = false;
+                });
+            }
+        }, { passive: true });
+
+        animationArea.addEventListener("wheel", (event) => {
+            if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) {
+                return;
+            }
+
+            event.preventDefault();
+            animationArea.scrollLeft += event.deltaY;
+        }, { passive: false });
+
+        animationArea.addEventListener("pointerdown", (event) => {
+            isPointerDown = true;
+            hasDragged = false;
+            dragStartX = event.clientX;
+            dragStartScrollLeft = animationArea.scrollLeft;
+            animationArea.classList.add("is_dragging");
+        });
+
+        animationArea.addEventListener("pointermove", (event) => {
+            if (!isPointerDown) {
+                return;
+            }
+
+            const deltaX = event.clientX - dragStartX;
+
+            if (Math.abs(deltaX) > 5) {
+                hasDragged = true;
+            }
+
+            animationArea.scrollLeft = dragStartScrollLeft - deltaX;
+
+            if (hasDragged) {
+                event.preventDefault();
+            }
+        });
+
+        function endPointerDrag() {
+            isPointerDown = false;
+            animationArea.classList.remove("is_dragging");
+            requestAnimationFrame(() => {
+                hasDragged = false;
+            });
+        }
+
+        animationArea.addEventListener("pointerup", endPointerDrag);
+        animationArea.addEventListener("pointerleave", endPointerDrag);
+        animationArea.addEventListener("pointercancel", endPointerDrag);
+
+        animationArea.addEventListener("click", (event) => {
+            if (!hasDragged) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+        }, true);
+    }
+
+    initializeNewSectionMobileLoop();
+
     // 4. Product Card Expand/Collapse
     document.querySelectorAll(".product_card_header").forEach((btn) => {
         btn.addEventListener("click", (e) => {
@@ -438,7 +584,14 @@ document.addEventListener("DOMContentLoaded",  () => {
         /* Extra hold after the bag reaches center before the next section takes over. */
         endHoldDuration: 4
     };
-    if (floatingItems.length > 0) {
+    if (floatingItems.length > 0 && !window.matchMedia("(max-width: 400px)").matches) {
+        const isMobile = window.matchMedia('(max-width: 1024px)').matches;
+
+        // Mobile: items start above their CSS positions and come down one by one
+        if (isMobile) {
+            gsap.set(floatingItems, { y: -300, opacity: 0 });
+        }
+
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".animation_area",
@@ -451,7 +604,19 @@ document.addEventListener("DOMContentLoaded",  () => {
             }
         });
 
-        if (floatingProducts) {
+        // Mobile phase 1: reveal each item from above, one by one
+        if (isMobile) {
+            floatingItems.forEach((item, index) => {
+                tl.to(item, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.5,
+                    ease: 'power2.out'
+                }, index * 0.6);
+            });
+        }
+
+        if (floatingProducts && !isMobile) {
             tl.to(floatingProducts, {
                 y: NEW_SECTION_BAG_CONFIG.floatingProductsShiftY,
                 duration: NEW_SECTION_BAG_CONFIG.floatingProductsDuration,
@@ -498,7 +663,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         top: NEW_SECTION_BAG_CONFIG.dropTarget.top,
         left: NEW_SECTION_BAG_CONFIG.dropTarget.left,
         scale: NEW_SECTION_BAG_CONFIG.dropTarget.scale,
-        opacity: NEW_SECTION_BAG_CONFIG.dropTarget.opacity,
+        opacity: isMobile ? 0 : NEW_SECTION_BAG_CONFIG.dropTarget.opacity,
         duration: NEW_SECTION_BAG_CONFIG.dropDuration,
         ease: "power2.in"
     }, dropAt);
@@ -593,6 +758,17 @@ document.addEventListener("DOMContentLoaded",  () => {
                 { x: 0, y: 0 }
             ]
         };
+        const BEST_SECTION_TABLET_LAYOUT = {
+            itemAnchorOffset: { x: 134, y: -30 },
+            itemOffsets: [
+                { x: -4, y: 6 },
+                { x: 6, y: 2 },
+                { x: 14, y: -4 }
+            ],
+            sinkDropAmounts: [0, 1380, 950],
+            sinkDriftXAmounts: [0, -260, 0],
+            sinkOpacityDelays: [0, 0.02, 0.82]
+        };
 
         if (!bestSection || !bestVideo || !bestHeader || !railTrack || typeof ScrollTrigger === "undefined" || typeof gsap === "undefined") {
             /* If the best section is missing, initialize the workflow section immediately. */
@@ -675,8 +851,11 @@ document.addEventListener("DOMContentLoaded",  () => {
                     initialOffset + videoProgress * BEST_SECTION_CONFIG.bagTravelRate
                 );
                 const bagPoint = samplePath(metrics.singlePathPoints, pathProgress);
-                const anchorOffset = BEST_SECTION_CONFIG.itemAnchorOffset;
-                const offset = BEST_SECTION_CONFIG.itemOffsets[itemIndex] || { x: 0, y: 0 };
+                const responsiveLayout = window.matchMedia("(max-width: 1024px)").matches
+                    ? BEST_SECTION_TABLET_LAYOUT
+                    : BEST_SECTION_CONFIG;
+                const anchorOffset = responsiveLayout.itemAnchorOffset;
+                const offset = responsiveLayout.itemOffsets[itemIndex] || { x: 0, y: 0 };
                 return {
                     x: bagPoint.x + anchorOffset.x + offset.x,
                     y: bagPoint.y + anchorOffset.y + offset.y
@@ -685,6 +864,8 @@ document.addEventListener("DOMContentLoaded",  () => {
 
             function updateBestSectionFrame(progress) {
                 const metrics = getSectionMetrics();
+                const isTabletViewport = window.matchMedia("(max-width: 1024px)").matches;
+                const responsiveLayout = isTabletViewport ? BEST_SECTION_TABLET_LAYOUT : BEST_SECTION_CONFIG;
                 const videoProgress = gsap.utils.clamp(0, 1, progress / BEST_SECTION_CONFIG.videoProgressEnd);
                 const exitSpan = 1 - BEST_SECTION_CONFIG.exitStartProgress;
                 const exitProgress = gsap.utils.clamp(0, 1, (progress - BEST_SECTION_CONFIG.exitStartProgress) / exitSpan);
@@ -724,11 +905,13 @@ document.addEventListener("DOMContentLoaded",  () => {
                     const line = item.querySelector(".connect_line");
 
                     /* Extra downward drop per item after sink starts. Later items fall farther. */
-                    const sinkDropAmounts = [0, 650, 950];  /*  */
+                    const sinkDropAmounts = responsiveLayout.sinkDropAmounts || [0, 650, 950];
                     const sinkDropY = sinkProgress * (sinkDropAmounts[index] || 0);
+                    const sinkDriftXAmounts = responsiveLayout.sinkDriftXAmounts || [0, 0, 0];
+                    const sinkDriftX = sinkProgress * (sinkDriftXAmounts[index] || 0);
 
                     /* Delay the opacity drop so item 2 and 3 disappear later than item 1. */
-                    const sinkOpacityDelays = [0, 0.60, 0.82];
+                    const sinkOpacityDelays = responsiveLayout.sinkOpacityDelays || [0, 0.60, 0.82];
                     const sinkOpacityDelay = sinkOpacityDelays[index] || 0;
                     const sinkOpacityProgress = gsap.utils.clamp(
                         0, 1,
@@ -736,7 +919,7 @@ document.addEventListener("DOMContentLoaded",  () => {
                     );
 
                     gsap.set(item, {
-                        x: position.x,
+                        x: position.x + sinkDriftX,
                         y: position.y + sinkDropY,
                         opacity: appearProgress * (1 - sinkOpacityProgress) * introOpacity,
                         scale: gsap.utils.interpolate(1, 0.72, sinkProgress)
@@ -1068,48 +1251,16 @@ document.addEventListener("DOMContentLoaded",  () => {
     }
 
     function initializePinkOfficeScroll() {
-        const pinkSection = document.querySelector(".pink_office_section");
-        if (!pinkSection || typeof ScrollTrigger === "undefined" || typeof gsap === "undefined") return;
+        const pinkVisual = document.querySelector(".pink_office_visual");
 
-        const pinkVisual = pinkSection.querySelector(".pink_office_visual");
-
-        /* Animate the whole Pink Office visual while the sticky section is active.
-           Tune x, y, and scale below to move the image and the box overlay together. */
-        if (pinkVisual) {
-            gsap.set(pinkVisual, {
-                willChange: "transform",
-                transformOrigin: "left center"
-            });
-            const getLeftFlushOffset = () => Math.ceil(Math.max(0, (pinkVisual.offsetWidth - window.innerWidth) / 2)) + 1;
-            const pinkScrollTrigger = {
-                trigger: pinkSection,
-                start: "top top",
-                end: "bottom top",
-                scrub: 3,
-                invalidateOnRefresh: true
-            };
-            const pinkTimeline = gsap.timeline({
-                scrollTrigger: {
-                    ...pinkScrollTrigger
-                }
-            });
-
-            pinkTimeline.fromTo(
-                pinkVisual,
-                {
-                    x: 0,
-                    y: 160,   /* Starting vertical offset before the sticky scroll begins. */
-                    scale: 1
-                },
-                {
-                    x: getLeftFlushOffset, /* Shift only enough to keep the left edge visually flush. */
-                    y: -120,  /* Upward drift while scrolling through the section. */
-                    scale: () => (window.innerWidth <= 768 ? 1.1 : 1.15), /* Overall zoom amount for the whole visual. */
-                    ease: "none"
-                },
-                0
-            );
+        if (!pinkVisual || typeof gsap === "undefined") {
+            return;
         }
+
+        // Keep the Pink Office visual static and full-width.
+        gsap.set(pinkVisual, {
+            clearProps: "x,y,scale,transform,willChange,transformOrigin"
+        });
     }
 
     function normalizeSnsQuickSrc(src) {
