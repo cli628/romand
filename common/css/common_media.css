@@ -25,8 +25,8 @@
         letter-spacing: 0.1em;
     }
 
-    .overlay_logo a {
-        font-size: 19px;
+    .overlay_logo img {
+        width: clamp(90px, 8vw, 116px);
     }
 
     .overlay_close_btn {
@@ -95,8 +95,8 @@
         margin-bottom: 0.85em;
     }
 
-    .overlay_logo a {
-        font-size: 18px;
+    .overlay_logo img {
+        width: 94px;
     }
 
     .overlay_close_btn {
@@ -141,6 +141,45 @@
         width: calc(100% - 48px);
         height: var(--footer-shape-height);
         padding: 24px 0 20px;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+    }
+
+    .footer_links {
+        width: auto;
+        flex-direction: row;
+        gap: 24px;
+        margin-right: auto;
+    }
+
+    .footer_links_col {
+        gap: 10px;
+    }
+
+    .footer_newsletter {
+        width: min(38vw, 360px);
+        flex: 0 1 360px;
+        max-width: 360px;
+        padding-bottom: 0;
+    }
+
+    .footer_newsletter p {
+        margin-bottom: 10px;
+    }
+
+    .footer_social {
+        width: auto;
+        justify-content: flex-start;
+        align-self: flex-end;
+        gap: 12px;
+        padding-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footer_inner {
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
@@ -160,8 +199,8 @@
 
     .footer_newsletter {
         width: 100%;
+        flex: 0 0 auto;
         max-width: none;
-        padding-bottom: 0;
     }
 
     .footer_newsletter p {
@@ -170,14 +209,10 @@
 
     .footer_social {
         width: 100%;
-        justify-content: flex-start;
         align-self: flex-start;
         gap: 14px;
-        padding-bottom: 0;
     }
-}
 
-@media screen and (max-width: 768px) {
     .overlay_depth_row {
         gap: 0.5em 0.85em;
     }
@@ -217,8 +252,8 @@
         margin-bottom: 0.75em;
     }
 
-    .overlay_logo a {
-        font-size: 17px;
+    .overlay_logo img {
+        width: 82px;
     }
 
     .overlay_close_btn {
