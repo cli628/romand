@@ -860,37 +860,79 @@
   }
 
   .product {
-    padding: 40px 0 48px;
+    padding: 64px 0 66px;
+    background: #ececec;
   }
 
   .product_inner {
     padding: 0 16px;
-    gap: 14px;
+    gap: 24px;
   }
 
   .product_title {
+    color: #5d5d5d;
+    text-align: center;
     font-size: 24px;
-    line-height: 1.2;
+    font-weight: 500;
+    line-height: 1.25;
   }
 
-  .product_main_portal,
+  .product_main_portal {
+    height: auto;
+    display: flex;
+    justify-content: center;
+  }
+
   .main_banner_wrap {
-    height: 120px;
-    border-radius: 8px;
+    position: relative;
+    top: auto;
+    left: auto;
+    width: min(100%, 344px);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    margin: 0 auto;
+    transform: none !important;
   }
 
   .product_list {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 6px;
+    max-width: 344px;
+    margin: 0 auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
   }
 
   .product_item {
-    border-radius: 6px;
+    display: none;
+    border-radius: 14px;
+  }
+
+  .p_item_2,
+  .p_item_3,
+  .p_item_5,
+  .p_item_6,
+  .p_item_9,
+  .p_item_11,
+  .p_item_12,
+  .p_item_13,
+  .main_slot_placeholder {
+    display: block;
+  }
+
+  .main_slot_placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 35%, #f4c4d8 0%, #f3b6ce 62%, #f5d8e5 100%);
   }
 
   .main_slot_placeholder::before {
-    font-size: 18px;
-    letter-spacing: -0.3px;
+    color: #fff;
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.4px;
   }
 
   .h_slide {
@@ -1045,29 +1087,30 @@
   }
 
   .product_inner {
-    padding: 0 12px;
-    gap: 12px;
+    padding: 0 14px;
+    gap: 20px;
   }
 
   .product_title {
-    font-size: 21px;
+    font-size: 22px;
   }
 
-  .product_main_portal,
   .main_banner_wrap {
-    height: 104px;
+    width: min(100%, 320px);
+    border-radius: 11px;
   }
 
   .product_list {
-    gap: 5px;
+    max-width: 320px;
+    gap: 10px;
   }
 
   .product_item {
-    border-radius: 5px;
+    border-radius: 12px;
   }
 
   .main_slot_placeholder::before {
-    font-size: 15px;
+    font-size: 21px;
   }
 
   .h_slide {
