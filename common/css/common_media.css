@@ -26,7 +26,7 @@
     }
 
     .overlay_logo img {
-        width: clamp(90px, 8vw, 116px);
+        width: clamp(90px, 8vw, 118px);
     }
 
     .overlay_close_btn {
@@ -93,7 +93,7 @@
     }
 
     .menu_overlay {
-        padding: var(--common-overlay-padding-y) var(--common-shell-padding-x);
+        padding: 0 var(--common-shell-padding-x) var(--common-overlay-padding-y);
     }
 
     .overlay_nav {
@@ -101,7 +101,7 @@
     }
 
     .overlay_logo img {
-        width: 94px;
+        width: 96px;
     }
 
     .overlay_close_btn {
@@ -250,7 +250,7 @@
     }
 
     .menu_overlay {
-        padding: var(--common-overlay-padding-y) var(--common-shell-padding-x);
+        padding: 0 var(--common-shell-padding-x) var(--common-overlay-padding-y);
     }
 
     .overlay_nav {
@@ -258,7 +258,7 @@
     }
 
     .overlay_logo img {
-        width: 82px;
+        width: 84px;
     }
 
     .overlay_close_btn {
