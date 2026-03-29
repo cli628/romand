@@ -92,6 +92,21 @@ main,
     padding: var(--common-header-padding-y) var(--common-shell-padding-x);
     z-index: 60;
     font-family: var(--font-poppins);
+    transition: transform 0.32s ease, opacity 0.22s ease;
+    will-change: transform, opacity;
+    background: var(--white);
+}
+
+.common_header.is-hidden {
+    transform: translateY(calc(-100% - 12px));
+    opacity: 0;
+    pointer-events: none;
+}
+
+.common_header.is-menu-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .header_logo a {
