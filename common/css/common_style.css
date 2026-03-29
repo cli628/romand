@@ -90,9 +90,6 @@ main,
     align-items: center;
     gap: 1.25em;
     padding: var(--common-header-padding-y) var(--common-shell-padding-x);
-    backdrop-filter: saturate(120%) blur(12px);
-    -webkit-backdrop-filter: saturate(120%) blur(12px);
-    color: var(--black);
     z-index: 60;
     font-family: var(--font-poppins);
 }
