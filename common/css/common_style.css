@@ -4,56 +4,56 @@
 
 /* holly-berry-pop 폰트 */
 @font-face {
-  font-family: 'holly-berry-pop';
-  src: url('../font/HollyBerryPop-PVxdZ.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
+    font-family: 'holly-berry-pop';
+    src: url('../font/HollyBerryPop-PVxdZ.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
 }
 
 /* 루트지정 */
 :root {
-  font-size: 18px;
-  line-height: 110%;
-  letter-spacing: -0.02em;
-  --p-color1: #FEE3EC;
-  --p-color2: #F9C5D5;
-  --p-color3: #F999B7;
-  --p-color4: #F385A8;
-  --p-color5: #EF749B;
-  --gr-color1: #CADB4A;
-  --gr-color2: #D9F072;
-  --gr-color3: #EBF695;
-  --b-color1: #6DB8FF;
-  --b-color2: #9ACEFF;
-  --g-color1: #eeeeee;
-  --g-color2: #D5D5D5;
-  --g-color3: #979797;
-  --g-color4: #707070;
-  --g-color5: #505050;
-  --g-color6: #353535;
-  --g-color7: #282828;
-  --g-color8: #1C1C1C;
-  --g-color9: #101010;
-  --white: #ffffff;
-  --black: #000000;
-  --font-poppins: "Poppins", sans-serif;
-  --font-montserrat: "Montserrat", sans-serif;
-  --font-quicksand: "Quicksand", sans-serif;
-  --font-holly-berry-pop: 'holly-berry-pop', sans-serif;
-  --font-dm-serif-display: 'DM Serif Display', serif;
-  --font-dela-gothic-one: 'Dela Gothic One', sans-serif;
-  --round5: 5px;
-  --round15: 15px;
-  --round25: 25px;
-  --round50: 50px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --common-shell-padding-x: clamp(20px, 2.2vw, 36px);
-  --common-header-padding-y: clamp(18px, 2vw, 32px);
-  --common-overlay-padding-y: clamp(22px, 2.2vw, 34px);
-  --common-menu-button-size: 44px;
-  --common-menu-icon-width: 24px;
-  --common-menu-icon-height: 17px;
-  --common-menu-line-thickness: 2px;
+    font-size: 18px;
+    line-height: 110%;
+    letter-spacing: -0.02em;
+    --p-color1: #FEE3EC;
+    --p-color2: #F9C5D5;
+    --p-color3: #F999B7;
+    --p-color4: #F385A8;
+    --p-color5: #EF749B;
+    --gr-color1: #CADB4A;
+    --gr-color2: #D9F072;
+    --gr-color3: #EBF695;
+    --b-color1: #6DB8FF;
+    --b-color2: #9ACEFF;
+    --g-color1: #eeeeee;
+    --g-color2: #D5D5D5;
+    --g-color3: #979797;
+    --g-color4: #707070;
+    --g-color5: #505050;
+    --g-color6: #353535;
+    --g-color7: #282828;
+    --g-color8: #1C1C1C;
+    --g-color9: #101010;
+    --white: #ffffff;
+    --black: #000000;
+    --font-poppins: "Poppins", sans-serif;
+    --font-montserrat: "Montserrat", sans-serif;
+    --font-quicksand: "Quicksand", sans-serif;
+    --font-holly-berry-pop: 'holly-berry-pop', sans-serif;
+    --font-dm-serif-display: 'DM Serif Display', serif;
+    --font-dela-gothic-one: 'Dela Gothic One', sans-serif;
+    --round5: 5px;
+    --round15: 15px;
+    --round25: 25px;
+    --round50: 50px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --common-shell-padding-x: clamp(20px, 2.2vw, 36px);
+    --common-header-padding-y: clamp(18px, 2vw, 32px);
+    --common-overlay-padding-y: clamp(22px, 2.2vw, 34px);
+    --common-menu-button-size: 44px;
+    --common-menu-icon-width: 24px;
+    --common-menu-icon-height: 17px;
+    --common-menu-line-thickness: 2px;
 }
 
 html,
@@ -436,7 +436,8 @@ main,
     border: 0;
     background: none;
     font-size: 13px;
-    font-weight: 400;line-height: 20px;
+    font-weight: 400;
+    line-height: 20px;
     color: var(--g-color8);
     cursor: pointer;
     transition: color 0.2s ease;
