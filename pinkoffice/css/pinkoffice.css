@@ -171,6 +171,7 @@ section {
   letter-spacing: -3%;
   font-weight: 500;
   color: var(--g-color6);
+    margin-right: 80px;
 }
 
 .mixing_title span {
