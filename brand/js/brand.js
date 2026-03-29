@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ========================= */
   const productSection = document.querySelector('.product');
 
-  if (productSection) {
+  if (productSection && !window.matchMedia('(max-width: 1024px)').matches) {
     const mainBannerWrap = document.querySelector('.main_banner_wrap');
     const mainSlot = document.querySelector('.main_slot_placeholder');
     const productItems = document.querySelectorAll('.product_item:not(.main_slot_placeholder)');
@@ -246,6 +246,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const hScrollWrap = document.querySelector('.h_scroll_wrap');
 
   if (hScrollContainer && hScrollWrap) {
+    if (window.matchMedia('(max-width: 1024px)').matches) {
+      hScrollWrap.style.transform = 'none';
+      return;
+    }
+
     const hSlides = gsap.utils.toArray('.h_slide');
     const hSlideTabGroups = gsap.utils.toArray('.h_slide_tabs');
     const hSlideTabs = gsap.utils.toArray('.h_slide_tab');

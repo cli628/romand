@@ -27,46 +27,1085 @@
   }
 }
 
-@media screen and (max-width:1440px) {}
+@media screen and (max-width:1440px) {
+  .about {
+    padding: 0 140px 54px;
+  }
 
-@media screen and (max-width:1200px) {}
+  .about_title {
+    font-size: 72px;
+  }
 
-/* 태블릿 */
-@media screen and (max-width:1024px) {
-  .h_scroll_container {
-    height: calc(100vh - 64px);
+  .essence,
+  .vision,
+  .why {
+    padding-left: 140px;
+    padding-right: 140px;
+  }
+
+  .essence_title,
+  .vision_title,
+  .value_title,
+  .why_main_title,
+  .product_title {
+    font-size: 60px;
+  }
+
+  .essence_desc {
+    font-size: 24px;
+  }
+
+  .vision_subtitle {
+    font-size: 46px;
+  }
+
+  .vision_desc {
+    font-size: 18px;
+  }
+
+  .value_keyword {
+    font-size: 30px;
+  }
+
+  .value_desc {
+    font-size: 20px;
   }
 
   .h_slide_tabs {
-    top: 132px;
-    gap: 10px;
+    top: 76px;
+    gap: 14px;
+  }
+
+  .h_slide_tab {
+    height: 54px;
+    padding: 0 28px;
+    font-size: 28px;
+  }
+
+  .h_slide_logo_coha {
+    width: 136px;
+  }
+
+  .h_slide_kicker {
+    font-size: 30px;
+  }
+
+  .h_slide_title,
+  .h_slide_content_greenchemi .h_slide_title {
+    font-size: 58px;
+  }
+
+  .h_slide_desc,
+  .h_slide_content_coha .h_slide_desc,
+  .h_slide_content_greenchemi .h_slide_desc {
+    font-size: 20px;
+    margin-bottom: 44px;
+  }
+
+  .h_slide_btn {
+    padding: 10px 46px;
+    font-size: 24px;
+  }
+
+  .why {
+    padding-top: 170px;
+    padding-bottom: 170px;
+  }
+
+  .why_inner {
+    gap: 52px;
+  }
+
+  .why_main_title {
+    font-size: 56px;
+  }
+
+  .card_1 .why_card_title {
+    font-size: 42px;
+    line-height: 1.2;
+  }
+
+  .card_1 .why_card_desc {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .card_2 .why_card_title,
+  .card_3 .why_card_title {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .card_2 .why_card_desc,
+  .card_3 .why_card_desc {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .card_4 .why_card_title {
+    font-size: 30px;
+    line-height: 1.25;
+  }
+
+  .card_4 .why_card_desc {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+@media screen and (max-width:1200px) {
+  .about {
+    height: 500px;
+    padding: 0 92px 46px;
+  }
+
+  .about_title {
+    font-size: 58px;
+  }
+
+  .essence,
+  .vision,
+  .why {
+    padding-left: 92px;
+    padding-right: 92px;
+  }
+
+  .essence_title,
+  .vision_title,
+  .value_title,
+  .why_main_title,
+  .product_title {
+    font-size: 48px;
+  }
+
+  .essence_desc {
+    font-size: 20px;
+    line-height: 1.55;
+  }
+
+  .vision_item {
+    height: 280px;
+  }
+
+  .vision_subtitle {
+    font-size: 38px;
+  }
+
+  .vision_desc {
+    font-size: 16px;
+  }
+
+  .value {
+    padding: 100px 90px;
+  }
+
+  .value_circle {
+    width: 280px;
+    height: 280px;
+  }
+
+  .value_keyword {
+    font-size: 26px;
+  }
+
+  .value_desc {
+    font-size: 18px;
+  }
+
+  .why_grid {
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: repeat(3, 220px);
+    height: auto;
+  }
+
+  .card_1 {
+    grid-row: span 3;
+  }
+
+  .card_4 {
+    grid-column: span 1;
+  }
+
+  .product {
+    padding: 120px 0 250px;
+  }
+
+  .product_inner {
+    padding: 0 28px;
+    gap: 44px;
+  }
+
+  .h_slide_tabs {
+    top: 72px;
+    gap: 12px;
   }
 
   .h_slide_tab {
     height: 48px;
     padding: 0 22px;
+    font-size: 22px;
+  }
+
+  .h_slide_logo_coha {
+    width: 118px;
+  }
+
+  .h_slide_kicker {
+    font-size: 26px;
+  }
+
+  .h_slide_title,
+  .h_slide_content_greenchemi .h_slide_title {
+    font-size: 48px;
+    letter-spacing: -1px;
+  }
+
+  .h_slide_desc,
+  .h_slide_content_coha .h_slide_desc,
+  .h_slide_content_greenchemi .h_slide_desc {
+    font-size: 18px;
+    margin-bottom: 34px;
+  }
+
+  .h_slide_btn {
+    padding: 10px 36px;
+    font-size: 20px;
+  }
+}
+
+/* 태블릿 */
+@media screen and (max-width:1024px) {
+  .about {
+    height: 380px;
+    padding: 0 56px 42px;
+  }
+
+  .about_title {
+    font-size: 56px;
+  }
+
+  .essence {
+    padding: 80px 56px;
+  }
+
+  .essence_inner {
+    gap: 24px;
+  }
+
+  .essence_title {
+    font-size: 44px;
+    margin-bottom: 28px;
+  }
+
+  .essence_desc {
+    font-size: 20px;
+    line-height: 1.55;
+  }
+
+  .vision {
+    padding: 80px 56px 92px;
+  }
+
+  .vision_inner {
+    gap: 30px;
+  }
+
+  .vision_title {
+    font-size: 44px;
+  }
+
+  .vision_item {
+    height: 96px;
+    padding: 0 6px 14px;
+  }
+
+  .vision_subtitle {
+    font-size: 22px;
+    margin-bottom: 0;
+  }
+
+  .vision_desc,
+  .vision_img_reveal {
+    display: none;
+  }
+
+  .value {
+    padding: 86px 28px 92px;
+    border-radius: 0 0 56px 56px;
+  }
+
+  .value_title {
+    font-size: 44px;
+    margin-bottom: 44px;
+  }
+
+  .value_list {
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .value_item {
+    gap: 18px;
+  }
+
+  .value_circle {
+    width: 170px;
+    height: 170px;
+  }
+
+  .value_keyword {
+    font-size: 22px;
+  }
+
+  .value_desc {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .why {
+    padding: 92px 56px;
+  }
+
+  .why_inner {
+    gap: 34px;
+  }
+
+  .why_main_title {
+    font-size: 44px;
+    text-align: left;
+  }
+
+  .why_grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    gap: 16px;
+    height: auto;
+  }
+
+  .card_1,
+  .card_4 {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .why_card {
+    min-height: 190px;
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .card_1 .why_card_title {
+    font-size: 30px;
+  }
+
+  .card_1 .why_card_desc {
+    font-size: 14px;
+  }
+
+  .card_2 .why_card_title,
+  .card_3 .why_card_title {
+    font-size: 22px;
+  }
+
+  .card_2 .why_card_desc,
+  .card_3 .why_card_desc {
+    font-size: 13px;
+  }
+
+  .card_4 .why_card_title {
+    font-size: 26px;
+  }
+
+  .card_4 .why_card_desc {
+    font-size: 14px;
+  }
+
+  .product {
+    padding: 88px 0 120px;
+  }
+
+  .product_inner {
+    max-width: none;
+    padding: 0 48px;
+    gap: 34px;
+  }
+
+  .product_title {
+    color: #505050;
+    text-align: left;
+    font-family: Poppins;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  .product_main_portal,
+  .main_banner_wrap {
+    height: 420px;
+    border-radius: 12px;
+  }
+
+  .product_list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .product_item {
+    border-radius: 14px;
+    aspect-ratio: 1 / 1;
+  }
+
+  .main_slot_placeholder {
+    background: linear-gradient(180deg, #f8d7e5 0%, #f5b9d1 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main_slot_placeholder::before {
+    content: "rom&nd";
+    color: #fff;
+    font-family: Montserrat;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.8px;
+  }
+
+  .h_scroll_container {
+    height: auto;
+    overflow: visible;
+    background: #fff;
+  }
+
+  .h_scroll_wrap {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: none !important;
+  }
+
+  .h_slide {
+    width: 100%;
+    min-width: 0;
+    height: 520px;
+  }
+
+  .h_slide_tabs {
+    top: 28px;
+    gap: 10px;
+  }
+
+  .h_slide_tab {
+    height: 42px;
+    padding: 0 20px;
+    font-size: 22px;
+  }
+
+  .h_slide_logo_coha {
+    width: 118px;
+  }
+
+  .h_slide_kicker {
+    font-size: 28px;
+  }
+
+  .h_slide_title,
+  .h_slide_content_greenchemi .h_slide_title {
+    font-size: 54px;
+  }
+
+  .h_slide_desc,
+  .h_slide_content_coha .h_slide_desc,
+  .h_slide_content_greenchemi .h_slide_desc {
+    font-size: 21px;
+    margin-bottom: 36px;
+  }
+
+  .h_slide_btn {
+    padding: 11px 42px;
     font-size: 24px;
   }
 }
 
 @media screen and (max-width:768px) {
+  .about {
+    height: 290px;
+    padding: 0 28px 30px;
+  }
+
+  .about_title {
+    font-size: 40px;
+  }
+
+  .essence {
+    padding: 56px 28px;
+  }
+
+  .essence_title {
+    font-size: 32px;
+    margin-bottom: 18px;
+  }
+
+  .essence_desc {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .vision {
+    padding: 56px 28px 64px;
+  }
+
+  .vision_title {
+    font-size: 32px;
+  }
+
+  .vision_item {
+    height: 74px;
+    padding: 0 4px 10px;
+  }
+
+  .vision_subtitle {
+    font-size: 16px;
+  }
+
+  .value {
+    padding: 62px 14px 70px;
+    border-radius: 0 0 36px 36px;
+  }
+
+  .value_title {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  .value_list {
+    gap: 8px;
+  }
+
+  .value_circle {
+    width: 104px;
+    height: 104px;
+  }
+
+  .value_keyword {
+    font-size: 15px;
+  }
+
+  .value_desc {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .why {
+    padding: 64px 28px;
+  }
+
+  .why_inner {
+    gap: 24px;
+  }
+
+  .why_main_title {
+    font-size: 32px;
+  }
+
+  .why_grid {
+    gap: 10px;
+  }
+
+  .why_card {
+    min-height: 148px;
+    padding: 12px;
+  }
+
+  .card_1 .why_card_title {
+    font-size: 18px;
+  }
+
+  .card_1 .why_card_desc,
+  .card_2 .why_card_desc,
+  .card_3 .why_card_desc,
+  .card_4 .why_card_desc {
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  .card_2 .why_card_title,
+  .card_3 .why_card_title {
+    font-size: 14px;
+  }
+
+  .card_4 .why_card_title {
+    font-size: 16px;
+  }
+
+  .product {
+    padding: 64px 0 86px;
+  }
+
+  .product_inner {
+    padding: 0 24px;
+    gap: 24px;
+  }
+
+  .product_title {
+    color: #505050;
+    text-align: left;
+    font-family: Poppins;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  .product_main_portal,
+  .main_banner_wrap {
+    height: 280px;
+    border-radius: 10px;
+  }
+
+  .product_list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .product_item {
+    border-radius: 10px;
+  }
+
+  .main_slot_placeholder::before {
+    font-size: 28px;
+    letter-spacing: -0.5px;
+  }
+
   .h_scroll_container {
-    height: calc(100vh - 56px);
+    height: auto;
+    overflow: visible;
+  }
+
+  .h_scroll_wrap {
+    display: block;
+    width: 100%;
+    transform: none !important;
+  }
+
+  .h_slide {
+    height: 360px;
   }
 
   .h_slide_tabs {
-    top: 122px;
+    top: 20px;
     gap: 8px;
   }
 
   .h_slide_tab {
-    height: 42px;
-    padding: 0 16px;
+    height: 32px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  .h_slide_logo_coha {
+    width: 86px;
+    margin-bottom: 10px;
+  }
+
+  .h_slide_kicker {
+    font-size: 20px;
+    letter-spacing: -0.3px;
+  }
+
+  .h_slide_title,
+  .h_slide_content_greenchemi .h_slide_title {
+    font-size: 36px;
+    letter-spacing: -0.6px;
+    margin-bottom: 14px;
+  }
+
+  .h_slide_desc,
+  .h_slide_content_coha .h_slide_desc,
+  .h_slide_content_greenchemi .h_slide_desc {
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+
+  .h_slide_btn {
+    padding: 8px 28px;
     font-size: 18px;
   }
 }
 
 /* 모바일 */
-@media screen and (max-width:400px) {}
+@media screen and (max-width:400px) {
+  .about {
+    height: 220px;
+    padding: 0 16px 18px;
+  }
 
-@media screen and (max-width:375px) {}
+  .about_title {
+    font-size: 28px;
+  }
+
+  .essence {
+    padding: 34px 16px;
+  }
+
+  .essence_title {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .essence_desc {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .vision {
+    padding: 34px 16px 42px;
+  }
+
+  .vision_title {
+    font-size: 22px;
+  }
+
+  .vision_item {
+    height: 52px;
+    padding: 0 2px 6px;
+  }
+
+  .vision_subtitle {
+    font-size: 11px;
+  }
+
+  .value {
+    padding: 40px 12px 46px;
+    border-radius: 0 0 24px 24px;
+  }
+
+  .value_title {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .value_list {
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .value_item {
+    width: 100%;
+    max-width: 180px;
+    gap: 10px;
+  }
+
+  .value_circle {
+    width: 72px;
+    height: 72px;
+  }
+
+  .value_keyword {
+    font-size: 11px;
+  }
+
+  .value_desc {
+    font-size: 9px;
+    line-height: 1.3;
+  }
+
+  .why {
+    padding: 40px 16px;
+  }
+
+  .why_inner {
+    gap: 14px;
+  }
+
+  .why_main_title {
+    font-size: 20px;
+    text-align: right;
+  }
+
+  .why_grid {
+    gap: 6px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .why_card {
+    min-height: 96px;
+    padding: 8px;
+    border-radius: 6px;
+  }
+
+  .card_1 .why_card_title {
+    font-size: 12px;
+  }
+
+  .card_1 .why_card_desc,
+  .card_2 .why_card_desc,
+  .card_3 .why_card_desc,
+  .card_4 .why_card_desc {
+    font-size: 9px;
+    line-height: 1.3;
+  }
+
+  .card_2 .why_card_title,
+  .card_3 .why_card_title {
+    font-size: 10px;
+  }
+
+  .card_4 .why_card_title {
+    font-size: 11px;
+  }
+
+  .product {
+    padding: 40px 0 48px;
+  }
+
+  .product_inner {
+    padding: 0 16px;
+    gap: 14px;
+  }
+
+  .product_title {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .product_main_portal,
+  .main_banner_wrap {
+    height: 120px;
+    border-radius: 8px;
+  }
+
+  .product_list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .product_item {
+    border-radius: 6px;
+  }
+
+  .main_slot_placeholder::before {
+    font-size: 18px;
+    letter-spacing: -0.3px;
+  }
+
+  .h_slide {
+    height: 245px;
+  }
+
+  .h_slide_tabs {
+    top: 12px;
+    left: 50%;
+    width: calc(100% - 16px);
+    transform: translateX(-50%);
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .h_slide_tab {
+    flex: 1;
+    min-width: 0;
+    height: 26px;
+    padding: 0 4px;
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+
+  .h_slide_content {
+    padding: 0 10px;
+  }
+
+  .h_slide_logo_coha {
+    width: 56px;
+    margin-bottom: 8px;
+  }
+
+  .h_slide_kicker {
+    font-size: 13px;
+    letter-spacing: -0.2px;
+    margin-bottom: 6px;
+  }
+
+  .h_slide_title,
+  .h_slide_content_greenchemi .h_slide_title {
+    font-size: 24px;
+    letter-spacing: -0.4px;
+    margin-bottom: 8px;
+  }
+
+  .h_slide_desc,
+  .h_slide_content_coha .h_slide_desc,
+  .h_slide_content_greenchemi .h_slide_desc {
+    max-width: 320px;
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
+
+  .h_slide_btn {
+    padding: 6px 16px;
+    gap: 6px;
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width:375px) {
+  .about {
+    height: 200px;
+    padding: 0 14px 16px;
+  }
+
+  .about_title {
+    font-size: 24px;
+  }
+
+  .essence {
+    padding: 30px 14px;
+  }
+
+  .essence_title {
+    font-size: 20px;
+  }
+
+  .essence_desc {
+    font-size: 10px;
+  }
+
+  .vision {
+    padding: 30px 14px 36px;
+  }
+
+  .vision_title {
+    font-size: 20px;
+  }
+
+  .vision_item {
+    height: 48px;
+  }
+
+  .vision_subtitle {
+    font-size: 10px;
+  }
+
+  .value {
+    padding: 34px 10px 40px;
+  }
+
+  .value_title {
+    font-size: 20px;
+  }
+
+  .value_circle {
+    width: 66px;
+    height: 66px;
+  }
+
+  .value_keyword {
+    font-size: 10px;
+  }
+
+  .value_desc {
+    font-size: 8px;
+  }
+
+  .why {
+    padding: 34px 14px;
+  }
+
+  .why_main_title {
+    font-size: 18px;
+  }
+
+  .why_card {
+    min-height: 90px;
+    padding: 7px;
+  }
+
+  .card_1 .why_card_title {
+    font-size: 11px;
+  }
+
+  .card_2 .why_card_title,
+  .card_3 .why_card_title {
+    font-size: 9px;
+  }
+
+  .card_4 .why_card_title {
+    font-size: 10px;
+  }
+
+  .card_1 .why_card_desc,
+  .card_2 .why_card_desc,
+  .card_3 .why_card_desc,
+  .card_4 .why_card_desc {
+    font-size: 8px;
+  }
+
+  .product_inner {
+    padding: 0 12px;
+    gap: 12px;
+  }
+
+  .product_title {
+    font-size: 21px;
+  }
+
+  .product_main_portal,
+  .main_banner_wrap {
+    height: 104px;
+  }
+
+  .product_list {
+    gap: 5px;
+  }
+
+  .product_item {
+    border-radius: 5px;
+  }
+
+  .main_slot_placeholder::before {
+    font-size: 15px;
+  }
+
+  .h_slide {
+    height: 220px;
+  }
+
+  .h_slide_tabs {
+    top: 10px;
+    gap: 3px;
+  }
+
+  .h_slide_tab {
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .h_slide_logo_coha {
+    width: 50px;
+  }
+
+  .h_slide_kicker {
+    font-size: 12px;
+  }
+
+  .h_slide_title,
+  .h_slide_content_greenchemi .h_slide_title {
+    font-size: 22px;
+  }
+
+  .h_slide_desc,
+  .h_slide_content_coha .h_slide_desc,
+  .h_slide_content_greenchemi .h_slide_desc {
+    font-size: 9px;
+    margin-bottom: 10px;
+  }
+
+  .h_slide_btn {
+    padding: 5px 14px;
+    font-size: 11px;
+  }
+}
