@@ -8,7 +8,265 @@
 @media screen and (max-width:1200px) {}
 
 /* 태블릿 */
-@media screen and (max-width:1024px) {}
+@media screen and (max-width:1024px) {
+
+  /* COHA Community Section Responsive */
+  .cohacomu {
+    height: auto;
+    min-height: 100vh;
+    padding: 100px 0;
+  }
+
+  .cohacomu_container {
+    flex-direction: column;
+    text-align: center;
+    gap: 80px;
+    padding: 0 40px;
+  }
+
+  .cohacomu_left,
+  .cohacomu_right {
+    width: 100%;
+    padding: 0;
+    align-items: center;
+  }
+
+  .phone_mockup {
+    width: 280px;
+    height: 580px;
+    margin: 0 auto;
+  }
+
+  .cohacomu_logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .cohacomu_logo img {
+    height: 50px;
+    width: auto;
+  }
+
+  .cohacomu_btn {
+    transform: translateX(0);
+  }
+
+  .cohacomu_btn:hover {
+    transform: scale(1.05);
+  }
+
+  /* 배경 데코 텍스트 확장 */
+  .cohacomu_bg_text {
+    font-size: 300px;
+    left: -50px;
+    bottom: -150px;
+  }
+
+  .cohacomu_bg_img {
+    width: 60%;
+    top: 0;
+    right: -10%;
+  }
+
+  /* Only Section Responsive */
+  .only_container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;
+    /* 헤더 높이만큼 상단 여백 추가 */
+    background-color: var(--p-color3);
+    /* 첫 번째 항목과 색상 통일 */
+  }
+
+  .only_item {
+    flex: 0 0 auto !important;
+    /* 높이 고정 모드로 전환 */
+    height: 90px !important;
+    /* 택스트 잘림 방지를 위해 60px -> 90px 상향 */
+    /* 기본 상태 더 컴팩트하게 */
+    transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    overflow: hidden;
+  }
+
+  /* 호버 시 확실하게 확장 (가장 높은 우선순위 부여) */
+  .only_container .only_item:hover {
+    height: 420px !important;
+    /* 시안처럼 큼직하게 확장하되 하단 여백 축소 */
+  }
+
+  .only_item_inner {
+    padding: 30px;
+    height: 100%;
+    position: relative;
+    /* 자식 요소 절대 배치 기준 */
+    display: block;
+    /* 플렉스 해제하여 자유 배치 */
+  }
+
+  .only_item_title {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* 평상시 중앙 배치 */
+    left: 30px;
+    font-size: 40px !important;
+    /* 시안 비율에 맞춰 미세 조정 */
+    margin: 0;
+    transition: top 0.4s ease, transform 0.4s ease;
+  }
+
+  .only_item:hover .only_item_title {
+    top: 30px;
+    transform: translateY(0);
+    /* 호버 시 위쪽으로 이동 */
+  }
+
+  .only_item_imgs {
+    position: absolute;
+    top: 160px;
+    /* 30px(여백) + 40px(타이틀) + 90px(간격) */
+    right: 30px;
+    height: auto;
+    display: flex;
+    gap: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+  }
+
+  .only_item:hover .only_item_imgs {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+  }
+
+  .only_item_imgs img {
+    height: 220px !important;
+    width: auto;
+    border: 1px solid #111;
+    /* 시안의 검정 테두리 */
+    object-fit: cover;
+  }
+
+  .only_footer {
+    flex: 1;
+    /* 나머지 공간 모두 차지 */
+    min-height: 600px;
+    padding: 80px 40px;
+    background-color: #E2EC85;
+    /* 시안과 유사한 연두색 */
+    display: flex;
+    align-items: flex-end;
+    /* 아래쪽 밀착 */
+    justify-content: flex-start;
+  }
+
+  .only_footer_title {
+    display: flex;
+    flex-direction: column;
+    font-size: 128px;
+    /* 극적으로 키움 */
+    text-align: left;
+  }
+
+  .only_footer_title span {
+    display: block;
+  }
+
+  /* Green Chemi Section Responsive */
+  .greenchemi {
+    height: auto;
+    min-height: 100vh;
+    padding: 80px 0 120px;
+    display: flex;
+    align-items: center;
+  }
+
+  .greenchemi_container {
+    flex-direction: column;
+    text-align: left;
+    /* 왼쪽 정렬로 변경 */
+    gap: 60px;
+    padding: 0 40px;
+  }
+
+  .greenchemi_left {
+    align-items: flex-start;
+    /* 왼쪽 정렬 */
+    gap: 40px;
+  }
+
+  .greenchemi_qr {
+    align-self: flex-start;
+  }
+
+  .greenchemi_qr img {
+    width: 60px;
+  }
+
+  .greenchemi_tagline {
+    font-size: 32px;
+    text-align: left;
+  }
+
+  .greenchemi_title {
+    font-size: 64px;
+    padding-bottom: 30px;
+    text-align: left;
+  }
+
+  .greenchemi_desc {
+    font-size: 15px;
+    max-width: 600px;
+    margin: 0;
+    /* 중앙 정렬 해제 */
+    word-break: keep-all;
+    text-align: left;
+  }
+
+  .greenchemi_desc br {
+    display: none;
+  }
+
+  .greenchemi_right {
+    width: 100%;
+    justify-content: center;
+    /* 박스는 여전히 중앙 혹은 왼쪽? 보통 이런 경우 왼쪽 정렬함 */
+  }
+
+  .greenchemi_box_wrap {
+    max-width: 480px;
+    margin: 80px 0 0;
+    /* 상단 여백 추가하여 아래로 내림 */
+  }
+
+  /* 틴트 크기 및 위치 미세 조정 */
+  .greenchemi_tint_1 {
+    width: 90px;
+    top: -50px;
+  }
+
+  .greenchemi_tint_2 {
+    width: 35px;
+    top: 20px;
+  }
+
+  .greenchemi_tint_3 {
+    width: 35px;
+    top: 140px;
+  }
+
+  .greenchemi_tint_4 {
+    width: 70px;
+    top: 130px;
+  }
+}
 
 @media screen and (max-width:768px) {}
 
