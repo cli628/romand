@@ -412,13 +412,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    const circleRadius = getComputedStyle(section).getPropertyValue('--p-circle-radius').trim() || "600px";
+    const imgDropY = getComputedStyle(section).getPropertyValue('--p-img-y').trim() || "-55px";
+
     tl.to('.personal_white_bg', {
-      clipPath: `circle(${personalCircleSize} at ${personalCircleCenter})`,
+      clipPath: `circle(${circleRadius} at 50% 50%)`,
       duration: 1.5,
       ease: "power4.inOut"
     })
       .to('.personal_img', {
-        y: personalImageDrop,
+        y: imgDropY,
         yPercent: 0,
         rotation: 5,
         duration: 1.2,

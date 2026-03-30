@@ -19,6 +19,8 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+  --p-circle-radius: 600px;
+  --p-img-y: -55px;
 }
 
 /* White Background for the circle hole */
@@ -171,7 +173,7 @@ section {
   letter-spacing: -3%;
   font-weight: 500;
   color: var(--g-color6);
-margin-right: 80px;
+  margin-right: 80px;
 }
 
 .mixing_title span {
