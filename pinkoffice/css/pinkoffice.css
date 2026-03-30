@@ -592,8 +592,9 @@ section {
 
 .greenchemi_box_wrap {
   position: relative;
-  width: 100%;
-  max-width: 650px;
+  width: 650px;
+  max-width: 100%;
+  flex-shrink: 0;
 }
 
 .greenchemi_box {

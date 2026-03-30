@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.from('.greenchemi_qr, .greenchemi_tagline, .greenchemi_title, .greenchemi_desc p', {
       scrollTrigger: {
         trigger: section,
-        start: "top 70%",
+        start: "top 80%",
         toggleActions: "play none none play"
       },
       y: 50,
@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.from('.greenchemi_box_wrap', {
       scrollTrigger: {
         trigger: section,
-        start: "top 70%",
+        start: "top 80%",
         toggleActions: "play none none play"
       },
       x: 100,
