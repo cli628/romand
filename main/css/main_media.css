@@ -147,11 +147,21 @@
     }
 
     .outlet_section {
+        height: auto;
+        min-height: auto;
+        margin: 0;
         padding: 140px 24px 80px;
     }
 
+    .outlet_section_shell {
+        display: block;
+        width: 100%;
+        max-width: 768px;
+        margin: 0 auto;
+    }
+
     .outlet_visual_panel {
-        min-height: 400px;
+        display: none;
     }
 
     .outlet_visual_photo img {
@@ -167,6 +177,20 @@
     }
 
     .outlet_header {
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto 48px;
+    }
+
+    .outlet_content_panel {
+        min-height: auto;
+        padding: 0;
+    }
+
+    .outlet_product_carousel {
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto;
         margin-bottom: 48px;
     }
 
@@ -177,7 +201,7 @@
 
     .outlet_product_track {
         grid-auto-columns: 124px;
-        gap: 20px;
+        gap: 40px;
     }
 
     .outlet_swipe_arrow {
