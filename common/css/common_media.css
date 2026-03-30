@@ -347,9 +347,14 @@
 }
 
 @media screen and (max-width: 400px) {
+    .common_footer {
+        background: #F9C5D5;
+    }
+
     .footer_inner {
         padding: 16px 12px 18px;
         gap: 18px;
+        background: transparent;
     }
 
     .footer_links {
@@ -374,7 +379,7 @@
 
     .footer_overlay {
         inset: 0;
-        background: var(--p-color4);
+        background: #F9C5D5;
         opacity: 1;
         border: 0;
         outline: 0;
