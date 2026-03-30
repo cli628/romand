@@ -41,15 +41,15 @@
     }
 
     .floating_item img {
-        width: 140px;
+        width: 118px;
     }
 
     /* 아이템 위치: floating_products(height:1700px) 기준 % — 각 아이템 center가 animation_area(900px) 내에 오도록 */
-    .floating_item.item1 { top: 4%;  left: 50%; }
-    .floating_item.item2 { top: 10%; left: 50%; }
-    .floating_item.item3 { top: 16%; left: 50%; }
-    .floating_item.item4 { top: 22%; left: 50%; }
-    .floating_item.item5 { top: 28%; left: 50%; }
+    .floating_item.item1 { top: 16%; left: 24%; }
+    .floating_item.item2 { top: 11%; left: 39%; }
+    .floating_item.item3 { top: 17%; left: 72%; }
+    .floating_item.item4 { top: 12%; left: 58%; }
+    .floating_item.item5 { top: 24%; left: 48%; }
 
     .product_card,
     .product_card.is-open {

@@ -642,42 +642,53 @@ document.addEventListener("DOMContentLoaded",  () => {
         /* Extra hold after the bag reaches center before the next section takes over. */
         endHoldDuration: 4
     };
-    if (floatingItems.length > 0 && !window.matchMedia("(max-width: 400px)").matches) {
-        const isMobile = window.matchMedia('(max-width: 1024px)').matches;
+    const TABLET_NEW_SECTION_BAG_CONFIG = {
+        ...NEW_SECTION_BAG_CONFIG,
+        scrollLengthMultiplier: 5.8,
+        scrub: 4.2,
+        floatingProductsShiftY: 0,
+        floatingProductsDuration: 9.5,
+        bagRiseDuration: 3.6,
+        headerFadeStartAt: 5.8,
+        headerFadeDuration: 1.1,
+        gatherStartAt: 4,
+        gatherStagger: 0.72,
+        gatherDuration: 0.95,
+        dropStartAt: 6.1,
+        dropStagger: 0.72,
+        dropDuration: 3.8,
+        gatherTargets: [
+            { top: "8%", left: "36%", scale: 1, ease: "power1.inOut" },
+            { top: "6%", left: "43%", scale: 1, ease: "power1.inOut" },
+            { top: "4%", left: "50%", scale: 1, ease: "power1.inOut" },
+            { top: "6%", left: "57%", scale: 1, ease: "power1.inOut" },
+            { top: "8%", left: "64%", scale: 1, ease: "power1.inOut" }
+        ],
+        dropTarget: { top: "54%", left: "50%", scale: 0.9, opacity: 0, ease: "power2.in" }
+    };
+    if (floatingItems.length > 0 && window.matchMedia("(min-width: 769px)").matches) {
+        const isTabletLayout = window.matchMedia("(max-width: 1024px)").matches;
+        const activeBagConfig = isTabletLayout ? TABLET_NEW_SECTION_BAG_CONFIG : NEW_SECTION_BAG_CONFIG;
 
-        // Mobile: items start above their CSS positions and come down one by one
-        if (isMobile) {
-            gsap.set(floatingItems, { y: -300, opacity: 0 });
-        }
+        // Keep tablet products visible before pinning instead of revealing them from off-screen.
+        gsap.set(floatingItems, { clearProps: "y,opacity" });
 
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".animation_area",
                 pin: true,
-                start: "top 15%",
-                end: () => `+=${Math.round(window.innerHeight * NEW_SECTION_BAG_CONFIG.scrollLengthMultiplier)}`,
+                start: isTabletLayout ? "top 28%" : "top 15%",
+                end: () => `+=${Math.round(window.innerHeight * activeBagConfig.scrollLengthMultiplier)}`,
                 /* Higher scrub values make the timeline follow the scroll more slowly. */
-                scrub: NEW_SECTION_BAG_CONFIG.scrub,
+                scrub: activeBagConfig.scrub,
                 anticipatePin: 1
             }
         });
 
-        // Mobile phase 1: reveal each item from above, one by one
-        if (isMobile) {
-            floatingItems.forEach((item, index) => {
-                tl.to(item, {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1.5,
-                    ease: 'power2.out'
-                }, index * 0.6);
-            });
-        }
-
-        if (floatingProducts && !isMobile) {
+        if (floatingProducts) {
             tl.to(floatingProducts, {
-                y: NEW_SECTION_BAG_CONFIG.floatingProductsShiftY,
-                duration: NEW_SECTION_BAG_CONFIG.floatingProductsDuration,
+                y: activeBagConfig.floatingProductsShiftY,
+                duration: activeBagConfig.floatingProductsDuration,
                 ease: "power1.inOut"
             }, 0);
         }
@@ -688,49 +699,51 @@ document.addEventListener("DOMContentLoaded",  () => {
         if (newSectionHeader) {
             tl.to(newSectionHeader, {
                 opacity: 0,
-                y: 800,
-                duration: NEW_SECTION_BAG_CONFIG.headerFadeDuration,
+                y: isTabletLayout ? 280 : 800,
+                duration: activeBagConfig.headerFadeDuration,
                 ease: "power1.out"
-            }, NEW_SECTION_BAG_CONFIG.headerFadeStartAt);
+            }, activeBagConfig.headerFadeStartAt);
         }
 
-    floatingItems.forEach((item, index) => {
-    const gatherTarget = NEW_SECTION_BAG_CONFIG.gatherTargets[index] || NEW_SECTION_BAG_CONFIG.gatherTargets[NEW_SECTION_BAG_CONFIG.gatherTargets.length - 1];
-    const gatherAt = NEW_SECTION_BAG_CONFIG.gatherStartAt + index * NEW_SECTION_BAG_CONFIG.gatherStagger;
-    const dropAt = NEW_SECTION_BAG_CONFIG.dropStartAt + index * NEW_SECTION_BAG_CONFIG.dropStagger;
-    const productCardHeader = item.querySelector(".product_card_header");
+        floatingItems.forEach((item, index) => {
+            const gatherTarget =
+                activeBagConfig.gatherTargets[index] ||
+                activeBagConfig.gatherTargets[activeBagConfig.gatherTargets.length - 1];
+            const gatherAt = activeBagConfig.gatherStartAt + index * activeBagConfig.gatherStagger;
+            const dropAt = activeBagConfig.dropStartAt + index * activeBagConfig.dropStagger;
+            const productCardHeader = item.querySelector(".product_card_header");
 
-    tl.to(item, {
-        top: gatherTarget.top,
-        left: gatherTarget.left,
-        scale: gatherTarget.scale,
-        opacity: 1,
-        duration: NEW_SECTION_BAG_CONFIG.gatherDuration,
-        ease: "power2.out"
-    }, gatherAt);
+            tl.to(item, {
+                top: gatherTarget.top,
+                left: gatherTarget.left,
+                scale: gatherTarget.scale,
+                opacity: 1,
+                duration: activeBagConfig.gatherDuration,
+                ease: "power2.out"
+            }, gatherAt);
 
-    if (productCardHeader) {
-        tl.to(productCardHeader, {
-            opacity: 0,
-            duration: 1,
-            ease: "power1.out"
-        }, dropAt + 0.2);
-    }
+            if (productCardHeader) {
+                tl.to(productCardHeader, {
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power1.out"
+                }, dropAt + 0.2);
+            }
 
-    tl.to(item, {
-        top: NEW_SECTION_BAG_CONFIG.dropTarget.top,
-        left: NEW_SECTION_BAG_CONFIG.dropTarget.left,
-        scale: NEW_SECTION_BAG_CONFIG.dropTarget.scale,
-        opacity: isMobile ? 0 : NEW_SECTION_BAG_CONFIG.dropTarget.opacity,
-        duration: NEW_SECTION_BAG_CONFIG.dropDuration,
-        ease: "power2.in"
-    }, dropAt);
-});
+            tl.to(item, {
+                top: activeBagConfig.dropTarget.top,
+                left: activeBagConfig.dropTarget.left,
+                scale: activeBagConfig.dropTarget.scale,
+                opacity: activeBagConfig.dropTarget.opacity,
+                duration: activeBagConfig.dropDuration,
+                ease: "power2.in"
+            }, dropAt);
+        });
 
         // Time when the final product finishes dropping into the bag.
-        const lastDropEnd = NEW_SECTION_BAG_CONFIG.dropStartAt
-            + (floatingItems.length - 1) * NEW_SECTION_BAG_CONFIG.dropStagger
-            + NEW_SECTION_BAG_CONFIG.dropDuration;
+        const lastDropEnd = activeBagConfig.dropStartAt
+            + (floatingItems.length - 1) * activeBagConfig.dropStagger
+            + activeBagConfig.dropDuration;
 
         // After all products drop, lift the full bag group toward the visible center.
         if (bagElements.length > 0) {
@@ -743,13 +756,13 @@ document.addEventListener("DOMContentLoaded",  () => {
             const riseY     = -(bagCSSTop - centerTop);
             tl.to(bagElements, {
                 y: riseY,
-                duration: NEW_SECTION_BAG_CONFIG.bagRiseDuration,
+                duration: activeBagConfig.bagRiseDuration,
                 ease: "power2.out"
             }, lastDropEnd);
         }
 
         // Hold the final bag pose briefly before releasing to the next section.
-        tl.to({}, { duration: NEW_SECTION_BAG_CONFIG.endHoldDuration });
+        tl.to({}, { duration: activeBagConfig.endHoldDuration });
     }
 
 /* Sync the rail items to the shared bag path over the best-section video. */
