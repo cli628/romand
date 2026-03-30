@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
       snap: {
         snapTo: (value, self) => {
           if (isAnimating) return value; // 애니메이션 중이면 스냅 엔진 정지
-          
+
           const points = getSnapPoints();
           const closest = gsap.utils.snap(points, value);
           const currentIndex = points.indexOf(closest);
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (self.direction > 0 && currentIndex < points.length - 1) return points[currentIndex + 1];
             if (self.direction < 0 && currentIndex > 0) return points[currentIndex - 1];
           }
-          
+
           return closest;
         },
         duration: 0.8, // 너무 빠르지 않게
@@ -134,17 +134,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     toggleBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      e.stopPropagation(); 
-      
+      e.stopPropagation();
+
       isAnimating = true; // 모든 스크롤 및 스냅 차단
       sideNav.classList.toggle('is_open');
-      
+
       if (snapTrigger) snapTrigger.disable();
-      
+
       setTimeout(() => {
         if (snapTrigger) snapTrigger.enable();
         isAnimating = false;
-      }, 600); 
+      }, 600);
     });
 
     document.addEventListener('click', (e) => {
@@ -252,43 +252,12 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function initOnlyAccordion() {
     const accordionItems = document.querySelectorAll('.only_item');
-    const mobileQuery = window.matchMedia('(max-width: 400px)');
-
-    const closeAllMobileItems = () => {
-      accordionItems.forEach(item => {
-        item.classList.remove('is_open');
-      });
-    };
-
-    const setupMobileAccordion = () => {
-      if (!mobileQuery.matches) {
-        closeAllMobileItems();
-        return;
-      }
-
-      accordionItems.forEach((item, index) => {
-        item.classList.toggle('is_open', index === 1);
-      });
-    };
 
     accordionItems.forEach(item => {
       const imgContainer = item.querySelector('.only_item_imgs');
       const imgs = item.querySelectorAll('.only_item_imgs img');
 
-      item.addEventListener('click', () => {
-        if (!mobileQuery.matches) return;
-
-        const willOpen = !item.classList.contains('is_open');
-        closeAllMobileItems();
-
-        if (willOpen) {
-          item.classList.add('is_open');
-        }
-      });
-
       item.addEventListener('mouseenter', () => {
-        if (mobileQuery.matches) return;
-
         gsap.set(imgContainer, { visibility: "visible" });
         gsap.fromTo(imgs,
           { x: 50, opacity: 0 },
@@ -297,8 +266,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       item.addEventListener('mouseleave', () => {
-        if (mobileQuery.matches) return;
-
         gsap.to(imgs, {
           opacity: 0,
           x: 30,
@@ -311,14 +278,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
-
-    setupMobileAccordion();
-
-    if (typeof mobileQuery.addEventListener === 'function') {
-      mobileQuery.addEventListener('change', setupMobileAccordion);
-    } else {
-      mobileQuery.addListener(setupMobileAccordion);
-    }
   }
 
   /**
@@ -391,14 +350,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function initPersonalAnimations() {
     const section = document.querySelector('#personal');
     if (!section) return;
-    const isMobile = window.matchMedia('(max-width: 400px)').matches;
-    const personalCircleSize = isMobile ? '368px' : '600px';
-    const personalCircleCenter = isMobile ? '50% 52%' : '50% 50%';
-    const personalImageDrop = isMobile ? 0 : -55;
 
     gsap.set('.personal_white_bg', { clipPath: "circle(100% at 50% 50%)" });
     gsap.set('.personal_img', {
-      yPercent: -150,
+      yPercent: -400,
       xPercent: -50,
       rotation: 5,
       opacity: 1
