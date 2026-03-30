@@ -115,11 +115,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 숫자 부분만 추출하여 접두어 생성 (예: '10_ nude_beige' -> '10')
     const colorPrefix = colorFolder.match(/\d+/)[0];
+    const peopleExt = tabKey === 'newbare' || (tabKey === 'dusty' && colorPrefix === '11') ? 'jpg' : 'png';
 
     // 이미지 경로 리스트 (1: common, 2: people, 3: product, 4: skin)
     const imgPaths = [
       commonFirst,
-      `img/contents/${tabKey}/${colorFolder}/${colorPrefix}_people.png`,
+      `img/contents/${tabKey}/${colorFolder}/${colorPrefix}_people.${peopleExt}`,
       `img/contents/${tabKey}/${colorFolder}/${colorPrefix}_product.${pExt}`,
       `img/contents/${tabKey}/${colorFolder}/${colorPrefix}_skin.png`
     ];
