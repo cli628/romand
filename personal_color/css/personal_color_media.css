@@ -71,7 +71,7 @@
     --media-season-track-top-1024: 50%;
     --media-season-track-width-1024: min(1200px, calc(100vw - 48px));
     --media-season-track-height-1024: 216vh;
-    --media-season-track-transform-1024: translate(-50%, -50%) scale(0.64);
+    --media-season-track-transform-1024: translate(calc(-50% + 42px), -50%) scale(0.64);
     --media-season-track-origin-1024: center center;
     --media-season-card-width-1024: 266px;
     --media-season-media-width-1024: 266px;

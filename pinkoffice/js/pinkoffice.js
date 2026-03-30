@@ -392,8 +392,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const section = document.querySelector('#personal');
     if (!section) return;
     const isMobile = window.matchMedia('(max-width: 400px)').matches;
-    const personalCircleSize = isMobile ? '280px' : '600px';
-    const personalImageDrop = isMobile ? -38 : -55;
+    const personalCircleSize = isMobile ? '368px' : '600px';
+    const personalCircleCenter = isMobile ? '50% 52%' : '50% 50%';
+    const personalImageDrop = isMobile ? 0 : -55;
 
     gsap.set('.personal_white_bg', { clipPath: "circle(100% at 50% 50%)" });
     gsap.set('.personal_img', {
@@ -412,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     tl.to('.personal_white_bg', {
-      clipPath: `circle(${personalCircleSize} at 50% 50%)`,
+      clipPath: `circle(${personalCircleSize} at ${personalCircleCenter})`,
       duration: 1.5,
       ease: "power4.inOut"
     })
