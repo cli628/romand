@@ -10,7 +10,7 @@
 /* 태블릿 */
 @media screen and (max-width:1024px) {
 
- /* Personal Section Responsive */
+  /* Personal Section Responsive */
   .personal {
     --p-circle-radius: 480px;
   }
@@ -372,7 +372,7 @@
 
   .personal {
     padding: 96px 0 56px;
-    --p-circle-radius: 250px;
+    --p-circle-radius: 380px;
     --p-img-y: 10px;
   }
 
