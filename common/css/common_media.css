@@ -196,6 +196,19 @@
         object-position: center;
     }
 
+    .footer_overlay {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    .footer_overlay img {
+        width: min(100%, 920px);
+        height: auto;
+        max-height: 248px;
+        margin: 0 auto;
+    }
+
     .footer_inner {
         position: relative;
         left: auto;
@@ -351,14 +364,25 @@
         margin-bottom: 8px;
     }
 
+    .newsletter_form {
+        border-bottom: 0;
+    }
+
     .footer_social {
         gap: 10px;
     }
 
+    .footer_overlay {
+        inset: 0;
+        background: var(--p-color4);
+        opacity: 1;
+        border: 0;
+        outline: 0;
+        box-shadow: none;
+    }
+
     .footer_overlay img {
-        width: 200%;
-        height: 500px;
-        object-fit: cover;
+        display: none;
     }
 
     .footer_bg_video {
