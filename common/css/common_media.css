@@ -203,7 +203,7 @@
         padding: clamp(18px, 2.2vw, 24px) 0 clamp(16px, 2vw, 20px);
         flex-direction: row;
         align-items: flex-end;
-        justify-content: space-between;
+        justify-content: flex-start;
         gap: 24px;
     }
 
@@ -211,7 +211,7 @@
         width: auto;
         flex-direction: row;
         gap: 24px;
-        margin-right: auto;
+        margin-right: 20px;
     }
 
     .footer_links_col {
@@ -234,6 +234,7 @@
         justify-content: flex-start;
         align-self: flex-end;
         gap: 12px;
+        margin-left: auto;
         padding-bottom: 0;
     }
 }

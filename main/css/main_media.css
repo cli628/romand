@@ -323,13 +323,13 @@
     .sns_stage {
         width: min(100% - 32px, 1680px);
         padding-top: 78px;
-        padding-bottom: 24px;
-        border-radius: 0 0 18px 18px;
+        padding-bottom: 12px;
+        border-radius: 0 0 100px 100px;
     }
 
     .sns_carousel {
         gap: 14px;
-        padding: 42px 20px 10px;
+        padding: 42px 20px 4px;
     }
 
     .sns_swipe_arrow {
@@ -679,8 +679,8 @@
     .sns_stage {
         width: calc(100% - 16px);
         padding-top: 54px;
-        padding-bottom: 14px;
-        border-radius: 0 0 44px 44px;
+        padding-bottom: 8px;
+        border-radius: 0 0 100px 100px;
     }
 
     .sns_stage::before {
@@ -694,7 +694,7 @@
 
     .sns_carousel {
         gap: 10px;
-        padding: 28px 12px 12px;
+        padding: 28px 12px 4px;
     }
 
     .sns_swipe_arrow {
@@ -934,12 +934,12 @@
 
     .sns_stage {
         width: 100%;
-        border-radius: 0 0 20px 20px;
+        border-radius: 0 0 100px 100px;
     }
 
     .sns_carousel {
         gap: 0;
-        padding: 28px 0 12px;
+        padding: 28px 0 4px;
     }
 
     .sns_track {
