@@ -211,6 +211,7 @@
         width: auto;
         flex-direction: row;
         gap: 24px;
+        align-self: center;
         margin-right: 20px;
     }
 
