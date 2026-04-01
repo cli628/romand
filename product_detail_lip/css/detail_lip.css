@@ -5,6 +5,13 @@
    ============================================ */
 
 /* -- 전체 레이아웃 -- */
+.product_detail_main,
+.product_detail_main .wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .contents {
   width: 100%;
   min-height: calc(100vh - 72px);
@@ -21,6 +28,20 @@
 }
 
 /* -- 왼쪽: 이미지 + 탭 -- */
+.contents_inner,
+.contents_left,
+.contents_img_wrap,
+.contents_img_set,
+.contents_main_img,
+.contents_right {
+  min-width: 0;
+}
+
+.contents_left,
+.contents_right {
+  max-width: 100%;
+}
+
 .contents_left {
   flex: 1;
   display: flex;
@@ -419,8 +440,6 @@
 /* 아코디언 */
 .accordion_item {
   border-bottom: 1px solid var(--g-color9);
-  overflow: hidden;
-  background-color: var(--white);
 }
 
 .accordion_header {
@@ -429,24 +448,10 @@
   justify-content: space-between;
   width: 100%;
   height: 61px;
-  padding: 0;
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
   color: var(--g-color9);
-  text-align: left;
-  background-color: var(--white);
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.accordion_header:focus:not(:focus-visible) {
-  outline: none;
-}
-
-.accordion_header:focus-visible {
-  outline: 2px solid var(--p-color3);
-  outline-offset: -2px;
 }
 
 .accordion_header i {
@@ -455,21 +460,17 @@
 }
 
 .accordion_body {
-  display: none;
-  padding-bottom: 0;
-  background-color: var(--white);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
   font-size: 14px;
   color: var(--g-color5);
   line-height: 140%;
   font-weight: 300;
 }
 
-.accordion_body[hidden] {
-  display: none;
-}
-
 .accordion_item.accordion_open .accordion_body {
-  display: block;
+  max-height: 1000px;
   /* 긴 성분표 내용을 위해 상향 조정 */
   padding-bottom: 20px;
 }
@@ -527,10 +528,10 @@
 
 .hashtag {
   font-family: var(--font-poppins);
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--g-color6);
-  padding: 6px 24px;
+  padding: 5px 20px;
   background-color: var(--white);
   border-radius: 50px;
   border: 1px solid var(--g-color6);
@@ -667,10 +668,6 @@
 /* 버튼 */
 .personal_footer {
   margin-top: 40px;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(40px);
 }
 
 .btn_personal {
