@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-@media screen and (min-width: 1921px) and (max-width: 3048px) {
+@media screen and (min-width: 1921px) and (max-width: 3840px) {
   .tab_menu {
     width: clamp(86px, 4.479vw, 136px);
     gap: clamp(12px, 0.625vw, 19px);
@@ -13,14 +13,14 @@
   }
 
   .contents_sub_img {
-    gap: clamp(18px, 0.9375vw, 28px);
-    bottom: clamp(32px, 3.333vw, 102px);
+    gap: clamp(22px, 1.146vw, 44px);
+    bottom: clamp(48px, 2.5vw, 96px);
   }
 
   .sub_img_placeholder {
-    width: clamp(108px, 5.99vw, 182px);
-    height: clamp(108px, 5.99vw, 182px);
-    border-radius: clamp(18px, 0.938vw, 28px);
+    width: clamp(128px, 6.667vw, 256px);
+    height: clamp(128px, 6.667vw, 256px);
+    border-radius: clamp(16px, 0.833vw, 32px);
   }
 
   .contents_right {
@@ -322,14 +322,14 @@
 /* 웹 */
 @media screen and (min-width: 1921px) and (max-width: 3048px) {
   .contents_sub_img {
-    gap: clamp(18px, 0.9375vw, 28px);
-    bottom: clamp(32px, 3.333vw, 102px);
+    gap: clamp(22px, 1.146vw, 35px);
+    bottom: clamp(48px, 2.5vw, 76px);
   }
 
   .sub_img_placeholder {
-    width: clamp(108px, 5.99vw, 182px);
-    height: clamp(108px, 5.99vw, 182px);
-    border-radius: clamp(18px, 0.938vw, 28px);
+    width: clamp(128px, 6.667vw, 203px);
+    height: clamp(128px, 6.667vw, 203px);
+    border-radius: clamp(16px, 0.833vw, 25px);
   }
 }
 
@@ -1505,5 +1505,18 @@
   .right_block .visual_img_wrap {
     width: min(100%, 260px);
     height: 352px;
+  }
+}
+
+@media screen and (min-width: 1921px) and (max-width: 3840px) {
+  .contents_sub_img {
+    gap: clamp(16px, 0.833vw, 28px);
+    bottom: clamp(36px, 1.875vw, 72px);
+  }
+
+  .sub_img_placeholder {
+    width: clamp(118px, 6.146vw, 236px);
+    height: clamp(118px, 6.146vw, 236px);
+    border-radius: clamp(14px, 0.729vw, 26px);
   }
 }
