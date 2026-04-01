@@ -658,11 +658,11 @@ document.addEventListener("DOMContentLoaded",  () => {
         dropStagger: 0.46,
         dropDuration: 2.25,
         gatherTargets: [
-            { top: "8%", left: "36%", scale: 1, ease: "power1.inOut" },
-            { top: "6%", left: "43%", scale: 1, ease: "power1.inOut" },
-            { top: "4%", left: "50%", scale: 1, ease: "power1.inOut" },
-            { top: "6%", left: "57%", scale: 1, ease: "power1.inOut" },
-            { top: "8%", left: "64%", scale: 1, ease: "power1.inOut" }
+            { top: "5%", left: "40%", scale: 1, ease: "power1.inOut" },
+            { top: "3%", left: "45%", scale: 1, ease: "power1.inOut" },
+            { top: "1%", left: "50%", scale: 1, ease: "power1.inOut" },
+            { top: "3%", left: "55%", scale: 1, ease: "power1.inOut" },
+            { top: "5%", left: "60%", scale: 1, ease: "power1.inOut" }
         ],
         dropTarget: { top: "54%", left: "50%", scale: 0.9, opacity: 0, ease: "power2.in" }
     };
@@ -825,8 +825,8 @@ document.addEventListener("DOMContentLoaded",  () => {
             itemStartOffsetFadeEnd: 0.18,
             itemStartOffsets: [
                 { x: 0, y: 0 },
-                { x: -72, y: 0 },
-                { x: 0, y: 0 }
+                { x: -96, y: 0 },
+                { x: -96, y: 0 }
             ],
 
             /* Global x-shift so the full modal rail sits farther right over the video. */
@@ -1214,11 +1214,15 @@ document.addEventListener("DOMContentLoaded",  () => {
 
     function initializeOutletSwipe() {
         const outletSwipe = document.querySelector(".outlet_product_swipe");
+        const outletTrack = outletSwipe?.querySelector(".outlet_product_track");
         const leftArrow = document.querySelector(".outlet_swipe_arrow_left");
         const rightArrow = document.querySelector(".outlet_swipe_arrow_right");
         const desktopOutletLoopQuery = window.matchMedia("(min-width: 1600px) and (max-width: 1920px)");
+        const originalOutletItems = outletTrack
+            ? Array.from(outletTrack.children).filter((item) => item.classList.contains("outlet_product_item"))
+            : [];
 
-        if (!outletSwipe) {
+        if (!outletSwipe || !outletTrack || !originalOutletItems.length) {
             return;
         }
 
@@ -1230,12 +1234,134 @@ document.addEventListener("DOMContentLoaded",  () => {
         let startPointerY = 0;
         let startScrollLeft = 0;
         let lastDragDistanceX = 0;
+        let outletLoopStart = 0;
+        let outletLoopWidth = 0;
+        let isAdjustingOutletLoop = false;
+        let outletLoopWrapTimer = 0;
 
-        const scrollStep = () => Math.round(outletSwipe.clientWidth * 0.72);
+        const scrollStep = () => {
+            const firstVisibleItem =
+                outletTrack.querySelector(".outlet_product_item:not([data-outlet-loop-clone='true'])") ||
+                outletTrack.querySelector(".outlet_product_item");
+
+            if (!firstVisibleItem) {
+                return Math.round(outletSwipe.clientWidth * 0.72);
+            }
+
+            const trackStyles = window.getComputedStyle(outletTrack);
+            const gap =
+                Number.parseFloat(trackStyles.columnGap || "") ||
+                Number.parseFloat(trackStyles.gap || "") ||
+                0;
+
+            return Math.round(firstVisibleItem.getBoundingClientRect().width + gap);
+        };
         const shouldLoopOutlet = () => desktopOutletLoopQuery.matches;
+
+        function clearOutletLoopWrapTimer() {
+            window.clearTimeout(outletLoopWrapTimer);
+            outletLoopWrapTimer = 0;
+        }
+
+        function removeOutletLoopClones() {
+            outletTrack
+                .querySelectorAll("[data-outlet-loop-clone='true']")
+                .forEach((clone) => clone.remove());
+        }
+
+        function createOutletLoopClone(item, position, index) {
+            const clone = item.cloneNode(true);
+            clone.dataset.outletLoopClone = "true";
+            clone.dataset.outletLoopPosition = position;
+            clone.dataset.outletLoopIndex = String(index);
+            clone.setAttribute("aria-hidden", "true");
+            clone.querySelectorAll("a, button").forEach((element) => {
+                element.tabIndex = -1;
+                element.setAttribute("aria-hidden", "true");
+            });
+            return clone;
+        }
+
+        function syncOutletLoopClones() {
+            removeOutletLoopClones();
+
+            if (!shouldLoopOutlet()) {
+                return;
+            }
+
+            const leadingFragment = document.createDocumentFragment();
+            const trailingFragment = document.createDocumentFragment();
+
+            originalOutletItems.forEach((item, index) => {
+                leadingFragment.appendChild(createOutletLoopClone(item, "before", index));
+                trailingFragment.appendChild(createOutletLoopClone(item, "after", index));
+            });
+
+            outletTrack.insertBefore(leadingFragment, outletTrack.firstChild);
+            outletTrack.appendChild(trailingFragment);
+        }
+
+        function updateOutletLoopMetrics({ resetPosition = false } = {}) {
+            syncOutletLoopClones();
+
+            if (!shouldLoopOutlet()) {
+                outletLoopStart = 0;
+                outletLoopWidth = 0;
+                return;
+            }
+
+            const firstOriginalItem = originalOutletItems[0];
+            const firstTrailingClone = outletTrack.querySelector("[data-outlet-loop-position='after'][data-outlet-loop-index='0']");
+
+            if (!firstOriginalItem || !firstTrailingClone) {
+                outletLoopStart = 0;
+                outletLoopWidth = 0;
+                return;
+            }
+
+            outletLoopStart = firstOriginalItem.offsetLeft;
+            outletLoopWidth = firstTrailingClone.offsetLeft - outletLoopStart;
+
+            if (resetPosition || outletSwipe.scrollLeft === 0) {
+                outletSwipe.scrollLeft = outletLoopStart;
+            }
+        }
 
         function getMaxScrollLeft() {
             return Math.max(0, outletSwipe.scrollWidth - outletSwipe.clientWidth);
+        }
+
+        function wrapOutletLoopPosition() {
+            if (!shouldLoopOutlet() || isAdjustingOutletLoop || outletLoopWidth <= 0) {
+                return;
+            }
+
+            let nextScrollLeft = outletSwipe.scrollLeft;
+
+            if (nextScrollLeft < outletLoopStart) {
+                nextScrollLeft += outletLoopWidth;
+            } else if (nextScrollLeft >= outletLoopStart + outletLoopWidth) {
+                nextScrollLeft -= outletLoopWidth;
+            }
+
+            if (nextScrollLeft !== outletSwipe.scrollLeft) {
+                isAdjustingOutletLoop = true;
+                outletSwipe.scrollLeft = nextScrollLeft;
+                requestAnimationFrame(() => {
+                    isAdjustingOutletLoop = false;
+                });
+            }
+        }
+
+        function scheduleOutletLoopWrap() {
+            if (!shouldLoopOutlet()) {
+                return;
+            }
+
+            clearOutletLoopWrapTimer();
+            outletLoopWrapTimer = window.setTimeout(() => {
+                wrapOutletLoopPosition();
+            }, 90);
         }
 
         function scrollOutlet(direction) {
@@ -1246,20 +1372,12 @@ document.addEventListener("DOMContentLoaded",  () => {
                 return;
             }
 
-            if (shouldLoopOutlet() && direction > 0 && outletSwipe.scrollLeft >= maxScrollLeft - 4) {
-                outletSwipe.scrollLeft = 0;
-                requestAnimationFrame(() => {
-                    outletSwipe.scrollBy({ left: step, behavior: "smooth" });
-                });
-                return;
-            }
-
-            if (shouldLoopOutlet() && direction < 0 && outletSwipe.scrollLeft <= 4) {
-                outletSwipe.scrollLeft = maxScrollLeft;
-                requestAnimationFrame(() => {
-                    outletSwipe.scrollBy({ left: -step, behavior: "smooth" });
-                });
-                return;
+            if (shouldLoopOutlet() && outletLoopWidth > 0) {
+                if (direction < 0 && outletSwipe.scrollLeft - step < 0) {
+                    outletSwipe.scrollLeft += outletLoopWidth;
+                } else if (direction > 0 && outletSwipe.scrollLeft + step > maxScrollLeft) {
+                    outletSwipe.scrollLeft -= outletLoopWidth;
+                }
             }
 
             outletSwipe.scrollBy({ left: direction * step, behavior: "smooth" });
@@ -1270,6 +1388,7 @@ document.addEventListener("DOMContentLoaded",  () => {
                 return;
             }
 
+            clearOutletLoopWrapTimer();
             isPointerDown = true;
             isDragIntent = false;
             dragAxis = "";
@@ -1322,21 +1441,12 @@ document.addEventListener("DOMContentLoaded",  () => {
                 });
             }
 
-            if (shouldLoopOutlet()) {
-                const maxScrollLeft = getMaxScrollLeft();
-
-                if (lastDragDistanceX < -24 && outletSwipe.scrollLeft >= maxScrollLeft - 4) {
-                    outletSwipe.scrollLeft = 0;
-                } else if (lastDragDistanceX > 24 && outletSwipe.scrollLeft <= 4) {
-                    outletSwipe.scrollLeft = maxScrollLeft;
-                }
-            }
-
             isPointerDown = false;
             isDragIntent = false;
             dragAxis = "";
             lastDragDistanceX = 0;
             outletSwipe.classList.remove("is_dragging");
+            scheduleOutletLoopWrap();
         }
 
         outletSwipe.addEventListener("pointerup", releaseSwipe);
@@ -1350,6 +1460,13 @@ document.addEventListener("DOMContentLoaded",  () => {
             event.preventDefault();
             event.stopPropagation();
         }, true);
+        outletSwipe.addEventListener("scroll", () => {
+            if (isAdjustingOutletLoop) {
+                return;
+            }
+
+            scheduleOutletLoopWrap();
+        }, { passive: true });
         outletSwipe.addEventListener("wheel", (event) => {
             const dominantDelta = Math.abs(event.deltaY) > Math.abs(event.deltaX)
                 ? event.deltaY
@@ -1360,16 +1477,27 @@ document.addEventListener("DOMContentLoaded",  () => {
             }
 
             event.preventDefault();
-            const maxScrollLeft = getMaxScrollLeft();
+            if (shouldLoopOutlet() && outletLoopWidth > 0) {
+                const maxScrollLeft = getMaxScrollLeft();
 
-            if (shouldLoopOutlet() && dominantDelta > 0 && outletSwipe.scrollLeft >= maxScrollLeft - 4) {
-                outletSwipe.scrollLeft = 0;
-            } else if (shouldLoopOutlet() && dominantDelta < 0 && outletSwipe.scrollLeft <= 4) {
-                outletSwipe.scrollLeft = maxScrollLeft;
+                if (dominantDelta < 0 && outletSwipe.scrollLeft + dominantDelta < 0) {
+                    outletSwipe.scrollLeft += outletLoopWidth;
+                } else if (dominantDelta > 0 && outletSwipe.scrollLeft + dominantDelta > maxScrollLeft) {
+                    outletSwipe.scrollLeft -= outletLoopWidth;
+                }
             }
 
             outletSwipe.scrollLeft += dominantDelta;
+            scheduleOutletLoopWrap();
         }, { passive: false });
+
+        function refreshOutletLoop() {
+            const shouldResetPosition = shouldLoopOutlet();
+            updateOutletLoopMetrics({ resetPosition: shouldResetPosition });
+            scheduleOutletLoopWrap();
+        }
+
+        updateOutletLoopMetrics({ resetPosition: shouldLoopOutlet() });
 
 
         if (leftArrow) {
@@ -1382,6 +1510,14 @@ document.addEventListener("DOMContentLoaded",  () => {
             rightArrow.addEventListener("click", () => {
                 scrollOutlet(1);
             });
+        }
+
+        window.addEventListener("resize", refreshOutletLoop);
+
+        if (typeof desktopOutletLoopQuery.addEventListener === "function") {
+            desktopOutletLoopQuery.addEventListener("change", refreshOutletLoop);
+        } else if (typeof desktopOutletLoopQuery.addListener === "function") {
+            desktopOutletLoopQuery.addListener(refreshOutletLoop);
         }
     }
 
@@ -2111,6 +2247,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             const listContainer = templateContent.querySelector(".sns_product_list");
             const listItemLinkTemplate = listContainer?.querySelector(".sns_product_list_link");
             const quickButton = templateContent.querySelector(".sns_quick_btn");
+            const normalizedQuickSrc = normalizeSnsQuickSrc(originalQuickSrc);
 
             if (thumbImage) {
                 thumbImage.src = originalThumbSrc;
@@ -2126,25 +2263,13 @@ document.addEventListener("DOMContentLoaded",  () => {
             }
 
             const desiredListCount = getDesiredListCount(productBar);
-            const relatedProducts = pickRelatedProducts(cardIndex, title, Math.max(0, desiredListCount - 1));
-            const listData = [
-                {
-                    title,
-                    subtitle,
-                    currentPrice,
-                    beforePrice,
-                    image: originalThumbSrc,
-                    isPrimary: true
-                },
-                ...relatedProducts.map((itemData) => ({
-                    ...itemData,
-                    isPrimary: false
-                }))
-            ];
+            const listData = pickRelatedProducts(cardIndex, title, Math.max(0, desiredListCount - 1)).map((itemData) => ({
+                ...itemData,
+                isPrimary: false
+            }));
 
             if (listContainer && listItemLinkTemplate) {
                 listContainer.replaceChildren();
-                const normalizedQuickSrc = normalizeSnsQuickSrc(originalQuickSrc);
                 [...listData].reverse().forEach((itemData) => {
                     const listLink = listItemLinkTemplate.cloneNode(true);
                     const listItem = listLink.querySelector(".sns_product_list_item");
@@ -2159,8 +2284,9 @@ document.addEventListener("DOMContentLoaded",  () => {
                 });
             }
 
+            productBar.dataset.quickSrc = normalizedQuickSrc;
+
             if (quickButton) {
-                const normalizedQuickSrc = normalizeSnsQuickSrc(originalQuickSrc);
                 quickButton.dataset.quickSrc = normalizedQuickSrc;
                 if (quickButton.tagName === "A") {
                     quickButton.setAttribute("href", normalizedQuickSrc);
@@ -2422,7 +2548,7 @@ document.addEventListener("DOMContentLoaded",  () => {
 
         snsSwipe.addEventListener("pointerdown", (event) => {
             if (event.button !== undefined && event.button !== 0) return;
-            if (event.target.closest(".sns_quick_btn, .sns_expand_btn, .sns_product_list_panel, .sns_product_list_item, button, a, input, textarea, select")) return;
+            if (event.target.closest(".sns_product_bar.on, .sns_quick_btn, .sns_expand_btn, .sns_product_list_panel, .sns_product_list_item, button, a, input, textarea, select")) return;
             isPointerDown = true;
             dragMoved = false;
             startPointerX = event.clientX;
@@ -2498,6 +2624,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         const quickModal = document.querySelector(".sns_quick_modal");
         const quickFrame = document.querySelector(".sns_quick_frame");
         const openButtons = document.querySelectorAll(".sns_quick_btn, .sns_product_list_link");
+        const productBars = document.querySelectorAll(".sns_product_bar");
         const backdrop = document.querySelector(".sns_quick_modal_backdrop");
 
         if (!quickModal || !quickFrame || !openButtons.length || !backdrop) {
@@ -2527,6 +2654,23 @@ document.addEventListener("DOMContentLoaded",  () => {
                 event.preventDefault();
                 event.stopPropagation();
                 const src = normalizeSnsQuickSrc(button.dataset.quickSrc || button.getAttribute("href") || "");
+                openQuickModal(src);
+            });
+        });
+
+        productBars.forEach((productBar) => {
+            productBar.addEventListener("click", (event) => {
+                if (!productBar.classList.contains("on")) {
+                    return;
+                }
+
+                if (event.target.closest(".sns_expand_btn, .sns_quick_btn, .sns_product_list_link, button, a")) {
+                    return;
+                }
+
+                event.preventDefault();
+                event.stopPropagation();
+                const src = normalizeSnsQuickSrc(productBar.dataset.quickSrc || "");
                 openQuickModal(src);
             });
         });

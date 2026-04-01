@@ -188,16 +188,16 @@
     }
 
     .product_card {
-        width: clamp(170px, calc(100vw * 170 / 1920), 340px);
+        width: clamp(196px, calc(100vw * 196 / 1920), 392px);
     }
 
     .product_card.is-open {
-        width: clamp(400px, calc(100vw * 400 / 1920), 800px);
+        width: clamp(440px, calc(100vw * 440 / 1920), 880px);
     }
 
     .product_card_header {
         gap: clamp(12px, calc(100vw * 12 / 1920), 24px);
-        min-width: clamp(170px, calc(100vw * 170 / 1920), 340px);
+        min-width: clamp(196px, calc(100vw * 196 / 1920), 392px);
         border-radius: clamp(15px, calc(100vw * 15 / 1920), 30px);
         padding: clamp(9px, calc(100vw * 9 / 1920), 18px)
             clamp(12px, calc(100vw * 12 / 1920), 24px)
@@ -514,7 +514,7 @@
         font-size: clamp(12px, calc(100vw * 12 / 1920), 24px);
     }
 
-    .sns_product_list_text span {
+    .sns_product_list_text > span {
         font-size: clamp(12px, calc(100vw * 12 / 1920), 24px);
     }
 
@@ -637,6 +637,16 @@
 }
 
 @media screen and (min-width:1600px) and (max-width:1920px) {
+    .outlet_product_carousel {
+        width: min(100%, 484px);
+        grid-template-columns: 54px minmax(0, 340px) 54px;
+        justify-content: center;
+    }
+
+    .outlet_product_swipe {
+        width: 340px;
+    }
+
     .outlet_product_track {
         grid-auto-columns: 340px;
     }
@@ -783,7 +793,7 @@
     .product_card.is-open {
         min-width: 0;
         width: 100%;
-        max-width: min(320px, calc(100vw - 40px));
+        max-width: min(360px, calc(100vw - 40px));
         margin: 0 auto;
     }
 
@@ -794,8 +804,8 @@
 
     /* 세로 길이 제한: 디테일 이미지 숨기고 max-height 적용 */
     .product_card_body {
-        max-height: 150px;
-        overflow-y: auto;
+        max-height: none;
+        overflow: visible;
     }
 
     .product_card_detail_img {
@@ -1200,7 +1210,7 @@
         font-size: 10px;
     }
 
-    .sns_product_list_text span {
+    .sns_product_list_text > span {
         font-size: 9px;
     }
 
@@ -1549,7 +1559,7 @@
         font-size: 9px;
     }
 
-    .sns_product_list_text span {
+    .sns_product_list_text > span {
         font-size: 8px;
     }
 
@@ -2596,21 +2606,26 @@
     border-color: transparent;
 }
 
-.sns_product_bar.on .sns_product_thumb,
-.sns_product_bar.on .sns_product_info {
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    pointer-events: none;
-    transition: opacity 0.16s ease, max-height 0.16s ease;
-}
-
 .sns_product_bar.on .sns_product_list_link {
     opacity: 1;
 }
 
 .sns_product_bar.on .sns_product_list_link.is_related_item {
     transition-delay: 0.06s;
+}
+
+.sns_product_bar.on .sns_product_list_item {
+    align-items: center;
+}
+
+.sns_product_bar.on .sns_product_list_text,
+.sns_product_bar.on .sns_product_list_text strong,
+.sns_product_bar.on .sns_product_list_text > span,
+.sns_product_bar.on .sns_product_list_text .sns_price_row {
+    width: 100%;
+    text-align: left;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 .outlet_header {
@@ -2637,4 +2652,60 @@
 .section_header.outlet_header .sub_tit > p {
     width: 100%;
     text-align: right;
+}
+
+@media screen and (max-width:768px) {
+    .sns_card.is_active .sns_product_thumb {
+        width: 38px;
+        min-height: 28px;
+    }
+
+    .sns_card.is_active .sns_product_thumb img {
+        max-height: 28px;
+    }
+
+    .sns_card.is_active .sns_product_info h3 {
+        font-size: 9px;
+    }
+
+    .sns_card.is_active .sns_product_info p {
+        font-size: 7px;
+        margin-top: 2px;
+    }
+
+    .sns_card.is_active .sns_price_row {
+        gap: 6px;
+        margin-top: 4px;
+    }
+
+    .sns_card.is_active .sns_price_current {
+        font-size: 11px;
+    }
+
+    .sns_card.is_active .sns_price_before {
+        font-size: 8px;
+    }
+
+    .sns_card.is_active .sns_product_actions {
+        right: 6px;
+        width: 22px;
+        height: 50px;
+    }
+
+    .sns_card.is_active .sns_expand_btn,
+    .sns_card.is_active .sns_quick_btn {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        min-height: 22px;
+    }
+
+    .sns_card.is_active .sns_expand_btn svg {
+        width: 8px;
+        height: 8px;
+    }
+
+    .sns_card.is_active .sns_quick_btn span {
+        font-size: 16px;
+    }
 }
