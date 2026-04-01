@@ -131,8 +131,8 @@
     }
 
     .common_footer {
-        --footer-shape-height: clamp(290px, 40vh, 360px);
-        min-height: clamp(520px, 60vh, 700px);
+        --footer-shape-height: clamp(372px, calc(100vw * 698 / 1920), 698px);
+        min-height: clamp(520px, calc(100vw * 698 / 1920), 698px);
     }
 
     .footer_inner {
@@ -487,5 +487,21 @@
 
     .footer_social a {
         font-size: 18px;
+    }
+}
+
+@media screen and (min-width: 3048px) and (max-width: 3840px) {
+    .common_footer {
+        --footer-shape-height: clamp(1110px, calc(100vw * 698 / 1920), 1396px);
+        min-height: calc(var(--footer-shape-height) + clamp(286px, calc(100vw * 180 / 1920), 360px));
+    }
+
+    .footer_inner {
+        height: var(--footer-shape-height);
+    }
+
+    .footer_overlay {
+        height: var(--footer-shape-height);
+        background-size: 100% 100%;
     }
 }

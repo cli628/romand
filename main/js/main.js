@@ -689,7 +689,18 @@ document.addEventListener("DOMContentLoaded",  () => {
     };
     if (floatingItems.length > 0 && window.matchMedia("(min-width: 769px)").matches) {
         const isTabletLayout = window.matchMedia("(max-width: 1024px)").matches;
-        const activeBagConfig = isTabletLayout ? TABLET_NEW_SECTION_BAG_CONFIG : NEW_SECTION_BAG_CONFIG;
+        const isUltraWideLayout = window.matchMedia("(min-width: 3048px)").matches;
+        const activeBagConfig = isTabletLayout
+            ? TABLET_NEW_SECTION_BAG_CONFIG
+            : isUltraWideLayout
+                ? {
+                    ...NEW_SECTION_BAG_CONFIG,
+                    dropTarget: {
+                        ...NEW_SECTION_BAG_CONFIG.dropTarget,
+                        opacity: 0
+                    }
+                }
+                : NEW_SECTION_BAG_CONFIG;
 
         // Keep tablet products visible before pinning instead of revealing them from off-screen.
         gsap.set(floatingItems, { clearProps: "y,opacity" });
@@ -778,6 +789,11 @@ document.addEventListener("DOMContentLoaded",  () => {
                 ease: "power2.in"
             }, dropAt);
         });
+
+        // Time when the final product finishes dropping into the bag.
+        const lastDropEnd = activeBagConfig.dropStartAt
+            + (floatingItems.length - 1) * activeBagConfig.dropStagger
+            + activeBagConfig.dropDuration;
 
         // Let the items sit in front at first, then slip behind the bag front as the drop begins.
         const bagFrontCoverAt = activeBagConfig.dropStartAt + Math.min(0.52, activeBagConfig.dropDuration * 0.18);
@@ -1845,8 +1861,8 @@ document.addEventListener("DOMContentLoaded",  () => {
                 ? index / (workflowCards.length - 1)
                 : 1;
             const { firstCardWidth, maxSpread } = getWorkflowStageMetrics();
-            const spreadScale = ultraWideWorkflowQuery.matches ? 1.18 : 1.06;
-            const cardGapScale = ultraWideWorkflowQuery.matches ? 1.44 : 1.3;
+            const spreadScale = ultraWideWorkflowQuery.matches ? 1.5 : 1.06;
+            const cardGapScale = ultraWideWorkflowQuery.matches ? 2.32 : 1.3;
             const spread = Math.min(maxSpread * spreadScale, firstCardWidth * cardGapScale);
 
             return {

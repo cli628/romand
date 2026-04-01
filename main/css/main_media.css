@@ -25,8 +25,8 @@
     }
 
     .hero_content {
-        width: min(100%, calc(100vw * 1620 / 1920));
-        gap: clamp(50px, calc(100vw * 50 / 1920), 100px);
+        width: min(100%, 1460px);
+        gap: 50px;
         margin-inline: auto;
     }
 
@@ -128,7 +128,7 @@
     .new_section {
         margin-top: clamp(-280px, calc(100vw * -140 / 1920), -140px);
         padding-top: clamp(140px, calc(100vw * 140 / 1920), 280px);
-        padding-bottom: clamp(120px, calc(100vw * 120 / 1920), 240px);
+        padding-bottom: clamp(180px, calc(100vw * 180 / 1920), 360px);
     }
     
     .new_section .section_header {
@@ -157,7 +157,7 @@
     }
 
     .animation_area {
-        height: clamp(1080px, calc(100vw * 1080 / 1920), 2160px);
+        height: clamp(1520px, calc(100vw * 1520 / 1920), 3040px);
         margin-top: clamp(72px, calc(100vw * 72 / 1920), 144px);
     }
 
@@ -879,7 +879,7 @@
     }
 
     .animation_area {
-        height: 700px;
+        height: 780px;
         overflow: visible;
     }
 
@@ -1339,6 +1339,7 @@
     .workflow_steps_counter_title,
     .workflow_steps_count_window {
         width: min(94vw, 860px);
+
     }
 
     .workflow_steps_counter h2 {
@@ -2694,6 +2695,14 @@
 @media screen and (max-width:375px) {}
 
 @media screen and (min-width:3048px) and (max-width:3840px) {
+    .new_section .section_header .sub_tit>p,
+    .outlet_header .sub_tit>p,
+    .personal_color_content .sub_tit>p,
+    .pink_office_intro .sub_tit>p {
+        white-space: nowrap;
+        text-wrap: nowrap;
+    }
+
     .best_section .section_header.right_align {
         width: min(62vw, 2200px);
     }
@@ -2709,17 +2718,17 @@
     }
 
     .workflow_steps_cards {
-        width: min(99vw, 2360px);
-        height: clamp(380px, 27vw, 580px);
+        width: min(99vw, 3800px);
+        height: clamp(560px, 38vw, 940px);
     }
 
     .workflow_step_card {
-        width: clamp(250px, calc(100vw * 260 / 3048), 320px);
-        min-width: 250px;
+        width: clamp(420px, calc(100vw * 436 / 3048), 608px);
+        min-width: 420px;
     }
 
     .workflow_step_card_back_title {
-        font-size: clamp(30px, calc(100vw * 30 / 3048), 56px);
+        font-size: clamp(42px, calc(100vw * 42 / 3048), 74px);
     }
 }
 

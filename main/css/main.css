@@ -1618,7 +1618,7 @@ body.sns_quick_locked {
 /* New Section Animation Area */
 .new_section {
     position: relative;
-    padding-bottom: 96px;
+    padding-bottom: 180px;
     margin-top: -120px;
     padding-top: 120px;
 }
@@ -1626,7 +1626,7 @@ body.sns_quick_locked {
 /* ?좊땲 ?ㅽ겕濡?? 吏?먮븣臾몄뿉 留덉쭊 以?*/
 .animation_area {
     position: relative;
-    height: 1100px;
+    height: 1520px;
     width: 100%;
     margin-top: 72px;
 }
