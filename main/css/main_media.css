@@ -2785,8 +2785,7 @@
 
 @media screen and (max-width:768px) {
     .sns_card.is_active .sns_product_thumb {
-        width: 38px;
-        min-height: 28px;
+        width:  20px;
     }
 
     .sns_card.is_active .sns_product_thumb img {
@@ -2849,4 +2848,54 @@
     width: 100%;
     margin: 0;
     text-align: center;
+}
+
+/* Keep SNS list items visually stable after breakpoint-specific overrides. */
+.sns_product_list {
+    gap: clamp(4px, calc(100vw * 10 / 1920), 10px);
+    padding: 4px 0;
+}
+
+.sns_product_list_item {
+    grid-template-columns: clamp(34px, calc(100vw * 64 / 1920), 64px) minmax(0, 1fr);
+    gap: clamp(6px, calc(100vw * 12 / 1920), 12px);
+    min-height: clamp(42px, calc(100vw * 72 / 1920), 72px);
+    padding: clamp(5px, calc(100vw * 10 / 1920), 10px) clamp(6px, calc(100vw * 12 / 1920), 12px);
+    border-radius: clamp(10px, calc(100vw * 16 / 1920), 16px);
+}
+
+.sns_product_list .sns_product_list_link:hover .sns_product_list_item,
+.sns_product_list .sns_product_list_link:focus-visible .sns_product_list_item {
+    border-radius: clamp(10px, calc(100vw * 16 / 1920), 16px);
+}
+
+.sns_product_list_item img {
+    width: clamp(34px, calc(100vw * 64 / 1920), 64px);
+    height: clamp(34px, calc(100vw * 64 / 1920), 64px);
+    padding: clamp(2px, calc(100vw * 4 / 1920), 4px);
+    border-radius: clamp(8px, calc(100vw * 12 / 1920), 12px);
+}
+
+.sns_product_list_text {
+    gap: clamp(1px, calc(100vw * 2 / 1920), 2px);
+}
+
+.sns_product_list_text strong,
+.sns_product_list_price {
+    font-size: clamp(9px, calc(100vw * 12 / 1920), 12px);
+    line-height: 1.2;
+}
+
+.sns_product_list_text > span {
+    font-size: clamp(8px, calc(100vw * 11 / 1920), 12px);
+    line-height: 1.2;
+}
+
+.sns_product_list_text .sns_price_row {
+    gap: clamp(4px, calc(100vw * 7 / 1920), 7px);
+    margin-top: clamp(2px, calc(100vw * 3 / 1920), 3px);
+}
+
+.sns_product_list_text .sns_price_before {
+    font-size: clamp(8px, calc(100vw * 10 / 1920), 11px);
 }

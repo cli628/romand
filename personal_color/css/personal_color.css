@@ -3,6 +3,9 @@
 .personal_color_body {
     background: #ffffff;
     color: var(--white);
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .personal_color_body .common_header {
@@ -27,6 +30,10 @@
 
 .personal_color_page {
     background: #ffffff;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .personal_story_slider {
@@ -387,7 +394,9 @@
     min-height: 920px;
     padding: 0 24px;
     background: #ffffff;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-x: clip;
+    overflow-y: visible;
     color: var(--black);
 }
 

@@ -726,6 +726,15 @@ document.addEventListener("DOMContentLoaded",  () => {
             }, activeBagConfig.headerFadeStartAt);
         }
 
+        // Keep the bag behind the product cards until their open header/body fades complete.
+        if (shoppingBagBack) {
+            tl.set(shoppingBagBack, { zIndex: 0 }, 0);
+        }
+
+        if (shoppingBagFront) {
+            tl.set(shoppingBagFront, { zIndex: 1 }, 0);
+        }
+
         floatingItems.forEach((item, index) => {
             const gatherTarget =
                 activeBagConfig.gatherTargets[index] ||
@@ -774,6 +783,17 @@ document.addEventListener("DOMContentLoaded",  () => {
         const lastDropEnd = activeBagConfig.dropStartAt
             + (floatingItems.length - 1) * activeBagConfig.dropStagger
             + activeBagConfig.dropDuration;
+        const lastCardFadeEnd = activeBagConfig.dropStartAt
+            + (floatingItems.length - 1) * activeBagConfig.dropStagger
+            + 1.2;
+
+        if (shoppingBagBack) {
+            tl.set(shoppingBagBack, { zIndex: 1 }, lastCardFadeEnd);
+        }
+
+        if (shoppingBagFront) {
+            tl.set(shoppingBagFront, { zIndex: 3 }, lastCardFadeEnd);
+        }
 
         // After all products drop, lift the full bag group toward the visible center.
         if (bagElements.length > 0) {
