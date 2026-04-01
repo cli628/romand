@@ -31,6 +31,70 @@
         overflow-x: hidden;
         overflow-y: auto;
     }
+
+    .common_footer {
+        --footer-shape-height: clamp(360px, calc(100vw * 360 / 1920), 720px);
+        min-height: clamp(700px, calc(100vw * 700 / 1920), 1400px);
+    }
+
+    .footer_inner {
+        width: min(calc(100vw * 1560 / 1920), calc(100% - clamp(140px, calc(100vw * 140 / 1920), 280px)));
+        height: var(--footer-shape-height);
+        padding: clamp(68px, calc(100vw * 68 / 1920), 136px) 0
+            clamp(44px, calc(100vw * 44 / 1920), 88px);
+        gap: clamp(56px, calc(100vw * 56 / 1920), 112px);
+    }
+
+    .footer_links {
+        gap: clamp(56px, calc(100vw * 56 / 1920), 112px);
+        margin-right: clamp(48px, calc(100vw * 48 / 1920), 96px);
+    }
+
+    .footer_links_col {
+        gap: clamp(22px, calc(100vw * 22 / 1920), 44px);
+    }
+
+    .footer_links_col a {
+        font-size: clamp(18px, calc(100vw * 18 / 1920), 36px);
+    }
+
+    .footer_newsletter {
+        flex-basis: clamp(500px, calc(100vw * 500 / 1920), 1000px);
+        max-width: clamp(500px, calc(100vw * 500 / 1920), 1000px);
+        padding-bottom: clamp(2px, calc(100vw * 2 / 1920), 4px);
+    }
+
+    .footer_newsletter h3 {
+        font-size: clamp(12px, calc(100vw * 12 / 1920), 24px);
+        margin-bottom: clamp(12px, calc(100vw * 12 / 1920), 24px);
+    }
+
+    .footer_newsletter p {
+        font-size: clamp(13px, calc(100vw * 13 / 1920), 26px);
+        margin-bottom: clamp(18px, calc(100vw * 18 / 1920), 36px);
+    }
+
+    .newsletter_form {
+        padding-bottom: clamp(8px, calc(100vw * 8 / 1920), 16px);
+        gap: clamp(12px, calc(100vw * 12 / 1920), 24px);
+    }
+
+    .newsletter_form input {
+        font-size: clamp(13px, calc(100vw * 13 / 1920), 26px);
+    }
+
+    .newsletter_form button {
+        font-size: clamp(14px, calc(100vw * 14 / 1920), 28px);
+    }
+
+    .footer_social {
+        gap: clamp(30px, calc(100vw * 30 / 1920), 60px);
+        padding-bottom: clamp(4px, calc(100vw * 4 / 1920), 8px);
+    }
+
+    .footer_social a {
+        font-size: clamp(20px, calc(100vw * 20 / 1920), 40px);
+    }
 }
 
 /* pc */

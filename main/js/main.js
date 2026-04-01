@@ -779,20 +779,15 @@ document.addEventListener("DOMContentLoaded",  () => {
             }, dropAt);
         });
 
-        // Time when the final product finishes dropping into the bag.
-        const lastDropEnd = activeBagConfig.dropStartAt
-            + (floatingItems.length - 1) * activeBagConfig.dropStagger
-            + activeBagConfig.dropDuration;
-        const lastCardFadeEnd = activeBagConfig.dropStartAt
-            + (floatingItems.length - 1) * activeBagConfig.dropStagger
-            + 1.2;
+        // Let the items sit in front at first, then slip behind the bag front as the drop begins.
+        const bagFrontCoverAt = activeBagConfig.dropStartAt + Math.min(0.52, activeBagConfig.dropDuration * 0.18);
 
         if (shoppingBagBack) {
-            tl.set(shoppingBagBack, { zIndex: 1 }, lastCardFadeEnd);
+            tl.set(shoppingBagBack, { zIndex: 1 }, bagFrontCoverAt);
         }
 
         if (shoppingBagFront) {
-            tl.set(shoppingBagFront, { zIndex: 3 }, lastCardFadeEnd);
+            tl.set(shoppingBagFront, { zIndex: 3 }, bagFrontCoverAt);
         }
 
         // After all products drop, lift the full bag group toward the visible center.
@@ -1288,6 +1283,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         let outletLoopWidth = 0;
         let isAdjustingOutletLoop = false;
         let outletLoopWrapTimer = 0;
+        let outletClickSuppressTimer = 0;
 
         const scrollStep = () => {
             const firstVisibleItem =
@@ -1311,6 +1307,20 @@ document.addEventListener("DOMContentLoaded",  () => {
         function clearOutletLoopWrapTimer() {
             window.clearTimeout(outletLoopWrapTimer);
             outletLoopWrapTimer = 0;
+        }
+
+        function clearOutletClickSuppressTimer() {
+            window.clearTimeout(outletClickSuppressTimer);
+            outletClickSuppressTimer = 0;
+        }
+
+        function suppressOutletClicksAfterDrag() {
+            clearOutletClickSuppressTimer();
+            suppressOutletClick = true;
+            outletClickSuppressTimer = window.setTimeout(() => {
+                suppressOutletClick = false;
+                outletClickSuppressTimer = 0;
+            }, 220);
         }
 
         function removeOutletLoopClones() {
@@ -1439,6 +1449,8 @@ document.addEventListener("DOMContentLoaded",  () => {
             }
 
             clearOutletLoopWrapTimer();
+            clearOutletClickSuppressTimer();
+            suppressOutletClick = false;
             isPointerDown = true;
             isDragIntent = false;
             dragAxis = "";
@@ -1446,6 +1458,14 @@ document.addEventListener("DOMContentLoaded",  () => {
             startPointerY = event.clientY;
             startScrollLeft = outletSwipe.scrollLeft;
             lastDragDistanceX = 0;
+
+            if (typeof outletSwipe.setPointerCapture === "function" && event.pointerId !== undefined) {
+                try {
+                    outletSwipe.setPointerCapture(event.pointerId);
+                } catch (_error) {
+                    /* Keep swipe usable even when pointer capture is unavailable. */
+                }
+            }
         });
 
         outletSwipe.addEventListener("pointermove", (event) => {
@@ -1485,10 +1505,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             }
 
             if (isDragIntent) {
-                suppressOutletClick = true;
-                requestAnimationFrame(() => {
-                    suppressOutletClick = false;
-                });
+                suppressOutletClicksAfterDrag();
             }
 
             isPointerDown = false;
@@ -1496,12 +1513,27 @@ document.addEventListener("DOMContentLoaded",  () => {
             dragAxis = "";
             lastDragDistanceX = 0;
             outletSwipe.classList.remove("is_dragging");
+
+            if (
+                event.pointerId !== undefined &&
+                typeof outletSwipe.hasPointerCapture === "function" &&
+                typeof outletSwipe.releasePointerCapture === "function" &&
+                outletSwipe.hasPointerCapture(event.pointerId)
+            ) {
+                outletSwipe.releasePointerCapture(event.pointerId);
+            }
+
             scheduleOutletLoopWrap();
         }
 
         outletSwipe.addEventListener("pointerup", releaseSwipe);
         outletSwipe.addEventListener("pointercancel", releaseSwipe);
         outletSwipe.addEventListener("pointerleave", releaseSwipe);
+        outletSwipe.addEventListener("dragstart", (event) => {
+            if (event.target.closest(".outlet_product_link, img")) {
+                event.preventDefault();
+            }
+        });
         outletSwipe.addEventListener("click", (event) => {
             if (!suppressOutletClick) {
                 return;

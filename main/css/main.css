@@ -518,7 +518,6 @@ margin: 0 auto;
     border-radius: 0;
     margin: 0;
     box-shadow: none;
-    pointer-events: none;
     user-select: none;
     -webkit-user-select: none;
     -webkit-user-drag: none;

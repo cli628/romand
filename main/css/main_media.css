@@ -2694,6 +2694,20 @@
 @media screen and (max-width:375px) {}
 
 @media screen and (min-width:3048px) and (max-width:3840px) {
+    .best_section .section_header.right_align {
+        width: min(62vw, 2200px);
+    }
+
+    .best_section .section_header p {
+        width: auto;
+        max-width: none;
+        white-space: nowrap;
+    }
+
+    .best_section .section_header p br {
+        display: none;
+    }
+
     .workflow_steps_cards {
         width: min(99vw, 2360px);
         height: clamp(380px, 27vw, 580px);

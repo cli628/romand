@@ -451,7 +451,8 @@ main,
 .overlay_link:hover::after {
     width: 100%;
 }
-.none a{
+.none a,
+.none p{
     color: var(--g-color2);
     pointer-events: none;
 }
@@ -622,6 +623,10 @@ main,
     gap: 22px;
 }
 
+.footer_links_col li.none {
+    pointer-events: none;
+}
+
 .footer_links_col a {
     position: relative;
     display: inline-block;
@@ -629,6 +634,14 @@ main,
     font-weight: 500;
     color: #7a7277;
     transition: color 0.2s ease;
+}
+
+.footer_links_col li.none a {
+    color: #bdb7bb;
+}
+
+.footer_links_col li.none a::after {
+    display: none;
 }
 
 .footer_links_col a::after {
