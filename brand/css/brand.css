@@ -493,7 +493,7 @@ header {
 /* Horizontal Image Slides */
 .h_scroll_container {
 	width: 100%;
-	height: calc(100vh - 72px);
+	height: 100vh;
 	position: relative;
 	overflow: hidden;
 	background: #0f1014;
@@ -532,11 +532,15 @@ header {
 	line-height: 1;
 	color: var(--white);
 	white-space: nowrap;
-	opacity: 0.75;
+	opacity: 1;
 	transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.h_slide_tab:hover {
+.h_slide_tab:not(.is_active) {
+	opacity: 0.5;
+}
+
+.h_slide_tab:hover:not(.is_active) {
 	opacity: 1;
 }
 
@@ -601,7 +605,7 @@ header {
 .h_slide_content {
 	position: absolute;
 	inset: 0;
-	min-height: calc(100vh - 72px);
+	min-height: 100vh;
 	z-index: 2;
 	display: flex;
 	flex-direction: column;
@@ -717,16 +721,5 @@ header {
 	.h_scroll_container {
 		z-index: 2;
 		will-change: transform;
-	}
-
-	.common_footer.brand_footer_preview {
-		position: fixed;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		width: 100%;
-		z-index: 1;
-		pointer-events: none;
-		will-change: transform, opacity;
 	}
 }

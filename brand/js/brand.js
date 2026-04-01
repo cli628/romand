@@ -389,11 +389,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const slideCount = hSlides.length;
     const slideSpan = Math.max(slideCount - 1, 1);
     let hTween = null;
-    let footerRevealTween = null;
-    let footerHideTrigger = null;
-    let footerPreview = null;
-    let footerRevealObserver = null;
-
     const setActiveTab = (activeIndex) => {
       activeTabGroups.forEach((group) => {
         const tabsInGroup = Array.from(group.querySelectorAll('.h_slide_tab'));
@@ -407,126 +402,6 @@ document.addEventListener('DOMContentLoaded', () => {
       primaryTabGroup.style.left = '';
       primaryTabGroup.style.width = '';
     }
-
-    const killFooterRevealTweens = () => {
-      if (footerRevealTween) {
-        footerRevealTween.kill();
-        footerRevealTween = null;
-      }
-
-      if (footerHideTrigger) {
-        footerHideTrigger.kill();
-        footerHideTrigger = null;
-      }
-    };
-
-    const getRevealReferenceHeight = () => {
-      const contentHeights = hSlides.map((slide) => {
-        const content = slide.querySelector('.h_slide_content');
-        if (!content) return 0;
-        return Math.max(content.offsetHeight, content.scrollHeight);
-      });
-
-      return Math.max(...contentHeights, hScrollContainer.offsetHeight, window.innerHeight || 0);
-    };
-
-    const getFooterRevealStart = () => {
-      const pinTrigger = hTween?.scrollTrigger;
-      if (!pinTrigger) return 0;
-
-      const revealDistance = Math.min(
-        getRevealReferenceHeight(),
-        Math.max(pinTrigger.end - pinTrigger.start, 0)
-      );
-      return Math.max(pinTrigger.start, pinTrigger.end - revealDistance);
-    };
-
-    const getFooterRevealEnd = () => {
-      const pinTrigger = hTween?.scrollTrigger;
-      return pinTrigger ? pinTrigger.end : getFooterRevealStart();
-    };
-
-    const initFooterReveal = () => {
-      const brandFooter = document.querySelector('.common_footer');
-      if (!brandFooter) return false;
-
-      brandFooter.classList.remove('brand_footer_reveal');
-      killFooterRevealTweens();
-
-      if (!footerPreview) {
-        footerPreview = brandFooter.cloneNode(true);
-        footerPreview.removeAttribute('id');
-        footerPreview.classList.add('brand_footer_preview');
-        footerPreview.setAttribute('aria-hidden', 'true');
-
-        const previewVideo = footerPreview.querySelector('.footer_bg_video');
-        if (previewVideo) previewVideo.remove();
-
-        footerPreview.querySelectorAll('a, button, input').forEach((element) => {
-          element.setAttribute('tabindex', '-1');
-          element.setAttribute('aria-hidden', 'true');
-        });
-      }
-
-      if (footerPreview.parentElement !== document.body) {
-        document.body.appendChild(footerPreview);
-      }
-
-      gsap.set(footerPreview, { autoAlpha: 0, yPercent: 12 });
-
-      footerRevealTween = gsap.to(footerPreview, {
-        autoAlpha: 1,
-        yPercent: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: hScrollContainer,
-          start: getFooterRevealStart,
-          end: getFooterRevealEnd,
-          scrub: 1,
-          invalidateOnRefresh: true
-        }
-      });
-
-      footerHideTrigger = ScrollTrigger.create({
-        trigger: brandFooter,
-        start: "top bottom",
-        end: "top top",
-        invalidateOnRefresh: true,
-        onEnter: () => {
-          gsap.to(footerPreview, { autoAlpha: 0, duration: 0.2, overwrite: true });
-        },
-        onLeaveBack: () => {
-          const revealProgress = footerRevealTween?.scrollTrigger?.progress ?? 0;
-          gsap.to(footerPreview, {
-            autoAlpha: revealProgress > 0 ? 1 : 0,
-            duration: 0.2,
-            overwrite: true
-          });
-        }
-      });
-
-      return true;
-    };
-
-    const watchFooterReveal = () => {
-      if (initFooterReveal()) {
-        requestAnimationFrame(() => ScrollTrigger.refresh());
-        return;
-      }
-
-      if (footerRevealObserver || !document.body) return;
-
-      footerRevealObserver = new MutationObserver(() => {
-        if (!initFooterReveal()) return;
-
-        footerRevealObserver.disconnect();
-        footerRevealObserver = null;
-        requestAnimationFrame(() => ScrollTrigger.refresh());
-      });
-
-      footerRevealObserver.observe(document.body, { childList: true, subtree: true });
-    };
-
     if (slideCount > 1) {
       hTween = gsap.to(hScrollWrap, {
         x: () => -(window.innerWidth * slideSpan),
@@ -547,7 +422,6 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       });
-      watchFooterReveal();
     }
 
     if (hSlideTabs.length) {
