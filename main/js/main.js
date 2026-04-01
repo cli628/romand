@@ -2829,6 +2829,63 @@ document.addEventListener("DOMContentLoaded",  () => {
         });
     }
 
+    function initializeBreakKeywordLoop() {
+        const keywordTracks = Array.from(document.querySelectorAll(".break_keyword_track"));
+        if (!keywordTracks.length) {
+            return;
+        }
+
+        const baseNodesMap = new WeakMap();
+        let resizeFrameId = 0;
+
+        keywordTracks.forEach((track) => {
+            const trackChildren = Array.from(track.children);
+            const singleSetCount =
+                trackChildren.length > 1 && trackChildren.length % 2 === 0
+                    ? trackChildren.length / 2
+                    : trackChildren.length;
+
+            baseNodesMap.set(
+                track,
+                trackChildren.slice(0, singleSetCount).map((node) => node.cloneNode(true))
+            );
+        });
+
+        function rebuildBreakTrack(track) {
+            const baseNodes = baseNodesMap.get(track);
+            if (!baseNodes?.length) {
+                return;
+            }
+
+            track.replaceChildren(
+                ...baseNodes.map((node) => node.cloneNode(true)),
+                ...baseNodes.map((node) => node.cloneNode(true))
+            );
+
+            const singleSetWidth = track.scrollWidth / 2;
+            const viewportWidth = track.parentElement?.clientWidth || window.innerWidth;
+
+            while (track.scrollWidth < viewportWidth + singleSetWidth) {
+                baseNodes.forEach((node) => {
+                    track.appendChild(node.cloneNode(true));
+                });
+            }
+
+            track.style.setProperty("--break-marquee-shift", `${singleSetWidth}px`);
+        }
+
+        function rebuildAllBreakTracks() {
+            keywordTracks.forEach(rebuildBreakTrack);
+        }
+
+        rebuildAllBreakTracks();
+
+        window.addEventListener("resize", () => {
+            window.cancelAnimationFrame(resizeFrameId);
+            resizeFrameId = window.requestAnimationFrame(rebuildAllBreakTracks);
+        });
+    }
+
     function initializePersonalColorBanner() {
         const section = document.querySelector(".personal_color_section");
         if (!section) return;
@@ -2889,5 +2946,6 @@ document.addEventListener("DOMContentLoaded",  () => {
     initializeSnsProductBars();
     initializeSnsSwipe();
     initializeSnsQuickModal();
+    initializeBreakKeywordLoop();
 });
 

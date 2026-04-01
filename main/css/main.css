@@ -564,6 +564,7 @@ margin: 0 auto;
     gap: 22px;
     width: max-content;
     will-change: transform;
+    --break-marquee-shift: 50%;
     animation: break_keyword_marquee 38s linear infinite;
 }
 
@@ -620,7 +621,7 @@ margin: 0 auto;
     }
 
     to {
-        transform: translate3d(-50%, 0, 0);
+        transform: translate3d(calc(var(--break-marquee-shift, 50%) * -1), 0, 0);
     }
 }
 

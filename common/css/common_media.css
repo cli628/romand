@@ -97,6 +97,32 @@
     }
 }
 
+@media screen and (min-width: 3048px) and (max-width: 3840px) {
+    .footer_links_col a {
+        font-size: clamp(28px, calc(100vw * 28 / 3048), 38px);
+    }
+
+    .footer_newsletter h3 {
+        font-size: clamp(18px, calc(100vw * 18 / 3048), 26px);
+    }
+
+    .footer_newsletter p {
+        font-size: clamp(20px, calc(100vw * 20 / 3048), 28px);
+    }
+
+    .newsletter_form input {
+        font-size: clamp(20px, calc(100vw * 20 / 3048), 28px);
+    }
+
+    .newsletter_form button {
+        font-size: clamp(22px, calc(100vw * 22 / 3048), 30px);
+    }
+
+    .footer_social a {
+        font-size: clamp(30px, calc(100vw * 30 / 3048), 42px);
+    }
+}
+
 /* pc */
 @media screen and (max-width: 1920px) {
     :root {
