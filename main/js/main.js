@@ -597,37 +597,37 @@ document.addEventListener("DOMContentLoaded",  () => {
     const newSectionHeader = document.querySelector(".new_section .section_header");
     const NEW_SECTION_BAG_CONFIG = {
         /* Total pinned scroll length for this section. Increase for a longer sequence. */
-        scrollLengthMultiplier: 6.3,
+        scrollLengthMultiplier: 3.6,
         /* Scroll smoothing amount. Increase to make the animation trail the wheel more. */
-        scrub: 5,
+        scrub: 2.8,
         /* Downward drift for the floating product cluster before the bag rises. */
-        floatingProductsShiftY: 80,
+        floatingProductsShiftY: 52,
         /* Duration for moving the floating product group into place. */
-        floatingProductsDuration: 12,
+        floatingProductsDuration: 7.8,
         /* Duration for lifting the bag group toward the visual center. */
-        bagRiseDuration: 4,
+        bagRiseDuration: 2.6,
         /* Timeline position where the section header starts fading out. */
-        headerFadeStartAt: 5.2,
+        headerFadeStartAt: 3.7,
         /* Duration of the section header fade-out. */
-        headerFadeDuration: 1.4,
+        headerFadeDuration: 0.9,
 
         /* Timeline position where products begin gathering. */
-        gatherStartAt: 3,
+        gatherStartAt: 2.1,
 
         /* Delay between each product starting the gather motion. */
-        gatherStagger: 1,
+        gatherStagger: 0.56,
 
         /* Duration of each gather step. */
-        gatherDuration: 1.2,
+        gatherDuration: 0.76,
 
         /* Timeline position where products begin dropping into the bag. */
-        dropStartAt: 6,
+        dropStartAt: 3.95,
 
         /* Delay between each product drop. */
-        dropStagger: 1,
+        dropStagger: 0.58,
 
         /* Duration of each drop motion. */
-        dropDuration: 5,
+        dropDuration: 2.85,
 
         /* Midpoint positions where the products gather before the drop. */
         gatherTargets: [
@@ -640,23 +640,23 @@ document.addEventListener("DOMContentLoaded",  () => {
         /* Final target inside the bag. Lower top pushes the drop deeper into the bag. */
         dropTarget: { top: "100%", left: "50%", scale: 1, opacity: 1, ease: "power2.in" },
         /* Extra hold after the bag reaches center before the next section takes over. */
-        endHoldDuration: 4
+        endHoldDuration: 1.1
     };
     const TABLET_NEW_SECTION_BAG_CONFIG = {
         ...NEW_SECTION_BAG_CONFIG,
-        scrollLengthMultiplier: 5.8,
-        scrub: 4.2,
+        scrollLengthMultiplier: 3.2,
+        scrub: 2.3,
         floatingProductsShiftY: 0,
-        floatingProductsDuration: 9.5,
-        bagRiseDuration: 3.6,
-        headerFadeStartAt: 5.8,
-        headerFadeDuration: 1.1,
-        gatherStartAt: 4,
-        gatherStagger: 0.72,
-        gatherDuration: 0.95,
-        dropStartAt: 6.1,
-        dropStagger: 0.72,
-        dropDuration: 3.8,
+        floatingProductsDuration: 6.4,
+        bagRiseDuration: 2.25,
+        headerFadeStartAt: 3.8,
+        headerFadeDuration: 0.8,
+        gatherStartAt: 2.35,
+        gatherStagger: 0.44,
+        gatherDuration: 0.62,
+        dropStartAt: 4,
+        dropStagger: 0.46,
+        dropDuration: 2.25,
         gatherTargets: [
             { top: "8%", left: "36%", scale: 1, ease: "power1.inOut" },
             { top: "6%", left: "43%", scale: 1, ease: "power1.inOut" },
@@ -776,15 +776,15 @@ document.addEventListener("DOMContentLoaded",  () => {
         const bestLines = railItems.map((item) => item.querySelector(".connect_line")).filter(Boolean);
         const BEST_SECTION_CONFIG = {
             scrubViewportMultiplier: 14,  /* Legacy viewport multiplier kept for quick tuning. */
-            scrubWheelStepCount: 15,
-            scrubWheelDeltaPerStep: 480,
-            videoDurationRatio: 0.58,     /* Portion of the video duration used for the scrub segment. */
+            scrubWheelStepCount: 8,
+            scrubWheelDeltaPerStep: 340,
+            videoDurationRatio: 0.54,     /* Portion of the video duration used for the scrub segment. */
             videoEndPadding: 0.1,
-            videoProgressEnd: 0.82,       /* Scroll progress point where the video should be fully scrubbed. */
-            exitStartProgress: 0.8,       /* Progress point where the header and rail start exiting. */
+            videoProgressEnd: 0.66,       /* Scroll progress point where the video should be fully scrubbed. */
+            exitStartProgress: 0.62,      /* Progress point where the header and rail start exiting. */
             exitDistanceY: 0,
-            headerExitDistanceY: 90,
-            railSinkStart: 0.82,          /* Path progress where the modals start shrinking and sinking out. */
+            headerExitDistanceY: 60,
+            railSinkStart: 0.68,          /* Path progress where the modals start shrinking and sinking out. */
 
             /* Shared path for all bag items.
                Adjust these x/y points to reshape the travel path over the video.
@@ -822,7 +822,15 @@ document.addEventListener("DOMContentLoaded",  () => {
             /* Progress points where each bag modal starts fading in. */
             bagFadeStarts: [0.0, 0.0, 0.06],
             bagFadeDuration: 0.12,        /* Duration of each modal fade-in. */
+            itemStartOffsetFadeEnd: 0.18,
+            itemStartOffsets: [
+                { x: 0, y: 0 },
+                { x: -72, y: 0 },
+                { x: 0, y: 0 }
+            ],
 
+            /* Global x-shift so the full modal rail sits farther right over the video. */
+            modalShiftX: 60,
             itemAnchorOffset: { x: 210, y: -36 },
             /* Per-item x/y correction on top of the shared anchor offset. */
             itemOffsets: [
@@ -832,6 +840,13 @@ document.addEventListener("DOMContentLoaded",  () => {
             ]
         };
         const BEST_SECTION_TABLET_LAYOUT = {
+            itemStartOffsetFadeEnd: 0.18,
+            itemStartOffsets: [
+                { x: 0, y: 0 },
+                { x: -54, y: 0 },
+                { x: 0, y: 0 }
+            ],
+            modalShiftX: 38,
             itemAnchorOffset: { x: 134, y: -30 },
             itemOffsets: [
                 { x: -4, y: 6 },
@@ -947,9 +962,15 @@ document.addEventListener("DOMContentLoaded",  () => {
                     : BEST_SECTION_CONFIG;
                 const anchorOffset = responsiveLayout.itemAnchorOffset;
                 const offset = responsiveLayout.itemOffsets[itemIndex] || { x: 0, y: 0 };
+                const startOffset = responsiveLayout.itemStartOffsets?.[itemIndex] || { x: 0, y: 0 };
+                const startOffsetFadeEnd = responsiveLayout.itemStartOffsetFadeEnd || 0;
+                const startOffsetWeight = startOffsetFadeEnd > 0
+                    ? 1 - gsap.utils.clamp(0, 1, videoProgress / startOffsetFadeEnd)
+                    : 0;
+                const modalShiftX = responsiveLayout.modalShiftX || 0;
                 return {
-                    x: bagPoint.x + anchorOffset.x + offset.x,
-                    y: bagPoint.y + anchorOffset.y + offset.y
+                    x: bagPoint.x + anchorOffset.x + offset.x + modalShiftX + startOffset.x * startOffsetWeight,
+                    y: bagPoint.y + anchorOffset.y + offset.y + startOffset.y * startOffsetWeight
                 };
             }
 
@@ -1194,6 +1215,8 @@ document.addEventListener("DOMContentLoaded",  () => {
     function initializeOutletSwipe() {
         const outletSwipe = document.querySelector(".outlet_product_swipe");
         const leftArrow = document.querySelector(".outlet_swipe_arrow_left");
+        const rightArrow = document.querySelector(".outlet_swipe_arrow_right");
+        const desktopOutletLoopQuery = window.matchMedia("(min-width: 1600px) and (max-width: 1920px)");
 
         if (!outletSwipe) {
             return;
@@ -1201,85 +1224,164 @@ document.addEventListener("DOMContentLoaded",  () => {
 
         let isPointerDown = false;
         let isDragIntent = false;
-        let pressedWorkflowCard = null;
-        let suppressWorkflowCardClick = false;
+        let dragAxis = "";
+        let suppressOutletClick = false;
         let startPointerX = 0;
         let startPointerY = 0;
         let startScrollLeft = 0;
-        const prefersNativeTouchScroll = window.matchMedia("(pointer: coarse)").matches;
+        let lastDragDistanceX = 0;
 
         const scrollStep = () => Math.round(outletSwipe.clientWidth * 0.72);
+        const shouldLoopOutlet = () => desktopOutletLoopQuery.matches;
 
         function getMaxScrollLeft() {
             return Math.max(0, outletSwipe.scrollWidth - outletSwipe.clientWidth);
         }
 
-        function scrollLoopLeft() {
+        function scrollOutlet(direction) {
             const step = scrollStep();
-            if (outletSwipe.scrollLeft >= getMaxScrollLeft() - 4) {
+            const maxScrollLeft = getMaxScrollLeft();
+
+            if (maxScrollLeft <= 0) {
+                return;
+            }
+
+            if (shouldLoopOutlet() && direction > 0 && outletSwipe.scrollLeft >= maxScrollLeft - 4) {
                 outletSwipe.scrollLeft = 0;
                 requestAnimationFrame(() => {
                     outletSwipe.scrollBy({ left: step, behavior: "smooth" });
                 });
-            } else {
-                outletSwipe.scrollBy({ left: step, behavior: "smooth" });
+                return;
             }
+
+            if (shouldLoopOutlet() && direction < 0 && outletSwipe.scrollLeft <= 4) {
+                outletSwipe.scrollLeft = maxScrollLeft;
+                requestAnimationFrame(() => {
+                    outletSwipe.scrollBy({ left: -step, behavior: "smooth" });
+                });
+                return;
+            }
+
+            outletSwipe.scrollBy({ left: direction * step, behavior: "smooth" });
         }
 
         outletSwipe.addEventListener("pointerdown", (event) => {
-            if (prefersNativeTouchScroll && event.pointerType !== "mouse") {
+            if (event.pointerType === "mouse" && event.button !== 0) {
                 return;
             }
 
             isPointerDown = true;
+            isDragIntent = false;
+            dragAxis = "";
             startPointerX = event.clientX;
+            startPointerY = event.clientY;
             startScrollLeft = outletSwipe.scrollLeft;
-            outletSwipe.classList.add("is_dragging");
-
-            if (typeof outletSwipe.setPointerCapture === "function") {
-                try {
-                    outletSwipe.setPointerCapture(event.pointerId);
-                } catch (_error) {
-                    /* Ignore pointer capture failures and keep native flow. */
-                }
-            }
+            lastDragDistanceX = 0;
         });
 
         outletSwipe.addEventListener("pointermove", (event) => {
-            if (prefersNativeTouchScroll && event.pointerType !== "mouse") {
-                return;
-            }
-
             if (!isPointerDown) {
                 return;
             }
-            const dragDistance = event.clientX - startPointerX;
-            outletSwipe.scrollLeft = startScrollLeft - dragDistance;
+
+            const dragDistanceX = event.clientX - startPointerX;
+            const dragDistanceY = event.clientY - startPointerY;
+            const absDragDistanceX = Math.abs(dragDistanceX);
+            const absDragDistanceY = Math.abs(dragDistanceY);
+
+            if (!dragAxis && (absDragDistanceX > 6 || absDragDistanceY > 6)) {
+                dragAxis = absDragDistanceX >= absDragDistanceY ? "x" : "y";
+            }
+
+            if (dragAxis !== "x") {
+                return;
+            }
+
+            if (!isDragIntent && absDragDistanceX > 8) {
+                isDragIntent = true;
+                outletSwipe.classList.add("is_dragging");
+            }
+
+            if (event.cancelable) {
+                event.preventDefault();
+            }
+
+            lastDragDistanceX = dragDistanceX;
+            outletSwipe.scrollLeft = startScrollLeft - dragDistanceX;
         });
 
         function releaseSwipe(event) {
             if (!isPointerDown) {
                 return;
             }
-            isPointerDown = false;
-            outletSwipe.classList.remove("is_dragging");
-            if (
-                event.pointerId !== undefined &&
-                typeof outletSwipe.hasPointerCapture === "function" &&
-                typeof outletSwipe.releasePointerCapture === "function" &&
-                outletSwipe.hasPointerCapture(event.pointerId)
-            ) {
-                outletSwipe.releasePointerCapture(event.pointerId);
+
+            if (isDragIntent) {
+                suppressOutletClick = true;
+                requestAnimationFrame(() => {
+                    suppressOutletClick = false;
+                });
             }
+
+            if (shouldLoopOutlet()) {
+                const maxScrollLeft = getMaxScrollLeft();
+
+                if (lastDragDistanceX < -24 && outletSwipe.scrollLeft >= maxScrollLeft - 4) {
+                    outletSwipe.scrollLeft = 0;
+                } else if (lastDragDistanceX > 24 && outletSwipe.scrollLeft <= 4) {
+                    outletSwipe.scrollLeft = maxScrollLeft;
+                }
+            }
+
+            isPointerDown = false;
+            isDragIntent = false;
+            dragAxis = "";
+            lastDragDistanceX = 0;
+            outletSwipe.classList.remove("is_dragging");
         }
 
         outletSwipe.addEventListener("pointerup", releaseSwipe);
         outletSwipe.addEventListener("pointercancel", releaseSwipe);
         outletSwipe.addEventListener("pointerleave", releaseSwipe);
+        outletSwipe.addEventListener("click", (event) => {
+            if (!suppressOutletClick) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+        }, true);
+        outletSwipe.addEventListener("wheel", (event) => {
+            const dominantDelta = Math.abs(event.deltaY) > Math.abs(event.deltaX)
+                ? event.deltaY
+                : event.deltaX;
+
+            if (dominantDelta === 0) {
+                return;
+            }
+
+            event.preventDefault();
+            const maxScrollLeft = getMaxScrollLeft();
+
+            if (shouldLoopOutlet() && dominantDelta > 0 && outletSwipe.scrollLeft >= maxScrollLeft - 4) {
+                outletSwipe.scrollLeft = 0;
+            } else if (shouldLoopOutlet() && dominantDelta < 0 && outletSwipe.scrollLeft <= 4) {
+                outletSwipe.scrollLeft = maxScrollLeft;
+            }
+
+            outletSwipe.scrollLeft += dominantDelta;
+        }, { passive: false });
 
 
         if (leftArrow) {
-            leftArrow.addEventListener("click", scrollLoopLeft);
+            leftArrow.addEventListener("click", () => {
+                scrollOutlet(-1);
+            });
+        }
+
+        if (rightArrow) {
+            rightArrow.addEventListener("click", () => {
+                scrollOutlet(1);
+            });
         }
     }
 
@@ -1307,27 +1409,42 @@ document.addEventListener("DOMContentLoaded",  () => {
             gsap.set(workflowCounter, { clearProps: "opacity,y" });
         }
 
-        let isPointerDown = false;
+        let resizeFrameId = 0;
+        const compactWorkflowQuery = window.matchMedia("(max-width: 768px)");
+        const smallWorkflowSwipeQuery = window.matchMedia("(max-width: 400px)");
+        const ultraWideWorkflowQuery = window.matchMedia("(min-width: 3048px)");
+        const workflowCardInners = workflowCards
+            .map((card) => card.querySelector(".workflow_step_card_inner"))
+            .filter(Boolean);
+        const centerIndex = (workflowCards.length - 1) / 2;
+        const prefersNativeTouchScroll = window.matchMedia("(pointer: coarse)").matches;
+        let workflowPointerDown = false;
+        let workflowDragIntent = false;
+        let suppressWorkflowCardClick = false;
+        let pressedWorkflowCard = null;
+        let dragAxis = "";
         let startPointerX = 0;
+        let startPointerY = 0;
         let startScrollLeft = 0;
         let scrollFrameId = 0;
-        let resizeFrameId = 0;
-        const prefersNativeTouchScroll = window.matchMedia("(pointer: coarse)").matches;
 
-        function updateSidePadding() {
-            const firstCard = workflowCards[0];
-            if (!firstCard) {
-                return;
-            }
+        function getWorkflowStageMetrics() {
+            const stageWidth = workflowCardsTrack.clientWidth || workflowSection.clientWidth;
+            const firstCardWidth = workflowCards[0]?.getBoundingClientRect().width || 220;
+            const edgePadding = Math.max(18, stageWidth * 0.02);
+            const maxSpread = centerIndex > 0
+                ? Math.max((((stageWidth - firstCardWidth) / 2) - edgePadding) / centerIndex, 0)
+                : 0;
 
-            const sidePad = Math.max(
-                24,
-                (workflowCardsTrack.clientWidth - firstCard.getBoundingClientRect().width) / 2
-            );
-            workflowCardsTrack.style.setProperty("--workflow-side-pad", `${sidePad}px`);
+            return {
+                stageWidth,
+                firstCardWidth,
+                edgePadding,
+                maxSpread
+            };
         }
 
-        function updateCounter(activeIndex) {
+        function updateCounterByProgress(progress) {
             if (!countTrack || window.getComputedStyle(countTrack.parentElement).display === "none") {
                 return;
             }
@@ -1338,17 +1455,52 @@ document.addEventListener("DOMContentLoaded",  () => {
                 return;
             }
 
-            if (typeof gsap !== "undefined") {
-                gsap.to(countTrack, {
-                    y: -(activeIndex * stepHeight),
-                    duration: 0.25,
-                    ease: "power1.out",
-                    overwrite: true
-                });
-            }
+            const totalSteps = Math.max(1, countTrack.children.length - 1);
+            const activeIndex = Math.round(gsap.utils.clamp(0, 1, progress) * totalSteps);
+            gsap.set(countTrack, { y: -(activeIndex * stepHeight) });
         }
 
-        function applyCardFocusState() {
+        function updateWorkflowSidePadding() {
+            if (!smallWorkflowSwipeQuery.matches) {
+                return;
+            }
+
+            const firstCard = workflowCards[0];
+            if (!firstCard) {
+                return;
+            }
+
+            const sidePad = Math.max(
+                20,
+                (workflowCardsTrack.clientWidth - firstCard.getBoundingClientRect().width) / 2
+            );
+            workflowCardsTrack.style.setProperty("--workflow-side-pad", `${sidePad}px`);
+        }
+
+        function updateWorkflowCounter(activeIndex) {
+            if (!countTrack || window.getComputedStyle(countTrack.parentElement).display === "none") {
+                return;
+            }
+
+            const firstCount = countTrack.firstElementChild;
+            const stepHeight = firstCount ? firstCount.getBoundingClientRect().height : 0;
+            if (!stepHeight) {
+                return;
+            }
+
+            gsap.to(countTrack, {
+                y: -(activeIndex * stepHeight),
+                duration: 0.25,
+                ease: "power1.out",
+                overwrite: true
+            });
+        }
+
+        function applySmallWorkflowFocusState() {
+            if (!smallWorkflowSwipeQuery.matches) {
+                return;
+            }
+
             const trackRect = workflowCardsTrack.getBoundingClientRect();
             const trackCenter = trackRect.left + trackRect.width / 2;
             const maxDistance = Math.max(trackRect.width * 0.65, 1);
@@ -1382,16 +1534,48 @@ document.addEventListener("DOMContentLoaded",  () => {
                 });
             });
 
-            updateCounter(activeIndex);
+            updateWorkflowCounter(activeIndex);
         }
 
-        function requestFocusUpdate() {
+        function requestWorkflowFocusUpdate() {
             cancelAnimationFrame(scrollFrameId);
-            scrollFrameId = requestAnimationFrame(applyCardFocusState);
+            scrollFrameId = requestAnimationFrame(applySmallWorkflowFocusState);
+        }
+
+        function getClosestWorkflowCardToCenter() {
+            const trackRect = workflowCardsTrack.getBoundingClientRect();
+            const trackCenter = trackRect.left + trackRect.width / 2;
+            let closestCard = workflowCards[0];
+            let closestDistance = Number.POSITIVE_INFINITY;
+
+            workflowCards.forEach((card) => {
+                const cardRect = card.getBoundingClientRect();
+                const cardCenter = cardRect.left + cardRect.width / 2;
+                const distance = Math.abs(cardCenter - trackCenter);
+
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestCard = card;
+                }
+            });
+
+            return closestCard;
+        }
+
+        function centerWorkflowCard(card, behavior = "smooth") {
+            if (!smallWorkflowSwipeQuery.matches || !card) {
+                return;
+            }
+
+            const targetScrollLeft = card.offsetLeft - (workflowCardsTrack.clientWidth - card.offsetWidth) / 2;
+            workflowCardsTrack.scrollTo({
+                left: Math.max(0, targetScrollLeft),
+                behavior
+            });
         }
 
         function toggleWorkflowCardFlip(targetCard) {
-            if (!targetCard || isDragIntent) {
+            if (!smallWorkflowSwipeQuery.matches || !targetCard || workflowDragIntent) {
                 return;
             }
 
@@ -1408,19 +1592,178 @@ document.addEventListener("DOMContentLoaded",  () => {
             }
         }
 
-        workflowCardsTrack.addEventListener("scroll", requestFocusUpdate, { passive: true });
+        function killWorkflowTrigger() {
+            if (typeof ScrollTrigger === "undefined") {
+                return;
+            }
+
+            const existingTrigger = ScrollTrigger.getById("workflow_steps_trigger");
+            if (existingTrigger) {
+                existingTrigger.kill();
+            }
+        }
+
+        function clearWorkflowAnimationStyles() {
+            if (typeof gsap === "undefined") {
+                return;
+            }
+
+            gsap.killTweensOf(workflowCards);
+            gsap.killTweensOf(workflowCardInners);
+            gsap.killTweensOf(countTrack);
+            gsap.set(workflowCards, {
+                clearProps: "x,y,rotation,scale,opacity,zIndex,left,top,xPercent"
+            });
+            gsap.set(workflowCardInners, {
+                clearProps: "rotationY,transformPerspective,transformOrigin,willChange"
+            });
+            updateCounterByProgress(0);
+        }
+
+        function getWorkflowBasePose(index) {
+            const distanceFromCenter = Math.abs(index - centerIndex);
+            const normalizedDistance = centerIndex > 0 ? distanceFromCenter / centerIndex : 0;
+            const rightLeadRatio = workflowCards.length > 1
+                ? index / (workflowCards.length - 1)
+                : 1;
+            const { firstCardWidth, maxSpread } = getWorkflowStageMetrics();
+            const spreadScale = ultraWideWorkflowQuery.matches ? 1.18 : 1.06;
+            const cardGapScale = ultraWideWorkflowQuery.matches ? 1.44 : 1.3;
+            const spread = Math.min(maxSpread * spreadScale, firstCardWidth * cardGapScale);
+
+            return {
+                x: (index - centerIndex) * spread,
+                y: distanceFromCenter * 26 + normalizedDistance * 12,
+                rotation: (index - centerIndex) * 4.2,
+                scale: 0.78 + rightLeadRatio * 0.22,
+                opacity: 1,
+                zIndex: 20 + index
+            };
+        }
+
+        function applyDesktopWorkflowLayout() {
+            workflowCards.forEach((card, index) => {
+                const pose = getWorkflowBasePose(index);
+                const cardInner = card.querySelector(".workflow_step_card_inner");
+
+                gsap.set(card, {
+                    left: "50%",
+                    top: 0,
+                    xPercent: -50,
+                    x: pose.x,
+                    y: pose.y,
+                    rotation: pose.rotation,
+                    scale: pose.scale,
+                    opacity: pose.opacity,
+                    zIndex: pose.zIndex
+                });
+
+                if (cardInner) {
+                    gsap.set(cardInner, {
+                        rotationY: 0,
+                        transformPerspective: 1800,
+                        transformOrigin: "50% 50%",
+                        willChange: "transform"
+                    });
+                }
+            });
+
+            updateCounterByProgress(0);
+        }
+
+        function setupWorkflowScrollAnimation() {
+            killWorkflowTrigger();
+            clearWorkflowAnimationStyles();
+
+            if (smallWorkflowSwipeQuery.matches) {
+                updateWorkflowSidePadding();
+                requestWorkflowFocusUpdate();
+                initializePinkOfficeScroll();
+                return;
+            }
+
+            if (compactWorkflowQuery.matches || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+                initializePinkOfficeScroll();
+                return;
+            }
+
+            applyDesktopWorkflowLayout();
+
+            const flipEntries = workflowCards
+                .map((card, index) => ({
+                    card,
+                    index,
+                    inner: card.querySelector(".workflow_step_card_inner")
+                }))
+                .filter((entry) => entry.inner)
+                .sort((entryA, entryB) => entryB.index - entryA.index);
+
+            const orderedFlipCardInners = flipEntries.map((entry) => entry.inner);
+
+            const timeline = gsap.timeline({
+                scrollTrigger: {
+                    id: "workflow_steps_trigger",
+                    trigger: workflowSection,
+                    start: "top top",
+                    end: () => `+=${Math.max(window.innerHeight * 0.88, 640)}`,
+                    scrub: 0.56,
+                    pin: true,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true,
+                    onRefresh: applyDesktopWorkflowLayout,
+                    onUpdate: (self) => {
+                        updateCounterByProgress(self.progress);
+                    }
+                }
+            });
+
+            timeline.to(
+                orderedFlipCardInners,
+                {
+                    rotationY: 180,
+                    duration: 0.28,
+                    stagger: 0.05,
+                    ease: "none"
+                },
+                0.32
+            );
+
+            initializePinkOfficeScroll();
+        }
+
+        workflowCardsTrack.addEventListener("scroll", () => {
+            if (!smallWorkflowSwipeQuery.matches) {
+                return;
+            }
+
+            requestWorkflowFocusUpdate();
+        }, { passive: true });
 
         workflowCardsTrack.addEventListener("pointerdown", (event) => {
+            if (!smallWorkflowSwipeQuery.matches) {
+                return;
+            }
+
             if (prefersNativeTouchScroll && event.pointerType !== "mouse") {
                 return;
             }
 
-            isPointerDown = true;
-            isDragIntent = false;
+            if (event.pointerType === "mouse" && event.button !== 0) {
+                return;
+            }
+
+            workflowPointerDown = true;
+            workflowDragIntent = false;
+            dragAxis = "";
             pressedWorkflowCard = event.target.closest(".workflow_step_card");
             startPointerX = event.clientX;
             startPointerY = event.clientY;
             startScrollLeft = workflowCardsTrack.scrollLeft;
+
+            if (event.pointerType === "mouse" && event.cancelable) {
+                event.preventDefault();
+            }
+
             workflowCardsTrack.classList.add("is_dragging");
 
             if (typeof workflowCardsTrack.setPointerCapture === "function") {
@@ -1433,36 +1776,54 @@ document.addEventListener("DOMContentLoaded",  () => {
         });
 
         workflowCardsTrack.addEventListener("pointermove", (event) => {
+            if (!smallWorkflowSwipeQuery.matches) {
+                return;
+            }
+
             if (prefersNativeTouchScroll && event.pointerType !== "mouse") {
                 return;
             }
 
-            if (!isPointerDown) {
+            if (!workflowPointerDown) {
                 return;
             }
 
             const dragDistanceX = event.clientX - startPointerX;
             const dragDistanceY = event.clientY - startPointerY;
+            const absDragDistanceX = Math.abs(dragDistanceX);
+            const absDragDistanceY = Math.abs(dragDistanceY);
 
-            if (!isDragIntent && (Math.abs(dragDistanceX) > 8 || Math.abs(dragDistanceY) > 8)) {
-                isDragIntent = true;
+            if (!dragAxis && (absDragDistanceX > 6 || absDragDistanceY > 6)) {
+                dragAxis = absDragDistanceX >= absDragDistanceY ? "x" : "y";
+            }
+
+            if (dragAxis !== "x") {
+                return;
+            }
+
+            if (!workflowDragIntent && absDragDistanceX > 10) {
+                workflowDragIntent = true;
+            }
+
+            if (event.cancelable) {
+                event.preventDefault();
             }
 
             workflowCardsTrack.scrollLeft = startScrollLeft - dragDistanceX;
         });
 
-        function releaseDrag(event) {
-            if (!isPointerDown) {
+        function releaseWorkflowDrag(event) {
+            if (!workflowPointerDown) {
                 return;
             }
 
             const shouldToggleCard =
                 event.type === "pointerup" &&
-                !isDragIntent &&
+                !workflowDragIntent &&
                 pressedWorkflowCard &&
                 !event.target.closest("a, button");
 
-            isPointerDown = false;
+            workflowPointerDown = false;
             workflowCardsTrack.classList.remove("is_dragging");
 
             if (
@@ -1480,22 +1841,53 @@ document.addEventListener("DOMContentLoaded",  () => {
                 requestAnimationFrame(() => {
                     suppressWorkflowCardClick = false;
                 });
+            } else if (workflowDragIntent) {
+                centerWorkflowCard(getClosestWorkflowCardToCenter());
             }
 
             pressedWorkflowCard = null;
+            workflowDragIntent = false;
+            dragAxis = "";
         }
 
-        workflowCardsTrack.addEventListener("pointerup", releaseDrag);
-        workflowCardsTrack.addEventListener("pointercancel", releaseDrag);
-        workflowCardsTrack.addEventListener("pointerleave", releaseDrag);
+        workflowCardsTrack.addEventListener("dragstart", (event) => {
+            if (!smallWorkflowSwipeQuery.matches) {
+                return;
+            }
+
+            event.preventDefault();
+        });
+        workflowCardsTrack.addEventListener("pointerup", releaseWorkflowDrag);
+        workflowCardsTrack.addEventListener("pointercancel", releaseWorkflowDrag);
+        workflowCardsTrack.addEventListener("pointerleave", releaseWorkflowDrag);
+
+        window.addEventListener("resize", () => {
+            cancelAnimationFrame(resizeFrameId);
+            resizeFrameId = requestAnimationFrame(() => {
+                setupWorkflowScrollAnimation();
+            });
+        });
+
+        if (typeof compactWorkflowQuery.addEventListener === "function") {
+            compactWorkflowQuery.addEventListener("change", setupWorkflowScrollAnimation);
+        } else if (typeof compactWorkflowQuery.addListener === "function") {
+            compactWorkflowQuery.addListener(setupWorkflowScrollAnimation);
+        }
+
+        if (typeof smallWorkflowSwipeQuery.addEventListener === "function") {
+            smallWorkflowSwipeQuery.addEventListener("change", setupWorkflowScrollAnimation);
+        } else if (typeof smallWorkflowSwipeQuery.addListener === "function") {
+            smallWorkflowSwipeQuery.addListener(setupWorkflowScrollAnimation);
+        }
 
         workflowCards.forEach((card) => {
+            card.classList.remove("is_flipped");
             card.setAttribute("tabindex", "0");
             card.setAttribute("role", "button");
             card.setAttribute("aria-pressed", "false");
 
             card.addEventListener("click", (event) => {
-                if (suppressWorkflowCardClick) {
+                if (!smallWorkflowSwipeQuery.matches || suppressWorkflowCardClick) {
                     return;
                 }
 
@@ -1507,6 +1899,10 @@ document.addEventListener("DOMContentLoaded",  () => {
             });
 
             card.addEventListener("keydown", (event) => {
+                if (!smallWorkflowSwipeQuery.matches) {
+                    return;
+                }
+
                 if (event.key !== "Enter" && event.key !== " ") {
                     return;
                 }
@@ -1516,17 +1912,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             });
         });
 
-        window.addEventListener("resize", () => {
-            cancelAnimationFrame(resizeFrameId);
-            resizeFrameId = requestAnimationFrame(() => {
-                updateSidePadding();
-                requestFocusUpdate();
-            });
-        });
-
-        updateSidePadding();
-        requestFocusUpdate();
-        initializePinkOfficeScroll();
+        setupWorkflowScrollAnimation();
     }
 
     function initializePinkOfficeDoorHover() {
@@ -1723,7 +2109,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             const currentPriceElement = templateContent.querySelector(".sns_price_current");
             const beforePriceElement = templateContent.querySelector(".sns_price_before");
             const listContainer = templateContent.querySelector(".sns_product_list");
-            const listItemTemplate = listContainer?.querySelector(".sns_product_list_item");
+            const listItemLinkTemplate = listContainer?.querySelector(".sns_product_list_link");
             const quickButton = templateContent.querySelector(".sns_quick_btn");
 
             if (thumbImage) {
@@ -1747,18 +2133,29 @@ document.addEventListener("DOMContentLoaded",  () => {
                     subtitle,
                     currentPrice,
                     beforePrice,
-                    image: originalThumbSrc
+                    image: originalThumbSrc,
+                    isPrimary: true
                 },
-                ...relatedProducts
+                ...relatedProducts.map((itemData) => ({
+                    ...itemData,
+                    isPrimary: false
+                }))
             ];
 
-            if (listContainer && listItemTemplate) {
+            if (listContainer && listItemLinkTemplate) {
                 listContainer.replaceChildren();
-                const visualListData = [...listData].reverse();
-                visualListData.forEach((itemData) => {
-                    const listItem = listItemTemplate.cloneNode(true);
-                    applyListItemContent(listItem, itemData);
-                    listContainer.appendChild(listItem);
+                const normalizedQuickSrc = normalizeSnsQuickSrc(originalQuickSrc);
+                [...listData].reverse().forEach((itemData) => {
+                    const listLink = listItemLinkTemplate.cloneNode(true);
+                    const listItem = listLink.querySelector(".sns_product_list_item");
+                    if (listItem) {
+                        applyListItemContent(listItem, itemData);
+                    }
+                    listLink.classList.toggle("is_primary_item", Boolean(itemData.isPrimary));
+                    listLink.classList.toggle("is_related_item", !itemData.isPrimary);
+                    listLink.dataset.quickSrc = normalizedQuickSrc;
+                    listLink.setAttribute("href", normalizedQuickSrc);
+                    listContainer.appendChild(listLink);
                 });
             }
 
@@ -2100,7 +2497,7 @@ document.addEventListener("DOMContentLoaded",  () => {
     function initializeSnsQuickModal() {
         const quickModal = document.querySelector(".sns_quick_modal");
         const quickFrame = document.querySelector(".sns_quick_frame");
-        const openButtons = document.querySelectorAll(".sns_quick_btn");
+        const openButtons = document.querySelectorAll(".sns_quick_btn, .sns_product_list_link");
         const backdrop = document.querySelector(".sns_quick_modal_backdrop");
 
         if (!quickModal || !quickFrame || !openButtons.length || !backdrop) {

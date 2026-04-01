@@ -73,7 +73,7 @@ pattern.img1 {
 
 .new_section .section_header {
     text-align: center;
-    padding: 250px 0;
+    padding: 180px 0;
     /* Space above */
 }
 
@@ -127,19 +127,20 @@ pattern.img1 {
 /* Button Styles */
 .btn_primary {
     display: inline-block;
+    width: 240px;
     padding: 16px 45px;
-    background-color: var(--p-color4);
+    background-color: var(--p-color3);
     color: var(--white);
     border-radius: var(--round50);
     font-weight: 500;
     font-size: 16px;
     transition: var(--transition);
+margin: 0 auto;
+
 }
 
 .btn_primary:hover {
     background-color: var(--p-color5);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(239, 116, 155, 0.3);
 }
 
 .btn_secondary {
@@ -187,6 +188,25 @@ pattern.img1 {
     z-index: 2;
     max-width: 1560px;
     margin: 0 auto;
+    gap: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero_section .hero_copy_group.sub_tit {
+    width: min(100%, 1460px);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+}
+
+.hero_section .hero_copy_group.sub_tit > p {
+    width: 100%;
+    margin: 0;
+    text-align: center;
 }
 
 /* Grid Layouts for Products */
@@ -251,25 +271,23 @@ pattern.img1 {
 /* Outlet Custom */
 .outlet_section {
     width: 100%;
-    height: 1080px;
     position: relative;
     overflow: visible;
-    min-height: 1360px;
+    min-height: 1180px;
     padding: 160px 0;
-    margin: 280px 0;
+    margin: 160px 0;
     box-sizing: border-box;
+
 }
 
 .outlet_section_shell {
     position: relative;
     display: grid;
-    grid-template-columns: 814px minmax(520px, 1fr);
+    grid-template-columns: minmax(420px, 50vw) minmax(0, 1fr);
     align-items: stretch;
     gap: 84px;
     width: 100%;
-    max-width: 1920px;
     min-height: 100%;
-    margin: 0 auto;
     overflow: visible;
     box-sizing: border-box;
 }
@@ -277,16 +295,16 @@ pattern.img1 {
 .outlet_visual_panel {
     position: relative;
     width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
+
 }
 
 .outlet_visual_glow {
     position: absolute;
     left: 50%;
-    width: 814px;
-    height: 1080px;
+    width: 100%;
+    height: 960px;
     filter: blur(28px);
     transform: translateX(-50%);
     z-index: 1;
@@ -295,12 +313,13 @@ pattern.img1 {
 .outlet_visual_photo {
     position: relative;
     z-index: 2;
-    width: 814px;
+    width: 100%;
 
 }
 
 .outlet_visual_photo img {
     width: 100%;
+    height: 100%;
     object-fit: cover;
     display: block;
 }
@@ -310,10 +329,10 @@ pattern.img1 {
     top: 220px;
     right: -100px;
     z-index: 3;
+    width: 100%;
 }
 .outlet_put_photo img {
-    width: 316px;
-    height: 229px;
+    width: 100%;
     object-fit: cover;
     display: block;
 }
@@ -324,16 +343,16 @@ pattern.img1 {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    min-height: 1080px;
+    min-height: 960px;
     padding: 96px 0;
 }
 
 .outlet_header {
-    width: min(100%, 720px);
-    text-align: center;
+    width: 100%;
+    text-align: right;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .outlet_header .badge {
@@ -344,34 +363,49 @@ pattern.img1 {
     border-radius: 8px;
     font-size: 24px;
     font-weight: 300;
-    margin-bottom: 32px;
-    letter-spacing: 1px;
+    margin-bottom: 36px;
+    letter-spacing: 1.2px;
 }
 
 .outlet_header h2 {
     font-size: clamp(56px, 5vw, 82px);
     font-weight: 300;
-    line-height: .65;
-    letter-spacing: -0.05em;
-    color: #2f2c31;
+    line-height: 0.65;
+    letter-spacing: -0.02em;
+    color: var(--b-color5);
     display: flex;
     flex-direction: column;
     justify-content: end;
+    align-items: flex-end;
+    text-align: right;
 }
 
 .outlet_title_point {
-    text-align: center;
+    text-align: right;
     color: #6ab1ff;
     font-weight: 400;
 }
 
+.section_header.outlet_header .sub_tit {
+    margin-top: 80px;
+    width: 100%;
+    align-items: flex-end;
+    text-align: right;
+    gap: 6px;
+}
+
+.section_header.outlet_header .sub_tit > p {
+    padding: 0;
+    text-align: right;
+}
+
 .outlet_header p {
     width:100%;
-    padding: 32px 0;
+    padding: 36px  0;
     font-size: clamp(19px, 1.2vw, 24px);
     line-height: 1.4;
     color: var(--g-color6);
-    text-align: center;
+    text-align: right;
     font-weight: 300;
 }
 
@@ -385,11 +419,11 @@ pattern.img1 {
 .outlet_product_carousel {
     position: relative;
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     gap: 18px;
-    width: auto;
-    margin: 0 80px;
+    width: min(100%, 720px);
+    margin: 0 auto;
     overflow: hidden;
     padding-left: 0;
     min-width: 0;
@@ -407,6 +441,14 @@ pattern.img1 {
     /* transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, opacity 0.25s ease; */
 }
 
+.outlet_swipe_arrow_left {
+    justify-self: start;
+}
+
+.outlet_swipe_arrow_right {
+    justify-self: end;
+}
+
 .outlet_swipe_arrow:hover {
     color: var(--p-color5);
 }
@@ -419,14 +461,16 @@ pattern.img1 {
     position: relative;
     display: block;
     min-width: 0;
-    overflow-x: hidden;
+    overflow-x: auto;
     overflow-y: hidden;
     width: 100%;
     min-height: 240px;
     padding: 12px 0 24px;
     box-sizing: border-box;
     cursor: grab;
-    touch-action: pan-x;
+    touch-action: pan-y;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     scrollbar-width: none;
     user-select: none;
@@ -457,6 +501,12 @@ pattern.img1 {
     width: 156px;
 }
 
+.outlet_product_link {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 18px;
+}
+
 .outlet_product_item img {
     width: auto;
     width: 152px;
@@ -465,8 +515,12 @@ pattern.img1 {
     object-fit: contain;
     background-color: transparent;
     border-radius: 0;
-    margin: 0 auto 18px;
+    margin: 0;
     box-shadow: none;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
 }
 
 .outlet_product_item h3 {
@@ -489,17 +543,15 @@ pattern.img1 {
 /* Break Section */
 .break_section {
     width: 100%;
-    height: 80vh;
+    height: 100%;
     overflow: hidden;
-    background-color: #ffffff;
-    padding: 64px 0;
+    padding: 20px 0;
 }
 
 .break_section_inner {
     width: 100%;
-    height: 560px;
+    height: 168px;
     display: grid;
-    padding: 200px 0;
 }
 
 .break_keyword_row {
@@ -584,10 +636,11 @@ pattern.img1 {
 }
 
 .personal_color_content {
+    width: 100%;
     position: relative;
     z-index: 2;
     width:100%;
-    text-align: center;
+    text-align: end;
     padding-right: 5%;
     display: flex;
     flex-direction: column;
@@ -609,18 +662,31 @@ pattern.img1 {
     font-family: var(--font-poppins);
 }
 
-.personal_color_content p {
+.personal_color_content .sub_tit {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.personal_color_content .sub_tit>p {
+    position: relative;
+    width: 100%;
+    text-align: end;
+    align-items: end;
+    /* background: #222; */
     padding-top: 28px;
     font-size: clamp(16px, 1.08vw, 22px);
     line-height: 1.55;
     letter-spacing: -0.03em;
-    color: rgba(54, 54, 54, 0.88);
+    color: var(--b-color5);
     font-family: var(--font-quicksand);
     font-weight: 500;
     display: flex;
     flex-direction: column;
-    text-align: right;
 }
+
 .personal_color_bg {
     position: absolute;
     inset: 7% 0;
@@ -636,12 +702,9 @@ pattern.img1 {
 }
 
 .personal_color_overlay {
-    --spotlight-x: 60%;
-    --spotlight-y: 50%;
     position: absolute;
     inset: 0;
     z-index: 1;
-    will-change: background;
 }
 
 .personal_color_btn {
@@ -697,24 +760,24 @@ pattern.img1 {
 /* Pink Office */
 .pink_office_section {
     position: relative;
-    height: 370vh;      /* ?뱀뀡??湲멸쾶 ??sticky inner媛 ??援ш컙 ?숈븞 怨좎젙??*/
+    height: 220vh;      /* ?뱀뀡??湲멸쾶 ??sticky inner媛 ??援ш컙 ?숈븞 怨좎젙??*/
     overflow: clip;     /* clip? sticky瑜?諛⑺빐?섏? ?딆쑝硫댁꽌 ?섏묠 李⑤떒 */
 }
 
 .pink_office_inner {
     position: sticky;
     top: 0;
-    padding: 110px 24px 140px;
+    padding: 72px 0 84px;
 }
 
 .pink_office_intro {
     position: absolute;
-    top: 380px;
+    top: 280px;
     left: 0;
     width: 100%;
     z-index: 2;
     text-align: center;
-    margin-bottom: 44px;
+    margin-bottom: 32px;
 }
 
 .pink_office_badge {
@@ -776,10 +839,10 @@ pattern.img1 {
 
 .pink_office_door_link {
     position: absolute;
-    left: 15%;
-    top: 60%;
-    width: 30%;
-    height: 30%;
+    left: 3.5%;
+    top: 38.5%;
+    width: 93%;
+    height: 52%;
     display: block;
     border-radius: 6px;
     cursor: pointer;
@@ -852,6 +915,7 @@ pattern.img1 {
     position: relative;
     z-index: 1;
     margin-top: 0;
+    width: 100%;
 }
 
 .sns_stage::before {
@@ -1251,6 +1315,24 @@ pattern.img1 {
     padding: 2px 0;
 }
 
+.sns_product_list .sns_product_list_link {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    aspect-ratio: auto;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.16s ease;
+}
+
 .sns_product_list_item {
     display: grid;
     grid-template-columns: 66px 1fr;
@@ -1263,8 +1345,15 @@ pattern.img1 {
 
 .sns_product_list_item:hover {
     border-radius: 18px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.12) 100%);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: transparent;
+    border-color: transparent;
+}
+
+.sns_product_list .sns_product_list_link:hover .sns_product_list_item,
+.sns_product_list .sns_product_list_link:focus-visible .sns_product_list_item {
+    border-radius: 18px;
+    background: transparent;
+    border-color: transparent;
 }
 
 .sns_product_list_item img {
@@ -1337,7 +1426,7 @@ pattern.img1 {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     align-items: center;
-    row-gap: 8px;
+    row-gap: 0;
     border: 1px solid rgba(255, 255, 255, 0.36);
 }
 
@@ -1355,8 +1444,7 @@ pattern.img1 {
     max-height: 0;
     overflow: hidden;
     pointer-events: none;
-    /* collapse ????transition???곸슜?? ?⑤꼸??癒쇱? 以꾩뼱????0.28s ?? thumb/info ?깆옣 */
-    transition: opacity 0.18s ease 0.28s, max-height 0.18s ease 0.28s;
+    transition: opacity 0.16s ease, max-height 0.16s ease;
 }
 
 .sns_product_bar.on .sns_product_list_panel {
@@ -1367,6 +1455,14 @@ pattern.img1 {
     border-bottom: 0;
     padding-bottom: 2px;
     margin-bottom: 0;
+}
+
+.sns_product_bar.on .sns_product_list_link {
+    opacity: 1;
+}
+
+.sns_product_bar.on .sns_product_list_link.is_related_item {
+    transition-delay: 0.06s;
 }
 
 
@@ -1464,25 +1560,25 @@ body.sns_quick_locked {
 /* New Section Animation Area */
 .new_section {
     position: relative;
-    padding-bottom: 180px;
-    margin-top: -200px;
-    padding-top: 200px;
+    padding-bottom: 96px;
+    margin-top: -120px;
+    padding-top: 120px;
 }
 
 /* ?좊땲 ?ㅽ겕濡?? 吏?먮븣臾몄뿉 留덉쭊 以?*/
 .animation_area {
     position: relative;
-    height: 1500px;
+    height: 1100px;
     width: 100%;
-    margin-top: 150px;
+    margin-top: 72px;
 }
 
 .floating_products {
     /* padding: 150px 0; */
     position: absolute;
-    top: 100px;
+    top: 72px;
     width: 100%;
-    height: 1700px;
+    height: 1380px;
     z-index: 2;
 }
 
@@ -1743,7 +1839,7 @@ body.sns_quick_locked {
     position: relative;
     width: 100%;
     height: 100vh;
-    min-height: 900px;
+    min-height: 820px;
     z-index: 20;
     isolation: isolate;
     background: var(--white);
@@ -1938,12 +2034,12 @@ body.sns_quick_locked {
     position: relative;
     width: 100%;
     height: auto;
-    min-height: auto;
-    padding: 88px 0 142px;
-    overflow: hidden;
+    min-height: 92vh;
+    overflow: clip;
     background-color: var(--white);
     color: var(--g-color8);
     z-index: 1;
+    perspective: 2200px;
 }
 
 .workflow_steps_counter {
@@ -1955,7 +2051,6 @@ body.sns_quick_locked {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin: 0 auto 40px;
     transform: none;
 }
 
@@ -1999,53 +2094,38 @@ body.sns_quick_locked {
 }
 
 .workflow_steps_cards {
-    --workflow-side-pad: 40px;
     position: relative;
-    inset: auto;
-    top: auto;
-    left: auto;
-    display: flex;
-    gap: 28px;
-    width: 100%;
-    height: auto;
-    padding: 18px var(--workflow-side-pad) 12px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    transform: none;
-    pointer-events: auto;
+    display: block;
+    width: min(99vw, 1920px);
+    height: clamp(300px, 34vw, 500px);
+    margin: 0 auto;
+    padding: 0;
+    overflow: visible;
+    pointer-events: none;
     z-index: 3;
-    cursor: grab;
-    scroll-snap-type: none;
-    scroll-behavior: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    touch-action: auto;
-}
-.workflow_steps_cards.is_dragging {
-    cursor: grabbing;
-}
-.workflow_steps_cards::-webkit-scrollbar {
-    display: none;
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
 }
 .workflow_step_card {
-    position: relative;
-    top: auto;
-    left: auto;
-    flex: 0 0 min(20vw, 287px);
-    width: min(20vw, 287px);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    flex: none;
+    width: clamp(172px, 15vw, 248px);
     height: auto;
-    min-width: 180px;
+    min-width: 172px;
     display: flex;
     flex-direction: column;
     gap: 0;
     perspective: 1200px;
     transform-style: preserve-3d;
-    pointer-events: auto;
+    pointer-events: none;
+    cursor: default;
     transform-origin: center center;
     will-change: transform, opacity;
-    scroll-snap-align: center;
     transition: transform 0.24s ease, opacity 0.24s ease;
+
 }
 
 .workflow_step_card_inner {
@@ -2053,7 +2133,9 @@ body.sns_quick_locked {
     width: 100%;
     aspect-ratio: 4 / 5.3;
     transform-style: preserve-3d;
-    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+    box-shadow: 0 0 20px rgba(50, 50, 50, .15);
+    border-radius: 18px;
 }
 
 .workflow_step_card.is_flipped .workflow_step_card_inner {
@@ -2067,10 +2149,12 @@ body.sns_quick_locked {
     overflow: hidden;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+
 }
 
 .workflow_step_card_face_front {
     transform: rotateY(0deg);
+    
 }
 
 .workflow_step_card_face_back {
@@ -2090,6 +2174,10 @@ body.sns_quick_locked {
     height: 100%;
     object-fit: cover;
     display: block;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
 }
 
 .workflow_step_card_content {
