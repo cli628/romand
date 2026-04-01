@@ -514,7 +514,7 @@ header {
 	z-index: 4;
 	display: flex;
 	align-items: center;
-	gap: 16px;
+	gap: 30px;
 }
 
 .h_slide_tab {
@@ -533,7 +533,7 @@ header {
 	color: var(--white);
 	white-space: nowrap;
 	opacity: 0.75;
-	transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+	transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .h_slide_tab:hover {
@@ -543,19 +543,30 @@ header {
 .h_slide_tab.is_active {
 	opacity: 1;
 	transform: translateY(-1px);
-	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24), 0 8px 18px rgba(0, 0, 0, 0.2);
 }
 
 .h_slide_tab_pink {
-	background: linear-gradient(90deg, #f69aba 0%, #b2708a 100%);
+	background: var(--p-color4);
+}
+
+.h_slide_tab_pink.is_active {
+	background: var(--p-color5);
 }
 
 .h_slide_tab_coha {
-	background: linear-gradient(90deg, #d2456f 0%, #b2003f 100%);
+	background: var(--b-color2);
+}
+
+.h_slide_tab_coha.is_active {
+	background: var(--b-color1);
 }
 
 .h_slide_tab_green {
-	background: linear-gradient(90deg, #a79861 0%, #cadb4a 100%);
+	background: var(--gr-color2);
+}
+
+.h_slide_tab_green.is_active {
+	background: var(--gr-color1);
 }
 
 .h_slide {
@@ -702,9 +713,20 @@ header {
 	color: var(--white);
 }
 
-footer.common_footer {
-	width: 100%;
-	height: auto;
-	min-height: 200px;
-	background-color: var(--g-color1);
+@media screen and (min-width: 1025px) {
+	.h_scroll_container {
+		z-index: 2;
+		will-change: transform;
+	}
+
+	.common_footer.brand_footer_preview {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		z-index: 1;
+		pointer-events: none;
+		will-change: transform, opacity;
+	}
 }

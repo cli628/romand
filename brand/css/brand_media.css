@@ -73,7 +73,7 @@
 
   .h_slide_tabs {
     top: 76px;
-    gap: 14px;
+    gap: 23px;
   }
 
   .h_slide_tab {
@@ -237,7 +237,7 @@
 
   .h_slide_tabs {
     top: 72px;
-    gap: 12px;
+    gap: 19px;
   }
 
   .h_slide_tab {
@@ -540,7 +540,7 @@
     box-sizing: border-box;
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 16px;
     transform: none;
     z-index: 1205;
     opacity: 1;
@@ -784,7 +784,7 @@
   .h_slide_tabs {
     top: 82px;
     justify-content: center;
-    gap: 6px;
+    gap: 12px;
   }
 
   .h_slide_tab {
@@ -1062,7 +1062,7 @@
     width: auto;
     max-width: calc(100vw - 12px);
     padding: 0 4px;
-    gap: 2px;
+    gap: 6px;
   }
 
   .h_slide_tabs .h_slide_tab {
@@ -1279,7 +1279,7 @@
     width: auto;
     max-width: calc(100vw - 10px);
     padding: 0 3px;
-    gap: 2px;
+    gap: 5px;
   }
 
   .h_slide_tabs .h_slide_tab {
