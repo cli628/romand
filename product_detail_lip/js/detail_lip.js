@@ -207,19 +207,56 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============================================
   const accordionHeaders = document.querySelectorAll('.accordion_header');
 
+  function syncAccordionIcon(item) {
+    const icon = item.querySelector('.accordion_header i');
+    if (!icon) return;
+
+    const isOpen = item.classList.contains('accordion_open');
+    icon.classList.toggle('fa-plus', !isOpen);
+    icon.classList.toggle('fa-minus', isOpen);
+  }
+
+  function openAccordion(item) {
+    const body = item.querySelector('.accordion_body');
+    if (!body) return;
+
+    item.classList.add('accordion_open');
+    body.hidden = false;
+    syncAccordionIcon(item);
+  }
+
+  function closeAccordion(item) {
+    const body = item.querySelector('.accordion_body');
+    if (!body) return;
+
+    item.classList.remove('accordion_open');
+    body.hidden = true;
+    syncAccordionIcon(item);
+  }
+
   function toggleAccordion(e) {
     const item = e.currentTarget.closest('.accordion_item');
     if (!item) return;
-    item.classList.toggle('accordion_open');
 
-    const icon = e.currentTarget.querySelector('i');
-    if (icon) {
-      icon.classList.toggle('fa-plus');
-      icon.classList.toggle('fa-minus');
+    if (item.classList.contains('accordion_open')) {
+      closeAccordion(item);
+    } else {
+      openAccordion(item);
     }
   }
 
-  accordionHeaders.forEach(header => header.addEventListener('click', toggleAccordion));
+  accordionHeaders.forEach(header => {
+    const item = header.closest('.accordion_item');
+    const body = item?.querySelector('.accordion_body');
+
+    if (item && body) {
+      const isOpen = item.classList.contains('accordion_open');
+      body.hidden = !isOpen;
+      syncAccordionIcon(item);
+    }
+
+    header.addEventListener('click', toggleAccordion);
+  });
 
   // ============================================
   // 위시리스트 토글
