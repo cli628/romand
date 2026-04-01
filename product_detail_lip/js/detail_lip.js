@@ -207,19 +207,56 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============================================
   const accordionHeaders = document.querySelectorAll('.accordion_header');
 
+  function syncAccordionIcon(item) {
+    const icon = item.querySelector('.accordion_header i');
+    if (!icon) return;
+
+    const isOpen = item.classList.contains('accordion_open');
+    icon.classList.toggle('fa-plus', !isOpen);
+    icon.classList.toggle('fa-minus', isOpen);
+  }
+
+  function openAccordion(item) {
+    const body = item.querySelector('.accordion_body');
+    if (!body) return;
+
+    item.classList.add('accordion_open');
+    body.hidden = false;
+    syncAccordionIcon(item);
+  }
+
+  function closeAccordion(item) {
+    const body = item.querySelector('.accordion_body');
+    if (!body) return;
+
+    item.classList.remove('accordion_open');
+    body.hidden = true;
+    syncAccordionIcon(item);
+  }
+
   function toggleAccordion(e) {
     const item = e.currentTarget.closest('.accordion_item');
     if (!item) return;
-    item.classList.toggle('accordion_open');
 
-    const icon = e.currentTarget.querySelector('i');
-    if (icon) {
-      icon.classList.toggle('fa-plus');
-      icon.classList.toggle('fa-minus');
+    if (item.classList.contains('accordion_open')) {
+      closeAccordion(item);
+    } else {
+      openAccordion(item);
     }
   }
 
-  accordionHeaders.forEach(header => header.addEventListener('click', toggleAccordion));
+  accordionHeaders.forEach(header => {
+    const item = header.closest('.accordion_item');
+    const body = item?.querySelector('.accordion_body');
+
+    if (item && body) {
+      const isOpen = item.classList.contains('accordion_open');
+      body.hidden = !isOpen;
+      syncAccordionIcon(item);
+    }
+
+    header.addEventListener('click', toggleAccordion);
+  });
 
   // ============================================
   // 위시리스트 토글
@@ -256,6 +293,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = gsap.utils.toArray('.personal_card');
     const hashtags = gsap.utils.toArray('.hashtag');
     const cardInners = cards.map(card => card.querySelector('.card_inner'));
+    const personalFooter = document.querySelector('.personal_footer');
+
+    if (personalFooter) {
+      gsap.set(personalFooter, { autoAlpha: 0, y: 40, pointerEvents: 'none' });
+    }
 
     const createHashtagAnimation = () => gsap.fromTo(hashtags,
       { opacity: 0, y: 30, scale: 0.5 },
@@ -291,6 +333,16 @@ document.addEventListener('DOMContentLoaded', () => {
         stagger: 0.12,
         ease: "power2.out"
       });
+
+      if (personalFooter) {
+        mobile_cards_timeline.to(personalFooter, {
+          autoAlpha: 1,
+          y: 0,
+          pointerEvents: 'auto',
+          duration: 0.45,
+          ease: "power2.out"
+        }, '+=0.15');
+      }
 
       ScrollTrigger.create({
         trigger: ".personal_title",
@@ -348,11 +400,15 @@ document.addEventListener('DOMContentLoaded', () => {
           });
 
           // [Step 3] 하단 버튼 등장
-          const footerP = gsap.utils.clamp(0, 1, (progress - 0.9) / 0.1);
-          gsap.set('.personal_footer', {
-            opacity: smoothStep(footerP),
-            y: gsap.utils.interpolate('50px', '0px', smoothStep(footerP))
-          });
+          const footerP = gsap.utils.clamp(0, 1, (progress - 0.97) / 0.03);
+          if (personalFooter) {
+            const footerStep = smoothStep(footerP);
+            gsap.set(personalFooter, {
+              autoAlpha: footerStep,
+              y: gsap.utils.interpolate('50px', '0px', footerStep),
+              pointerEvents: footerP > 0.98 ? 'auto' : 'none'
+            });
+          }
         }
       });
     });
@@ -377,7 +433,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const rightBlock = document.querySelector('.right_block');
 
   if (reviewVisual && leftBlock && rightBlock) {
-    const visualTl = gsap.timeline({
+    const reviewVisualMatchMedia = gsap.matchMedia();
+
+    const createReviewVisualTimeline = (leftStart, leftMid, leftExit, rightStart, rightMid, rightExit) => {
+      return gsap.timeline({
+        scrollTrigger: {
+          trigger: reviewVisual,
+          start: "top 90%",
+          end: "bottom 10%",
+          scrub: 1,
+        }
+      })
+        .fromTo(leftBlock, { y: leftStart, autoAlpha: 0 }, { y: leftMid, autoAlpha: 1, ease: "power2.out", duration: 1 })
+        .fromTo(rightBlock, { y: rightStart, autoAlpha: 0 }, { y: rightMid, autoAlpha: 1, ease: "power2.out", duration: 1 }, 0)
+        .to(leftBlock, { y: -leftMid, ease: "none", duration: 2.5 })
+        .to(rightBlock, { y: -rightMid, ease: "none", duration: 2.5 }, 1)
+        .to(leftBlock, { y: leftExit, autoAlpha: 0, ease: "power2.in", duration: 1 })
+        .to(rightBlock, { y: rightExit, autoAlpha: 0, ease: "power2.in", duration: 1 }, 3.5);
+    };
+    /*
       scrollTrigger: {
         trigger: reviewVisual,
         start: "top 90%", // 섹션이 보이기 시작할 때 좀 더 일찍 시작
@@ -397,6 +471,14 @@ document.addEventListener('DOMContentLoaded', () => {
       // 3단계: 빠르게 사라짐 (autoAlpha 1->0, y -150->-600)
       .to(leftBlock, { y: -600, autoAlpha: 0, ease: "power2.in", duration: 1 })
       .to(rightBlock, { y: 600, autoAlpha: 0, ease: "power2.in", duration: 1 }, 3.5);
+    */
+    reviewVisualMatchMedia.add("(max-width: 1024px)", () => {
+      createReviewVisualTimeline(-600, -150, 600, 600, 150, -600);
+    });
+
+    reviewVisualMatchMedia.add("(min-width: 1025px)", () => {
+      createReviewVisualTimeline(600, 150, -600, -600, -150, 600);
+    });
   }
 
   // ============================================
