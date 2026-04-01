@@ -20,10 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const updateScrollIndicator = () => {
     const scrollPos = window.pageYOffset;
-    const maxScroll = ScrollTrigger.maxScroll(window);
 
     // 페이지 최하단(오차 10px 이내)에 도달하면 보이기
-    if (scrollIndicator && scrollPos >= maxScroll - 10) {
+    if (scrollIndicator && scrollPos <= 10) {
       scrollIndicator.classList.add('show');
     } else if (scrollIndicator) {
       scrollIndicator.classList.remove('show');
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 휠을 위로 돌리는 순간 즉시 사라지게 함 (사용성 향상)
   window.addEventListener('wheel', (e) => {
-    if (scrollIndicator && e.deltaY < 0) {
+    if (scrollIndicator && e.deltaY > 0) {
       scrollIndicator.classList.remove('show');
     }
   }, { passive: true });
@@ -45,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 이미지가 로딩되고 레이아웃이 확정된 후 실행
   window.addEventListener('load', () => {
     initMixingMarquee();
-    scrollToEndSection();
+    scrollToStartSection();
+    updateScrollIndicator();
   });
 
   /**
@@ -103,17 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * 최하단 섹션(Greenchemi)으로 자동 스크롤
    */
-  function scrollToEndSection() {
-    const target = document.querySelector('#greenchemi');
-    if (!target) return;
-
+  function scrollToStartSection() {
     if (snapTrigger) snapTrigger.disable();
     isAnimating = true; // 이동 중 휠 간섭 방지
 
     gsap.to(window, {
-      scrollTo: target,
-      duration: 3,
-      ease: "power2.inOut",
+      scrollTo: 0,
+      duration: 0,
+      ease: "none",
       onComplete: () => {
         if (snapTrigger) snapTrigger.enable();
         isAnimating = false;
@@ -310,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTrigger: {
         trigger: section,
         start: "top 80%",
-        toggleActions: "none none play none"
+        toggleActions: "play none none play"
       },
       x: -200,
       opacity: 0,
@@ -322,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTrigger: {
         trigger: section,
         start: "top 70%",
-        toggleActions: "none none play none"
+        toggleActions: "play none none play"
       },
       y: 100,
       opacity: 0,
@@ -334,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTrigger: {
         trigger: section,
         start: "top 70%",
-        toggleActions: "none none play none"
+        toggleActions: "play none none play"
       },
       x: 50,
       opacity: 0,
@@ -363,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTrigger: {
         trigger: section,
         start: "top center",
-        toggleActions: "none none play none"
+        toggleActions: "play none none play"
       }
     });
 
