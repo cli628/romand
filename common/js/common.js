@@ -5,14 +5,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     initHeaderAutoHide();
     initOverlaySubmenus();
     initNewsletterForm();
+    initScrollTopButton();
 });
 
 async function ensureCommonLayout() {
     const hasHeader = Boolean(document.querySelector(".common_header"));
     const hasOverlay = Boolean(document.querySelector(".menu_overlay"));
     const hasFooter = Boolean(document.querySelector(".common_footer"));
+    const hasScrollTopButton = Boolean(document.querySelector(".scroll_top_btn"));
 
-    if (hasHeader && hasOverlay && hasFooter) {
+    if (hasHeader && hasOverlay && hasFooter && hasScrollTopButton) {
         return;
     }
 
@@ -25,8 +27,9 @@ async function ensureCommonLayout() {
     const templateHeader = parsed.querySelector(".common_header");
     const templateOverlay = parsed.querySelector(".menu_overlay");
     const templateFooter = parsed.querySelector(".common_footer");
+    const templateScrollTopButton = parsed.querySelector(".scroll_top_btn");
 
-    if (!templateHeader || !templateOverlay || !templateFooter || !document.body) {
+    if (!templateHeader || !templateOverlay || !templateFooter || !templateScrollTopButton || !document.body) {
         return;
     }
 
@@ -49,6 +52,11 @@ async function ensureCommonLayout() {
     if (!document.querySelector(".common_footer")) {
         const footer = document.importNode(templateFooter, true);
         document.body.insertAdjacentElement("beforeend", footer);
+    }
+
+    if (!document.querySelector(".scroll_top_btn")) {
+        const scrollTopButton = document.importNode(templateScrollTopButton, true);
+        document.body.insertAdjacentElement("beforeend", scrollTopButton);
     }
 }
 
@@ -391,4 +399,36 @@ function initNewsletterForm() {
         emailInput.disabled = true;
         submitBtn.disabled = true;
     });
+}
+
+function initScrollTopButton() {
+    const scrollTopButton = document.querySelector(".scroll_top_btn");
+
+    if (!scrollTopButton) {
+        return;
+    }
+
+    const visibilityThreshold = 220;
+    let ticking = false;
+
+    const updateVisibility = () => {
+        const currentScrollY = window.scrollY || 0;
+        scrollTopButton.classList.toggle("is_visible", currentScrollY > visibilityThreshold);
+        ticking = false;
+    };
+
+    window.addEventListener("scroll", () => {
+        if (ticking) {
+            return;
+        }
+
+        ticking = true;
+        window.requestAnimationFrame(updateVisibility);
+    }, { passive: true });
+
+    scrollTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    updateVisibility();
 }

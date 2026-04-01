@@ -270,6 +270,13 @@
         margin-left: auto;
         padding-bottom: 0;
     }
+
+    .scroll_top_btn {
+        width: 56px;
+        height: 56px;
+        right: 18px;
+        bottom: 18px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -334,6 +341,14 @@
         width: 100%;
         align-self: flex-start;
         gap: 14px;
+    }
+
+    .scroll_top_btn {
+        width: 54px;
+        height: 54px;
+        right: 14px;
+        bottom: 14px;
+        font-size: 16px;
     }
 }
 
