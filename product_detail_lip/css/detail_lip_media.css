@@ -44,6 +44,9 @@
 
 /* 웹 */
 @media screen and (min-width: 2560px) {
+  .wrap{
+        margin-top:20px;
+    }
   .contents_inner {
     width: min(calc(100% - 240px), 1740px);
     justify-content: center;
