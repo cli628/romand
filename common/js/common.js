@@ -269,6 +269,8 @@ function initMenuOverlay() {
 function initHeaderAutoHide() {
     const header = document.querySelector(".common_header");
     const overlay = document.querySelector(".menu_overlay");
+    const mainVisual = document.querySelector(".main_visual");
+    const heroSection = document.querySelector(".hero_section");
 
     if (!header) {
         return;
@@ -284,8 +286,15 @@ function initHeaderAutoHide() {
         const isMenuOpen = header.classList.contains("is-menu-open")
             || Boolean(overlay && overlay.classList.contains("is_open"));
         const scrollDelta = currentScrollY - lastScrollY;
+        const shouldDelayHeader =
+            Boolean(mainVisual && heroSection)
+            && currentScrollY < Math.max(heroSection.offsetTop - headerHeight, 0);
 
-        if (isMenuOpen || currentScrollY <= headerHeight * 0.5) {
+        if (isMenuOpen) {
+            header.classList.remove("is-hidden");
+        } else if (shouldDelayHeader) {
+            header.classList.add("is-hidden");
+        } else if (currentScrollY <= headerHeight * 0.5) {
             header.classList.remove("is-hidden");
         } else if (scrollDelta > scrollTolerance && currentScrollY > headerHeight) {
             header.classList.add("is-hidden");

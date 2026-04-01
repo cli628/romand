@@ -1,477 +1,25 @@
 @charset "utf-8";
 
 /* 웹 */
-
-/* Hero breakpoints
-   1920 base values: main.css
-   1921~3840: large desktop
-   1025~1920: desktop
-   769~1024: tablet
-   401~768: mobile
-   <=400: small mobile
-*/
-@media screen and (min-width:1921px) and (max-width:3840px) {
-    .hero_section {
-        min-height: calc(30vh + clamp(220px, calc(100vw * 220 / 1920), 440px));
-        padding: clamp(150px, calc(100vw * 150 / 1920), 300px);
-    }
-
-    .btn_primary {
-        width: clamp(300px, calc(100vw * 300 / 1920), 600px);
-        padding: clamp(15px, calc(100vw * 15 / 1920), 30px)
-            clamp(40px, calc(100vw * 40 / 1920), 80px);
-        border-radius: clamp(50px, calc(100vw * 50 / 1920), 100px);
-        font-size: clamp(24px, calc(100vw * 24 / 1920), 48px);
-    }
-
-    .hero_content {
-        width: min(100%, calc(100vw * 1620 / 1920));
-        gap: clamp(50px, calc(100vw * 50 / 1920), 100px);
-        margin-inline: auto;
-    }
-
-    .hero_title {
-        font-size: clamp(120px, calc(100vw * 120 / 1920), 240px);
-        line-height: 1.02;
-    }
-
-    .sub_tit{
-        width: min(100%, calc(100vw * 1560 / 1920));
-        gap: clamp(12px, calc(100vw * 12 / 1920), 24px);
-    }
-
-    .sub_tit>p {
-        font-size: clamp(12px, calc(100vw * 12 / 1024), 45px);
-        line-height: 1.55;
-        white-space: nowrap;
-    }
-
-
-    .hero_content .sub_tit {
-        width: min(100%, calc(100vw * 1560 / 1920));
-        margin-inline: auto;
-        align-items: stretch;
-        text-align: center;
-        gap: clamp(12px, calc(100vw * 12 / 1920), 24px);
-    }
-
-    .hero_content .sub_tit>p {
-        width: 100%;
-        margin: 0;
-        font-size: clamp(24px, calc(100vw * 24 / 1920), 48px);
-        line-height: 1.55;
-        text-align: center;
-        white-space: nowrap;
-    }
-
-    .section_header .sub_tit,
-    .outlet_header .sub_tit,
-    .personal_color_content .sub_tit,
-    .pink_office_intro .sub_tit {
-        width: 100%;
-        margin-inline: auto;
-        align-items: center;
-        text-align: center;
-        gap: clamp(12px, calc(100vw * 12 / 1920), 24px);
-    }
-
-    .section_header .sub_tit>p,
-    .outlet_header .sub_tit>p,
-    .personal_color_content .sub_tit>p,
-    .pink_office_intro .sub_tit>p {
-        width: auto;
-        margin: 0;
-        font-size: clamp(24px, calc(100vw * 24 / 1920), 48px);
-        line-height: 1.55;
-        text-align: center;
-        white-space: normal;
-    }
-
-    .new_section {
-        margin-top: clamp(-400px, calc(100vw * -200 / 1920), -200px);
-        padding-top: clamp(200px, calc(100vw * 200 / 1920), 400px);
-        padding-bottom: clamp(180px, calc(100vw * 180 / 1920), 360px);
-    }
-    
-    .new_section .section_header {
-        padding: clamp(250px, calc(100vw * 250 / 1920), 500px) 0;
-    }
-
-    .new_section .section_header .badge {
-        padding: clamp(5px, calc(100vw * 5 / 1920), 10px)
-            clamp(20px, calc(100vw * 20 / 1920), 40px);
-        border-radius: clamp(8px, calc(100vw * 8 / 1920), 16px);
-        font-size: clamp(24px, calc(100vw * 24 / 1920), 48px);
-        margin: clamp(70px, calc(100vw * 70 / 1920), 140px) 0;
-    }
-
-    .new_section .section_header h2,
-    .best_section .section_header h2 {
-        font-size: clamp(120px, calc(100vw * 120 / 1920), 240px);
-    }
-
-    .new_section .section_header .highlight {
-        padding-inline: clamp(15px, calc(100vw * 15 / 1920), 30px);
-    }
-
-    .new_section .section_header .highlight_blue {
-        letter-spacing: clamp(-10px, calc(100vw * -5 / 1920), -5px);
-    }
-
-    .animation_area {
-        height: clamp(1500px, calc(100vw * 1500 / 1920), 3000px);
-        margin-top: clamp(150px, calc(100vw * 150 / 1920), 300px);
-    }
-
-    .floating_products {
-        top: clamp(100px, calc(100vw * 100 / 1920), 200px);
-        height: clamp(1700px, calc(100vw * 1700 / 1920), 3400px);
-    }
-
-    .floating_item {
-        width: clamp(150px, calc(100vw * 160 / 1920), 320px);
-    }
-
-    .floating_item img {
-        width: clamp(220px, calc(100vw * 220 / 1920), 440px);
-    }
-
-    .floating_item.item1 { top: 6%; left: 16%; }
-    .floating_item.item2 { top: 1.5%; left: 37%; }
-    .floating_item.item3 { top: 14%; left: 84%; }
-    .floating_item.item4 { top: 6.5%; left: 63%; }
-    .floating_item.item5 { top: 16.5%; left: 50%; }
-
-    .floating_item span {
-        font-size: clamp(13px, calc(100vw * 13 / 1920), 26px);
-        padding: clamp(5px, calc(100vw * 5 / 1920), 10px)
-            clamp(10px, calc(100vw * 10 / 1920), 20px);
-        border-radius: clamp(15px, calc(100vw * 15 / 1920), 30px);
-    }
-
-    .product_card {
-        width: clamp(170px, calc(100vw * 170 / 1920), 340px);
-    }
-
-    .product_card.is-open {
-        width: clamp(400px, calc(100vw * 400 / 1920), 800px);
-    }
-
-    .product_card_header {
-        gap: clamp(12px, calc(100vw * 12 / 1920), 24px);
-        min-width: clamp(170px, calc(100vw * 170 / 1920), 340px);
-        border-radius: clamp(15px, calc(100vw * 15 / 1920), 30px);
-        padding: clamp(9px, calc(100vw * 9 / 1920), 18px)
-            clamp(12px, calc(100vw * 12 / 1920), 24px)
-            clamp(9px, calc(100vw * 9 / 1920), 18px)
-            clamp(18px, calc(100vw * 18 / 1920), 36px);
-        font-size: clamp(13px, calc(100vw * 13 / 1920), 26px);
-    }
-
-    .product_card.is-open .product_card_header {
-        border-radius: clamp(14px, calc(100vw * 14 / 1920), 28px)
-            clamp(14px, calc(100vw * 14 / 1920), 28px) 0 0;
-    }
-
-    .product_card_arrow {
-        width: clamp(18px, calc(100vw * 18 / 1920), 36px);
-        height: clamp(18px, calc(100vw * 18 / 1920), 36px);
-        line-height: clamp(18px, calc(100vw * 18 / 1920), 36px);
-    }
-
-    .product_card_body {
-        gap: clamp(14px, calc(100vw * 14 / 1920), 28px);
-        border-radius: 0 0 clamp(14px, calc(100vw * 14 / 1920), 28px)
-            clamp(14px, calc(100vw * 14 / 1920), 28px);
-        padding: clamp(14px, calc(100vw * 14 / 1920), 28px)
-            clamp(16px, calc(100vw * 16 / 1920), 32px);
-    }
-
-    .product_card_info {
-        gap: clamp(10px, calc(100vw * 10 / 1920), 20px);
-    }
-
-    .product_card_info ul {
-        padding-left: clamp(18px, calc(100vw * 18 / 1920), 36px);
-        gap: clamp(6px, calc(100vw * 6 / 1920), 12px);
-    }
-
-    .product_card_info ul li {
-        font-size: clamp(12px, calc(100vw * 12 / 1920), 24px);
-    }
-
-    .product_card_shop_btn {
-        padding: clamp(7px, calc(100vw * 7 / 1920), 14px)
-            clamp(20px, calc(100vw * 20 / 1920), 40px);
-        font-size: clamp(12px, calc(100vw * 12 / 1920), 24px);
-    }
-
-    .product_card_detail_img {
-        width: clamp(114px, calc(100vw * 114 / 1920), 228px);
-        height: clamp(171px, calc(100vw * 171 / 1920), 342px);
-        border-radius: clamp(10px, calc(100vw * 10 / 1920), 20px);
-    }
-
-    .product_card_detail_img img {
-        width: clamp(114px, calc(100vw * 114 / 1920), 228px);
-        height: clamp(171px, calc(100vw * 171 / 1920), 342px);
-    }
-
-    .shopping_bag_container .bag_back,
-    .shopping_bag_container .bag_front {
-        top: clamp(550px, calc(100vw * 550 / 2400), 880px);
-        width: clamp(700px, calc(100vw * 700 / 2400), 1120px);
-    }
-
-    .shopping_bag_container .bag_back img,
-    .shopping_bag_container .bag_front img {
-        width: 100%;
-    }
-
-    .best_section .section_header.right_align {
-        right: clamp(96px, calc(100vw * 96 / 1920), 192px);
-        bottom: clamp(260px, calc(100vw * 260 / 1920), 520px);
-        width: min(46vw, clamp(760px, calc(100vw * 760 / 1920), 1520px));
-        gap: clamp(26px, calc(100vw * 26 / 1920), 52px);
-    }
-
-    .best_section .section_header.right_align .badge {
-        min-width: clamp(94px, calc(100vw * 94 / 1920), 188px);
-        height: clamp(42px, calc(100vw * 42 / 1920), 84px);
-        padding: clamp(6px, calc(100vw * 6 / 1920), 12px)
-            clamp(18px, calc(100vw * 18 / 1920), 36px);
-        border-radius: clamp(12px, calc(100vw * 12 / 1920), 24px);
-        font-size: clamp(24px, calc(100vw * 24 / 1920), 48px);
-        line-height: clamp(30px, calc(100vw * 30 / 1920), 60px);
-    }
-
-    .outlet_section {
-        height: auto;
-        min-height: clamp(1360px, calc(100vw * 1360 / 1920), 2720px);
-        padding: clamp(220px, calc(100vw * 220 / 1920), 440px) 0
-            clamp(320px, calc(100vw * 320 / 1920), 640px);
-        margin: clamp(400px, calc(100vw * 400 / 1920), 800px) 0
-            clamp(520px, calc(100vw * 520 / 1920), 1040px);
-    }
-
-    .outlet_header {
-        width: min(100%, clamp(720px, calc(100vw * 720 / 1920), 1440px));
-    }
-
-    .outlet_header .badge {
-        padding: clamp(5px, calc(100vw * 5 / 1920), 10px)
-            clamp(20px, calc(100vw * 20 / 1920), 40px);
-        border-radius: clamp(8px, calc(100vw * 8 / 1920), 16px);
-        font-size: clamp(24px, calc(100vw * 24 / 1920), 48px);
-        margin-bottom: clamp(48px, calc(100vw * 48 / 1920), 96px);
-    }
-
-    .outlet_section_shell {
-        max-width: 100%;
-        min-height: clamp(1360px, calc(100vw * 1360 / 1920), 2720px);
-        grid-template-columns: 50vw minmax(0, 1fr);
-        gap: clamp(84px, calc(100vw * 84 / 1920), 168px);
-        padding-right: clamp(72px, calc(100vw * 72 / 1920), 144px);
-        box-sizing: border-box;
-    }
-
-    .outlet_visual_panel {
-        width: 100%;
-        min-height: clamp(1080px, calc(100vw * 1080 / 1920), 2160px);
-    }
-
-    .outlet_visual_glow {
-        width: clamp(814px, calc(100vw * 814 / 1920), 1628px);
-        height: clamp(1080px, calc(100vw * 1080 / 1920), 2160px);
-    }
-
-    .outlet_content_panel {
-        min-height: clamp(1080px, calc(100vw * 1080 / 1920), 2160px);
-        padding: clamp(136px, calc(100vw * 136 / 1920), 272px)
-            clamp(120px, calc(100vw * 120 / 1920), 240px)
-            clamp(136px, calc(100vw * 136 / 1920), 272px) 0;
-    }
-
-    .outlet_header h2 {
-        font-size: clamp(120px, calc(100vw * 120 / 1920), 240px);
-    }
-
-    .outlet_header p {
-        padding: clamp(50px, calc(100vw * 50 / 1920), 100px) 0;
-        font-size: clamp(24px, calc(100vw * 24 / 1920), 48px);
-    }
-
-    .price_inline_highlight {
-        font-size: clamp(24px, calc(100vw * 24 / 1920), 48px);
-    }
-
-    .outlet_put_photo {
-        top: clamp(200px, calc(100vw * 200 / 1920), 400px);
-        left: clamp(75%, calc(100vw * 75 / 1920), 82%);
-    }
-
-    .outlet_put_photo img {
-        width: clamp(380px, calc(100vw * 380 / 1920), 760px);
-    }
-
-    .outlet_product_carousel {
-        width: min(100%, clamp(822px, calc(100vw * 822 / 1920), 1644px));
-    }
-}
-
-
-@media screen and (min-width:1025px) and (max-width:1920px) {
-    .hero_section {
-        padding-inline: clamp(96px, 8vw, 150px);
-    }
-
-    .hero_content {
-        width: min(100%, 1460px);
-        gap: 50px;
-    }
-
-    .hero_title {
-        font-size: clamp(80px, calc(100vw * 120 / 1920), 120px);
-        line-height: 1.02;
-    }
-
-    .hero_copy_group {
-        width: min(100%, 1380px);
-        gap: 12px;
-    }
-
-    .hero_copy_group>p {
-        font-size: clamp(13px, calc(100vw * 27 / 1920), 27px);
-        line-height: 1.55;
-        white-space: nowrap;
-    }
-
-    .sub_tit>p {
-        font-size: clamp(12px, calc(100vw * 12 / 1024), 22.5px);
-        line-height: 1.55;
-        white-space: nowrap;
-    }
-
-    .section_header .sub_tit,
-    .outlet_header .sub_tit,
-    .personal_color_content .sub_tit,
-    .pink_office_intro .sub_tit {
-        width: 100%;
-        margin-inline: auto;
-        align-items: center;
-        text-align: center;
-        gap: 14px;
-    }
-
-    .section_header .sub_tit>p,
-    .outlet_header .sub_tit>p,
-    .personal_color_content .sub_tit>p,
-    .pink_office_intro .sub_tit>p {
-        width: auto;
-        margin: 0;
-        font-size: clamp(14px, calc(100vw * 24 / 1920), 24px);
-        line-height: 1.55;
-        text-align: center;
-        white-space: normal;
-    }
-
-    .outlet_put_photo {
-        top: clamp(150px, calc(100vw * 200 / 1920), 200px);
-        left: clamp(70%, calc(100vw * 75 / 1920), 75%);
-    }
-
-    .outlet_put_photo img {
-        width: clamp(300px, calc(100vw * 380 / 1920), 380px);
-    }
-}
+@media screen and (max-width:1920px) {}
 
 @media screen and (max-width:1440px) {}
 
 @media screen and (max-width:1200px) {}
 
-@media screen and (min-width:769px) and (max-width:1024px) {
-    .hero_section {
-        min-height: auto;
-        padding: 96px 56px;
-    }
-
-    .hero_section svg {
-        display: none;
-    }
-
-    .btn_primary {
-        width: fit-content;
-        min-width: 220px;
-        padding: 14px 32px;
-        border-radius: 999px;
-        font-size: 16px;
-    }
-
-    .hero_content {
-        width: min(100%, 900px);
-        gap: 36px;
-    }
-
-    .hero_title {
-        font-size: 80px;
-        line-height: 1.04;
-    }
-
-    .hero_copy_group,
-    .sub_tit {
-        width: 100%;
-        gap: 12px;
-    }
-
-    .hero_copy_group>p,
-    .sub_tit>p {
-        font-size: 12px;
-        line-height: 1.55;
-        white-space: nowrap;
-    }
-
-    .outlet_section {
-        height: auto;
-        min-height: 920px;
-        padding: 180px 40px 140px;
-        margin: 240px 0 180px;
-    }
-
-    .outlet_section_shell {
-        grid-template-columns: minmax(0, 520px) minmax(0, 1fr);
-        gap: 36px;
-        max-width: 1024px;
-        min-height: auto;
-    }
-
-    .outlet_visual_panel {
-        min-height: 640px;
-    }
-
-    .outlet_visual_glow {
-        width: 520px;
-        height: 640px;
-    }
-
-    .outlet_put_photo {
-        top: 140px;
-        left: 70%;
-    }
-
-    .outlet_put_photo img {
-        width: 240px;
-    }
-
-    .outlet_content_panel {
-        min-height: 640px;
-        padding: 72px 0;
-    }
-}
-
 /* 태블릿 */
 @media screen and (max-width:1024px) {
     .sns_card.is_active .sns_product_list_panel {
         bottom: auto;
+    }
+
+    .hero_section {
+        min-height: auto;
+        padding: 96px 32px !important;
+    }
+
+    .hero_section svg {
+        display: none;
     }
 
     .animation_area {
@@ -497,11 +45,11 @@
     }
 
     /* 아이템 위치: floating_products(height:1700px) 기준 % — 각 아이템 center가 animation_area(900px) 내에 오도록 */
-    .floating_item.item1 { top: -2%; left: 24%; }
-    .floating_item.item2 { top: -7%; left: 39%; }
-    .floating_item.item3 { top: -1%; left: 72%; }
-    .floating_item.item4 { top: -6%; left: 58%; }
-    .floating_item.item5 { top: 6%; left: 48%; }
+    .floating_item.item1 { top: 16%; left: 24%; }
+    .floating_item.item2 { top: 11%; left: 39%; }
+    .floating_item.item3 { top: 17%; left: 72%; }
+    .floating_item.item4 { top: 12%; left: 58%; }
+    .floating_item.item5 { top: 24%; left: 48%; }
 
     .product_card,
     .product_card.is-open {
@@ -529,7 +77,7 @@
     /* 봉투 10% 확대, 아이템 아래쪽으로 위치 조정 */
     .shopping_bag_container .bag_back,
     .shopping_bag_container .bag_front {
-        top: 260px;
+        top: 620px;
         width: 352px;
     }
 
@@ -705,6 +253,11 @@
     .personal_color_content p {
         font-size: clamp(12px, 1.2vw, 15px);
         line-height: 1.5;
+    }
+
+    .personal_color_btn {
+        padding: 13px 30px;
+        font-size: 17px;
     }
 
     .personal_color_bg img {
@@ -971,6 +524,26 @@
         bottom: auto;
     }
 
+    .hero_section {
+        min-height: calc(68vh + 150px);
+        padding: 96px 24px 180px !important;
+    }
+
+    .hero_section svg {
+        bottom: -82px;
+        height: 160px;
+    }
+
+    .hero_title {
+        margin-bottom: 22px;
+    }
+
+    .hero_desc {
+        margin-bottom: 40px;
+        font-size: clamp(18px, 5vw, 24px);
+        line-height: 1.42;
+    }
+
     .new_section {
         padding-bottom: 120px !important;
     }
@@ -1051,6 +624,12 @@
         margin-top: 18px;
         font-size: 14px;
         line-height: 1.6;
+    }
+
+    .personal_color_btn {
+        margin-top: 30px;
+        padding: 14px 27px;
+        font-size: 14px;
     }
 
     .personal_color_bg img {
@@ -1335,63 +914,6 @@
 }
 
 /* 모바일 */
-@media screen and (min-width:401px) and (max-width:768px) {
-    .hero_section {
-        min-height: calc(62vh + 128px);
-        padding: 88px 24px 156px;
-    }
-
-    .hero_section svg {
-        bottom: -82px;
-        height: 160px;
-    }
-
-    .btn_primary {
-        width: fit-content;
-        min-width: 200px;
-        padding: 12px 24px;
-        font-size: 15px;
-        border-radius: 999px;
-    }
-
-    .hero_content {
-        width: min(100%, 520px);
-        gap: 28px;
-    }
-
-    .hero_title {
-        margin-bottom: 0;
-        font-size: 60px;
-        line-height: 1.05;
-    }
-
-    .hero_copy_group,
-    .sub_tit {
-        width: min(100%, 500px);
-        gap: 12px;
-    }
-
-    .hero_copy_group>p,
-    .sub_tit>p {
-        font-size: 16px;
-        line-height: 1.55;
-        white-space: normal;
-        text-wrap: balance;
-    }
-}
-
-@media screen and (max-width:480px) {
-    .btn_primary {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 44px;
-        padding: 11px 18px;
-        font-size: 13px;
-        border-radius: 999px;
-    }
-}
-
 @media screen and (max-width:400px) {
     .main_visual {
         display: none;
@@ -1399,44 +921,15 @@
 
     .hero_section {
         min-height: auto;
-        padding: 72px 20px 96px;
+        padding: 96px 20px !important;
+    }
+
+    .hero_desc {
+        margin-bottom: 0;
     }
 
     .hero_section svg {
         display: none;
-    }
-
-    .hero_content {
-        width: 100%;
-        max-width: 360px;
-        gap: 18px;
-    }
-
-    .hero_title {
-        font-size: 38px;
-        line-height: 1.06;
-    }
-
-    .hero_copy_group,
-    .sub_tit {
-        
-        width: 100%;
-        gap: 8px;
-    }
-
-    .hero_copy_group>p,
-    .sub_tit>p {
-        font-size: 12px;
-        line-height: 1.2;
-        white-space: normal;
-        text-wrap: balance;
-    }
-
-    .btn_primary {
-        width: 150px;
-        min-height: auto;
-        padding: 4px 14px;
-        font-size: 13px;
     }
 
     .sns_stage {
@@ -2152,6 +1645,13 @@
         display: none;
     }
 
+    .personal_color_btn {
+        margin-top: 16px;
+        padding: 10px 18px;
+        font-size: 11px;
+        font-weight: 600;
+        box-shadow: 0 12px 24px rgba(246, 142, 177, 0.2);
+    }
 
     .pink_office_section {
         height: auto;
@@ -2234,14 +1734,6 @@
         height: auto;
         max-width: none;
         object-fit: contain;
-    }
-
-    .new_section .section_header .sub_tit>p,
-    .best_section .section_header .sub_tit>p,
-    .outlet_header .sub_tit>p,
-    .personal_color_content .sub_tit>p,
-    .pink_office_intro .sub_tit>p {
-        font-size: 12px;
     }
 }
 

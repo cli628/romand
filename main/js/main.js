@@ -13,28 +13,10 @@ document.addEventListener("DOMContentLoaded",  () => {
     let wavePoints = [];
     let flattenProgress = 0;
     let targetFlattenProgress = 0;
-    let isHeroWavePaused = false;
 
     const BASELINE_RATIO = 0.55;
     const POINT_GAP = 1;
     const WAVE_SPEED = 0.01;
-
-    function isMobileHeroViewport() {
-        return window.matchMedia("(max-width: 768px)").matches;
-    }
-
-    function shouldPauseHeroWave() {
-        if (!heroSection || isMobileHeroViewport()) {
-            return false;
-        }
-
-        const heroRect = heroSection.getBoundingClientRect();
-        return heroRect.top < window.innerHeight && heroRect.bottom > 0;
-    }
-
-    function setHeroWavePaused(paused) {
-        isHeroWavePaused = paused;
-    }
 
     function createWavePoints() {
         wavePoints = [];
@@ -114,11 +96,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         ].join(" ");
 
         heroWavePath.setAttribute("d", pathData);
-
-        if (!isHeroWavePaused) {
-            tick += WAVE_SPEED;
-        }
-
+        tick += WAVE_SPEED;
         requestAnimationFrame(drawWave);
     }
 
@@ -144,18 +122,7 @@ document.addEventListener("DOMContentLoaded",  () => {
                 targetFlattenProgress = 0;
             }
         });
-
-        ScrollTrigger.create({
-            trigger: heroSection,
-            start: "top bottom",
-            end: "bottom top",
-            onToggle: (self) => {
-                setHeroWavePaused(!isMobileHeroViewport() && self.isActive);
-            }
-        });
     }
-
-    setHeroWavePaused(shouldPauseHeroWave());
 
     if (heroWavePath) {
         drawWave();
@@ -163,7 +130,6 @@ document.addEventListener("DOMContentLoaded",  () => {
 
     window.addEventListener("resize", () => {
         resizeWave();
-        setHeroWavePaused(shouldPauseHeroWave());
     });
 
     // 1. GSAP ScrollTriggers implementation for Main Page sections
@@ -623,9 +589,6 @@ document.addEventListener("DOMContentLoaded",  () => {
         });
     });
 
-    const NEW_DESKTOP_SECTION_SCROLL_RATIO = 0.28;
-    const BEST_DESKTOP_SECTION_SCROLL_RATIO = 0.42;
-
     // 5. New Section Bag Animation (GSAP Scrub Timeline)
     const floatingItems = document.querySelectorAll(".floating_item");
     const floatingProducts = document.querySelector(".floating_products");
@@ -647,8 +610,6 @@ document.addEventListener("DOMContentLoaded",  () => {
         headerFadeStartAt: 5.2,
         /* Duration of the section header fade-out. */
         headerFadeDuration: 1.4,
-        /* Downward travel distance for the section header during exit. */
-        headerExitDistanceY: 800,
 
         /* Timeline position where products begin gathering. */
         gatherStartAt: 3,
@@ -679,38 +640,17 @@ document.addEventListener("DOMContentLoaded",  () => {
         /* Final target inside the bag. Lower top pushes the drop deeper into the bag. */
         dropTarget: { top: "100%", left: "50%", scale: 1, opacity: 1, ease: "power2.in" },
         /* Extra hold after the bag reaches center before the next section takes over. */
-        endHoldDuration: 4,
-        /* Motion scale used when the pinned scroll distance is shortened on desktop. */
-        motionDistanceScale: 1
-    };
-    const DESKTOP_NEW_SECTION_BAG_CONFIG = {
-        ...NEW_SECTION_BAG_CONFIG,
-        scrollLengthMultiplier: NEW_SECTION_BAG_CONFIG.scrollLengthMultiplier * NEW_DESKTOP_SECTION_SCROLL_RATIO,
-        floatingProductsShiftY: NEW_SECTION_BAG_CONFIG.floatingProductsShiftY * NEW_DESKTOP_SECTION_SCROLL_RATIO,
-        headerExitDistanceY: NEW_SECTION_BAG_CONFIG.headerExitDistanceY * NEW_DESKTOP_SECTION_SCROLL_RATIO,
-        motionDistanceScale: 1,
-        endHoldDuration: 7
-    };
-    const LARGE_DESKTOP_NEW_SECTION_BAG_CONFIG = {
-        ...DESKTOP_NEW_SECTION_BAG_CONFIG,
-        gatherTargets: [
-            { top: "0%", left: "43.5%", scale: 1, ease: "power1.inOut" },
-            { top: "0%", left: "46.75%", scale: 1, ease: "power1.inOut" },
-            { top: "0%", left: "50%", scale: 1, ease: "power1.inOut" },
-            { top: "0%", left: "53.25%", scale: 1, ease: "power1.inOut" },
-            { top: "0%", left: "56.5%", scale: 1, ease: "power1.inOut" }
-        ]
+        endHoldDuration: 4
     };
     const TABLET_NEW_SECTION_BAG_CONFIG = {
         ...NEW_SECTION_BAG_CONFIG,
-        scrollLengthMultiplier: 5.8 * NEW_DESKTOP_SECTION_SCROLL_RATIO,
+        scrollLengthMultiplier: 5.8,
         scrub: 4.2,
         floatingProductsShiftY: 0,
         floatingProductsDuration: 9.5,
         bagRiseDuration: 3.6,
         headerFadeStartAt: 5.8,
         headerFadeDuration: 1.1,
-        headerExitDistanceY: 280,
         gatherStartAt: 4,
         gatherStagger: 0.72,
         gatherDuration: 0.95,
@@ -718,25 +658,17 @@ document.addEventListener("DOMContentLoaded",  () => {
         dropStagger: 0.72,
         dropDuration: 3.8,
         gatherTargets: [
-            { top: "-8%", left: "36%", scale: 1, ease: "power1.inOut" },
-            { top: "-10%", left: "43%", scale: 1, ease: "power1.inOut" },
-            { top: "-12%", left: "50%", scale: 1, ease: "power1.inOut" },
-            { top: "-10%", left: "57%", scale: 1, ease: "power1.inOut" },
-            { top: "-8%", left: "64%", scale: 1, ease: "power1.inOut" }
+            { top: "8%", left: "36%", scale: 1, ease: "power1.inOut" },
+            { top: "6%", left: "43%", scale: 1, ease: "power1.inOut" },
+            { top: "4%", left: "50%", scale: 1, ease: "power1.inOut" },
+            { top: "6%", left: "57%", scale: 1, ease: "power1.inOut" },
+            { top: "8%", left: "64%", scale: 1, ease: "power1.inOut" }
         ],
-        dropTarget: { top: "38%", left: "50%", scale: 0.9, opacity: 0, ease: "power2.in" }
+        dropTarget: { top: "54%", left: "50%", scale: 0.9, opacity: 0, ease: "power2.in" }
     };
     if (floatingItems.length > 0 && window.matchMedia("(min-width: 769px)").matches) {
         const isTabletLayout = window.matchMedia("(max-width: 1024px)").matches;
-        const isLargeDesktopLayout = window.matchMedia("(min-width: 1921px)").matches;
-        const isDesktopLayout = window.matchMedia("(min-width: 1025px)").matches;
-        const activeBagConfig = isTabletLayout
-            ? TABLET_NEW_SECTION_BAG_CONFIG
-            : isLargeDesktopLayout
-                ? LARGE_DESKTOP_NEW_SECTION_BAG_CONFIG
-            : isDesktopLayout
-                ? DESKTOP_NEW_SECTION_BAG_CONFIG
-                : NEW_SECTION_BAG_CONFIG;
+        const activeBagConfig = isTabletLayout ? TABLET_NEW_SECTION_BAG_CONFIG : NEW_SECTION_BAG_CONFIG;
 
         // Keep tablet products visible before pinning instead of revealing them from off-screen.
         gsap.set(floatingItems, { clearProps: "y,opacity" });
@@ -767,7 +699,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         if (newSectionHeader) {
             tl.to(newSectionHeader, {
                 opacity: 0,
-                y: activeBagConfig.headerExitDistanceY,
+                y: isTabletLayout ? 280 : 800,
                 duration: activeBagConfig.headerFadeDuration,
                 ease: "power1.out"
             }, activeBagConfig.headerFadeStartAt);
@@ -818,10 +750,10 @@ document.addEventListener("DOMContentLoaded",  () => {
             // Visible viewport height after excluding the 12% top pin offset.
             const visibleH = window.innerHeight * (1 - 0.12);
             const bagH     = bagElements[0].offsetHeight;
-            const bagTop = bagElements[0].offsetTop || parseInt(getComputedStyle(bagElements[0]).top, 10) || 0;
-            // Use the rendered bag position so responsive size changes keep the final rise aligned.
+            const bagCSSTop = parseInt(getComputedStyle(bagElements[0]).top, 10) || 0;
+            // Convert the current CSS top into a y-shift that lands the bag near center.
             const centerTop = Math.max(0, (visibleH - bagH) / 2);
-            const riseY     = -(bagTop - centerTop) * activeBagConfig.motionDistanceScale;
+            const riseY     = -(bagCSSTop - centerTop);
             tl.to(bagElements, {
                 y: riseY,
                 duration: activeBagConfig.bagRiseDuration,
@@ -870,15 +802,15 @@ document.addEventListener("DOMContentLoaded",  () => {
             // ],
 
             singleBagPath: [
-                { x: 0.02, y: 0.08 },   /* Entry point near the upper bag area. */
-                { x: 0.05, y: 0.17 },   /* Bag 3 starting point. */
-                { x: 0.12, y: 0.28 },
-                { x: 0.15, y: 0.37 },   /* Bag 2 starting point. */
-                { x: 0.10, y: 0.50 },
-                { x: 0.00, y: 0.56 },   /* Bag 1 starting point. */
+                { x: 0.1, y: 0.10 },    /* Entry point near the upper bag area. */
+                { x: 0.1, y: 0.235 },   /* Bag 3 starting point. */
+                { x: 0.21, y: 0.35 },
+                { x: 0.23, y: 0.40 },   /* Bag 2 starting point. */
+                { x: 0.18, y: 0.52 },
+                { x: 0.04, y: 0.54 },   /* Bag 1 starting point. */
                 { x: -0.18, y: 0.66 },
-                { x: -0.46, y: 0.76 },  /* Leaving the frame. */
-                { x: -0.75, y: 0.86 }   /* Fully off-screen. */
+                { x: -0.5, y: 0.76 },   /* Leaving the frame. */
+                { x: -0.8, y: 0.86 }    /* Fully off-screen. */
             ],
             /* Each bag's starting point on the shared path at videoProgress = 0.
                index 0 is the front-most lower bag, index 2 is the back-most upper bag. */
@@ -906,97 +838,9 @@ document.addEventListener("DOMContentLoaded",  () => {
                 { x: 6, y: 2 },
                 { x: 14, y: -4 }
             ],
-            bagTravelRate: BEST_SECTION_CONFIG.bagTravelRate,
-            headerExitDistanceY: BEST_SECTION_CONFIG.headerExitDistanceY,
-            exitDistanceY: BEST_SECTION_CONFIG.exitDistanceY,
             sinkDropAmounts: [0, 1380, 950],
             sinkDriftXAmounts: [0, -260, 0],
             sinkOpacityDelays: [0, 0.02, 0.82]
-        };
-        const BEST_SECTION_DESKTOP_LAYOUT = {
-            itemAnchorOffset: { ...BEST_SECTION_CONFIG.itemAnchorOffset },
-            itemOffsets: BEST_SECTION_CONFIG.itemOffsets.map((offset, index) => ({
-                x: offset.x + [-56, -52, -36][index],
-                y: offset.y + [-92, -96, -8][index]
-            })),
-            bagTravelRate: 0.41,
-            headerExitDistanceY: 74,
-            exitDistanceY: 0,
-            sinkDropAmounts: [0, 0, 0],
-            sinkDriftXAmounts: [0, 0, 0],
-            sinkOpacityDelays: [0, 0.34, 0.82],
-            progressiveDriftMap: {
-                1: {
-                    startVideoProgress: 0.5,
-                    xAmount: 240,
-                    yAmount: 120
-                }
-            },
-            resolvedHoldMap: {
-                2: {
-                    freezeAtVideoProgress: 0.88
-                }
-            },
-            lateDriftMap: {
-                0: {
-                    targetIndex: 0,
-                    startWhenTargetDotOutside: true,
-                    targetDotRangeStartPx: 0,
-                    targetDotRangeEndPx: -360,
-                    linearProgress: true,
-                    xAmount: -420,
-                    yAmount: 140
-                },
-                1: {
-                    startVideoProgress: 0.73,
-                    xAmount: -1200,
-                    yAmount: 180
-                },
-                2: {
-                    startVideoProgress: 0.74,
-                    xAmount: -280,
-                    yAmount: 180
-                }
-            }
-        };
-        const BEST_SECTION_LARGE_DESKTOP_LAYOUT = {
-            itemAnchorOffset: { x: 560, y: BEST_SECTION_CONFIG.itemAnchorOffset.y },
-            itemOffsets: BEST_SECTION_CONFIG.itemOffsets.map((offset, index) => ({
-                x: offset.x + [-56, -220, -64][index],
-                y: offset.y + [0, 52, 0][index]
-            })),
-            bagTravelRate: 0.44,
-            headerExitDistanceY: 82,
-            exitDistanceY: 0,
-            sinkDropAmounts: [0, 720, 1040],
-            sinkDriftXAmounts: [0, -760, -420],
-            sinkOpacityDelays: [0, 0.9, 0.82],
-            progressiveDriftMap: {
-                1: {
-                    startVideoProgress: 0.54,
-                    xAmount: -320
-                },
-                2: {
-                    startVideoProgress: 0.72,
-                    xAmount: -520,
-                    yAmount: 240
-                }
-            },
-            holdMap: {
-                2: {
-                    freezeAtVideoProgress: 0.88
-                }
-            },
-            lateDriftMap: {
-                1: {
-                    targetIndex: 0,
-                    startWhenTargetMostlyOffscreen: true,
-                    targetVisibleStartRatio: 1,
-                    targetVisibleEndRatio: -0.18,
-                    xAmount: -460,
-                    yAmount: 340
-                }
-            }
         };
 
         if (window.matchMedia("(max-width: 400px)").matches) {
@@ -1029,29 +873,12 @@ document.addEventListener("DOMContentLoaded",  () => {
         bestVideo.currentTime = 0;
 
         function setupBestVideoScrub() {
-            const isLargeDesktopLayout = window.matchMedia("(min-width: 1921px)").matches;
-            const isDesktopLayout = window.matchMedia("(min-width: 1025px)").matches;
-            const isTabletLayout = window.matchMedia("(min-width: 769px) and (max-width: 1024px)").matches;
-            const bestScrollScale = (isDesktopLayout || isTabletLayout) ? BEST_DESKTOP_SECTION_SCROLL_RATIO : 1;
             const scrubDistance = () =>
-                Math.round(BEST_SECTION_CONFIG.scrubWheelStepCount * BEST_SECTION_CONFIG.scrubWheelDeltaPerStep * bestScrollScale);
+                Math.round(BEST_SECTION_CONFIG.scrubWheelStepCount * BEST_SECTION_CONFIG.scrubWheelDeltaPerStep);
             const scrubDuration = Math.max(
                 BEST_SECTION_CONFIG.videoEndPadding,
                 (bestVideo.duration || BEST_SECTION_CONFIG.videoEndPadding) * BEST_SECTION_CONFIG.videoDurationRatio
             );
-
-            function getResponsiveLayout(isTabletViewport) {
-                if (isTabletViewport) {
-                    return BEST_SECTION_TABLET_LAYOUT;
-                }
-                if (isLargeDesktopLayout) {
-                    return BEST_SECTION_LARGE_DESKTOP_LAYOUT;
-                }
-                if (isDesktopLayout) {
-                    return BEST_SECTION_DESKTOP_LAYOUT;
-                }
-                return BEST_SECTION_CONFIG;
-            }
 
             function getSectionMetrics() {
                 const sectionWidth = bestSection.offsetWidth;
@@ -1107,19 +934,17 @@ document.addEventListener("DOMContentLoaded",  () => {
                 };
             }
 
-            function getBagPathProgress(itemIndex, videoProgress, responsiveLayout) {
+            function getItemPosition(metrics, itemIndex, videoProgress) {
                 const initialOffset = BEST_SECTION_CONFIG.bagInitialOffsets[itemIndex];
-                return gsap.utils.clamp(
+                const pathProgress = gsap.utils.clamp(
                     0,
                     1,
-                    initialOffset + videoProgress * (responsiveLayout.bagTravelRate || BEST_SECTION_CONFIG.bagTravelRate)
+                    initialOffset + videoProgress * BEST_SECTION_CONFIG.bagTravelRate
                 );
-            }
-
-            function getItemPosition(metrics, itemIndex, videoProgress, responsiveLayoutOverride) {
-                const responsiveLayout = responsiveLayoutOverride || getResponsiveLayout(window.matchMedia("(max-width: 1024px)").matches);
-                const pathProgress = getBagPathProgress(itemIndex, videoProgress, responsiveLayout);
                 const bagPoint = samplePath(metrics.singlePathPoints, pathProgress);
+                const responsiveLayout = window.matchMedia("(max-width: 1024px)").matches
+                    ? BEST_SECTION_TABLET_LAYOUT
+                    : BEST_SECTION_CONFIG;
                 const anchorOffset = responsiveLayout.itemAnchorOffset;
                 const offset = responsiveLayout.itemOffsets[itemIndex] || { x: 0, y: 0 };
                 return {
@@ -1128,273 +953,10 @@ document.addEventListener("DOMContentLoaded",  () => {
                 };
             }
 
-            function getResolvedBestItemPositionAtVideoProgress(metrics, itemIndex, targetVideoProgress, responsiveLayout, cache = {}) {
-                if (cache[itemIndex]) {
-                    return cache[itemIndex];
-                }
-
-                const holdMap = responsiveLayout.holdMap || {};
-                const holdConfig = holdMap[itemIndex];
-                const motionVideoProgress = holdConfig
-                    ? Math.min(targetVideoProgress, holdConfig.freezeAtVideoProgress)
-                    : targetVideoProgress;
-                const bagPathProgress = getBagPathProgress(itemIndex, motionVideoProgress, responsiveLayout);
-                const sinkProgress = gsap.utils.clamp(
-                    0,
-                    1,
-                    (bagPathProgress - BEST_SECTION_CONFIG.railSinkStart) / (1 - BEST_SECTION_CONFIG.railSinkStart)
-                );
-                const position = getItemPosition(metrics, itemIndex, motionVideoProgress, responsiveLayout);
-                const sinkDropAmounts = responsiveLayout.sinkDropAmounts || [0, 650, 950];
-                const sinkDropY = sinkProgress * (sinkDropAmounts[itemIndex] || 0);
-                const sinkDriftXAmounts = responsiveLayout.sinkDriftXAmounts || [0, 0, 0];
-                const sinkDriftX = sinkProgress * (sinkDriftXAmounts[itemIndex] || 0);
-                const sinkFollowMap = responsiveLayout.sinkFollowMap || {};
-                const followConfig = sinkFollowMap[itemIndex];
-                let itemX = position.x + sinkDriftX;
-                let itemY = position.y + sinkDropY;
-
-                const progressiveDriftMap = responsiveLayout.progressiveDriftMap || {};
-                const progressiveDrift = progressiveDriftMap[itemIndex];
-                const progressiveDrifts = Array.isArray(progressiveDrift)
-                    ? progressiveDrift
-                    : (progressiveDrift ? [progressiveDrift] : []);
-
-                progressiveDrifts.forEach((driftConfig) => {
-                    const driftProgress = gsap.utils.clamp(
-                        0,
-                        1,
-                        (motionVideoProgress - driftConfig.startVideoProgress) / (1 - driftConfig.startVideoProgress)
-                    );
-                    itemX += driftProgress * (driftConfig.xAmount || 0);
-                    itemY += driftProgress * (driftConfig.yAmount || 0);
-                });
-
-                if (followConfig) {
-                    const followProgress = typeof followConfig.followStartVideoProgress === "number"
-                        ? gsap.utils.clamp(
-                            0,
-                            1,
-                            (targetVideoProgress - followConfig.followStartVideoProgress) / (1 - followConfig.followStartVideoProgress)
-                        )
-                        : sinkProgress;
-                    const leadPosition = getResolvedBestItemPositionAtVideoProgress(
-                        metrics,
-                        followConfig.targetIndex,
-                        targetVideoProgress,
-                        responsiveLayout,
-                        cache
-                    );
-                    const followX = leadPosition.x + (followConfig.xOffset || 0);
-                    itemX = gsap.utils.interpolate(itemX, followX, followProgress);
-
-                    if (followConfig.preserveY) {
-                        const yFollowScale = followConfig.yFollowScale || 0;
-                        const followY = itemY + ((leadPosition.y + (followConfig.yOffset || 0)) - itemY) * yFollowScale;
-                        itemY = gsap.utils.interpolate(itemY, followY, followProgress);
-                    } else {
-                        const followY = leadPosition.y + (followConfig.yOffset || 0);
-                        itemY = gsap.utils.interpolate(itemY, followY, followProgress);
-                    }
-                }
-
-                const lateDriftMap = responsiveLayout.lateDriftMap || {};
-                const lateDrift = lateDriftMap[itemIndex];
-                if (lateDrift) {
-                    const lateDriftProgress = getTriggeredProgress(
-                        lateDrift,
-                        metrics,
-                        targetVideoProgress,
-                        responsiveLayout,
-                        sinkDriftXAmounts
-                    );
-                    itemX += lateDriftProgress * (lateDrift.xAmount || 0);
-                    itemY += lateDriftProgress * (lateDrift.yAmount || 0);
-                }
-
-                const resolvedPosition = { x: itemX, y: itemY };
-                cache[itemIndex] = resolvedPosition;
-                return resolvedPosition;
-            }
-
-            function getTriggeredProgress(triggerConfig, metrics, videoProgress, responsiveLayout, sinkDriftXAmounts) {
-                if (!triggerConfig) {
-                    return 0;
-                }
-
-                if (triggerConfig.startWhenTargetDotOutside && typeof triggerConfig.targetIndex === "number") {
-                    const targetIndex = triggerConfig.targetIndex;
-                    const targetLine = railItems[targetIndex]?.querySelector(".connect_line");
-
-                    if (!targetLine) {
-                        return 0;
-                    }
-
-                    const targetPosition = getItemPosition(metrics, targetIndex, videoProgress, responsiveLayout);
-                    const targetBagPathProgress = getBagPathProgress(targetIndex, videoProgress, responsiveLayout);
-                    const targetSinkProgress = gsap.utils.clamp(
-                        0,
-                        1,
-                        (targetBagPathProgress - BEST_SECTION_CONFIG.railSinkStart) / (1 - BEST_SECTION_CONFIG.railSinkStart)
-                    );
-                    const targetSinkDriftX = targetSinkProgress * (sinkDriftXAmounts[targetIndex] || 0);
-                    const targetDotX = targetPosition.x + targetSinkDriftX + targetLine.offsetLeft;
-                    if (triggerConfig.fixedAfterTrigger) {
-                        const targetDotThreshold = triggerConfig.targetDotThresholdPx ?? 0;
-                        return targetDotX <= targetDotThreshold ? 1 : 0;
-                    }
-
-                    const targetDotRangeStart = triggerConfig.targetDotRangeStartPx ?? 40;
-                    const targetDotRangeEnd = triggerConfig.targetDotRangeEndPx ?? -120;
-                    const rawProgress = gsap.utils.clamp(
-                        0,
-                        1,
-                        (targetDotRangeStart - targetDotX) / Math.max(targetDotRangeStart - targetDotRangeEnd, 1)
-                    );
-
-                    if (triggerConfig.linearProgress) {
-                        return rawProgress;
-                    }
-
-                    return rawProgress * rawProgress * (3 - 2 * rawProgress);
-                }
-
-                if (triggerConfig.startWhenTargetMostlyOffscreen && typeof triggerConfig.targetIndex === "number") {
-                    const targetIndex = triggerConfig.targetIndex;
-                    const targetModal = railItems[targetIndex]?.querySelector(".product_modal");
-
-                    if (!targetModal) {
-                        return 0;
-                    }
-
-                    const targetPosition = triggerConfig.useResolvedTargetPosition
-                        ? getResolvedBestItemPositionAtVideoProgress(metrics, targetIndex, videoProgress, responsiveLayout)
-                        : getItemPosition(metrics, targetIndex, videoProgress, responsiveLayout);
-                    const targetBagPathProgress = getBagPathProgress(targetIndex, videoProgress, responsiveLayout);
-                    const targetSinkProgress = gsap.utils.clamp(
-                        0,
-                        1,
-                        (targetBagPathProgress - BEST_SECTION_CONFIG.railSinkStart) / (1 - BEST_SECTION_CONFIG.railSinkStart)
-                    );
-                    const targetSinkDriftX = triggerConfig.useResolvedTargetPosition
-                        ? 0
-                        : targetSinkProgress * (sinkDriftXAmounts[targetIndex] || 0);
-                    const targetModalRight = targetPosition.x + targetSinkDriftX + targetModal.offsetLeft + targetModal.offsetWidth;
-                    const targetVisibleStart = targetModal.offsetWidth * (triggerConfig.targetVisibleStartRatio ?? triggerConfig.targetVisibleRatio ?? 0.1);
-                    const targetVisibleEnd = targetModal.offsetWidth * (triggerConfig.targetVisibleEndRatio ?? 0);
-
-                    if (triggerConfig.fixedAfterTrigger) {
-                        return targetModalRight <= targetVisibleStart ? 1 : 0;
-                    }
-
-                    const rawProgress = gsap.utils.clamp(
-                        0,
-                        1,
-                        (targetVisibleStart - targetModalRight) / Math.max(targetVisibleStart - targetVisibleEnd, 1)
-                    );
-
-                    return rawProgress * rawProgress * (3 - 2 * rawProgress);
-                }
-
-                if (triggerConfig.startWhenTargetNearLeftEdge && typeof triggerConfig.targetIndex === "number") {
-                    const targetIndex = triggerConfig.targetIndex;
-                    const targetModal = railItems[targetIndex]?.querySelector(".product_modal");
-
-                    if (!targetModal) {
-                        return 0;
-                    }
-
-                    const targetPosition = getItemPosition(metrics, targetIndex, videoProgress, responsiveLayout);
-                    const targetBagPathProgress = getBagPathProgress(targetIndex, videoProgress, responsiveLayout);
-                    const targetSinkProgress = gsap.utils.clamp(
-                        0,
-                        1,
-                        (targetBagPathProgress - BEST_SECTION_CONFIG.railSinkStart) / (1 - BEST_SECTION_CONFIG.railSinkStart)
-                    );
-                    const targetSinkDriftX = targetSinkProgress * (sinkDriftXAmounts[targetIndex] || 0);
-                    const targetModalLeft = targetPosition.x + targetSinkDriftX + targetModal.offsetLeft;
-                    const targetLeftRangeStart = targetModal.offsetWidth * (triggerConfig.targetLeftRangeStartRatio || 0.9);
-                    const targetLeftRangeEnd = targetModal.offsetWidth * (triggerConfig.targetLeftRangeEndRatio || 0.2);
-                    const rawProgress = gsap.utils.clamp(
-                        0,
-                        1,
-                        (targetLeftRangeStart - targetModalLeft) / Math.max(targetLeftRangeStart - targetLeftRangeEnd, 1)
-                    );
-
-                    return rawProgress * rawProgress * (3 - 2 * rawProgress);
-                }
-
-                if (triggerConfig.startWhenTargetHalfOffscreen && typeof triggerConfig.targetIndex === "number") {
-                    const targetIndex = triggerConfig.targetIndex;
-                    const targetModal = railItems[targetIndex]?.querySelector(".product_modal");
-
-                    if (!targetModal) {
-                        return 0;
-                    }
-
-                    const targetPosition = getItemPosition(metrics, targetIndex, videoProgress, responsiveLayout);
-                    const targetBagPathProgress = getBagPathProgress(targetIndex, videoProgress, responsiveLayout);
-                    const targetSinkProgress = gsap.utils.clamp(
-                        0,
-                        1,
-                        (targetBagPathProgress - BEST_SECTION_CONFIG.railSinkStart) / (1 - BEST_SECTION_CONFIG.railSinkStart)
-                    );
-                    const targetSinkDriftX = targetSinkProgress * (sinkDriftXAmounts[targetIndex] || 0);
-                    const targetModalRight = targetPosition.x + targetSinkDriftX + targetModal.offsetLeft + targetModal.offsetWidth;
-                    const targetHalfVisibleRight = targetModal.offsetWidth * 0.5;
-
-                    return gsap.utils.clamp(
-                        0,
-                        1,
-                        (targetHalfVisibleRight - targetModalRight) / Math.max(targetHalfVisibleRight, 1)
-                    );
-                }
-
-                return gsap.utils.clamp(
-                    0,
-                    1,
-                    (videoProgress - (triggerConfig.startVideoProgress || 0)) / (1 - (triggerConfig.startVideoProgress || 0))
-                );
-            }
-
-            function getTriggeredStartVideoProgress(triggerConfig, metrics, responsiveLayout) {
-                if (!triggerConfig) {
-                    return 0;
-                }
-
-                if (typeof triggerConfig.startVideoProgress === "number") {
-                    return triggerConfig.startVideoProgress;
-                }
-
-                const sinkDriftXAmounts = responsiveLayout.sinkDriftXAmounts || [0, 0, 0];
-                const sampledTriggerConfig = {
-                    ...triggerConfig,
-                    fixedAfterTrigger: true
-                };
-                const sampleCount = 180;
-
-                for (let step = 0; step <= sampleCount; step += 1) {
-                    const sampleProgress = step / sampleCount;
-                    const isTriggered = getTriggeredProgress(
-                        sampledTriggerConfig,
-                        metrics,
-                        sampleProgress,
-                        responsiveLayout,
-                        sinkDriftXAmounts
-                    );
-
-                    if (isTriggered >= 1) {
-                        return sampleProgress;
-                    }
-                }
-
-                return 1;
-            }
-
             function updateBestSectionFrame(progress) {
                 const metrics = getSectionMetrics();
                 const isTabletViewport = window.matchMedia("(max-width: 1024px)").matches;
-                const responsiveLayout = getResponsiveLayout(isTabletViewport);
+                const responsiveLayout = isTabletViewport ? BEST_SECTION_TABLET_LAYOUT : BEST_SECTION_CONFIG;
                 const videoProgress = gsap.utils.clamp(0, 1, progress / BEST_SECTION_CONFIG.videoProgressEnd);
                 const exitSpan = 1 - BEST_SECTION_CONFIG.exitStartProgress;
                 const exitProgress = gsap.utils.clamp(0, 1, (progress - BEST_SECTION_CONFIG.exitStartProgress) / exitSpan);
@@ -1402,21 +964,17 @@ document.addEventListener("DOMContentLoaded",  () => {
                 bestVideo.currentTime = scrubDuration * videoProgress;
 
                 gsap.set(bestHeader, {
-                    y: -exitProgress * (responsiveLayout.headerExitDistanceY ?? BEST_SECTION_CONFIG.headerExitDistanceY),
+                    y: -exitProgress * BEST_SECTION_CONFIG.headerExitDistanceY,
                     opacity: 1 - exitProgress * 0.9
                 });
 
-                const resolvedItemPositions = [];
-
                 railItems.forEach((item, index) => {
-                    const holdMap = responsiveLayout.holdMap || {};
-                    const holdConfig = holdMap[index];
-                    const motionVideoProgress = holdConfig
-                        ? Math.min(videoProgress, holdConfig.freezeAtVideoProgress)
-                        : videoProgress;
-
                     /* Current travel amount for this bag along the shared path. */
-                    const bagPathProgress = getBagPathProgress(index, motionVideoProgress, responsiveLayout);
+                    const bagPathProgress = gsap.utils.clamp(
+                        0,
+                        1,
+                        BEST_SECTION_CONFIG.bagInitialOffsets[index] + videoProgress * BEST_SECTION_CONFIG.bagTravelRate
+                    );
 
                     /* Fade-in progress, staggered by bagFadeStarts for each item. */
                     const fadeStart = BEST_SECTION_CONFIG.bagFadeStarts[index];
@@ -1433,7 +991,7 @@ document.addEventListener("DOMContentLoaded",  () => {
                         (bagPathProgress - BEST_SECTION_CONFIG.railSinkStart) / (1 - BEST_SECTION_CONFIG.railSinkStart)
                     );
 
-                    const position = getItemPosition(metrics, index, motionVideoProgress, responsiveLayout);
+                    const position = getItemPosition(metrics, index, videoProgress);
                     const modal = item.querySelector(".product_modal");
                     const line = item.querySelector(".connect_line");
 
@@ -1442,8 +1000,6 @@ document.addEventListener("DOMContentLoaded",  () => {
                     const sinkDropY = sinkProgress * (sinkDropAmounts[index] || 0);
                     const sinkDriftXAmounts = responsiveLayout.sinkDriftXAmounts || [0, 0, 0];
                     const sinkDriftX = sinkProgress * (sinkDriftXAmounts[index] || 0);
-                    const sinkFollowMap = responsiveLayout.sinkFollowMap || {};
-                    const followConfig = sinkFollowMap[index];
 
                     /* Delay the opacity drop so item 2 and 3 disappear later than item 1. */
                     const sinkOpacityDelays = responsiveLayout.sinkOpacityDelays || [0, 0.60, 0.82];
@@ -1453,145 +1009,9 @@ document.addEventListener("DOMContentLoaded",  () => {
                         (sinkProgress - sinkOpacityDelay) / (1 - sinkOpacityDelay)
                     );
 
-                    let itemX = position.x + sinkDriftX;
-                    let itemY = position.y + sinkDropY;
-                    const progressiveDriftMap = responsiveLayout.progressiveDriftMap || {};
-                    const progressiveDrift = progressiveDriftMap[index];
-                    const progressiveDrifts = Array.isArray(progressiveDrift)
-                        ? progressiveDrift
-                        : (progressiveDrift ? [progressiveDrift] : []);
-
-                    progressiveDrifts.forEach((driftConfig) => {
-                        const driftProgress = gsap.utils.clamp(
-                            0,
-                            1,
-                            (motionVideoProgress - driftConfig.startVideoProgress) / (1 - driftConfig.startVideoProgress)
-                        );
-                        itemX += driftProgress * (driftConfig.xAmount || 0);
-                        itemY += driftProgress * (driftConfig.yAmount || 0);
-                    });
-
-                    if (followConfig) {
-                        const followProgress = typeof followConfig.followStartVideoProgress === "number"
-                            ? gsap.utils.clamp(
-                                0,
-                                1,
-                                (videoProgress - followConfig.followStartVideoProgress) / (1 - followConfig.followStartVideoProgress)
-                            )
-                            : sinkProgress;
-                        const resolvedLeadPosition = resolvedItemPositions[followConfig.targetIndex];
-                        const leadPosition = resolvedLeadPosition || getItemPosition(metrics, followConfig.targetIndex, videoProgress, responsiveLayout);
-                        const followX = leadPosition.x + (followConfig.xOffset || 0);
-                        itemX = gsap.utils.interpolate(itemX, followX, followProgress);
-
-                        if (followConfig.preserveY) {
-                            const yFollowScale = followConfig.yFollowScale || 0;
-                            const followY = itemY + ((leadPosition.y + (followConfig.yOffset || 0)) - itemY) * yFollowScale;
-                            itemY = gsap.utils.interpolate(itemY, followY, followProgress);
-                        } else {
-                            const followY = leadPosition.y + (followConfig.yOffset || 0);
-                            itemY = gsap.utils.interpolate(itemY, followY, followProgress);
-                        }
-                    }
-
-                    const lateDriftMap = responsiveLayout.lateDriftMap || {};
-                    const lateDrift = lateDriftMap[index];
-
-                    if (lateDrift) {
-                        const lateDriftProgress = getTriggeredProgress(
-                            lateDrift,
-                            metrics,
-                            videoProgress,
-                            responsiveLayout,
-                            sinkDriftXAmounts
-                        );
-                        itemX += lateDriftProgress * (lateDrift.xAmount || 0);
-                        itemY += lateDriftProgress * (lateDrift.yAmount || 0);
-                    }
-
-                    const leadReplayMap = responsiveLayout.leadReplayMap || {};
-                    const leadReplayConfig = leadReplayMap[index];
-
-                    if (leadReplayConfig) {
-                        const shareStartVideoProgress = getTriggeredStartVideoProgress(
-                            leadReplayConfig,
-                            metrics,
-                            responsiveLayout
-                        );
-
-                        const replayProgress = (leadReplayConfig.startWhenTargetMostlyOffscreen
-                            || leadReplayConfig.startWhenTargetDotOutside
-                            || leadReplayConfig.startWhenTargetNearLeftEdge
-                            || leadReplayConfig.startWhenTargetHalfOffscreen)
-                            ? getTriggeredProgress(
-                                leadReplayConfig,
-                                metrics,
-                                videoProgress,
-                                responsiveLayout,
-                                sinkDriftXAmounts
-                            )
-                            : gsap.utils.clamp(
-                                0,
-                                1,
-                                (videoProgress - shareStartVideoProgress) / Math.max(1 - shareStartVideoProgress, 0.0001)
-                            );
-
-                        if (videoProgress >= shareStartVideoProgress && replayProgress > 0) {
-                            const triggerResolveCache = {};
-                            const replayVideoProgress = gsap.utils.interpolate(
-                                leadReplayConfig.replayStartVideoProgress || 0,
-                                leadReplayConfig.replayEndVideoProgress || 1,
-                                replayProgress
-                            );
-                            const leadReplayStartPosition = getResolvedBestItemPositionAtVideoProgress(
-                                metrics,
-                                leadReplayConfig.targetIndex,
-                                leadReplayConfig.replayStartVideoProgress || 0,
-                                responsiveLayout,
-                                triggerResolveCache
-                            );
-                            const leadReplayCurrentPosition = getResolvedBestItemPositionAtVideoProgress(
-                                metrics,
-                                leadReplayConfig.targetIndex,
-                                replayVideoProgress,
-                                responsiveLayout
-                            );
-                            const itemStartPosition = getResolvedBestItemPositionAtVideoProgress(
-                                metrics,
-                                index,
-                                shareStartVideoProgress,
-                                responsiveLayout,
-                                triggerResolveCache
-                            );
-                            const replayDriftX = replayProgress * (leadReplayConfig.driftXAmount || 0);
-                            const replayDriftY = replayProgress * (leadReplayConfig.driftYAmount || 0);
-                            itemX = itemStartPosition.x + (leadReplayCurrentPosition.x - leadReplayStartPosition.x) + replayDriftX + (leadReplayConfig.xOffset || 0);
-                            itemY = itemStartPosition.y + (leadReplayCurrentPosition.y - leadReplayStartPosition.y) + replayDriftY + (leadReplayConfig.yOffset || 0);
-                        }
-                    }
-
-                    const resolvedHoldMap = responsiveLayout.resolvedHoldMap || {};
-                    const resolvedHoldConfig = resolvedHoldMap[index];
-
-                    if (resolvedHoldConfig && videoProgress >= resolvedHoldConfig.freezeAtVideoProgress) {
-                        const frozenPosition = getResolvedBestItemPositionAtVideoProgress(
-                            metrics,
-                            index,
-                            resolvedHoldConfig.freezeAtVideoProgress,
-                            responsiveLayout
-                        );
-                        itemX = frozenPosition.x + (resolvedHoldConfig.xOffset || 0);
-                        itemY = frozenPosition.y + (resolvedHoldConfig.yOffset || 0);
-                    }
-
-                    resolvedItemPositions[index] = {
-                        x: itemX,
-                        y: itemY
-                    };
-
                     gsap.set(item, {
-                        x: itemX,
-                        y: itemY,
+                        x: position.x + sinkDriftX,
+                        y: position.y + sinkDropY,
                         opacity: appearProgress * (1 - sinkOpacityProgress) * introOpacity,
                         scale: gsap.utils.interpolate(1, 0.72, sinkProgress)
                     });
@@ -1600,8 +1020,7 @@ document.addEventListener("DOMContentLoaded",  () => {
                         gsap.set(modal, {
                             opacity: appearProgress * (1 - sinkOpacityProgress) * introOpacity,
                             scale: gsap.utils.interpolate(0.88, 1, appearProgress) * gsap.utils.interpolate(1, 0.82, sinkProgress),
-                            x: 0,
-                            y: gsap.utils.interpolate(20, 0, appearProgress)
+                            y: gsap.utils.interpolate(20, 0, appearProgress) - exitProgress * 24 + sinkDropY
                         });
                     }
 
@@ -1614,7 +1033,7 @@ document.addEventListener("DOMContentLoaded",  () => {
                 });
 
                 gsap.set(railTrack, {
-                    y: -exitProgress * (responsiveLayout.exitDistanceY ?? BEST_SECTION_CONFIG.exitDistanceY),
+                    y: -exitProgress * BEST_SECTION_CONFIG.exitDistanceY,
                     opacity: 1 - exitProgress * 0.82
                 });
             }

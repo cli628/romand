@@ -1,5 +1,38 @@
 @charset "utf-8";
 
+@media screen and (min-width: 1921px) {
+    .common_header {
+        top: 18px;
+        width: min(calc(100vw - 80px), 1720px);
+        max-width: none;
+        margin: 0 auto;
+        padding-inline: clamp(28px, 2.4vw, 40px);
+        background: rgba(255, 255, 255, 0.28);
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 18px;
+        box-shadow: none;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+
+    .menu_overlay {
+        top: 18px;
+        bottom: auto;
+        left: 50%;
+        right: auto;
+        width: min(calc(100vw - 80px), 1720px);
+        max-width: none;
+        max-height: min(640px, calc(100vh - 36px));
+        margin: 0;
+        padding-inline: clamp(28px, 2.4vw, 40px);
+        padding-bottom: clamp(20px, 2vw, 30px);
+        transform: translateX(-50%);
+        border-radius: 18px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+}
+
 /* pc */
 @media screen and (max-width: 1920px) {
     :root {
@@ -211,7 +244,6 @@
         width: auto;
         flex-direction: row;
         gap: 24px;
-        align-self: center;
         margin-right: 20px;
     }
 

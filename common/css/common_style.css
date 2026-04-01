@@ -94,7 +94,7 @@ main,
     font-family: var(--font-poppins);
     transition: transform 0.32s ease, opacity 0.22s ease;
     will-change: transform, opacity;
-    background: var(--white);
+    background: transparent;
 }
 
 .common_header.is-hidden {

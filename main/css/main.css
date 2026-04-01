@@ -255,8 +255,8 @@ pattern.img1 {
     position: relative;
     overflow: visible;
     min-height: 1360px;
-    padding: 220px 0;
-    margin: 400px 0;
+    padding: 160px 0;
+    margin: 280px 0;
     box-sizing: border-box;
 }
 
@@ -325,7 +325,7 @@ pattern.img1 {
     justify-content: space-between;
     align-items: center;
     min-height: 1080px;
-    padding: 136px 0;
+    padding: 96px 0;
 }
 
 .outlet_header {
@@ -344,7 +344,7 @@ pattern.img1 {
     border-radius: 8px;
     font-size: 24px;
     font-weight: 300;
-    margin-bottom: 48px;
+    margin-bottom: 32px;
     letter-spacing: 1px;
 }
 
@@ -367,7 +367,7 @@ pattern.img1 {
 
 .outlet_header p {
     width:100%;
-    padding: 50px  0;
+    padding: 32px 0;
     font-size: clamp(19px, 1.2vw, 24px);
     line-height: 1.4;
     color: var(--g-color6);
@@ -388,8 +388,8 @@ pattern.img1 {
     grid-template-columns: auto minmax(0, 1fr);
     align-items: center;
     gap: 18px;
-    width: min(100%, 720px);
-    margin: 0 auto;
+    width: auto;
+    margin: 0 80px;
     overflow: hidden;
     padding-left: 0;
     min-width: 0;
