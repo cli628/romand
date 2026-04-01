@@ -125,19 +125,12 @@ header {
 	line-height: 1.4;
 	font-weight: 300;
 	display: block;
-	max-height: 0;
-	opacity: 0;
-	overflow: hidden;
-	transform: translateY(18px);
-	margin-top: 0;
-	transition: max-height 0.45s ease, opacity 0.35s ease, transform 0.45s ease, margin-top 0.35s ease;
-}
-
-.vision_item.is_open .vision_desc {
-	max-height: 180px;
+	max-height: none;
 	opacity: 1;
-	transform: translateY(0);
+	overflow: visible;
+	transform: none;
 	margin-top: 12px;
+	transition: none;
 }
 
 /* 커서를 따라다니는 이미지 */
@@ -597,13 +590,14 @@ header {
 .h_slide_content {
 	position: absolute;
 	inset: 0;
+	min-height: calc(100vh - 72px);
 	z-index: 2;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	padding: 0 24px;
+	padding: 72px 24px 56px;
 	color: var(--white);
 }
 

@@ -336,24 +336,21 @@
 
   .vision_desc {
     display: block;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transform: translateY(14px);
-    margin-top: 0;
+    max-height: none;
+    opacity: 1;
+    overflow: visible;
+    transform: none;
+    margin-top: 10px;
     font-size: 14px;
     line-height: 1.5;
-    transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.35s ease, margin-top 0.25s ease;
+    transition: none;
   }
 
-  .vision_item.is_open {
-    height: 176px;
+  .vision_item {
+    height: auto;
   }
 
   .vision_item.is_open .vision_desc {
-    max-height: 96px;
-    opacity: 1;
-    transform: translateY(0);
     margin-top: 10px;
   }
 
@@ -649,24 +646,21 @@
 
   .vision_desc {
     display: block;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transform: translateY(12px);
-    margin-top: 0;
+    max-height: none;
+    opacity: 1;
+    overflow: visible;
+    transform: none;
+    margin-top: 8px;
     font-size: 12px;
     line-height: 1.45;
-    transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.35s ease, margin-top 0.25s ease;
+    transition: none;
   }
 
-  .vision_item.is_open {
-    height: 138px;
+  .vision_item {
+    height: auto;
   }
 
   .vision_item.is_open .vision_desc {
-    max-height: 78px;
-    opacity: 1;
-    transform: translateY(0);
     margin-top: 8px;
   }
 
@@ -877,25 +871,22 @@
 
   .vision_desc {
     display: block;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transform: translateY(10px);
-    margin-top: 0;
+    max-height: none;
+    opacity: 1;
+    overflow: visible;
+    transform: none;
+    margin-top: 6px;
     font-size: 10px;
     line-height: 1.4;
-    transition: max-height 0.3s ease, opacity 0.25s ease, transform 0.3s ease, margin-top 0.25s ease;
+    transition: none;
   }
 
-  .vision_item.is_open {
+  .vision_item {
     height: auto;
     min-height: 98px;
   }
 
   .vision_item.is_open .vision_desc {
-    max-height: 72px;
-    opacity: 1;
-    transform: translateY(0);
     margin-top: 6px;
   }
 

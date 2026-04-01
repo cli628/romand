@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
-  /* =========================
+ /* =========================
      4. Horizontal Slide Scroll
      - pink > coha > greenchemi 순서로 가로 이동
   ========================= */
