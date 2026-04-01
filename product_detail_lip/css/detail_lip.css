@@ -667,6 +667,10 @@
 /* 버튼 */
 .personal_footer {
   margin-top: 40px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(40px);
 }
 
 .btn_personal {

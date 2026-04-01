@@ -772,12 +772,27 @@
 
 /* 태블릿 */
 @media screen and (max-width: 1024px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .product_detail_main,
+  .wrap,
+  .contents,
+  .personal,
+  .review_visual,
+  .review {
+    overflow-x: hidden;
+  }
+
   .contents_inner {
     flex-direction: column;
   }
 
   .contents_left {
     width: 100%;
+    min-width: 0;
     flex-direction: column;
   }
 
@@ -843,6 +858,7 @@
 
   .contents_right {
     width: 100%;
+    min-width: 0;
     padding: 40px 24px 72px;
   }
 
@@ -926,12 +942,14 @@
   }
 
   .review_visual_inner {
+    min-width: 0;
     flex-direction: column;
     align-items: center;
     gap: 48px;
   }
 
   .visual_block {
+    min-width: 0;
     gap: 20px;
   }
 
