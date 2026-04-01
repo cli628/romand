@@ -99,7 +99,7 @@
                         <div class="product_card">
                             <button class="product_card_header" type="button" aria-expanded="false">
                                 <strong>Glasting Melting Balm</strong>
-                                <i class="fa-solid fa-angle-down product_card_arrow"></i>
+                                <i class="fa-solid fa-angle-down product_card_arrow" aria-hidden="true"></i>
                             </button>
                             <div class="product_card_body">
                                 <div class="product_card_info">
@@ -122,7 +122,7 @@
                         <div class="product_card">
                             <button class="product_card_header" type="button" aria-expanded="false">
                                 <strong>Hanol Brow Cara</strong>
-                                <i class="fa-solid fa-angle-down product_card_arrow"></i>
+                                <i class="fa-solid fa-angle-down product_card_arrow" aria-hidden="true"></i>
                             </button>
                             <div class="product_card_body">
                                 <div class="product_card_info">
@@ -132,7 +132,7 @@
                                         <li>Keeps brows in place all day</li>
                                         <li>Soft, feathered finish</li>
                                     </ul>
-                                    <a href="#" class="product_card_shop_btn">Shop Now</a>
+                                    <a href="../product_detail_lip/product_detail_lip.html" class="product_card_shop_btn">Shop Now</a>
                                 </div>
                                 <div class="product_card_detail_img">
                                     <img src="img/best_dewyful.jpg" alt="Hanol Brow Cara detail">
@@ -145,7 +145,7 @@
                         <div class="product_card">
                             <button class="product_card_header" type="button" aria-expanded="false">
                                 <strong>Bare Water Cushion</strong>
-                                <i class="fa-solid fa-angle-down product_card_arrow"></i>
+                                <i class="fa-solid fa-angle-down product_card_arrow" aria-hidden="true"></i>
                             </button>
                             <div class="product_card_body">
                                 <div class="product_card_info">
@@ -155,7 +155,7 @@
                                         <li>Comfort without feeling tight</li>
                                         <li>It stays on without being excited and fresh all day long</li>
                                     </ul>
-                                    <a href="#" class="product_card_shop_btn">Shop Now</a>
+                                    <a href="../product_detail_lip/product_detail_lip.html" class="product_card_shop_btn">Shop Now</a>
                                 </div>
                                 <div class="product_card_detail_img">
                                     <img src="img/best_cushion.jpg" alt="Bare Water Cushion detail">
@@ -168,7 +168,7 @@
                         <div class="product_card">
                             <button class="product_card_header" type="button" aria-expanded="false">
                                 <strong>Better Than Palette</strong>
-                                <i class="fa-solid fa-angle-down product_card_arrow"></i>
+                                <i class="fa-solid fa-angle-down product_card_arrow" aria-hidden="true"></i>
                             </button>
                             <div class="product_card_body">
                                 <div class="product_card_info">
@@ -178,7 +178,7 @@
                                         <li>Buildable color payoff</li>
                                         <li>Perfect for any mood or look</li>
                                     </ul>
-                                    <a href="#" class="product_card_shop_btn">Shop Now</a>
+                                    <a href="../product_detail_lip/product_detail_lip.html" class="product_card_shop_btn">Shop Now</a>
                                 </div>
                                 <div class="product_card_detail_img">
                                     <img src="img/best_eyes.jpg" alt="Better Than Palette detail">
@@ -191,7 +191,7 @@
                         <div class="product_card">
                             <button class="product_card_header" type="button" aria-expanded="false">
                                 <strong>Glasting Color Gloss</strong>
-                                <i class="fa-solid fa-angle-down product_card_arrow"></i>
+                                <i class="fa-solid fa-angle-down product_card_arrow" aria-hidden="true"></i>
                             </button>
                             <div class="product_card_body">
                                 <div class="product_card_info">
@@ -201,7 +201,7 @@
                                         <li>Non-sticky, comfortable wear</li>
                                         <li>Gorgeous color with a single coat</li>
                                     </ul>
-                                    <a href="#" class="product_card_shop_btn">Shop Now</a>
+                                    <a href="../product_detail_lip/product_detail_lip.html" class="product_card_shop_btn">Shop Now</a>
                                 </div>
                                 <div class="product_card_detail_img">
                                     <img src="img/best_tint.jpg" alt="Glasting Color Gloss detail">
@@ -238,7 +238,7 @@
                 <article class="rail_item item1">
                     <div class="connect_line"></div>
                     <div class="product_modal">
-                        <div class="modal_img">
+                        <div class="modal_img hide">
                             <img src="img/best_01.png" alt="The Juicy Lasting Tint">
                         </div>
                         <div class="modal_label">The Juicy Lasting Tint</div>
@@ -256,7 +256,7 @@
 
                 <article class="rail_item item3">
                     <div class="connect_line"></div>
-                    <a href="#" class="product_modal link_modal">
+                    <a href="../quick/quick.html" class="product_modal link_modal">
                         <div class="modal_img">
                             <img src="img/best_03.png" alt="VOLUME HACK TRIO">
                         </div>
@@ -630,7 +630,7 @@
                                 </div>
                                 <div class="sns_product_bar">
                                     <div class="sns_product_thumb">
-                                        <img src="img/sns_video02_lip01.png" alt="Volume Hack Trio Toffee Nude">
+                                        <img src="img/.png" alt="Volume Hack Trio Toffee Nude">
                                     </div>
                                     <div class="sns_product_info">
                                         <h3>VOLUME HACK TRIO</h3>
@@ -821,9 +821,13 @@
             </div>
         </section>
 
-        <div class="sns_quick_modal" aria-hidden="true">
+        <div class="sns_quick_modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Quick shop">
             <button class="sns_quick_modal_backdrop" type="button" aria-label="모달 닫기"></button>
             <div class="sns_quick_panel">
+                <div class="sns_quick_panel_header">
+                    <h3>Quick Shop</h3>
+                    <button class="sns_quick_close" type="button" aria-label="Close quick shop">&times;</button>
+                </div>
                 <iframe class="sns_quick_frame" src="about:blank" title="Quick Shop"></iframe>
             </div>
         </div>

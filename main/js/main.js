@@ -548,16 +548,37 @@ document.addEventListener("DOMContentLoaded",  () => {
     initializeNewSectionMobileLoop();
 
     // 4. Product Card Expand/Collapse
+    function clearProductCardFadeState(card) {
+        if (!card) {
+            return;
+        }
+
+        [card.querySelector(".product_card_header"), card.querySelector(".product_card_body")].forEach((element) => {
+            if (!element) {
+                return;
+            }
+
+            if (typeof gsap !== "undefined") {
+                gsap.set(element, { clearProps: "opacity" });
+                return;
+            }
+
+            element.style.removeProperty("opacity");
+        });
+    }
+
     document.querySelectorAll(".product_card_header").forEach((btn) => {
         btn.addEventListener("click", (e) => {
             e.stopPropagation();
             const card = btn.closest(".product_card");
             const currentFloatingItem = btn.closest(".floating_item");
+            clearProductCardFadeState(card);
             const isOpen = card.classList.toggle("is-open");
             btn.setAttribute("aria-expanded", String(isOpen));
             // Close any other expanded cards first.
             document.querySelectorAll(".product_card.is-open").forEach((other) => {
                 if (other !== card) {
+                    clearProductCardFadeState(other);
                     other.classList.remove("is-open");
                     const otherBtn = other.querySelector(".product_card_header");
                     if (otherBtn) {
@@ -712,6 +733,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             const gatherAt = activeBagConfig.gatherStartAt + index * activeBagConfig.gatherStagger;
             const dropAt = activeBagConfig.dropStartAt + index * activeBagConfig.dropStagger;
             const productCardHeader = item.querySelector(".product_card_header");
+            const productCardBody = item.querySelector(".product_card_body");
 
             tl.to(item, {
                 top: gatherTarget.top,
@@ -726,6 +748,14 @@ document.addEventListener("DOMContentLoaded",  () => {
                 tl.to(productCardHeader, {
                     opacity: 0,
                     duration: 1,
+                    ease: "power1.out"
+                }, dropAt + 0.2);
+            }
+
+            if (productCardBody) {
+                tl.to(productCardBody, {
+                    opacity: 0,
+                    duration: 0.9,
                     ease: "power1.out"
                 }, dropAt + 0.2);
             }
@@ -2131,16 +2161,56 @@ document.addEventListener("DOMContentLoaded",  () => {
             }
         }
 
-        const relatedProductPool = [
-            { title: "LIP MATE PENCIL", subtitle: "Soft contour line", currentPrice: "$12.00", beforePrice: "", image: "img/new_brow.png" },
-            { title: "GLASTING COLOR GLOSS", subtitle: "Glow finishing layer", currentPrice: "$14.00", beforePrice: "", image: "img/new_gloss.png" },
-            { title: "BETTER THAN PALETTE", subtitle: "Mood eye shadow", currentPrice: "$26.00", beforePrice: "", image: "img/new_shadow.png" },
-            { title: "BARE WATER CUSHION", subtitle: "Fresh glow skin", currentPrice: "$21.00", beforePrice: "", image: "img/new_cushion.png" },
-            { title: "GLASTING MELTING BALM", subtitle: "Moist balm texture", currentPrice: "$16.00", beforePrice: "", image: "img/new_balm.png" },
-            { title: "THE JUICY LASTING TINT", subtitle: "Daily MLBB tint", currentPrice: "$15.00", beforePrice: "", image: "img/best_01.png" },
-            { title: "SLIDE IN SINGLE", subtitle: "Smooth single shadow", currentPrice: "$8.00", beforePrice: "", image: "img/best_02.png" },
-            { title: "VOLUME HACK TRIO", subtitle: "Contour volume set", currentPrice: "$29.00", beforePrice: "$34.00", image: "img/best_03.png" }
-        ];
+        const relatedProductsByVideo = {
+            "sns_video01.mp4": [
+                { title: "LIP MATE PENCIL", subtitle: "Taupey Shade", currentPrice: "$12.00", beforePrice: "", image: "img/new_brow.png" },
+                { title: "BETTER THAN PALETTE", subtitle: "03 Rosebud Garden", currentPrice: "$26.00", beforePrice: "", image: "img/new_shadow.png" }
+            ],
+            "sns_video02.mp4": [
+                { title: "GLASTING COLOR GLOSS", subtitle: "Deepen Nude", currentPrice: "$14.00", beforePrice: "", image: "img/new_gloss.png" },
+                { title: "SLIDE IN SINGLE", subtitle: "Mellow Brown", currentPrice: "$8.00", beforePrice: "", image: "img/best_02.png" }
+            ],
+            "sns_video03.mp4": [
+                { title: "GLASTING MELTING BALM", subtitle: "Veiled Berry", currentPrice: "$16.00", beforePrice: "", image: "img/new_balm.png" },
+                { title: "BETTER THAN PALETTE", subtitle: "Plum Soda Mood", currentPrice: "$26.00", beforePrice: "", image: "img/new_shadow.png" }
+            ],
+            "sns_video04.mp4": [
+                { title: "ROMMATE CHEMI", subtitle: "Cool Pink Pairing", currentPrice: "$19.00", beforePrice: "", image: "img/rommate_chemi.jpg" },
+                { title: "JUICY LASTING TINT", subtitle: "Bare Fig", currentPrice: "$14.00", beforePrice: "", image: "img/best_tint.jpg" }
+            ],
+            "sns_video05.mp4": [
+                { title: "DEWYFUL WATER TINT", subtitle: "Custard Mauve", currentPrice: "$13.00", beforePrice: "", image: "img/best_dewyful.jpg" },
+                { title: "HAN ALL BROW CARA", subtitle: "Grace Taupe", currentPrice: "$12.00", beforePrice: "", image: "img/new_brow.png" }
+            ],
+            "sns_video06.mp4": [
+                { title: "GLASTING MELTING BALM", subtitle: "Kaya Fig", currentPrice: "$16.00", beforePrice: "", image: "img/new_balm.png" },
+                { title: "LIP MATE PENCIL", subtitle: "Fig Breeze", currentPrice: "$12.00", beforePrice: "", image: "img/new_brow.png" }
+            ],
+            "sns_video07.mp4": [
+                { title: "BARE WATER CUSHION", subtitle: "Natural 21", currentPrice: "$21.00", beforePrice: "", image: "img/new_cushion.png" },
+                { title: "GLASTING COLOR GLOSS", subtitle: "Peach Float", currentPrice: "$14.00", beforePrice: "", image: "img/new_gloss.png" }
+            ],
+            "sns_video08.mp4": [
+                { title: "GLASTING COLOR GLOSS", subtitle: "Grape Way", currentPrice: "$14.00", beforePrice: "", image: "img/new_gloss.png" },
+                { title: "JUICY ROLL CHEEK", subtitle: "Berry Flush", currentPrice: "$15.00", beforePrice: "", image: "img/best_tint.jpg" }
+            ],
+            "sns_video09.mp4": [
+                { title: "SLIDE IN SINGLE", subtitle: "Fog Ash", currentPrice: "$8.00", beforePrice: "", image: "img/best_02.png" },
+                { title: "BETTER THAN PALETTE", subtitle: "Dusty Nude Mood", currentPrice: "$26.00", beforePrice: "", image: "img/new_shadow.png" }
+            ],
+            "sns_video10.mp4": [
+                { title: "MOOD PEBBLE NAIL", subtitle: "03 Cloud Pebble", currentPrice: "$4.57", beforePrice: "", image: "img/best_01.png" },
+                { title: "MOOD PEBBLE HARDENER", subtitle: "05 Berry Buff", currentPrice: "$4.57", beforePrice: "", image: "img/best_03.png" }
+            ],
+            "sns_video11.mp4": [
+                { title: "BARE WATER CUSHION", subtitle: "Pure 17", currentPrice: "$21.00", beforePrice: "", image: "img/new_cushion.png" },
+                { title: "BACK ME SUN CUSHION", subtitle: "01 Tone Up", currentPrice: "$18.00", beforePrice: "", image: "img/best_sun.jpg" }
+            ],
+            "sns_video12.mp4": [
+                { title: "THE JUICY LASTING TINT", subtitle: "Bare Vine", currentPrice: "$15.00", beforePrice: "", image: "img/best_tint.jpg" },
+                { title: "BETTER THAN PALETTE", subtitle: "Dreamy Lilac Garden", currentPrice: "$26.00", beforePrice: "", image: "img/new_shadow.png" }
+            ]
+        };
 
         function getDesiredListCount(productBar) {
             const rawCount = Number.parseInt(productBar?.dataset.listCount || "", 10);
@@ -2151,27 +2221,17 @@ document.addEventListener("DOMContentLoaded",  () => {
             return 2;
         }
 
-        function pickRelatedProducts(cardIndex, mainTitle, count) {
-            if (!relatedProductPool.length || count <= 0) {
+        function getVideoKey(card) {
+            const videoSrc = card?.querySelector(".sns_video_shell video")?.getAttribute("src") || "";
+            return videoSrc.split("/").pop() || "";
+        }
+
+        function getRelatedProductsForVideo(videoKey, count) {
+            if (count <= 0) {
                 return [];
             }
 
-            const filtered = relatedProductPool.filter(
-                (candidate) => candidate.title.toLowerCase() !== String(mainTitle || "").toLowerCase()
-            );
-
-            if (!filtered.length) {
-                return [];
-            }
-
-            const picked = [];
-            const offset = (cardIndex * 2) % filtered.length;
-
-            for (let i = 0; i < count; i += 1) {
-                picked.push(filtered[(offset + i) % filtered.length]);
-            }
-
-            return picked;
+            return (relatedProductsByVideo[videoKey] || []).slice(0, count);
         }
 
         function applyListItemContent(listItem, itemData) {
@@ -2218,7 +2278,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             });
         }
 
-        snsCards.forEach((card, cardIndex) => {
+        snsCards.forEach((card) => {
             const productBar = card.querySelector(".sns_product_bar");
 
             if (!productBar) {
@@ -2238,6 +2298,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             const priceMatch = priceText.match(/\$[\d.]+/g) || ["$29.00", "$34.00"];
             const currentPrice = priceMatch[0] || "$29.00";
             const beforePrice = priceMatch.length > 1 ? priceMatch[1] : "";
+            const videoKey = getVideoKey(card);
             const templateContent = productBarTemplate.content.cloneNode(true);
             const thumbImage = templateContent.querySelector(".sns_product_thumb img");
             const titleElement = templateContent.querySelector(".sns_product_info h3");
@@ -2263,7 +2324,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             }
 
             const desiredListCount = getDesiredListCount(productBar);
-            const listData = pickRelatedProducts(cardIndex, title, Math.max(0, desiredListCount - 1)).map((itemData) => ({
+            const listData = getRelatedProductsForVideo(videoKey, Math.max(0, desiredListCount - 1)).map((itemData) => ({
                 ...itemData,
                 isPrimary: false
             }));
@@ -2623,9 +2684,10 @@ document.addEventListener("DOMContentLoaded",  () => {
     function initializeSnsQuickModal() {
         const quickModal = document.querySelector(".sns_quick_modal");
         const quickFrame = document.querySelector(".sns_quick_frame");
-        const openButtons = document.querySelectorAll(".sns_quick_btn, .sns_product_list_link");
+        const openButtons = document.querySelectorAll(".sns_quick_btn, .sns_product_list_link, .product_modal.link_modal");
         const productBars = document.querySelectorAll(".sns_product_bar");
         const backdrop = document.querySelector(".sns_quick_modal_backdrop");
+        const closeButton = document.querySelector(".sns_quick_close");
 
         if (!quickModal || !quickFrame || !openButtons.length || !backdrop) {
             return;
@@ -2676,6 +2738,9 @@ document.addEventListener("DOMContentLoaded",  () => {
         });
 
         backdrop.addEventListener("click", closeQuickModal);
+        if (closeButton) {
+            closeButton.addEventListener("click", closeQuickModal);
+        }
 
         // Listen for requests posted from quick.html.
         window.addEventListener("message", (event) => {
